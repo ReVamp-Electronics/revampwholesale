@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f9cad5255b762d4297f6a6e830e0380c",
-    "content-hash": "540273c40277ed69d30319a9ef8e02dd",
+    "hash": "acd0f226de640912c0410771a375d35b",
+    "content-hash": "30f7f2893042faed7f513bfdeefff4cf",
     "packages": [
         {
             "name": "braintree/braintree_php",
@@ -6304,6 +6304,44 @@
                 "AFL-3.0"
             ],
             "description": "WeltPixel Backend Module"
+        },
+        {
+            "name": "weltpixel/module-google-tag-manager",
+            "version": "1.1.0",
+            "dist": {
+                "type": "zip",
+                "url": "https://repo.magento.com/archives/weltpixel/module-google-tag-manager/weltpixel-module-google-tag-manager-1.1.0.0.zip",
+                "reference": null,
+                "shasum": "af18da1cd3793e8385d3ea80bb67aa093dda7719"
+            },
+            "require": {
+                "magento/module-backend": "100.*",
+                "magento/module-catalog": "101.* | 100.*",
+                "magento/module-checkout": "100.*",
+                "magento/module-sales": "100.*",
+                "magento/module-theme": "100.*",
+                "php": "~5.6.5|7.0.2|7.0.4|~7.0.6",
+                "weltpixel/m2-weltpixel-backend": "~1.0 | master"
+            },
+            "type": "magento2-module",
+            "extra": {
+                "x-magento-ext-title": "Google Analytics Enhanced Ecommerce",
+                "x-magento-ext-package-link": "https://marketplace.magento.com/weltpixel-module-google-tag-manager.html",
+                "x-magento-ext-type": "Extension"
+            },
+            "autoload": {
+                "files": [
+                    "registration.php"
+                ],
+                "psr-4": {
+                    "WeltPixel\\GoogleTagManager\\": ""
+                }
+            },
+            "license": [
+                "OSL-3.0",
+                "AFL-3.0"
+            ],
+            "description": "WeltPixel GoogleAnalyticsEnhancedEcommerce Module"
         },
         {
             "name": "zendframework/zend-code",
