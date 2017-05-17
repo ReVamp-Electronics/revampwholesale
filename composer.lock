@@ -4,7 +4,10 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "fa8598f2263724e6d4b571521e8ca412",
+=======
+>>>>>>> develop
     "packages": [
         {
             "name": "braintree/braintree_php",
@@ -6366,38 +6369,6 @@
                 "yui"
             ],
             "time": "2014-09-22T08:08:50+00:00"
-        },
-        {
-            "name": "weltpixel/m2-weltpixel-backend",
-            "version": "1.0.3",
-            "dist": {
-                "type": "zip",
-                "url": "https://repo.magento.com/archives/weltpixel/m2-weltpixel-backend/weltpixel-m2-weltpixel-backend-1.0.3.0.zip",
-                "reference": null,
-                "shasum": "64b98381054f53874610fd35fbf2b46913945bd1"
-            },
-            "require": {
-                "magento/module-admin-notification": "100.*",
-                "php": "~5.5.0|~5.6.0|~7.0.0"
-            },
-            "type": "magento2-module",
-            "extra": {
-                "x-magento-ext-title": "Backend dependency pack for WeltPixel Extensions",
-                "x-magento-ext-type": "Package"
-            },
-            "autoload": {
-                "files": [
-                    "registration.php"
-                ],
-                "psr-4": {
-                    "WeltPixel\\Backend\\": ""
-                }
-            },
-            "license": [
-                "OSL-3.0",
-                "AFL-3.0"
-            ],
-            "description": "WeltPixel Backend Module"
         },
         {
             "name": "zendframework/zend-code",
