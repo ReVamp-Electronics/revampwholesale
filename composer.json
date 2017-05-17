@@ -10,8 +10,7 @@
     "require": {
         "magento/product-community-edition": "2.1.6",
         "composer/composer": "@alpha",
-        "weltpixel/m2-weltpixel-backend": "1.0.3",
-        "weltpixel/module-google-tag-manager": "1.1.0"
+        "weltpixel/m2-weltpixel-backend": "1.0.3"
     },
     "require-dev": {
         "phpunit/phpunit": "4.1.0",
