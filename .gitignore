@@ -9,6 +9,7 @@ atlassian*
 /sitemap.xml
 /.idea
 /.gitattributes
+auth.json
 /app/config_sandbox
 /app/etc/config.php
 /app/etc/env.php
