@@ -4,10 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "content-hash": "fa8598f2263724e6d4b571521e8ca412",
-=======
->>>>>>> develop
+    "content-hash": "0ae0b0675e7fc6f8cad4fa35a0732b3a",
     "packages": [
         {
             "name": "braintree/braintree_php",
@@ -5869,7 +5866,7 @@
         },
         {
             "name": "semaio/magento2-configimportexport",
-            "version": "dev-master",
+            "version": "2.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/semaio/Magento2-ConfigImportExport.git",
@@ -5897,6 +5894,7 @@
                     "Semaio\\ConfigImportExport\\": ""
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "OSL-3.0"
             ],
@@ -5907,10 +5905,6 @@
                 }
             ],
             "description": "Import/Export core_config_data values in Magento 2",
-            "support": {
-                "source": "https://github.com/semaio/Magento2-ConfigImportExport/tree/2.2.2",
-                "issues": "https://github.com/semaio/Magento2-ConfigImportExport/issues"
-            },
             "time": "2017-05-04T07:13:07+00:00"
         },
         {
@@ -9231,7 +9225,6 @@
     "minimum-stability": "alpha",
     "stability-flags": {
         "composer/composer": 15,
-        "semaio/magento2-configimportexport": 20,
         "phpmd/phpmd": 0
     },
     "prefer-stable": true,
