@@ -1,0 +1,46 @@
+
+#########
+# catalog
+#########
+catalog/category/root_id:
+  default:
+    0: 2
+
+##########
+# currency
+##########
+currency/options/allow:
+  default:
+    0: 'USD'
+currency/options/base:
+  default:
+    0: 'USD'
+currency/options/default:
+  default:
+    0: 'USD'
+
+#########
+# general
+#########
+general/locale/code:
+  default:
+    0: 'en_US'
+general/locale/timezone:
+  default:
+    0: 'America/Chicago'
+general/region/display_all:
+  default:
+    0: 1
+general/region/state_required:
+  default:
+    0: 'AT,BR,CA,CH,EE,ES,FI,LT,LV,RO,US'
+
+#####
+# web
+#####
+web/seo/use_rewrites:
+  default:
+    0: 1
+web/unsecure/base_url:
+  default:
+    0: 'http://127.0.0.1:32794/'
