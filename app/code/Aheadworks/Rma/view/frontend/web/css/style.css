@@ -1,0 +1,659 @@
+/* Back link */
+.aw-rma-new .actions-toolbar .action.back,
+.aw-rma-view .actions-toolbar .action.back {
+    display: block;
+    margin-bottom: 20px;
+}
+
+/* Order view page */
+@media screen and (min-width: 768px) {
+    .order-actions-toolbar .action.aw-rma-request-return {
+        display: block;
+        float: right;
+    }
+}
+
+/* My Returns page */
+#aw-rma-new-button {
+    margin: 10px;
+    float: right;
+}
+.aw-rma-list-title {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 40px;
+}
+.aw-rma-list-title .page-title {
+    font-size: 25px;
+    display: block;
+    float: left;
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 768px) {
+    .aw-rma-list-title {
+        margin-bottom: 0px;
+    }
+    .aw-rma-list-title .page-title {
+        white-space: normal;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+}
+
+.aw-rma-list-title .aw-rma-view-actions {
+    float: right;
+}
+
+@media screen and (max-width: 768px) {
+    .aw-rma-view-actions {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .aw-rma-view-actions button {
+        width: 46%;
+        margin: 5px 2%;
+    }
+
+    .aw-rma-list-toolbar .toolbar-amount {
+        position: static;
+    }
+}
+
+/* Manage RMA request page */
+.aw-rma-view .block-rma-general {
+    background: #f5f5f5;
+    padding: 20px;
+}
+.aw-rma-view__box-title,
+.aw-rma-view .box-rma-general label {
+    font-weight: 600!important;
+    text-align: left!important;
+    line-height: 1.5;
+    padding: 0!important;
+    margin: 0 0 8px!important;
+
+}
+.aw-rma-view .box-rma-general .save-custom-field {
+    position: absolute;
+    margin-left: 8px;
+}
+.aw-rma-view .actions-toolbar .secondary {
+    float: right;
+}
+.aw-rma-view .field.aw-rma-view__field.status .control{
+    color: #000;
+}
+.aw-rma-view .field.aw-rma-view__field.status.approved .control{
+    color: #000;
+}
+.field.aw-rma-custom-field,
+.field.aw-rma-view__field {
+    margin: 0 0 8px!important;
+}
+.field.aw-rma-custom-field .label,
+.aw-rma-create-request__item-details-field .label,
+.field.aw-rma-view__field > .label {
+    width: calc((100%) * 0.4 - 30px)!important;
+    float: left;
+    margin-left: 30px!important;
+}
+.field.aw-rma-custom-field .control,
+.aw-rma-create-request__item-details-field .control,
+.field.aw-rma-view__field > .control {
+    width: calc((100%) * 0.5 - 30px)!important;
+    float: left;
+    margin-left: 30px;
+}
+.field.aw-rma-custom-field .control > input,
+.field.aw-rma-custom-field .control > select,
+.field.aw-rma-custom-field .control > textarea {
+    width: 100%;
+}
+.field.aw-rma-custom-field:after,
+.aw-rma-create-request__item-details-field::after,
+.field.aw-rma-view__field:after {
+    clear: both;
+    content: '';
+    display: table;
+}
+#aw-rma-customer-reply-form .actions {
+    display: inline-block;
+    width: 100%;
+}
+#aw-rma-customer-reply-form .actions .post-reply {
+    float: right;
+}
+
+/* Thread */
+.block-thread ul.messages {
+    list-style: none;
+    padding: 0;
+}
+.block-thread ul.messages li{
+    display: block;
+    margin-bottom: 1rem;
+    padding: 2rem;
+    width: 70%;
+    box-sizing: border-box;
+}
+.block-thread ul.messages li.admin{
+    margin-left: 30%;
+    background: #e7f1fe;
+}
+.block-thread ul.messages li.admin.auto {
+    background: #fff9e6;
+}
+.block-thread ul.messages li.customer {
+    background: #edf5ea;
+}
+.block-thread ul.messages .aw-rma-view__attachment,
+.block-thread ul.messages .aw-rma-view__message-text {
+    margin-top: 1rem;
+}
+
+/* Contact Information form */
+#aw-rma-view-address-form .field .label {
+    margin-left: 0 !important;
+}
+
+/* New RMA page */
+.aw-rma-new .aw-rma-new__form > .block-title {
+    border-bottom: none!important;
+}
+.aw-rma-new .aw-rma-new__form > .block-title strong {
+    font-size: 2rem!important;
+    font-weight: 600!important;
+    line-height: 1.5;
+}
+.aw-rma-new .block-rma-text-block {
+    margin: 0;
+}
+
+/* New RMA page (step 1) */
+.aw-rma-new.select-order button.action.next {
+    float: right;
+}
+.aw-rma-new.select-order .select-order-table tbody tr.order-item-row:nth-child(even){
+    background: #f1f1f1;
+}
+.aw-rma-new.select-order .select-order-table thead tr th.order_id,
+.aw-rma-new.select-order .select-order-table tbody tr td.order_id {
+    width: 20px;
+    padding: 10px 15px;
+}
+
+@media screen and (max-width: 512px) {
+    .aw-rma-new.select-order .select-order-table thead tr th.order_id,
+    .aw-rma-new.select-order .select-order-table tbody tr td.order_id {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+
+.aw-rma-new.select-order .select-order-table tbody tr td.order_id input[type=radio] {
+    margin: 0;
+    vertical-align: middle;
+}
+.aw-rma-new.select-order .select-order-table .order_total {
+    text-align: right;
+}
+.aw-rma-new.select-order .select-order-table .order-row.selected {
+    background: #e8e8e8;
+    border: 1px #e8e8e8 solid;
+    border-bottom: none;
+}
+.aw-rma-new.select-order .select-order-table .item_id {
+    border-left: 1px #e8e8e8 solid;
+}
+.aw-rma-new.select-order .select-order-table td.item_id {
+    text-align: right;
+    padding: 10px 0;
+}
+.aw-rma-new.select-order .select-order-table td.item_id input[type=checkbox] {
+    margin: 0;
+    vertical-align: middle;
+}
+.aw-rma-new.select-order .select-order-table .items_for_return {
+    border-right: 1px #e8e8e8 solid;
+    width: 14%;
+}
+.aw-rma-new.select-order .select-order-table .items_for_return .qty-total,
+.aw-rma-new.select-order .select-order-table .items_for_return .control {
+    float: left;
+}
+.aw-rma-new.select-order .select-order-table tr.bundle-option td {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.aw-rma-new.select-order .select-order-table tr.bundle-option td.option-label {
+    font-weight: 600;
+}
+.items_for_return__content {
+    float: left;
+    width: 100%;
+}
+.items_for_return__content > div {
+    display: inline-block;
+}
+.aw-rma-new.select-order .select-order-table .items_for_return .qty-total,
+.aw-rma-new.select-order .select-order-table .items_for_return input.input-qty {
+    height: 32px;
+    line-height: 32px;
+}
+.aw-rma-new.select-order .select-order-table .items_for_return input.input-qty {
+    width: 42px;
+    padding: 0 10px;
+}
+.aw-rma-new.select-order .select-order-table .items_for_return div.mage-error {
+    float: left;
+    overflow: hidden;
+}
+.aw-rma-new.select-order .select-order-table td.info,
+.aw-rma-new.select-order .select-order-table .items_for_return .item-message {
+    color: #e02b27;
+    clear: both;
+}
+.aw-rma-new.select-order .select-order-table .items_for_return .item-message {
+    margin-top: 5px;
+}
+.aw-rma-new.select-order .select-order-table td.items ul {
+    list-style: none;
+    padding: 0;
+}
+.aw-rma-new.select-order .select-order-table td.items ul li,
+.aw-rma-new.select-order .select-order-table td.items ul span {
+    margin: 0;
+}
+.aw-rma-new.select-order .select-order-table .order-item-row.last {
+    border-bottom: 1px #e8e8e8 solid;
+}
+.aw-rma-new.select-order .select-order-table .order-item-row th,
+.aw-rma-new.select-order .select-order-table td.items,
+.aw-rma-new.select-order .select-order-table .items_for_return .rma-link,
+.aw-rma-new.select-order .select-order-table .items_for_return .item-message {
+    font-size: 0.9em;
+}
+.aw-rma-new.select-order .select-order-table .order-item-row th {
+    vertical-align: middle;
+}
+.aw-rma-new.select-order .select-order-table .order-item-row.selected {
+    background: #f5f5f5;
+}
+.aw-rma-new.select-order .select-order-table__wrapper {
+    margin-bottom: 25px;
+}
+
+/* New RMA page (step 2) */
+.aw-rma-new.create-request .fieldset {
+    margin: 0 0 20px;
+}
+.aw-rma-new.create-request .fieldset.request-custom-field .label {
+    margin-left: 0;
+}
+.aw-rma-new.create-request .fieldset.request-custom-field .field ul {
+    list-style: none;
+    padding-left: 20px;
+}
+.aw-rma-new.create-request .fieldset.request-custom-field .field ul li {
+    margin-bottom: 0.5rem;
+}
+.aw-rma-new.create-request .fieldset.request-custom-field .field ul li input {
+    vertical-align: middle;
+    margin: 0 5px 2px 0;
+}
+.aw-rma-create-request__field .item-container {
+    float: left;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.aw-rma-create-request__item-details .mass-action-container {
+    background: #e8e8e8;
+}
+.aw-rma-create-request__item-details .mass-action-container::after {
+    clear: both;
+    content: '';
+    display: table;
+}
+.aw-rma-create-request__item-details .item-details,
+.aw-rma-create-request__item-details .mass-action {
+    padding-left: 2em;
+    padding-right: 2em;
+}
+.aw-rma-create-request__item-details .mass-action,
+.aw-rma-create-request__item-details .mass-action .select-all {
+    float: left;
+}
+.aw-rma-create-request__item-details .mass-action .actions,
+.aw-rma-create-request__item-details .mass-action .actions > * {
+    float: right;
+}
+.aw-rma-create-request__item-details .mass-action {
+    width: calc(100% - 4em);
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
+}
+.aw-rma-create-request__item-details .mass-action .select-all {
+    width: 20%;
+    margin: 0.5em 0;
+}
+.aw-rma-create-request__item-details .mass-action .actions {
+    width: 80%;
+}
+.aw-rma-create-request__item-details .mass-action .action.action-type,
+.aw-rma-create-request__item-details .mass-action .action.action-input-field {
+    margin-right: 0.5em;
+}
+.aw-rma-new__form .field.aw-rma-custom-field .label,
+.aw-rma-new__form .aw-rma-create-request__item-details-field .label {
+    width: calc((100%) * 0.2 - 30px);
+}
+.aw-rma-new__form .field.aw-rma-custom-field .control,
+.aw-rma-new__form .aw-rma-create-request__item-details-field .control {
+    width: calc((100%) * 0.7 - 30px);
+}
+.aw-rma-new__form .field.aw-rma-custom-field .label {
+    font-weight: 600;
+}
+.aw-rma-new__form .aw-rma-create-request__item-details-field .control {
+    text-transform: lowercase;
+}
+.aw-rma-create-request__item-details .action {
+    width: 30%;
+    float: left;
+}
+.aw-rma-create-request__item-details .action[type=button] {
+    width: auto;
+}
+.aw-rma-create-request__item-info,
+.aw-rma-create-request__item-details {
+    display: inline-block;
+    float: left;
+}
+.aw-rma-create-request__item-info {
+    width: 25%;
+}
+.aw-rma-create-request__item-details {
+    width: 75%;
+}
+.aw-rma-create-request__item-info .product-item-link {
+    color: #1979c3!important;
+}
+.aw-rma-create-request__item-details .item-details {
+    background: #f5f5f5;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+.aw-rma-create-request__item-details .item-details:nth-child(even) {
+    background: #f5f5f5;
+}
+.aw-rma-create-request__item-details .item-details:nth-child(odd) {
+    background: #f8f8ff;
+}
+.aw-rma-create-request__item-details .item-details > div {
+    display: inline-block;
+    width: 100%;
+}
+.aw-rma-create-request__item-details .item-details > .field {
+    margin-bottom: 0.25em;
+}
+.aw-rma-new__form .actions {
+    margin-top: 5px;
+}
+.aw-rma-new__form .actions::after {
+    clear: both;
+    content: '';
+    display: table;
+}
+.aw-rma-new__form .actions .post-submit-request {
+    float: right;
+}
+.aw-rma-new__form .actions .policy > *,
+.aw-rma-new__form .actions .policy {
+    float: right;
+}
+.aw-rma-new__form .actions .policy {
+    margin-top: 5px;
+    display: inline-block;
+    width: calc(50% - 2em);
+}
+.aw-rma-new__form #policy-error {
+    float: right;
+}
+
+@media screen and (max-width: 768px) {
+    .aw-rma-new__form .actions .policy {
+        margin-top: 25px;
+    }
+
+    .aw-rma-new__form .actions .policy .label {
+        width: 80%;
+    }
+}
+
+/* Policy popup */
+.aw-rma-policy {
+    z-index: 1000;
+    box-shadow: 3px 3px 10px #cecece;
+}
+.aw-rma-policy .ui-dialog-content,
+.aw-rma-policy .ui-dialog-titlebar,
+.aw-rma-policy .ui-dialog-buttonpane {
+    padding: .4em;
+}
+.aw-rma-policy .ui-dialog-content,
+.aw-rma-policy .ui-dialog-titlebar {
+    border-bottom: none!important;
+}
+.aw-rma-policy .ui-dialog-content {
+    display: none;
+    border: 1px solid #aaaaaa;
+    color: #222222;
+    overflow: auto;
+}
+.aw-rma-policy .ui-dialog-content,
+.aw-rma-policy .ui-dialog-buttonpane {
+    border: 1px solid #aaaaaa;
+    background: #ffffff;
+}
+.aw-rma-policy .ui-dialog-titlebar {
+    background: #aaaaaa;
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: 700;
+    border-radius: 4px 4px 0 0;
+}
+.aw-rma-policy .ui-dialog-titlebar-close {
+    display: none;
+}
+.aw-rma-policy .ui-dialog-buttonpane {
+    border-radius: 0 0 4px 4px;
+    border-top: none!important;
+}
+.aw-rma-policy .ui-resizable-handle {
+    position: absolute;
+    font-size: 0.1px;
+    display: block;
+    -ms-touch-action: none;
+    touch-action: none;
+}
+.aw-rma-policy .ui-resizable-n,
+.aw-rma-policy .ui-resizable-s {
+    height: 7px;
+    width: 100%;
+    left: 0;
+}
+.aw-rma-policy .ui-resizable-n {
+    cursor: n-resize;
+    top: -5px;
+}
+.aw-rma-policy .ui-resizable-s {
+    cursor: s-resize;
+    bottom: -5px;
+}
+.aw-rma-policy .ui-resizable-e,
+.aw-rma-policy .ui-resizable-w {
+    width: 7px;
+    top: 0;
+    height: 100%;
+}
+.aw-rma-policy .ui-resizable-e {
+    cursor: e-resize;
+    right: -5px;
+}
+.aw-rma-policy .ui-resizable-w {
+    cursor: w-resize;
+    left: -5px;
+}
+.aw-rma-policy .ui-resizable-se,
+.aw-rma-policy .ui-resizable-sw,
+.aw-rma-policy .ui-resizable-ne,
+.aw-rma-policy .ui-resizable-nw {
+    width: 9px;
+    height: 9px;
+}
+.aw-rma-policy .ui-resizable-se {
+    cursor: se-resize;
+    right: -5px;
+    bottom: -5px;
+}
+.aw-rma-policy .ui-resizable-sw {
+    cursor: sw-resize;
+    left: -5px;
+    bottom: -5px;
+}
+.aw-rma-policy .ui-resizable-ne {
+    cursor: ne-resize;
+    right: -5px;
+    top: -5px;
+}
+.aw-rma-policy .ui-resizable-nw {
+    cursor: nw-resize;
+    left: -5px;
+    top: -5px;
+}
+.ui-widget-overlay {
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Print Label form */
+.fieldset > .field.aw-rma-print-label__field > .label {
+    width: calc((100%) * 0.2 - 30px)!important;
+    min-width: 140px;
+    float: left;
+    margin-left: 30px;
+}
+.fieldset > .field.aw-rma-print-label__field > .control {
+    width: calc((100%) * 0.5 - 30px)!important;
+    float: left;
+    margin-left: 30px;
+}
+@media (max-width: 768px) {
+    .fieldset > .field.aw-rma-print-label__field > .label,
+    .fieldset > .field.aw-rma-print-label__field > .control {
+        width: 100%!important;
+        margin-left: 0;
+    }
+}
+.fieldset > .field.aw-rma-print-label__field .control > input,
+.fieldset > .field.aw-rma-print-label__field .control > select,
+.fieldset > .field.aw-rma-print-label__field .control > textarea {
+    width: 100%;
+}
+.fieldset > .field.aw-rma-print-label__field.street .control-street {
+    width: calc((100%) * 0.5 - 3px);
+    float: left;
+}
+.fieldset > .field.aw-rma-print-label__field.street .control-street.first {
+    margin-right: 5px;
+}
+.fieldset > .field.aw-rma-print-label__field:after {
+    clear: both;
+    content: '';
+    display: table;
+}
+#aw-rma-print-label .fieldset > .field.additionalinfo > .control {
+    width: 100%!important;
+}
+
+/* File uploader */
+.aw-rma-file-upload {
+    color: #007bdb;
+    position: relative;
+    overflow: hidden;
+    float: left;
+}
+.aw-rma-file-upload:hover {
+    text-decoration: underline;
+}
+.aw-rma-file-upload__container {
+    background: #efefef;
+    padding: .6rem 1em .6rem;
+    display: inline-block;
+}
+.aw-rma-file-upload input{
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+#aw-rma-attachments-added {
+    padding: 5px 0 0 16px;
+}
+#aw-rma-attachments-added,
+#aw-rma-attachments-added li {
+    margin-bottom: 0;
+    padding-bottom: 2px;
+    list-style: none;
+}
+#aw-rma-attachments-added li {
+    text-indent: 0;
+}
+#aw-rma-attachments-added .action-item-remove {
+    float: right;
+}
+#aw-rma-attachments-added .action-item-remove:hover {
+    text-decoration: none;
+}
+
+/* Guest Request RMA */
+.aw-rma-new-guest .block-guest-order,
+.aw-rma-new-guest .block-customer-login {
+    width: 48%;
+}
+.aw-rma-new-guest .block-guest-order {
+    float: right;
+}
+.aw-rma-new-guest .block-customer-login {
+    float: left;
+}
+.aw-rma-new-guest .block-title {
+    font-size: 1.8rem;
+    padding-bottom: 12px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #e8e8e8;
+}
+.aw-rma-new-guest .block-title strong {
+    font-weight: 500;
+}
+.aw-rma-new-guest .fieldset  .field.note {
+    min-height: 4em;
+}
+.aw-rma-new-guest .fieldset .field .control {
+    width: 55%;
+}

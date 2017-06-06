@@ -1,0 +1,97 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Rma\Block\Adminhtml\Request\Edit\Thread */
+?>
+<div class="block block-thread">
+    <form id="aw-rma-admin-reply-form" action="<?php echo $block->getSubmitReplyUrl() ?>" method="post" enctype="multipart/form-data">
+        <?php echo $block->getBlockHtml('formkey') ?>
+        <input type="hidden" name="request_id" value="<?php echo $block->getRequestModel()->getId() ?>" />
+        <div class="field">
+            <div class="control">
+                <textarea id="aw-rma-message" name="text" rows="5" placeholder="<?php echo __('Type here to add an answer') ?>" class="required-entry"></textarea>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="aw-rma-file-upload__container">
+                <ul id="aw-rma-attachments-added" style="display: none;"></ul>
+                <script id="aw-rma-attachments-added-template" type="text/x-magento-template">
+                    <li>
+                        <span><%- fileName %> (<%- fileSize %>)</span><a href="#" class="action-item-remove"/>
+                        <input type="hidden" name="attachment[<%- index %>][name]" value="<%- fileName %>" />
+                        <input type="hidden" name="attachment[<%- index %>][file]" value="<%- file %>" />
+                        <input type="hidden" name="attachment[<%- index %>][removed]" data-role="remove" value="0" />
+                    </li>
+                </script>
+                    <span class="aw-rma-file-upload">
+                        <span id="aw-rma-attachments-add-link" class="aw-rma-file-upload__link" data-switch-title="<?php echo __('Add another file') ?>"><?php echo __('Add file') ?></span>
+                        <input type="file" id="aw-rma-attachments" name="file[]" data-url="<?php echo $block->getFileUploadUrl() ?>" multiple />
+                    </span>
+                <div id="aw-rma-attachments-error" style="display: none;"></div>
+                <script type="text/x-magento-init">
+                        {
+                            "#aw-rma-attachments": {
+                                "awRmaFileUpload": {
+                                    "addLink": "#aw-rma-attachments-add-link",
+                                    "itemTemplate": "#aw-rma-attachments-added-template",
+                                    "itemsContainer": "#aw-rma-attachments-added",
+                                    "removeLinks": ".action-item-remove",
+                                    "errorContainer": "#aw-rma-attachments-error"
+                                }
+                            }
+                        }
+                    </script>
+            </div>
+            <button id="aw-rma-reply-button" type="submit" title="<?php echo __('Post Reply') ?>" class="action primary post-reply">
+                <span><?php echo __('Post Reply') ?></span>
+            </button>
+        </div>
+    </form>
+
+    <script>
+        require([
+            'jquery',
+            'mage/mage'
+        ], function ($) {
+            'use strict';
+            var replyForm = $('#aw-rma-admin-reply-form');
+            replyForm.mage('validation', {});
+            replyForm.on('submit', function() {
+                if (replyForm.valid()) {
+                    $('#aw-rma-reply-button').attr('disabled', 'disabled');
+                }
+            });
+        });
+    </script>
+
+    <ul class="messages">
+        <?php foreach ($block->getThreadMessageCollection() as $threadMessage):
+            /** @var \Aheadworks\Rma\Model\ThreadMessage $threadMessage */
+            ?>
+            <?php
+            $classNames = ['aw-rma-view__thread-message'];
+            if ($threadMessage->isAdmin()) {
+                $classNames[] = 'admin';
+            }
+            if ($threadMessage->isCustomer()) {
+                $classNames[] = 'customer';
+            }
+            if ($threadMessage->getIsAuto()) {
+                $classNames[] = 'auto';
+            }
+            ?>
+            <li class="<?php echo implode(' ', $classNames) ?>">
+                <h4> <?php echo $block->getMessageHeader($threadMessage) ?> </h4>
+                <div><?php echo nl2br($block->escapeHtml($threadMessage->getText())) ?></div>
+                <?php foreach ($threadMessage->getAttachments() as $attachmentData): ?>
+                    <div class="aw-rma-view__attachment">
+                        <a href="<?php echo $block->getDownloadUrl($attachmentData['id']) ?>"><?php echo $block->escapeHtml($attachmentData['name']) ?></a> (<?php echo $block->formatFileSize($attachmentData['length'])?>)
+                    </div>
+                <?php endforeach; ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</div>

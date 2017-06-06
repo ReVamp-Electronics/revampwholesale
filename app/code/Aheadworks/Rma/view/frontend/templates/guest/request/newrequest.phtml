@@ -1,0 +1,134 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Rma\Block\Guest\Request\NewRequest */
+?>
+<div class="aw-rma-new-guest">
+    <?php if ($block->getTextCmsBlockHtml()): ?>
+        <div class="block block-rma-description">
+            <?php echo $block->getTextCmsBlockHtml() ?>
+        </div>
+    <?php endif; ?>
+    <div class="block block-customer-login">
+        <div class="block-title">
+            <strong><?php  echo __('Registered Customers') ?></strong>
+        </div>
+        <div class="block-content">
+            <form id="aw-rma-guest-login-form"
+                  class="form form-login"
+                  action="<?php echo $block->getLoginPostUrl() ?>"
+                  method="post"
+                >
+                <?php echo $block->getBlockHtml('formkey'); ?>
+                <fieldset class="fieldset">
+                    <div class="field note">
+                        <?php echo __('Did you placed order as registered customer? Sign in with your email address to proceed.') ?>
+                    </div>
+                    <div class="field email required">
+                        <label class="label" for="email">
+                            <span><?php echo __('Email') ?>:</span>
+                        </label>
+                        <div class="control">
+                            <input type="email" name="login[username]" value="" class="input-text required-entry validate-email" title="<?php echo __('Email') ?>">
+                        </div>
+                    </div>
+                    <div class="field password required">
+                        <label for="pass" class="label">
+                            <span><?php echo __('Password') ?>:</span>
+                        </label>
+                        <div class="control">
+                            <input type="password" name="login[password]" class="input-text required-entry validate-password" title="<?php  echo __('Password') ?>">
+                        </div>
+                    </div>
+                    <div class="actions-toolbar">
+                        <div class="primary">
+                            <button id="aw-rma-guest-login-submit" type="submit" title="<?php echo __('Login') ?>" class="action login primary" name="login_submit">
+                                <span><?php echo __('Login') ?></span>
+                            </button>
+                        </div>
+                        <div class="secondary">
+                            <a class="action remind" href="<?php echo $block->getForgotPasswordUrl() ?>">
+                                <span><?php echo __('Forgot Your Password?') ?></span>
+                            </a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <script>
+                require([
+                    'jquery',
+                    'mage/mage'
+                ], function ($) {
+                    'use strict';
+                    var loginForm = $('#aw-rma-guest-login-form');
+                    loginForm.mage('validation', {});
+                    loginForm.on('submit', function() {
+                        if (loginForm.valid()) {
+                            $('#aw-rma-guest-login-submit').attr('disabled', 'disabled');
+                        }
+                    });
+                });
+            </script>
+        </div>
+    </div>
+    <div class="block block-guest-order">
+        <div class="block-title">
+            <strong><?php  echo __('Guest Order') ?></strong>
+        </div>
+        <div class="block-content">
+            <form id="aw-rma-guest-order-form"
+                  class="form form-order"
+                  action="<?php echo $block->getNextPostUrl() ?>"
+                  method="post"
+                >
+                <?php echo $block->getBlockHtml('formkey'); ?>
+                <fieldset class="fieldset">
+                    <div class="field note">
+                        <?php echo __('If you have placed order as guest user, please enter Order Number and Email which has been used for the order.') ?>
+                    </div>
+                    <div class="field order-number required">
+                        <label class="label" for="order_increment_id">
+                            <span><?php echo __('Order Number') ?>:</span>
+                        </label>
+                        <div class="control">
+                            <input type="text" name="order_increment_id" value="" class="input-text required-entry validate-number" title="<?php echo __('Order Number') ?>">
+                        </div>
+                    </div>
+                    <div class="field email required">
+                        <label class="label" for="email">
+                            <span><?php echo __('Email') ?>:</span>
+                        </label>
+                        <div class="control">
+                            <input type="email" name="email" value="" class="input-text required-entry validate-email" title="<?php echo __('Email') ?>">
+                        </div>
+                    </div>
+                    <div class="actions-toolbar">
+                        <div class="primary">
+                            <button id="aw-rma-guest-order-submit" type="submit" title="<?php echo __('Next') ?>" class="action order primary" name="order_submit">
+                                <span><?php echo __('Next') ?></span>
+                            </button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <script>
+                require([
+                    'jquery',
+                    'mage/mage'
+                ], function ($) {
+                    'use strict';
+                    var orderForm = $('#aw-rma-guest-order-form');
+                    orderForm.mage('validation', {});
+                    orderForm.on('submit', function() {
+                        if (orderForm.valid()) {
+                            $('#aw-rma-guest-order-submit').attr('disabled', 'disabled');
+                        }
+                    });
+                });
+            </script>
+        </div>
+    </div>
+</div>

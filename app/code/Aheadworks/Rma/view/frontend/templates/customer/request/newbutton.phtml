@@ -1,0 +1,23 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Magento\Framework\View\Element\Template */
+?>
+<?php
+$title = __('Create New Return');
+?>
+<button id="aw-rma-new-button" type="button" class="action primary" title="<?php echo $title ?>">
+    <span><?php echo $title ?></span>
+</button>
+<script>
+    require(['jquery'], function($){
+        $(document).ready(function() {
+            $('#aw-rma-new-button').on('click', function() {
+                $(location).attr('href', <?php echo \Zend_Json::encode($block->getUrl('*/*/new')); ?>);
+            });
+        });
+    });
+</script>

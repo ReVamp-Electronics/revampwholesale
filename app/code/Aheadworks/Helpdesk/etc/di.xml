@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Aheadworks\Helpdesk\Api\TicketRepositoryInterface" type="Aheadworks\Helpdesk\Model\ResourceModel\TicketRepository" />
+    <preference for="Aheadworks\Helpdesk\Api\Data\TicketInterface" type="Aheadworks\Helpdesk\Model\Data\Ticket" />
+    <preference for="Aheadworks\Helpdesk\Api\Data\TicketSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+
+    <preference for="Aheadworks\Helpdesk\Api\TicketFlatRepositoryInterface" type="Aheadworks\Helpdesk\Model\ResourceModel\TicketFlatRepository" />
+    <preference for="Aheadworks\Helpdesk\Api\Data\TicketFlatInterface" type="Aheadworks\Helpdesk\Model\Data\TicketFlat" />
+    <preference for="Aheadworks\Helpdesk\Api\Data\TicketFlatSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+
+    <preference for="Aheadworks\Helpdesk\Api\DepartmentRepositoryInterface" type="Aheadworks\Helpdesk\Model\ResourceModel\DepartmentRepository" />
+    <preference for="Aheadworks\Helpdesk\Api\Data\DepartmentInterface" type="Aheadworks\Helpdesk\Model\Data\Department" />
+    <preference for="Aheadworks\Helpdesk\Api\Data\DepartmentSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="Aheadworks\Helpdesk\Api\Data\DepartmentStoreLabelInterface" type="Aheadworks\Helpdesk\Model\Data\DepartmentStoreLabel" />
+    <preference for="Aheadworks\Helpdesk\Api\Data\DepartmentGatewayInterface" type="Aheadworks\Helpdesk\Model\Data\DepartmentGateway" />
+    <preference for="Aheadworks\Helpdesk\Api\Data\DepartmentPermissionInterface" type="Aheadworks\Helpdesk\Model\Data\DepartmentPermission" />
+
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Aheadworks\Helpdesk\Api\Data\DepartmentInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">aw_helpdesk_department</item>
+                    <item name="identifierField" xsi:type="string">id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\Operation\ExtensionPool">
+        <arguments>
+            <argument name="extensionActions" xsi:type="array">
+                <item name="Aheadworks\Helpdesk\Api\Data\DepartmentInterface" xsi:type="array">
+                    <item name="read" xsi:type="array">
+                        <item name="websiteReader" xsi:type="string">Aheadworks\Helpdesk\Model\ResourceModel\Department\Relation\Website\ReadHandler</item>
+                        <item name="labelReader" xsi:type="string">Aheadworks\Helpdesk\Model\ResourceModel\Department\Relation\StoreLabel\ReadHandler</item>
+                        <item name="gatewayReader" xsi:type="string">Aheadworks\Helpdesk\Model\ResourceModel\Department\Relation\Gateway\ReadHandler</item>
+                        <item name="permissionReader" xsi:type="string">Aheadworks\Helpdesk\Model\ResourceModel\Department\Relation\Permission\ReadHandler</item>
+                    </item>
+                    <item name="create" xsi:type="array">
+                        <item name="websiteCreator" xsi:type="string">Aheadworks\Helpdesk\Model\ResourceModel\Department\Relation\Website\SaveHandler</item>
+                        <item name="labelCreator" xsi:type="string">Aheadworks\Helpdesk\Model\ResourceModel\Department\Relation\StoreLabel\SaveHandler</item>
+                        <item name="gatewayCreator" xsi:type="string">Aheadworks\Helpdesk\Model\ResourceModel\Department\Relation\Gateway\SaveHandler</item>
+                        <item name="permissionCreator" xsi:type="string">Aheadworks\Helpdesk\Model\ResourceModel\Department\Relation\Permission\SaveHandler</item>
+                    </item>
+                    <item name="update" xsi:type="array">
+                        <item name="websiteUpdater" xsi:type="string">Aheadworks\Helpdesk\Model\ResourceModel\Department\Relation\Website\SaveHandler</item>
+                        <item name="labelUpdater" xsi:type="string">Aheadworks\Helpdesk\Model\ResourceModel\Department\Relation\StoreLabel\SaveHandler</item>
+                        <item name="gatewayUpdater" xsi:type="string">Aheadworks\Helpdesk\Model\ResourceModel\Department\Relation\Gateway\SaveHandler</item>
+                        <item name="permissionUpdater" xsi:type="string">Aheadworks\Helpdesk\Model\ResourceModel\Department\Relation\Permission\SaveHandler</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\User\Model\User">
+        <plugin name="aw-helpdesk-user-model" type="Aheadworks\Helpdesk\Model\User\UserPlugin"/>
+    </type>
+
+    <type name="Magento\Contact\Controller\Index\Post">
+        <plugin name="aw-helpdesk-rewrite-contant-form-plugin" type="Aheadworks\Helpdesk\Model\Contact\ContactPlugin" sortOrder="10"/>
+    </type>
+
+    <type name="Magento\Store\Model\Website">
+        <plugin name="aw-helpdesk-website-plugin" type="Aheadworks\Helpdesk\Model\Website\WebsitePlugin"/>
+    </type>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="aw_helpdesk_ticket_listing_data_source" xsi:type="string">Aheadworks\Helpdesk\Model\ResourceModel\Ticket\Grid\Collection</item>
+                <item name="aw_helpdesk_automation_listing_data_source" xsi:type="string">Aheadworks\Helpdesk\Model\ResourceModel\Automation\Grid\Collection</item>
+                <item name="aw_helpdesk_department_listing_data_source" xsi:type="string">Aheadworks\Helpdesk\Model\ResourceModel\Department\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Aheadworks\Helpdesk\Model\ResourceModel\Ticket\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">aw_helpdesk_ticket</argument>
+            <argument name="eventPrefix" xsi:type="string">aw_helpdesk_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">aw_helpdesk_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Aheadworks\Helpdesk\Model\ResourceModel\Ticket</argument>
+        </arguments>
+    </type>
+    <type name="Aheadworks\Helpdesk\Model\ResourceModel\Automation\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">aw_helpdesk_automation</argument>
+            <argument name="eventPrefix" xsi:type="string">aw_helpdesk_automation_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">aw_helpdesk_automation_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Aheadworks\Helpdesk\Model\ResourceModel\Automation</argument>
+        </arguments>
+    </type>
+    <type name="Aheadworks\Helpdesk\Model\ResourceModel\Department\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">aw_helpdesk_department</argument>
+            <argument name="eventPrefix" xsi:type="string">aw_helpdesk_department_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">aw_helpdesk_department_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Aheadworks\Helpdesk\Model\ResourceModel\Department</argument>
+        </arguments>
+    </type>
+</config>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <update handle="aw_rma_admin_default"/>
+    <head>
+        <css src="Aheadworks_Rma::css/thread.css"/>
+    </head>
+    <body>
+        <referenceContainer name="admin.scope.col.wrap" htmlClass="admin__old" />
+
+        <referenceContainer name="page.content">
+            <block class="Aheadworks\Rma\Block\Adminhtml\Request\Edit\Tabs" name="aheadworks_rma_request_edit_tabs" before="page.main.container"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Aheadworks\Rma\Block\Adminhtml\Request\Edit\Thread" name="aheadworks_rma_request_thread"/>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Aheadworks\Rma\Block\Adminhtml\Request\Edit" name="aheadworks_rma_request_edit"/>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <head>
+        <css src="Aheadworks_Rma::css/style.css"/>
+        <css src="Aheadworks_Rma::css/file-upload.css"/>
+    </head>
+    <body>
+        <referenceBlock name="page.main.title">
+            <action method="setCssClass">
+                <argument name="cssClass" xsi:type="string">aw-rma-list-title</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="customer_account_navigation">
+            <action method="setActive">
+                <argument name="path" xsi:type="string">aw_rma/customer</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Aheadworks\Rma\Block\Customer\Request\NewRequest\Step\CreateRequest" name="aw_rma.customer.rma.new.createrequest" cacheable="false">
+                <block class="Aheadworks\Rma\Block\FileUpload" name="aw_rma.customer.rma.new.file.upload" as="fileUpload" cacheable="false" />
+                <block class="Magento\Customer\Block\Account\Dashboard" name="customer.account.link.back" template="account/link/back.phtml" as="back" cacheable="false"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

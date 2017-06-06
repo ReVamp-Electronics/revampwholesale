@@ -1,0 +1,37 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Rma\Block\Adminhtml\Preview */
+?>
+<div id="aheadworks-rma-preview">
+    <div class="toolbar"></div>
+    <table cellspacing="0" width="100%">
+        <col width="5%"/>
+        <col />
+        <tbody>
+        <tr>
+            <th>From:</th>
+            <td>
+                <?php echo $block->getSenderName() ?> <a href="mailto:<?php echo $block->getSenderEmail() ?>"><?php echo $block->getSenderEmail() ?></a>
+            </td>
+        </tr>
+        <tr>
+            <th>To:</th>
+            <td>
+                <?php echo $block->getRecipientName()?> <a href="mailto:<?php echo $block->getRecipientEmail() ?>"><?php echo $block->getRecipientEmail() ?></a>
+            </td>
+        </tr>
+        <tr>
+            <th>Subject:</th>
+            <td><?php echo $block->getMessageSubject() ?></td>
+        </tr>
+        <tr>
+            <th>Content:</th>
+            <td><?php echo $block->getMessageContent() ?></td>
+        </tr>
+        </tbody>
+    </table>
+</div>

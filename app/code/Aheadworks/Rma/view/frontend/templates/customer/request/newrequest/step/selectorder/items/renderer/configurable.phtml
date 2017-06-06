@@ -1,0 +1,18 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Rma\Block\Customer\Request\NewRequest\Step\SelectOrder\Items\Renderer */
+?>
+<?php if ($block->canRender()): ?>
+    <?php
+        /** @var \Magento\Sales\Model\Order\Item $item */
+        $item = $block->getItem();
+        $order = $item->getOrder();
+    ?>
+    <?php foreach ($item->getChildrenItems($item) as $childItem): ?>
+        <?php echo $block->getItemRenderer($childItem)->toHtml() ?>
+    <?php endforeach; ?>
+<?php endif; ?>

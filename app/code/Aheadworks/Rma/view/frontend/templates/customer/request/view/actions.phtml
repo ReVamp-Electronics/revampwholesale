@@ -1,0 +1,60 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Rma\Block\Customer\Request\View\Actions */
+?>
+<?php
+    $request = $block->getRequestModel();
+?>
+<div class="aw-rma-view-actions">
+    <?php echo $block->getChildHtml('back') ?>
+    <?php if ($block->canCancel()): ?>
+        <button id="aw-rma-cancel-button" type="button" class="action secondary" title="<?php echo __('Cancel Request') ?>">
+            <span><?php echo __('Cancel Request') ?></span>
+        </button>
+        <script>
+            require(['jquery'], function($){
+                $(document).ready(function() {
+                    $('#aw-rma-cancel-button').on('click', function() {
+                        if (confirm('<?php echo __('Are you sure you would like to cancel this request?') ?>')) {
+                            $(location).attr('href', <?php echo \Zend_Json::encode($block->getCancelUrl()) ?>);
+                        }
+                    });
+                });
+            });
+        </script>
+    <?php endif; ?>
+    <?php if ($block->canPrintLabel()): ?>
+        <button id="aw-rma-print-label-button" type="button" class="action primary" title="<?php echo __('Print Label') ?>">
+            <span><?php echo __('Print Label') ?></span>
+        </button>
+        <script>
+            require(['jquery'], function($){
+                $(document).ready(function() {
+                    $('#aw-rma-print-label-button').on('click', function() {
+                        $(location).attr('href', <?php echo \Zend_Json::encode($block->getPrintLabelUrl()) ?>);
+                    });
+                });
+            });
+        </script>
+    <?php endif; ?>
+    <?php if ($block->canConfirmShipping()): ?>
+        <button id="aw-rma-confirm-shipping-button" type="button" class="action primary" title="<?php echo __('Confirm Shipping') ?>">
+            <span><?php echo __('Confirm Shipping') ?></span>
+        </button>
+        <script>
+            require(['jquery'], function($){
+                $(document).ready(function() {
+                    $('#aw-rma-confirm-shipping-button').on('click', function() {
+                        if (confirm(<?php echo \Zend_Json::encode($block->getConfirmShippingPopupText()) ?>)) {
+                            $(location).attr('href', <?php echo \Zend_Json::encode($block->getConfirmShipping()) ?>);
+                        }
+                    });
+                });
+            });
+        </script>
+    <?php endif; ?>
+</div>

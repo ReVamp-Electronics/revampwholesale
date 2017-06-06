@@ -1,0 +1,63 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+?>
+<button id="aw_hdu_add_new_condition" title="Add Condition" type="button" class="action- scalable add">
+    <span><?php echo __('Add') ?></span>
+</button>
+
+<script>
+require([
+    'jquery',
+    'mage/template',
+    'prototype'
+], function(jQuery, mageTemplate){
+    var contentTemplateRow = jQuery('#conditions-row-template').html();
+
+    var awHelpdeskConditionRenderer = {
+        templateRow : contentTemplateRow,
+        itemsCount : '<?php echo $this->getItemsCount() ?>',
+        removeButtonSelector : '.remove-row-button',
+        addButtonSelector : '#aw_hdu_add_new_condition',
+
+        initObserver : function() {
+            var me = this;
+            jQuery(this.addButtonSelector).click(function(){
+                me.addRow();
+            });
+
+            jQuery(this.removeButtonSelector).click(function(){
+                var element = jQuery(this).parent().parent();
+                me.removeRow(element);
+            });
+        },
+
+        addRow : function () {
+            var data = {};
+            data.option_count = ++this.itemsCount;
+            var optionSelector = '.admin__field.field.field-add_condition';
+
+            this.template = mageTemplate(this.templateRow);
+            var escapedHTML = this.template({
+                data: data
+            });
+            var escapedHTMLElement = jQuery(escapedHTML);
+            jQuery(optionSelector).before(escapedHTMLElement);
+            escapedHTMLElement.trigger('condition-added');
+
+            var me = this;
+            jQuery(this.removeButtonSelector).click(function(){
+                var element = jQuery(this).parent().parent();
+                me.removeRow(element);
+            });
+        },
+
+        removeRow : function (element) {
+            jQuery(element).remove();
+        }
+    };
+    awHelpdeskConditionRenderer.initObserver();
+});
+</script>

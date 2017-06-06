@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="new_ticket_from_customer_email_to_admin" label="AW Help Desk - new ticket from Customer, email to agent" file="new_ticket_from_customer_email_to_admin.html" type="html" module="Aheadworks_Helpdesk" area="frontend"/>
+    <template id="new_ticket_from_customer_email_to_customer" label="AW Help Desk - new ticket from Customer, email to Customer" file="new_ticket_from_customer_email_to_customer.html" type="html" module="Aheadworks_Helpdesk" area="frontend"/>
+    <template id="new_ticket_from_agent_to_customer" label="AW Help Desk - new ticket from agent to Customer" file="new_ticket_from_agent_to_customer.html" type="html" module="Aheadworks_Helpdesk" area="frontend"/>
+    <template id="new_reply_from_customer" label="AW Help Desk - new reply from Customer" file="new_reply_from_customer.html" type="html" module="Aheadworks_Helpdesk" area="frontend"/>
+    <template id="new_reply_from_agent" label="AW Help Desk - new reply from agent" file="new_reply_from_agent.html" type="html" module="Aheadworks_Helpdesk" area="frontend"/>
+    <template id="ticket_reassign" label="AW Help Desk - ticket re-assignation" file="ticket_reassign.html" type="html" module="Aheadworks_Helpdesk" area="frontend"/>
+    <template id="automatic_followup_to_customer" label="AW Help Desk - automatic follow-up to Customer" file="automatic_followup_to_customer.html" type="html" module="Aheadworks_Helpdesk" area="frontend"/>
+</config>

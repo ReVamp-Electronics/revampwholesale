@@ -1,0 +1,44 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Helpdesk\Block\Customer\Ticket\Info */
+
+$ticket = $block->getTicket();
+$ticketIsSolved = $ticket->getStatus() == \Aheadworks\Helpdesk\Model\Source\Ticket\Status::SOLVED_VALUE;
+$ticketStatusLabel = $block->getTicketStatusLabel();
+?>
+<div class="actions-toolbar">
+    <div class="secondary">
+        <a class="action back" href="<?php echo $block->getBackUrl() ?>">
+            <span>Back</span>
+        </a>
+    </div>
+</div>
+<?php if(!$ticketIsSolved): ?>
+<a class="ticket-close-link" href="<?php echo $block->getTicketCloseUrl($ticket->getId()) ?>">
+    <button id="aw-helpdesk-close-button" title="<?php echo __('Close Ticket') ?>" class="action close-ticket">
+        <span><?php echo __('Close Ticket') ?></span>
+    </button>
+</a>
+<?php endif; ?>
+<div class="box-content fieldset info-fieldset">
+    <div class="field aw-helpdesk-ticket-view__field">
+        <label class="label"><?php echo __('Status') ?></label>
+        <div class="control"><span><?php echo $block->escapeHtml($ticketStatusLabel) ?></span></div>
+    </div>
+    <div class="field aw-helpdesk-ticket-view__field">
+        <label class="label"><?php echo __('Order') ?></label>
+        <div class="control">
+            <?php if($ticket->getOrderId()): ?>
+                <a href="<?php echo $block->getOrderViewUrl($ticket->getOrderId()) ?>">
+                    #<?php echo $block->getOrderIncrementId($ticket->getOrderId()); ?>
+                </a>
+            <?php else: ?>
+                <span><?php echo __("Unassigned") ?></span>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>

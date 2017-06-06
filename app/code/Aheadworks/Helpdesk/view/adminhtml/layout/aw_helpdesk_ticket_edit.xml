@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <update handle="aw_helpdesk_admin_default"/>
+    <body>
+        <referenceContainer name="admin.scope.col.wrap" htmlClass="admin__old" />
+
+        <referenceContainer name="page.content">
+            <block class="Aheadworks\Helpdesk\Block\Adminhtml\Ticket\Edit\Tabs" name="aheadworks_helpdesk_ticket_edit_tabs" before="page.main.container"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Aheadworks\Helpdesk\Block\Adminhtml\Ticket\Edit" name="aheadworks_helpdesk_ticket_edit"/>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Aheadworks\Helpdesk\Block\Adminhtml\Ticket\Edit\Thread" name="aheadworks_helpdesk_ticket_thread">
+                <block class="Aheadworks\Helpdesk\Block\Adminhtml\Ticket\Edit\Thread\Submit" name="aheadworks_helpdesk_thread_submit" />
+            </block>
+        </referenceContainer>
+    </body>
+</page>

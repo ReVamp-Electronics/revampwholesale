@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <head>
+        <css src="Aheadworks_Helpdesk::css/file-upload.css"/>
+        <css src="Aheadworks_Helpdesk::css/ticket-view.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Aheadworks\Helpdesk\Block\Customer\Ticket\Info" name="aw_helpdesk_ticket_info" template="customer/ticket/info.phtml" cacheable="false"/>
+            <block class="Aheadworks\Helpdesk\Block\Customer\Ticket\Thread" name="aw_helpdesk_ticket_thread" template="customer/ticket/thread.phtml" cacheable="false">
+               <block class="Aheadworks\Helpdesk\Block\Customer\FileUpload" name="aw_helpdesk_ticket_file_upload" as="fileUpload" cacheable="false" />
+            </block>
+        </referenceContainer>
+    </body>
+</page>

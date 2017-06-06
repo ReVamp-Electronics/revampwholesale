@@ -1,0 +1,12 @@
+<!--@subject {{var store.name}} RMA {{var request.getTextId()}} @-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+<p>Your RMA {{var request.getTextId()}} has been approved.</p>
+<p>You can now print label with return address and other information by pressing link below. A label must be enclosed inside your package; you may want to keep a copy of a label for your records.</p>
+<p>Please send your package to:</p>
+<p>{{var request.getNotifyRmaAddress()}}</p>
+<p>and press "Confirm Shipping" button after.</p>
+<br/>
+<p>You can view RMA by following the link <a href="{{var request.getUrl()}}">{{var request.getUrl()}}</a>.</p>
+<p>Thank you for using our RMA service.</p>

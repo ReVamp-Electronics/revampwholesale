@@ -1,0 +1,34 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+// @codingStandardsIgnoreFile
+
+/* @var $block \Aheadworks\Helpdesk\Block\Adminhtml\Ticket\Thread\Submit */
+?>
+<?php if (count($block->getMenuItems())): ?>
+    <div class="<?php /* @noEscape */ echo $block->getClassName() ?>">
+        <div class="actions dropdown closable">
+            <button type="submit" id="aw-helpdesk-reply-button" class="">
+                <span class="admin__action-dropdown-text">
+                    <?php echo $block->escapeHtml($block->getCurrentItem()['title']) ?>
+                </span>
+            </button>
+            <button type="button" class="admin__action-dropdown"
+                    data-mage-init='{"dropdown":{}}' data-toggle="dropdown" aria-haspopup="true">
+                <span class="admin__action-dropdown-text"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <?php foreach ($block->getMenuItems() as $index => $item): ?>
+                    <li class="<?php if ($block->isCurrent($index)): ?>current<?php endif; ?>"
+                        onclick="<?php /* @noEscape */ echo $item['script'] ?>"
+                        >
+                        <span><?php echo $block->escapeHtml($item['title']) ?></span>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+<?php endif; ?>

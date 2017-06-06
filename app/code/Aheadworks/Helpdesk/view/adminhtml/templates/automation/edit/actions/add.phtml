@@ -1,0 +1,63 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+?>
+<button id="aw_hdu_add_new_action" title="Add Action" type="button" class="action- scalable add">
+    <span><?php echo __('Add') ?></span>
+</button>
+
+<script>
+    require([
+        'jquery',
+        'mage/template',
+        'prototype'
+    ], function(jQuery, mageTemplate){
+        var contentTemplateRow = jQuery('#actions-row-template').html();
+
+        var awHelpdeskActionRenderer = {
+            templateRow : contentTemplateRow,
+            itemsCount : '<?php echo $this->getItemsCount() ?>',
+            removeButtonSelector : '.remove-row-button',
+            addButtonSelector : '#aw_hdu_add_new_action',
+
+            initObserver : function() {
+                var me = this;
+                jQuery(this.addButtonSelector).click(function(){
+                    me.addRow();
+                });
+
+                jQuery(this.removeButtonSelector).click(function(){
+                    var element = jQuery(this).parent().parent();
+                    me.removeRow(element);
+                });
+            },
+
+            addRow : function () {
+                var data = {};
+                data.option_count = ++this.itemsCount;
+                var optionSelector = '.admin__field.field.field-add_action';
+
+                this.template = mageTemplate(this.templateRow);
+                var escapedHTML = this.template({
+                    data: data
+                });
+                var escapedHTMLElement = jQuery(escapedHTML);
+                jQuery(optionSelector).before(escapedHTMLElement);
+                escapedHTMLElement.trigger('action-added');
+
+                var me = this;
+                jQuery(this.removeButtonSelector).click(function(){
+                    var element = jQuery(this).parent().parent();
+                    me.removeRow(element);
+                });
+            },
+
+            removeRow : function (element) {
+                jQuery(element).remove();
+            }
+        };
+        awHelpdeskActionRenderer.initObserver();
+    });
+</script>

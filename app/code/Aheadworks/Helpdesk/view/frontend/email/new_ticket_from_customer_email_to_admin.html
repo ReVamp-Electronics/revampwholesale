@@ -1,0 +1,14 @@
+<!--@subject [#{{var ticket.uid}}] New Ticket created: {{var ticket.subject}}@-->
+
+Hello {{var agent.firstname}}<br/><br/>
+
+You’ve been assigned a new ticket:<br/><br/>
+
+Department: {{var department_name}}<br/>
+Customer name: {{var ticket.customer_name}}<br/>
+Subject: {{var ticket.subject}}<br/>
+Content:<br/>
+{{var ticket.first_message}}<br/><br/>
+
+Click <a href="{{var ticket.backend_url}}">here</a> to view ticket.
+

@@ -1,0 +1,262 @@
+.block-thread ul.messages {
+    list-style: none;
+}
+
+.block-thread ul.messages li{
+    display: block;
+    margin-bottom: 1rem;
+    padding: 2rem;
+}
+
+.block-thread ul.messages li h4{
+    margin-bottom: 1rem;
+}
+
+.block-thread ul.messages li.admin{
+    margin-left: 20%;
+    background: #e7f1fe;
+}
+
+.block-thread ul.messages li.admin.auto{
+    background: #fff9e6;
+}
+
+.block-thread ul.messages li.customer{
+    background: #edf5ea;
+}
+
+.block-thread #aw-helpdesk-reply-button{
+    float: left;
+    background: #2b78e4;
+    color: #ffffff;
+    border-radius: 3px 0 0 3px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.block-thread textarea#aw-helpdesk-message{
+    width: 100%;
+    resize: vertical;
+    padding: 1rem;
+}
+
+.aw-helpdesk-file-upload{
+    color: #007bdb;
+    position: relative;
+    overflow: hidden;
+    float: left;
+}
+
+.aw-helpdesk-file-upload:hover{
+    text-decoration: underline;
+}
+
+.aw-helpdesk-file-upload__container{
+    background: #efefef;
+    padding: .6rem 1em .6rem;
+    display: inline-block;
+}
+
+.aw-helpdesk-file-upload input{
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+.block-thread .actions{
+    margin-bottom: 2rem;
+}
+
+.block-thread .actions:after{
+    clear: both;
+    content: '';
+    display: table;
+}
+
+ul#aw-helpdesk-attachments-added{
+    list-style: none;
+}
+
+ul#aw-helpdesk-attachments-added li{
+    margin-bottom: 0.6rem;
+}
+
+ul#aw-helpdesk-attachments-added li a.action-item-remove {
+    float: right;
+    margin-left: 4rem;
+    font-family: 'Admin Icons';
+}
+
+ul#aw-helpdesk-attachments-added li a.action-item-remove:hover {
+    text-decoration: none;
+}
+
+ul#aw-helpdesk-attachments-added li a.action-item-remove:before {
+    content: '\e630';
+    color: #999;
+    font-size: 1.6rem;
+}
+
+
+/* Submit select */
+.aw-helpdesk-submit{
+    color: #41362f;
+    float: left;
+    font-size: 1.6rem;
+    margin-top: .7rem;
+}
+
+.aw-helpdesk-submit .dropdown {
+    display: inline-block;
+    position: relative;
+}
+.aw-helpdesk-submit .dropdown:before, .aw-rma-menu .dropdown:after {
+    content: "";
+    display: table;
+}
+.aw-helpdesk-submit .admin__action-dropdown {
+    background: #2b78e4;
+    color: #ffffff;
+    border-radius: 0 3px 3px 0;
+    width: 30px;
+    padding: 0;
+    margin: 0;
+    height: 33px;
+    border-color: #adadad;
+    border-bottom: .1rem solid #adadad;
+    border-left: 0;
+    font-size: 1.6rem;
+    letter-spacing: .025em;
+    z-index: 300;
+    transition: border-color 0.15s ease;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+.aw-helpdesk-submit .dropdown .dropdown-menu {
+    background-color: #2b78e4;
+    color: #ffffff;
+    font-weight: bold;
+    min-width: 169px;
+    margin: 0;
+    padding: 6px 0 3px 0;
+    list-style: none none;
+    box-sizing: border-box;
+    border: 1px #adadad solid;
+    position: absolute;
+    z-index: 300;
+    top: 100%;
+    line-height: 1.36;
+    margin-top: -1px;
+    display: none;
+    transition: all 0.15s ease;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.aw-helpdesk-submit .dropdown.active .admin__action-dropdown,
+.aw-helpdesk-submit .dropdown.active .dropdown-menu {
+    border-color: #adadad;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+.aw-helpdesk-submit .dropdown.active .dropdown-menu {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+.aw-helpdesk-submit .dropdown .dropdown-menu li:hover,
+.aw-helpdesk-submit .dropdown .dropdown-menu li.current {
+    background: #6fa8dc;
+    cursor: pointer;
+}
+
+.aw-helpdesk-submit .dropdown .dropdown-menu li:hover a,
+.aw-helpdesk-submit .dropdown .dropdown-menu li.current a {
+    color: #000;
+}
+
+.aw-helpdesk-submit .dropdown-menu li {
+    margin: 0;
+    border: 0;
+    cursor: default;
+    font-size: 1.4rem;
+}
+.aw-helpdesk-submit .dropdown-menu li span {
+    text-decoration: none;
+    color: #FFFFFF;
+    display: block;
+    padding: .6rem 1.8rem;
+}
+.aw-helpdesk-submit .dropdown-menu li.separator {
+    border-top: 1px #adadad solid;
+}
+.aw-helpdesk-submit .dropdown-menu li.separator a {
+    padding-top: .7rem;
+}
+
+#aw-helpdesk-ticket-subject {
+    padding: 5px 10px;
+    width: 100%;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+#aw-helpdesk-message {
+    margin: 10px 0;
+}
+
+.aw-helpdesk-submit {
+    float: right;
+}
+
+.aw-helpdesk-submit .admin__action-dropdown:after {
+    right: 1.0rem;
+    border-color: #fff transparent transparent transparent;
+}
+
+.aw-helpdesk-view__thread-message.admin-reply {
+    border: .1rem solid #ccd6c7;
+    border-radius: 3px;
+    background: #d1eaca;
+    border-left: 3px solid #88c56e;
+}
+
+.aw-helpdesk-view__thread-message.admin-internal {
+    border: 1px solid #ded9cb;
+    border-radius: 2px;
+    background: #fffed9;
+    border-left: 3px solid #f7e18c;
+}
+
+.aw-helpdesk-view__thread-message.customer-reply {
+    border: .1rem solid #c2c2c2;
+    border-radius: 2px;
+    background: #f5f5f5;
+    border-left: 3px solid #c2c2c2;
+}
+
+.aw-helpdesk-view__thread-message .message-header {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.aw-helpdesk-view__thread-message .message-header .date {
+    float: right;
+}
+
+.aw-helpdesk-view__thread-message .content {
+    margin-bottom: 20px;
+}
+
+#reply_button.selected {
+    background-color: #555555;
+    color: #fff;
+}
+
+#internal_button.selected {
+    border: 1px solid #bf9000;
+    background: #ffe599;
+}
+
+#aw-helpdesk-message.internal-type {
+    background: #ffe599;
+}

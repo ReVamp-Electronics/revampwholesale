@@ -1,0 +1,13 @@
+<!-- ko if: hasLink($row())-->
+<a
+        data-bind="
+            attr: {
+                href: getLinkUrl($row()),
+                title: getLinkHint($row())
+            },
+            text: getLinkText($row())"></a>
+<!-- /ko -->
+
+<!-- ko ifnot: hasLink($row()) -->
+<!-- ko text: getPlainText($row()) --><!-- /ko -->
+<!-- /ko -->

@@ -1,0 +1,190 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+ foreach($block->getConditions() as $id => $condition): ?>
+    <div>
+        <div class="aw-hdu-condition-row">
+            <div>
+                <select class="aw-hdu-condition-object select admin__control-select" name="conditions[<?php echo $id ?>][object]">
+                    <?php foreach($block->getObjectVariablesByEventType($block->getEventType()) as $key => $option): ?>
+                        <option value="<?php echo $key; ?>" <?php echo $block->getSelected($key, $condition['object']);?>><?php echo $option ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <?php $operators = $block->getOperatorsForConditionType($condition['object']);?>
+
+            <div class="aw-hdu-condition-operator">
+                <?php if(is_array($operators)): ?>
+                    <select class="aw-hdu-condition-operator select admin__control-select" name="conditions[<?php echo $id ?>][operator]">
+                        <?php foreach($operators as $key => $option): ?>
+                            <option value="<?php echo $key; ?>" <?php echo $block->getSelected($key, $condition['operator']);?>><?php echo $option ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                <?php else: ?>
+                    <input type="hidden" name="conditions[<?php echo $id ?>][operator]" value="<?php echo $condition['operator'] ?>" />
+                <?php endif; ?>
+            </div>
+            <?php
+                $values = $block->getValuesForConditionType($condition['object']);
+                $type = key($values);
+                $values = $values[$type];
+            ?>
+            <div class="aw-hdu-condition-value">
+                <?php if($type == 'select' || $type == 'multiselect'): ?>
+                    <select class="<?php echo ($type == 'multiselect') ? 'admin__control-multiselect':'select admin__control-select'; ?>"
+                        <?php echo ($type == 'multiselect') ? 'multiple':''; ?>
+                            name="conditions[<?php echo $id ?>][value]<?php echo ($type == 'multiselect') ? '[]':''; ?>"
+                        >
+                        <?php foreach($values as $key => $option): ?>
+                            <option value="<?php echo $key; ?>" <?php echo $block->getSelected($key, $condition['value']); ?>><?php echo $option ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                <?php elseif ($type == 'text'): ?>
+                    <input type="text" class="input-text admin__control-text" name="conditions[<?php echo $id ?>][value]" value="<?php echo $condition['value'] ?>" />
+                <?php endif; ?>
+            </div>
+            <div>
+                <button title="<?php echo __('Delete') ?>" type="button" class="action- scalable delete delete-condition remove-row-button">
+                    <span><?php echo __('Delete') ?></span>
+                </button>
+            </div>
+        </div>
+    </div>
+<?php endforeach; ?>
+
+<script id="conditions-row-template" type="text/x-magento-template">
+    <div>
+        <div class="aw-hdu-condition-row">
+            <div>
+                <select class="aw-hdu-condition-object select admin__control-select" name="conditions[<%- data.option_count %>][object]">
+                    <?php foreach($block->getObjectVariablesByEventType($block->getEventType()) as $key => $option): ?>
+                        <option value="<?php echo $key; ?>"><?php echo $option ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <?php $operators = $block->getOperatorsForConditionType($block->getDefaultObjectByEventType($block->getEventType()));?>
+
+            <div class="aw-hdu-condition-operator">
+                <?php if(is_array($operators)): ?>
+                    <select class="aw-hdu-condition-operator select admin__control-select" name="conditions[<%- data.option_count %>][operator]">
+                        <?php foreach($operators as $key => $option): ?>
+                            <option value="<?php echo $key; ?>"><?php echo $option ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                <?php else: ?>
+                    <input type="hidden" name="conditions[<%- data.option_count %>][operator]" value="<?php echo $operators ?>" />
+                <?php endif; ?>
+            </div>
+            <?php
+                $values = $block->getValuesForConditionType($block->getDefaultObjectByEventType($block->getEventType()));
+                $type = key($values);
+                $values = $values[$type];
+
+            ?>
+            <div class="aw-hdu-condition-value">
+                <?php if($type == 'select' || $type == 'multiselect'): ?>
+                    <select class="<?php echo ($type == 'multiselect') ? 'admin__control-multiselect':'select admin__control-select'; ?>"  <?php echo ($type == 'multiselect') ? 'multiple':''; ?> name="conditions[<%- data.option_count %>][value]<?php echo ($type == 'multiselect') ? '[]':''; ?>">
+                        <?php foreach($values as $key => $option): ?>
+                            <option value="<?php echo $key; ?>"><?php echo $option ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                <?php elseif ($type == 'text'): ?>
+                    <input type="text" class="input-text admin__control-text" name="conditions[<%- data.option_count %>][value]" value="" />
+                <?php endif; ?>
+            </div>
+            <div>
+                <button title="<?php echo __('Delete') ?>" type="button" class="action- scalable delete delete-condition remove-row-button">
+                    <span><?php echo __('Delete') ?></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/javascript">
+    require([
+        'jquery'
+    ], function ($) {
+        var awHduConditionManager = {
+            conditionsByEvent: jQuery.parseJSON('<?php echo addslashes($block->getJsonAvailableObjects())?>'),
+            valuesByObject: jQuery.parseJSON('<?php echo $block->getJsonAvailableValues()?>'),
+            operatorsByObject: jQuery.parseJSON('<?php echo $block->getJsonAvailableOperators()?>'),
+            initObserver: function(){
+                var me = this;
+                jQuery('#automation_event').change(function(){
+                    //event changed - clear all conditions
+                    jQuery('.aw-hdu-condition-row').parent().empty();
+                });
+                jQuery('body').on('change', '.aw-hdu-condition-object', function(){
+                    //object changed - update value list
+                    me.updateOperators(this);
+                    me.updateValues(this);
+
+                });
+                jQuery(document).on('condition-added', function(el){
+                    //new action added - update observers and object
+                    me.updateObject(el);
+                    jQuery(el).trigger('change');
+                });
+            },
+            updateValues: function(el) {
+                var newCondition = jQuery(el).val();
+                var availableValues = this.valuesByObject[newCondition];
+                var valueContainer = el.up().up().down('.aw-hdu-condition-value');
+                var name = jQuery(valueContainer.down()).attr('name').replace('[]', "");
+                var type = Object.keys(availableValues)[0];
+                if (type == 'text') {
+                    var field = jQuery('<input/>')
+                        .attr("name", name).attr("value", '')
+                        .attr("class", 'input-text admin__control-text')
+                        .prop('type', 'text');
+                    jQuery(valueContainer).html(field);
+
+                } else if (type == 'select' || type == 'multiselect') {
+                    availableValues = availableValues[Object.keys(availableValues)[0]];
+                    var field = jQuery('<select></select>').attr("name", name).attr("class", 'select admin__control-select');
+                    if (type == 'multiselect') {
+                        name = name.concat('[]');
+                        field.attr("name", name).prop('multiple', true).attr("class", 'admin__control-multiselect');
+                    }
+                    jQuery.each(availableValues, function( index, value ) {
+                        var option = $('<option></option>').attr("value", index).text(value);
+                        jQuery(field).append(option);
+                    });
+                    jQuery(valueContainer).html(field);
+                }
+            },
+            updateOperators: function(el) {
+                var newCondition = jQuery(el).val();
+                var availableValues = this.operatorsByObject[newCondition];
+                var valueContainer = el.up().up().down('.aw-hdu-condition-operator');
+                var name = jQuery(valueContainer.down()).attr('name');
+                if (typeof(availableValues) == 'string') {
+                    var field = jQuery('<input/>').attr("name", name).attr("value", availableValues).prop('type', 'hidden');
+                    jQuery(valueContainer).html(field);
+                } else if (typeof(availableValues) == 'object') {
+                    var field = jQuery('<select></select>').attr("name", name).attr("class", 'select admin__control-select');
+                    jQuery.each(availableValues, function( index, value ) {
+                        var option = $('<option></option>').attr("value", index).text(value);
+                        jQuery(field).append(option);
+                    });
+                    jQuery(valueContainer).html(field);
+                }
+            },
+            updateObject: function(el) {
+                var newEvent = jQuery('#automation_event').val();
+                var availableObjects = this.conditionsByEvent[newEvent];
+                var valueContainer = el.target.down('.aw-hdu-condition-object');
+                jQuery(valueContainer).empty();
+                jQuery.each(availableObjects, function( index, value ) {
+                    var option = $('<option></option>').attr("value", index).text(value);
+                    jQuery(valueContainer).append(option);
+                });
+            }
+        };
+
+        awHduConditionManager.initObserver();
+    });
+</script>

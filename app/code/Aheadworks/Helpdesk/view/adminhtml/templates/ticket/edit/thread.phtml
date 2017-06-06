@@ -1,0 +1,205 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Helpdesk\Block\Adminhtml\Ticket\Edit\Thread */
+?>
+<div class="block block-thread">
+    <form id="aw-helpdesk-admin-reply-form" action="<?php echo $block->getSubmitReplyUrl() ?>" method="post" enctype="multipart/form-data">
+        <?php echo $block->getBlockHtml('formkey') ?>
+        <input type="hidden" name="ticket_id" value="<?php echo $block->getTicketModel()->getId() ?>" />
+        <div class="field">
+            <div class="control">
+                <input type="text" id="aw-helpdesk-ticket-subject" name="subject" class="required-entry" value="<?php echo __(htmlspecialchars($block->getTicketModel()->getSubject())) ?>"/>
+            </div>
+        </div>
+        <div class="field">
+            <input type="button" class="abs-action-default selected" id="reply_button" onclick="jQuery.awHdThread.setAsReply()" value="<?php echo __('Reply') ?>" title="<?php echo __('Reply') ?>"/>
+            <input type="button" class="abs-action-default" id="internal_button" onclick="jQuery.awHdThread.setAsInternal()" value="<?php echo __('Internal Note') ?>" title="<?php echo __('Internal Note') ?>">
+
+            <input type="hidden" id='is_internal' name="is_internal" value="0" />
+        </div>
+        <div class="field">
+            <div class="control">
+                <textarea id="aw-helpdesk-message" name="content" rows="5" placeholder="<?php echo __('Type here to add an answer') ?>"></textarea>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="aw-helpdesk-file-upload__container">
+                <ul id="aw-helpdesk-attachments-added" style="display: none;"></ul>
+                <script id="aw-helpdesk-attachments-added-template" type="text/x-magento-template">
+                    <li>
+                        <span><%- fileName %> (<%- fileSize %>)</span><a href="#" class="action-item-remove"/>
+                        <input type="hidden" name="attachment[<%- index %>][name]" value="<%- fileName %>" />
+                        <input type="hidden" name="attachment[<%- index %>][file]" value="<%- file %>" />
+                        <input type="hidden" name="attachment[<%- index %>][removed]" data-role="remove" value="0" />
+                    </li>
+                </script>
+                    <span class="aw-helpdesk-file-upload">
+                        <span id="aw-helpdesk-attachments-add-link" class="aw-helpdesk-file-upload__link" data-switch-title="<?php echo __('Add another file') ?>"><?php echo __('Add file') ?></span>
+                        <input type="file" id="aw-helpdesk-attachments" name="file[]" data-url="<?php echo $block->getFileUploadUrl() ?>" multiple />
+                    </span>
+                <div id="aw-helpdesk-attachments-error" style="display: none;"></div>
+                <script type="text/x-magento-init">
+                        {
+                            "#aw-helpdesk-attachments": {
+                                "awHelpdeskFileUpload": {
+                                    "addLink": "#aw-helpdesk-attachments-add-link",
+                                    "itemTemplate": "#aw-helpdesk-attachments-added-template",
+                                    "itemsContainer": "#aw-helpdesk-attachments-added",
+                                    "removeLinks": ".action-item-remove",
+                                    "errorContainer": "#aw-helpdesk-attachments-error"
+                                }
+                            }
+                        }
+                    </script>
+            </div>
+            <input type="hidden" name="status" value="<?php echo $block->getDefaultStatus()?>" />
+            <?php echo $block->getChildHtml('aheadworks_helpdesk_thread_submit') ?>
+        </div>
+    </form>
+    <script type="text/javascript">
+        require([
+            'jquery',
+            'mage/mage'
+        ], function ($) {
+            'use strict';
+            //add ticket parameters to form for save
+            var replyForm = $('#aw-helpdesk-admin-reply-form');
+            replyForm.on('submit', function() {
+                if (!$('#edit_form').valid()) {
+                    return false;
+                }
+
+                if (replyForm.valid()) {
+                    var replySubmitButton = $('#aw-helpdesk-reply-button');
+                    replySubmitButton.attr('disabled', 'disabled');
+                    replySubmitButton.next().attr('disabled', 'disabled');
+                }
+
+                var ticketPriorityVal = $('#ticket_priority').val();
+                var ticketPriority = $("<input>")
+                    .attr("type", "hidden")
+                    .attr("name", "priority").val(ticketPriorityVal);
+                $(this).append($(ticketPriority));
+
+                var ticketDepartmentVal = $('#ticket_department_id').val();
+                var ticketDepartment = $("<input>")
+                    .attr("type", "hidden")
+                    .attr("name", "department_id").val(ticketDepartmentVal);
+                $(this).append($(ticketDepartment));
+
+                var agentSelector = '#ticket_agent_id_dep' + ticketDepartmentVal;
+                var ticketAgentVal = $(agentSelector).val();
+                var ticketAgent = $("<input>")
+                    .attr("type", "hidden")
+                    .attr("name", "agent_id").val(ticketAgentVal);
+                $(this).append($(ticketAgent));
+
+                var ticketOrderVal = $('#ticket_order_id').val();
+                var ticketOrder = $("<input>")
+                    .attr("type", "hidden")
+                    .attr("name", "order_id").val(ticketOrderVal);
+                $(this).append($(ticketOrder));
+
+                var ticketCcVal = $('#ticket_cc_recipients').val();
+                var ticketCc = $("<input>")
+                    .attr("type", "hidden")
+                    .attr("name", "cc_recipients").val(ticketCcVal);
+                $(this).append($(ticketCc));
+            });
+
+            $.awHdThread = {
+                buttonState: $.parseJSON('<?php echo $block->getButtonTypeAsJson()?>'),
+                defaultStatus: '<?php echo $block->getDefaultStatus()?>',
+                buttonLabels: $.parseJSON('<?php echo $block->getButtonStatusLabelsAsJson()?>'),
+                setAsReply: function(){
+                    $('#reply_button').addClass('selected');
+                    $('#internal_button').removeClass('selected');
+                    $('#aw-helpdesk-message')
+                    .addClass('reply-type')
+                    .removeClass('internal-type');
+
+                    $('#is_internal').val("0");
+
+                    var statusField = $('[name = status]');
+
+                    var html = $('#aw-helpdesk-reply-button').html();
+                    if (typeof html == 'undefined') {
+                        return;
+                    }
+                    html = html.replace(this.buttonLabels[statusField.val()], this.buttonLabels[this.defaultStatus]);
+                    statusField.val(this.defaultStatus);
+
+                    $('#aw-helpdesk-reply-button').html(html);
+                },
+                setAsInternal: function(){
+                    $('#internal_button').addClass('selected');
+                    $('#reply_button').removeClass('selected');
+                    $('#aw-helpdesk-message')
+                    .addClass('internal-type')
+                    .removeClass('reply-type');
+
+                    $('#is_internal').val("1");
+
+                    var statusField = $('[name = status]');
+                    var currentStatus = '<?php echo $block->getTicketModel()->getStatus() ?>';
+
+                    var html = $('#aw-helpdesk-reply-button').html();
+                    if (typeof html == 'undefined') {
+                        return;
+                    }
+                    html = html.replace(this.buttonLabels[statusField.val()], this.buttonLabels[currentStatus]);
+                    statusField.val(currentStatus);
+
+                    $('#aw-helpdesk-reply-button').html(html);
+                },
+                initObservers: function(){
+                    var me = this;
+                    var replyButton = $('#aw-helpdesk-reply-button');
+                    $('#edit_form').on('change', function(e){
+                        $('#edit_form').valid();
+                    });
+
+                    $('#aw-helpdesk-message').on('input', function(e){
+                        var html = replyButton.html();
+                        if (typeof html == 'undefined') {
+                            return;
+                        }
+                        if(e.target.value === ''){
+                            // Textarea has no value
+                            html = html.replace(me.buttonState['submit'], me.buttonState['save']);
+                        } else {
+                            // Textarea has a value
+                            html = html.replace(me.buttonState['save'], me.buttonState['submit']);
+                        }
+                        replyButton.html(html);
+                    });
+                }
+            };
+            $.awHdThread.initObservers();
+            return $.awHdThread;
+        });
+    </script>
+    <ul class="messages">
+        <?php foreach ($block->getThreadMessageCollection() as $threadMessage):
+            /** @var \Aheadworks\Helpdesk\Model\ThreadMessage $threadMessage */
+            ?>
+            <?php
+            $classNames = ['aw-helpdesk-view__thread-message'];
+            $classNames[] = $threadMessage->getType();
+            ?>
+            <li class="<?php echo implode(' ', $classNames) ?>">
+                <div class="message-header"> <?php echo $block->getMessageHeader($threadMessage) ?> </div>
+                <div class="content"><?php echo nl2br($block->escapeHtml($threadMessage->getContent())) ?></div>
+                <?php foreach ($threadMessage->getAttachments() as $attachmentData): ?>
+                    <div class="aw-helpdesk-view__attachment">
+                        <a href="<?php echo $block->getDownloadUrl($attachmentData['id']) ?>"><?php echo $block->escapeHtml($attachmentData['name']) ?></a> (<?php echo $block->formatFileSize($attachmentData['length'])?>)
+                    </div>
+                <?php endforeach; ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</div>

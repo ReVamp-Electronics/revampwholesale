@@ -1,0 +1,46 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Helpdesk\Block\Adminhtml\Ticket\Edit\Tabs\General\Items */
+?>
+<?php $order = $block->getOrderModel() ?>
+<table class="admin__table-primary">
+    <thead>
+        <tr>
+            <th class="col name"><?php echo __('Product Name') ?></th>
+            <th class="col qty"><?php echo __('Qty') ?></th>
+            <th class="col subtotal"><?php echo __('Row Total') ?></th>
+        </tr>
+    </thead>
+    <?php $items = $order->getItemsCollection(); ?>
+    <?php foreach ($items as $item): ?>
+        <?php if ($item->getParentItem()) {
+            continue;
+        } ?>
+        <tbody>
+            <tr>
+                <td>
+                    <a href="<?php echo $block->getUrl('catalog/product/edit', ['id' => $item->getProductId()])?>" target="_blank">
+                        <?php echo $item->getName() ?>
+                    </a>
+                </td>
+                <td><?php echo (int)$item->getQtyOrdered() ?></td>
+                <td><span class="price"><?php echo $order->formatPrice($item->getRowTotal()) ?></span></td>
+            </tr>
+        </tbody>
+    <?php endforeach; ?>
+    <tfoot>
+        <tr>
+            <td></td>
+            <td>
+                <?php echo __('Total:') ?>
+            </td>
+            <td>
+                <span class="price"><?php echo $order->formatPrice($order->getGrandTotal()); ?></span>
+            </td>
+        </tr>
+    </tfoot>
+</table>

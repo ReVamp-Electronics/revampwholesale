@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="aheadworks" translate="label" sortOrder="300">
+            <label>Aheadworks Extensions</label>
+        </tab>
+        <section id="aw_helpdesk" translate="label" type="text" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Help Desk Ultimate</label>
+            <tab>aheadworks</tab>
+            <resource>Aheadworks_Helpdesk::config_aw_helpdesk</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1">
+                <label>General</label>
+                <field id="agent_users" translate="label" type="multiselect" sortOrder="150" showInDefault="1">
+                    <label>Agent Users</label>
+                    <source_model>Aheadworks\Helpdesk\Model\Source\Ticket\Agent</source_model>
+                    <frontend_model>Aheadworks\Helpdesk\Block\Adminhtml\System\Config\Form\Fieldset\General\Agent</frontend_model>
+                    <can_be_empty>1</can_be_empty>
+                    <comment>If none selected, then all admin users will become agents.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

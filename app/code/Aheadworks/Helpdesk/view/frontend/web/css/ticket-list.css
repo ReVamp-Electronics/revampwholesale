@@ -1,0 +1,62 @@
+a.create_ticket_form_link {
+    float: right;
+    margin-bottom: 20px;
+}
+
+.form-create-ticket .fieldset{
+    width: 48%;
+}
+
+.form-create-ticket .aw-helpdesk-file-upload__container {
+    width: 100%;
+}
+
+ul#aw-helpdesk-attachments-added{
+    list-style: none;
+    padding-left: 0;
+}
+
+ul#aw-helpdesk-attachments-added li{
+    margin-bottom: 0.6rem;
+}
+
+ul#aw-helpdesk-attachments-added li a.action-item-remove {
+    float: right;
+    margin-left: 4rem;
+    font-family: 'luma-icons';
+}
+
+ul#aw-helpdesk-attachments-added li a.action-item-remove:hover {
+    text-decoration: none;
+}
+
+ul#aw-helpdesk-attachments-added li a.action-item-remove:before {
+    content: '\e604';
+    color: #999;
+    font-size: 1.6rem;
+}
+
+.aw-helpdesk-file-upload{
+    color: #007bdb;
+    position: relative;
+    overflow: hidden;
+    float: left;
+}
+
+.aw-helpdesk-file-upload:hover{
+    text-decoration: underline;
+}
+
+.aw-helpdesk-file-upload__container{
+    background: #efefef;
+    padding: .6rem 0 .6rem;
+    display: inline-block;
+}
+
+.aw-helpdesk-file-upload input{
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}

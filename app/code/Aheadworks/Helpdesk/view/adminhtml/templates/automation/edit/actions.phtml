@@ -1,0 +1,127 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+ foreach($block->getActions() as $id => $action): ?>
+    <div>
+        <div class="aw-hdu-action-row">
+            <div>
+                <select class="aw-hdu-action-action select admin__control-select" name="actions[<?php echo $id ?>][action]">
+                    <?php foreach($block->getActionVariablesByEventType($block->getEventType()) as $key => $option): ?>
+                        <option value="<?php echo $key; ?>" <?php echo ($key == $action['action'])? 'selected': '' ?>><?php echo $option ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <?php
+            $values = $block->getValuesForActionType($action['action']);
+            $type = key($values);
+            $values = $values[$type];
+            ?>
+            <div>
+                <?php if($type == 'select' || $type == 'multiselect'): ?>
+                    <select class="aw-hdu-action-value <?php echo ($type == 'multiselect') ? 'admin__control-multiselect':'select admin__control-select'; ?>" <?php echo ($type == 'multiselect') ? 'multiple':''; ?> name="actions[<?php echo $id ?>][value]">
+                        <?php foreach($values as $key => $option): ?>
+                            <option value="<?php echo $key; ?>" <?php echo ($key == $action['value'])? 'selected': '' ?>><?php echo $option ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                <?php elseif ($type == 'text'): ?>
+                    <input type="text" class="input-text admin__control-text" name="actions[<?php echo $id ?>][value]" value="<?php echo $action['value'] ?>" />
+                <?php endif; ?>
+            </div>
+            <div>
+                <button title="<?php echo __('Delete') ?>" type="button" class="action- scalable delete delete-action remove-row-button">
+                    <span><?php echo __('Delete') ?></span>
+                </button>
+            </div>
+        </div>
+    </div>
+<?php endforeach; ?>
+
+<script id="actions-row-template" type="text/x-magento-template">
+    <div>
+        <div class="aw-hdu-action-row">
+            <div>
+                <select class="aw-hdu-action-action select admin__control-select" name="actions[<%- data.option_count %>][action]">
+                <?php foreach($block->getActionVariablesByEventType($block->getEventType()) as $key => $option): ?>
+                    <option value="<?php echo $key; ?>"><?php echo $option ?></option>
+                <?php endforeach; ?>
+            </select>
+            </div>
+
+            <?php
+            $values = $block->getValuesForActionType($block->getDefaultActionByEventType($block->getEventType()));
+            $type = key($values);
+            $values = $values[$type];
+            ?>
+            <div>
+                <?php if($type == 'select' || $type == 'multiselect'): ?>
+                    <select class="aw-hdu-action-value <?php echo ($type == 'multiselect') ? 'admin__control-multiselect':'select admin__control-select'; ?>" <?php echo ($type == 'multiselect') ? 'multiple':''; ?> name="actions[<%- data.option_count %>][value]">
+                        <?php foreach($values as $key => $option): ?>
+                            <option value="<?php echo $key; ?>"><?php echo $option ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                <?php elseif ($type == 'text'): ?>
+                    <input type="text" class="input-text admin__control-text" name="actions[<%- data.option_count %>][value]" value="" />
+                <?php endif; ?>
+            </div>
+            <div>
+                <button title="<?php echo __('Delete') ?>" type="button" class="action- scalable delete delete-action remove-row-button">
+                    <span><?php echo __('Delete') ?></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/javascript">
+    require([
+        'jquery'
+    ], function ($) {
+        var awHduActionManager = {
+            actionsByEvent: jQuery.parseJSON('<?php echo $block->getJsonAvailableObjects()?>'),
+            actionValueByActionType: jQuery.parseJSON('<?php echo $block->getJsonAvailableValues()?>'),
+            initObserver: function(){
+                var me = this;
+                jQuery('#automation_event').change(function(){
+                    //event changed - clear all actions
+                    jQuery('.aw-hdu-action-row').parent().empty();
+                });
+                jQuery('body').on('change', '.aw-hdu-action-action', function(){
+                    //action changed - update value list
+                    me.updateValues(this);
+
+                });
+                jQuery(document).on('action-added', function(el){
+                    //new action added - update observers and actionType
+                    me.updateActionType(el);
+                    jQuery(el).trigger('change');
+                });
+            },
+            updateValues: function(el) {
+                var newAction = jQuery(el).val();
+                var availableValues = this.actionValueByActionType[newAction];
+                availableValues = availableValues[Object.keys(availableValues)[0]];
+                var valueContainer = el.up().up().down('.aw-hdu-action-value');
+                jQuery(valueContainer).empty();
+                jQuery.each(availableValues, function( index, value ) {
+                    var option = $('<option></option>').attr("value", index).text(value);
+                    jQuery(valueContainer).append(option);
+                });
+            },
+            updateActionType: function(el) {
+                var newEvent = jQuery('#automation_event').val();
+                var availableActions = this.actionsByEvent[newEvent];
+                var valueContainer = el.target.down('.aw-hdu-action-action');
+                jQuery(valueContainer).empty();
+                jQuery.each(availableActions, function( index, value ) {
+                    var option = $('<option></option>').attr("value", index).text(value);
+                    jQuery(valueContainer).append(option);
+                });
+            }
+        };
+
+        awHduActionManager.initObserver();
+    });
+</script>

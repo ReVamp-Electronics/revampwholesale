@@ -1,0 +1,30 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Magento\Backend\Block\Template */
+?>
+<table class="admin__table-primary">
+    <?php $tickets = $block->getTicketCollection(); ?>
+    <tbody>
+    <?php foreach ($tickets as $ticket): ?>
+        <tr>
+            <td>
+                <a href="<?php echo $block->getUrl('aw_helpdesk/ticket/edit', ['id' => $ticket->getId()])?>" target="_blank">
+                    <?php echo __(htmlspecialchars($ticket->getSubject()))?>
+                </a>
+            </td>
+            <td class="created_at">
+                <?php echo $block->formatDate($ticket->getCreatedAt(), \IntlDateFormatter::MEDIUM, false) ?>
+            </td>
+            <td>
+                <span class="<?php echo $ticket->getStatus()?>">
+                    <?php echo $ticket->getStatusLabel() ?>
+                </span>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>

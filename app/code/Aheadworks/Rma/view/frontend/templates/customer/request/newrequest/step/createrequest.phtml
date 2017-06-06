@@ -1,0 +1,231 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Rma\Block\Customer\Request\NewRequest\Step\CreateRequest */
+?>
+<div class="aw-rma-new create-request">
+    <?php if ($block->getTextCmsBlockHtml()): ?>
+        <div class="block block-rma-text-block">
+            <?php echo $block->getTextCmsBlockHtml() ?>
+        </div>
+    <?php endif; ?>
+    <?php echo $block->getChildHtml('back') ?>
+    <div class="block block-rma-form">
+        <form id="aw-rma-create-request-form" class="aw-rma-new__form" action="<?php echo $block->getSubmitUrl() ?>" method="post" enctype="multipart/form-data">
+            <?php echo $block->getBlockHtml('formkey') ?>
+            <input type="hidden" name="order_id" value="<?php echo $block->getOrderId() ?>" />
+            <?php if ($block->isGuestMode()): ?>
+                <input type="hidden" name="customer_email" value="<?php echo $block->getCustomerEmail() ?>" />
+            <?php endif; ?>
+            <fieldset class="fieldset request-custom-field">
+                <?php foreach ($block->getRequestCustomFieldCollection() as $customField): ?>
+                    <?php if (in_array($customField->getName(), ['Resolution', 'Package Condition'])): ?>
+                        <div class="field aw-rma-create-request__field <?php if ($customField->getIsRequired()): ?>required<?php endif; ?>">
+                            <?php $htmlCustomFieldId = 'custom_field_' . $customField->getId(); ?>
+                            <label class="label<?php if ($customField->getIsRequired()): ?> required<?php endif; ?>" for="<?php echo $htmlCustomFieldId ?>">
+                                <span><?php echo __('Please select') ?>&nbsp;<?php echo $customField->getFrontendLabel() ?></span>
+                            </label>
+                            <div class="control">
+                                <ul>
+                                    <?php foreach ($customField->toOptionArray() as $option): ?>
+                                        <?php $htmlOptionId = 'custom_field_' . $option['value'] ?>
+                                        <li>
+                                            <input type="radio"
+                                                   id="<?php echo $htmlOptionId ?>"
+                                                   name="custom_fields[<?php echo $customField->getId() ?>]"
+                                                   value="<?php echo $option['value'] ?>"
+                                                   class="<?php if ($customField->getIsRequired()): ?>required-entry<?php endif; ?>"
+                                                   <?php if ($customField->getIsDefault($option['value'])): ?>checked="checked"<?php endif; ?>
+                                                />
+                                            <label for="<?php echo $htmlOptionId ?>"><?php echo $option['label'] ?></label>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
+                        </div>
+                    <?php else: ?>
+                        <?php echo $block->getRequestCustomFieldsInputHtml(
+                            $customField,
+                            sprintf("[custom_fields][%d]", $customField->getId())
+                        ) ?>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </fieldset>
+            <fieldset class="fieldset">
+                <div class="field item aw-rma-create-request__field">
+                    <label class="label item" for="item">
+                        <span><?php echo __('Please fill in details') ?></span>
+                    </label>
+                    <div class="control">
+                        <?php $itemsCounter = 0; ?>
+                        <?php foreach ($block->getRequestOrderItems() as $orderItem): ?>
+                            <?php if ($itemsCount = $block->getRequestItemCount($orderItem)): ?>
+                                <div class="item-container" data-item="<?php echo $orderItem->getId() ?>">
+                                    <div class="product-item-info aw-rma-create-request__item-info">
+                                        <?php if ($orderItem->getProduct()): ?>
+                                            <a href="<?php echo $block->getItemProductUrl($orderItem) ?>" class="product photo product-item-photo">
+                                                <?php echo $block->getItemProductImage($orderItem)->toHtml(); ?>
+                                            </a>
+                                        <?php endif; ?>
+                                        <div class="product details product-item-details">
+                                            <strong class="product name product-item-name">
+                                                <?php if ($orderItem->getProduct()): ?>
+                                                    <a class="product-item-link" title="<?php echo $block->escapeHtml($orderItem->getName()) ?>" href="<?php echo $block->getItemProductUrl($orderItem) ?>">
+                                                        <?php echo $block->escapeHtml($orderItem->getName()) ?>
+                                                    </a>
+                                                <?php else: ?>
+                                                    <?php echo $block->escapeHtml($orderItem->getName()) ?>
+                                                <?php endif; ?>
+                                            </strong>
+                                            <?php echo $block->getItemProductPriceHtml($orderItem); ?>
+                                        </div>
+                                    </div>
+                                    <div class="aw-rma-create-request__item-details">
+                                        <?php if ($itemsCount > 1): ?>
+                                            <?php $htmlMassActionId = 'aw-rma-create-request-massaction-' . $orderItem->getId() ?>
+                                            <div class="mass-action-container">
+                                                <div id="<?php echo $htmlMassActionId ?>" class="mass-action">
+                                                    <div class="select-all">
+                                                        <?php $htmlSelectAllId = $htmlMassActionId . '-select_all' ?>
+                                                        <input id="<?php echo $htmlSelectAllId ?>"
+                                                               type="checkbox"
+                                                               name="select_all"
+                                                               value=""
+                                                               class="select-all-checkbox"
+                                                               data-item="<?php echo $orderItem->getId() ?>"
+                                                            />
+                                                        <label for="<?php echo $htmlSelectAllId ?>"><?php echo __('Select all') ?></label>
+                                                    </div>
+                                                    <div class="actions" data-massaction="<?php echo $htmlMassActionId ?>" data-item="<?php echo $orderItem->getId() ?>" style="display: none;">
+                                                        <button type="button" title="<?php echo __('Apply') ?>" class="action primary action-apply">
+                                                            <span><?php echo __('Apply') ?></span>
+                                                        </button>
+                                                        <div class="action action-input-field">
+                                                            <?php foreach ($block->getItemCustomFieldCollection() as $customField): ?>
+                                                                <div data-action="<?php echo $customField->getId() ?>">
+                                                                    <?php echo $block->getItemCustomFieldsInputHtml($customField, null, false, null, true) ?>
+                                                                </div>
+                                                            <?php endforeach; ?>
+                                                        </div>
+                                                        <select class="action action-type" name="select_action">
+                                                            <?php foreach ($block->getMassActionOptionArray() as $option): ?>
+                                                                <option value="<?php echo $option['value'] ?>"><?php echo $option['label'] ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+                                                    <script type="text/x-magento-init">
+                                                    {
+                                                        "#<?php echo $htmlMassActionId ?>": {
+                                                            "awRmaRequestItemMassAction": {}
+                                                        }
+                                                    }
+                                                    </script>
+                                                </div>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php for ($counter = 1; $counter <= $itemsCount; $counter++): ?>
+                                            <div class="fieldset item-details" data-item="<?php echo $orderItem->getId() ?>" data-index="<?php echo $counter ?>">
+                                                <input type="hidden" name="items[<?php echo $itemsCounter ?>][item_id]" value="<?php echo $orderItem->getId() ?>" />
+                                                <input type="hidden" name="items[<?php echo $itemsCounter ?>][qty]" value="1" />
+                                                <div class="field aw-rma-create-request__item-details-field">
+                                                    <label class="label" for=""><?php echo __('Item #%1', $counter) ?></label>
+                                                    <div class="control">
+                                                        <?php $htmlRemoveLinkId = 'item-remove-' . $orderItem->getId() . $counter ?>
+                                                        <a id="<?php echo $htmlRemoveLinkId ?>" href="#" data-index="<?php echo $counter ?>" data-item="<?php echo $orderItem->getId() ?>"><?php echo __('Remove') ?></a>
+                                                        <script type="text/x-magento-init">
+                                                        {
+                                                            "#<?php echo $htmlRemoveLinkId ?>": {
+                                                                "awRmaRequestItemRemove": {}
+                                                            }
+                                                        }
+                                                        </script>
+                                                    </div>
+                                                </div>
+                                                <?php foreach ($block->getItemCustomFieldCollection() as $customField): ?>
+                                                    <?php echo $block->getItemCustomFieldsInputHtml(
+                                                        $customField,
+                                                        $customField->getName() . $orderItem->getId() . $counter,
+                                                        true,
+                                                        sprintf("items[%d][custom_fields][%d]", $itemsCounter, $customField->getId())
+                                                    ) ?>
+                                                <?php endforeach; ?>
+                                            </div>
+                                            <?php $itemsCounter++; ?>
+                                        <?php endfor; ?>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="fieldset">
+                <div class="field message required aw-rma-create-request__field">
+                    <label class="label message required" for="message">
+                        <span><?php echo __('Message') ?></span>
+                    </label>
+                    <div class="control">
+                        <textarea id="message" name="text" rows="5" class="required-entry"></textarea>
+                    </div>
+                    <div class="actions">
+                        <?php echo $block->getChildHtml('fileUpload') ?>
+                        <button id="aw-rma-create-button" type="submit" title="<?php echo __('Submit Request') ?>" class="action primary post-submit-request">
+                            <span><?php echo __('Submit Request') ?></span>
+                        </button>
+                        <?php if ($block->getPolicyCmsBlockHtml()): ?>
+                            <div class="policy">
+                                <label class="label required" for="policy">
+                                    <span><?php echo __('I accept') ?></span>&nbsp;<a id="aw-rma-show-policy" href="#"><?php echo __('Return Policy regulations') ?></a>
+                                </label>
+                                <input type="checkbox" id="policy" name="policy" class="required-entry" />
+                                <script type="text/x-magento-init">
+                                {
+                                    "#aw-rma-show-policy": {
+                                        "awRmaPolicyLink": {
+                                            "popup": "#aw-rma-policy-popup"
+                                        }
+                                    }
+                                }
+                                </script>
+                                <div id="aw-rma-policy-popup" class="aw-rma-create-request__policy-popup" style="display: none;">
+                                    <?php echo $block->getPolicyCmsBlockHtml() ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+        <script>
+            require([
+                'jquery',
+                'mage/mage'
+            ], function ($) {
+                'use strict';
+                var createRequestForm = $('#aw-rma-create-request-form');
+                createRequestForm.mage('validation', {
+                    'errorPlacement': function(error, element) {
+                        var errorPlacement = element;
+                        if (element.is(':radio')) {
+                            errorPlacement = element.closest('ul');
+                        }
+                        if (element.is(':checkbox')) {
+                            if (element.prop('name') == 'policy') {
+                                errorPlacement = element.closest('div.actions');
+                            }
+                        }
+                        errorPlacement.after(error);
+                    }
+                });
+                createRequestForm.on('submit', function() {
+                    if (createRequestForm.valid()) {
+                        $('#aw-rma-create-button').attr('disabled', 'disabled');
+                    }
+                });
+            });
+        </script>
+    </div>
+</div>

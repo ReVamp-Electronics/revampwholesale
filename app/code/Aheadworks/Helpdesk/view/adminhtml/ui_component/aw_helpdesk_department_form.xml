@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">aw_helpdesk_department_form.aw_helpdesk_department_form_data_source</item>
+            <item name="deps" xsi:type="string">aw_helpdesk_department_form.aw_helpdesk_department_form_data_source</item>
+        </item><item name="label" xsi:type="string" translate="true">Department</item>
+        <item name="config" xsi:type="array">
+            <item name="namespace" xsi:type="string">aw_helpdesk_department_form</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="array">
+                <item name="name" xsi:type="string">back</item>
+                <item name="label" xsi:type="string" translate="true">Back</item>
+                <item name="class" xsi:type="string">back</item>
+                <item name="url" xsi:type="string">*/*/</item>
+            </item>
+            <item name="delete" xsi:type="string">Aheadworks\Helpdesk\Block\Adminhtml\Department\Edit\DeleteButton</item>
+            <item name="save" xsi:type="string">Aheadworks\Helpdesk\Block\Adminhtml\Department\Edit\SaveButton</item>
+        </item>
+    </argument>
+    <dataSource name="aw_helpdesk_department_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Aheadworks\Helpdesk\Ui\Component\Form\DepartmentDataProvider</argument>
+            <argument name="name" xsi:type="string">aw_helpdesk_department_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" xsi:type="url" path="aw_helpdesk/department/save"/>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <fieldset name="main_fieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true"></item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">10</item>
+                <item name="opened" xsi:type="boolean">true</item>
+                <item name="dataScope" xsi:type="string">data</item>
+            </item>
+        </argument>
+        <field name="name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Name</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">aw_helpdesk_department</item>
+                    <item name="dataScope" xsi:type="string">name</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="notice" xsi:type="string" translate="true">Visible to admins only</item>
+                </item>
+            </argument>
+        </field>
+        <field name="website_ids">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Aheadworks\Helpdesk\Model\Source\Websites</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Websites</item>
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="source" xsi:type="string">aw_helpdesk_department</item>
+                    <item name="dataScope" xsi:type="string">website_ids</item>
+                </item>
+            </argument>
+        </field>
+        <field name="is_enabled">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="component" xsi:type="string">Aheadworks_Helpdesk/js/form/enabled-department-switcher</item>
+                    <item name="source" xsi:type="string">aw_helpdesk_department</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">1</item>
+                    <item name="label" xsi:type="string" translate="true">Is Enabled</item>
+                </item>
+            </argument>
+        </field>
+        <field name="is_visible">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="source" xsi:type="string">aw_helpdesk_department</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">1</item>
+                    <item name="label" xsi:type="string" translate="true">Is Visible on the StoreFront</item>
+                </item>
+            </argument>
+        </field>
+        <field name="is_default">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="component" xsi:type="string">Aheadworks_Helpdesk/js/form/default-department-switcher</item>
+                    <item name="source" xsi:type="string">aw_helpdesk_department</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="label" xsi:type="string" translate="true">Is Default Department</item>
+                    <item name="notice" xsi:type="string" translate="true">Number of default departments is limited to one per website</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <fieldset name="store_labels_fieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">StoreFront Labels</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">20</item>
+                <item name="opened" xsi:type="boolean">true</item>
+                <item name="dataScope" xsi:type="string">data</item>
+            </item>
+        </argument>
+        <dynamicRows name="store_labels">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="componentType" xsi:type="string">dynamicRows</item>
+                    <item name="sortOrder" xsi:type="string">1</item>
+                    <item name="addButton" xsi:type="boolean">true</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="admin__field-wide" xsi:type="boolean">true</item>
+                        <item name="aw-helpdesk-department-labels" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="dndConfig" xsi:type="array">
+                        <item name="enabled" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+            </argument>
+            <container name="record">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="isTemplate" xsi:type="boolean">true</item>
+                        <item name="is_collection" xsi:type="boolean">true</item>
+                        <item name="component" xsi:type="string">Magento_Ui/js/dynamic-rows/record</item>
+                        <item name="componentType" xsi:type="string">container</item>
+                    </item>
+                </argument>
+                <field name="store_id">
+                    <argument name="data" xsi:type="array">
+                        <item name="options" xsi:type="object">Aheadworks\Helpdesk\Model\Source\Stores</item>
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="formElement" xsi:type="string">select</item>
+                            <item name="component" xsi:type="string">Magento_Ui/js/form/element/select</item>
+                            <item name="label" xsi:type="string" translate="true">Store View</item>
+                            <item name="dataScope" xsi:type="string">store_id</item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="label">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="visible" xsi:type="boolean">true</item>
+                            <item name="label" xsi:type="string" translate="true">Department Name (displayed to visitors)</item>
+                            <item name="dataScope" xsi:type="string">label</item>
+                            <item name="validation" xsi:type="array">
+                                <item name="min_text_length" xsi:type="number">1</item>
+                            </item>
+                        </item>
+                    </argument>
+                </field>
+                <actionDelete name="action_delete">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="componentType" xsi:type="string">actionDelete</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="fit" xsi:type="boolean">true</item>
+                        </item>
+                    </argument>
+                </actionDelete>
+            </container>
+        </dynamicRows>
+    </fieldset>
+    <fieldset name="gateway_fieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Gateway</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">30</item>
+                <item name="opened" xsi:type="boolean">true</item>
+                <item name="dataScope" xsi:type="string">data.gateway</item>
+            </item>
+        </argument>
+        <field name="is_enabled">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Enable Email Gateway</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="source" xsi:type="string">aw_helpdesk_department</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="notice" xsi:type="string" translate="true">New emails, directed to a gateway mailbox, are automatically converted to tickets. Customer may reply to ticket-related messages via email - no login required. Important: when setting up a gateway, make sure that the selected mailbox does not have any messages in the Inbox folder. If the Inbox folder is not empty, move its entire content to a different folder.</item>
+                    <item name="switcherConfig" xsi:type="array">
+                        <item name="enabled" xsi:type="boolean">true</item>
+                        <item name="rules" xsi:type="array">
+                            <item name="0" xsi:type="array">
+                                <item name="value" xsi:type="number">0</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="target" xsi:type="string">aw_helpdesk_department_form.aw_helpdesk_department_form.gateway_fieldset.protocol</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                    <item name="1" xsi:type="array">
+                                        <item name="target" xsi:type="string">aw_helpdesk_department_form.aw_helpdesk_department_form.gateway_fieldset.host</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                    <item name="2" xsi:type="array">
+                                        <item name="target" xsi:type="string">aw_helpdesk_department_form.aw_helpdesk_department_form.gateway_fieldset.email</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                    <item name="3" xsi:type="array">
+                                        <item name="target" xsi:type="string">aw_helpdesk_department_form.aw_helpdesk_department_form.gateway_fieldset.login</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                    <item name="4" xsi:type="array">
+                                        <item name="target" xsi:type="string">aw_helpdesk_department_form.aw_helpdesk_department_form.gateway_fieldset.password</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                    <item name="5" xsi:type="array">
+                                        <item name="target" xsi:type="string">aw_helpdesk_department_form.aw_helpdesk_department_form.gateway_fieldset.secure_type</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                    <item name="6" xsi:type="array">
+                                        <item name="target" xsi:type="string">aw_helpdesk_department_form.aw_helpdesk_department_form.gateway_fieldset.port</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                    <item name="7" xsi:type="array">
+                                        <item name="target" xsi:type="string">aw_helpdesk_department_form.aw_helpdesk_department_form.gateway_fieldset.is_delete_parsed</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                    <item name="8" xsi:type="array">
+                                        <item name="target" xsi:type="string">aw_helpdesk_department_form.aw_helpdesk_department_form.gateway_fieldset.default_store_id</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                    <item name="9" xsi:type="array">
+                                        <item name="target" xsi:type="string">aw_helpdesk_department_form.aw_helpdesk_department_form.gateway_fieldset.test_connection</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                </item>
+                            </item>
+                            <item name="1" xsi:type="array">
+                                <item name="value" xsi:type="number">1</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="target" xsi:type="string">aw_helpdesk_department_form.aw_helpdesk_department_form.gateway_fieldset.protocol</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                    <item name="1" xsi:type="array">
+                                        <item name="target" xsi:type="string">aw_helpdesk_department_form.aw_helpdesk_department_form.gateway_fieldset.host</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                    <item name="2" xsi:type="array">
+                                        <item name="target" xsi:type="string">aw_helpdesk_department_form.aw_helpdesk_department_form.gateway_fieldset.email</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                    <item name="3" xsi:type="array">
+                                        <item name="target" xsi:type="string">aw_helpdesk_department_form.aw_helpdesk_department_form.gateway_fieldset.login</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                    <item name="4" xsi:type="array">
+                                        <item name="target" xsi:type="string">aw_helpdesk_department_form.aw_helpdesk_department_form.gateway_fieldset.password</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                    <item name="5" xsi:type="array">
+                                        <item name="target" xsi:type="string">aw_helpdesk_department_form.aw_helpdesk_department_form.gateway_fieldset.secure_type</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                    <item name="6" xsi:type="array">
+                                        <item name="target" xsi:type="string">aw_helpdesk_department_form.aw_helpdesk_department_form.gateway_fieldset.port</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                    <item name="7" xsi:type="array">
+                                        <item name="target" xsi:type="string">aw_helpdesk_department_form.aw_helpdesk_department_form.gateway_fieldset.is_delete_parsed</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                    <item name="8" xsi:type="array">
+                                        <item name="target" xsi:type="string">aw_helpdesk_department_form.aw_helpdesk_department_form.gateway_fieldset.default_store_id</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                    <item name="9" xsi:type="array">
+                                        <item name="target" xsi:type="string">aw_helpdesk_department_form.aw_helpdesk_department_form.gateway_fieldset.test_connection</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="default_store_id">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Aheadworks\Helpdesk\Model\Source\Stores</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Default Storeview for New Tickets</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">aw_helpdesk_department</item>
+                    <item name="dataScope" xsi:type="string">default_store_id</item>
+                </item>
+            </argument>
+        </field>
+        <field name="protocol">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Aheadworks\Helpdesk\Model\Source\Gateway\Protocol</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Protocol</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">aw_helpdesk_department</item>
+                    <item name="dataScope" xsi:type="string">protocol</item>
+                </item>
+            </argument>
+        </field>
+        <field name="host">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Gateway Host</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">aw_helpdesk_department</item>
+                    <item name="dataScope" xsi:type="string">host</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="notice" xsi:type="string" translate="true">for example, imap.gmail.com</item>
+                </item>
+            </argument>
+        </field>
+        <field name="email">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Gateway Email</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">aw_helpdesk_department</item>
+                    <item name="dataScope" xsi:type="string">email</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                        <item name="validate-email" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="notice" xsi:type="string" translate="true">An email address for Help Desk Ultimate to fetch messages from. This address must NOT be used by any other person or system!</item>
+                </item>
+            </argument>
+        </field>
+        <field name="login">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Login</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">aw_helpdesk_department</item>
+                    <item name="dataScope" xsi:type="string">login</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="password">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Password</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">password</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">aw_helpdesk_department</item>
+                    <item name="elementTmpl" xsi:type="string">Aheadworks_Helpdesk/ui/department/password</item>
+                    <item name="dataScope" xsi:type="string">password</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="secure_type">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Aheadworks\Helpdesk\Model\Source\Gateway\Secure</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Use SSL/TLS</item>
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">aw_helpdesk_department</item>
+                    <item name="dataScope" xsi:type="string">secure_type</item>
+                </item>
+            </argument>
+        </field>
+        <field name="port">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Port</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">aw_helpdesk_department</item>
+                    <item name="dataScope" xsi:type="string">port</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="validate-number" xsi:type="boolean">true</item>
+                        <item name="validate-digits" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="notice" xsi:type="string" translate="true">993 for IMAP-SSL, 143 for IMAP-TLS, 110 for POP3 and 995 for POP3-SSL by default. Make sure that the specified port is opened in your server's firewall settings, otherwise, the extension will be unable to connect to the gateway.</item>
+                </item>
+            </argument>
+        </field>
+        <field name="is_delete_parsed">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="source" xsi:type="string">aw_helpdesk_department</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="label" xsi:type="string" translate="true">Delete Emails from Host</item>
+                    <item name="notice" xsi:type="string" translate="true">This option defines whether an email will be removed from the gateway mailbox after it gets parsed by Help Desk Ultimate</item>
+                </item>
+            </argument>
+        </field>
+        <field name="test_connection">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="title" xsi:type="string" translate="true">Test Connection</item>
+                    <item name="formElement" xsi:type="string">button</item>
+                    <item name="additionalClasses" xsi:type="string">admin__field-small aw-helpdesk-gateway-test-button</item>
+                    <item name="component" xsi:type="string">Aheadworks_Helpdesk/js/form/test-connection-button</item>
+                    <item name="template" xsi:type="string">ui/form/components/button/container</item>
+                    <item name="source" xsi:type="string">aw_helpdesk_department</item>
+                    <item name="actions" xsi:type="array">
+                        <item name="0" xsi:type="array">
+                            <item name="url" xsi:type="url" path="aw_helpdesk/department/testConnection"/>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <fieldset name="permissions_fieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Permissions</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">40</item>
+                <item name="opened" xsi:type="boolean">true</item>
+                <item name="dataScope" xsi:type="string">data.permissions</item>
+            </item>
+        </argument>
+        <field name="view_role_ids">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Aheadworks\Helpdesk\Model\Source\Roles</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Admins who can view tickets in that department</item>
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="source" xsi:type="string">aw_helpdesk_department</item>
+                    <item name="dataScope" xsi:type="string">view_role_ids</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="update_role_ids">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Aheadworks\Helpdesk\Model\Source\Roles</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Admins who can update tickets in that department</item>
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="source" xsi:type="string">aw_helpdesk_department</item>
+                    <item name="dataScope" xsi:type="string">update_role_ids</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="assign_role_ids">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Aheadworks\Helpdesk\Model\Source\Roles</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Admins who can assign tickets in that department</item>
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="source" xsi:type="string">aw_helpdesk_department</item>
+                    <item name="dataScope" xsi:type="string">assign_role_ids</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+</form>

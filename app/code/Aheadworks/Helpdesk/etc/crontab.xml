@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="index">
+        <job name="aw_helpdesk_create_mail" instance="Aheadworks\Helpdesk\Cron\CreateMail" method="execute">
+            <schedule>*/5 * * * *</schedule>
+        </job>
+        <job name="aw_helpdesk_create_ticket" instance="Aheadworks\Helpdesk\Cron\CreateTicket" method="execute">
+            <schedule>*/5 * * * *</schedule>
+        </job>
+        <job name="aw_helpdesk_run_automation" instance="Aheadworks\Helpdesk\Cron\RunAutomation" method="execute">
+            <schedule>*/5 * * * *</schedule>
+        </job>
+        <job name="aw_helpdesk_update_automation" instance="Aheadworks\Helpdesk\Cron\UpdateAutomation" method="execute">
+            <schedule>*/5 * * * *</schedule>
+        </job>
+        <job name="aw_helpdesk_create_automation" instance="Aheadworks\Helpdesk\Cron\CreateAutomation" method="execute">
+            <schedule>*/5 * * * *</schedule>
+        </job>
+    </group>
+</config>

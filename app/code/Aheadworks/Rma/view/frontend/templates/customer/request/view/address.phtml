@@ -1,0 +1,123 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Rma\Block\Customer\Request\View\Address */
+?>
+<?php
+    $printLabel = $block->getPrintLabel();
+?>
+<div id="aw-rma-view-address" data-bind="scope:'aw_rma_view_address'" style="display: none;">
+    <div class="info" data-bind="ifnot: editMode">
+        <?php echo $printLabel['firstname'] ?> <?php echo $printLabel['lastname'] ?><br/>
+        <?php foreach ($printLabel['street'] as $streetLine): echo $streetLine; ?> <?php endforeach; ?><br/>
+        <?php echo $printLabel['city'] ?><br/>
+        <?php echo $printLabel['region'] ?><br/>
+        <?php echo $block->getCountryName($printLabel['country_id']) ?><br/>
+        <?php echo $printLabel['postcode'] ?><br/>
+        <?php echo $printLabel['telephone'] ?><br/>
+        <a class="action edit" href="#" data-bind="event: {click: editClick}">
+            <span><?php echo __('edit') ?></span>
+        </a>
+    </div>
+    <form id="aw-rma-view-address-form"
+          action="<?php echo $block->getSubmitUrl() ?>"
+          method="post"
+          style="display: none;"
+          data-bind="visible: editMode,
+                     if: editMode,
+                     submit: formSubmit,
+                     blockLoader: isLoading" >
+
+        <?php echo $block->getBlockHtml('formkey') ?>
+        <input name="request_id" type="hidden" data-bind="value: getData('request_id')" />
+        <div class="field aw-rma-view__field">
+            <label class="label name required" for="contact-info-firstname" data-bind="i18n: 'First Name'"></label>
+            <div class="control">
+                <input id="contact-info-firstname" name="firstname" type="text" class="input-text required-entry" data-bind="value: getData('firstname')"/>
+            </div>
+        </div>
+        <div class="field aw-rma-view__field">
+            <label class="label name required" for="contact-info-firstname" data-bind="i18n: 'Last Name'"></label>
+            <div class="control">
+                <input id="contact-info-lastname" name="lastname" type="text" class="input-text required-entry" data-bind="value: getData('lastname')"/>
+            </div>
+        </div>
+        <div class="field street required aw-rma-view__field">
+            <label class="label" for="contact-info-street1" data-bind="i18n: 'Address Line 1'"></label>
+            <div class="control">
+                <input id="contact-info-street1" name="street[0]" type="text" class="input-text required-entry" data-bind="value: getData('street')[0]"/>
+            </div>
+        </div>
+        <div class="field street aw-rma-view__field">
+            <label class="label" for="contact-info-street2" data-bind="i18n: 'Address Line 2'"></label>
+            <div class="control">
+                <input id="contact-info-street2" name="street[1]" type="text" class="input-text" data-bind="value: getData('street')[1]"/>
+            </div>
+        </div>
+        <div class="field city required aw-rma-view__field">
+            <label class="label" for="contact-info-city" data-bind="i18n: 'City'"></label>
+            <div class="control">
+                <input id="contact-info-city" name="city" type="text" class="input-text required-entry" data-bind="value: getData('city')"/>
+            </div>
+        </div>
+        <div class="field region required aw-rma-view__field">
+            <label class="label" for="contact-info-region-id" data-bind="i18n: 'State/Region'"></label>
+            <div class="control">
+                <select id="contact-info-region-id" name="region_id" class="validate-select">
+                    <option value="" data-bind="i18n: 'Please select a region, state or province.'"></option>
+                </select>
+                <input id="contact-info-region" name="region" type="text" value="" class="input-text required-entry" data-bind="value: getData('region')"/>
+            </div>
+        </div>
+        <div class="field country required aw-rma-view__field">
+            <label class="label" for="contact-info-country-id"><span data-bind="i18n: 'Country'"></span></label>
+            <div class="control">
+                <select id="contact-info-country-id" name="country_id" class="validate-select"
+                        data-bind="options: getData('countryOptions'),
+                                   optionsText: 'label',
+                                   optionsValue: 'value',
+                                   value: getData('countryId')"></select>
+            </div>
+        </div>
+        <div class="field zip required aw-rma-view__field">
+            <label class="label" for="contact-info-zip"><span data-bind="i18n: 'Zip/Postal Code'"></span></label>
+            <div class="control">
+                <input id="contact-info-zip" name="postcode" type="text" class="input-text validate-zip-international required-entry" data-bind="value: getData('postcode')">
+            </div>
+        </div>
+        <div class="field telephone required aw-rma-view__field">
+            <label class="label" for="contact-info-telephone"><span data-bind="i18n: 'Phone Number'"></span></label>
+            <div class="control">
+                <input id="contact-info-telephone" name="telephone" type="text" class="input-text required-entry" data-bind="value: getData('telephone')">
+            </div>
+        </div>
+        <div class="actions">
+            <button type="submit" title="<?php echo __('Save') ?>" class="action primary save-address" data-bind="submit: formSubmit">
+                <span data-bind="i18n: 'Save'"></span>
+            </button>
+        </div>
+    </form>
+</div>
+<script type="text/x-magento-init">
+    {
+         "#aw-rma-view-address": {
+              "Magento_Ui/js/core/app": <?php echo $block->getJsLayout();?>,
+              "Aheadworks_Rma/js/model/customer/request/view/address": <?php echo $block->getAddressJsData() ?>
+         },
+         "#contact-info-country-id": {
+            "regionUpdater": {
+                "optionalRegionAllowed": <?php echo ($block->isOptionalRegionAllowed() ? 'true' : 'false'); ?>,
+                "regionListId": "#contact-info-region-id",
+                "regionInputId": "#contact-info-region",
+                "postcodeId": "#contact-info-zip",
+                "form": "#aw-rma-view-address-form",
+                "regionJson": <?php echo $block->getRegionJson() ?>,
+                "defaultRegion": "<?php echo $printLabel['region_id'] ?>",
+                "countriesWithOptionalZip": <?php echo $block->getCountriesWithOptionalZip() ?>
+            }
+        }
+    }
+</script>

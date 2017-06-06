@@ -1,0 +1,36 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Rma\Block\Adminhtml\Request\Edit\Tabs\General */
+$request = $block->getRmaRequest();
+?>
+<div class="tab-general-request-data">
+    <h3 class="request-status-label"><?php echo $block->getStatusLabel(); ?></h3>
+    <h2 class="request-increment-id"><?php echo $request->getIncrementId(); ?></h2>
+    <span class="tab-general-resoluton"><?php echo $block->getResolution(); ?></span>
+    <div class="tab-general-created-date"><?php echo $block->getRequestCreatedAt(); ?></div>
+</div>
+<div class="tab-general-request-items">
+    <?php foreach ($request->getItemsCollection() as $item): ?>
+        <div class="product-header">
+            <?php if ($item->getProductId()) : ?>
+                <a class="product-link" href="<?php echo $block->getProductLink($item->getProductId())?>"><?php echo $item->getName()?></a>
+            <?php else : ?>
+                <?php echo $item->getName()?>
+        <?php endif; ?>
+        </div>
+        <table class="admin__table-primary">
+            <tbody>
+            <tr>
+                <td class="col-reason"><?php echo $block->getItemReason($item); ?></td>
+                <td class="col-reason"><?php echo __("Qty: %1", $item->getQty())?></td>
+                <td class="col-price"><span class="price"><?php echo $block->formatPrice($item->getPrice())?></span></td>
+            </tr>
+
+            </tbody>
+        </table>
+    <?php endforeach; ?>
+</div>

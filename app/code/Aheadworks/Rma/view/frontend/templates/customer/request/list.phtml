@@ -1,0 +1,74 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Rma\Block\Customer\Request\ListRequest */
+?>
+<?php
+    $requests = $block->getRequestCollection();
+?>
+<?php if ($requests && count($requests)): ?>
+    <div class="table-wrapper aw-rma-list">
+        <table class="data table" id="my-rma-table">
+            <caption class="table-caption"><?php echo __('My Returns') ?></caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="col id"><?php echo __('Return ID') ?></th>
+                    <th scope="col" class="col order_id"><?php echo __('Order ID') ?></th>
+                    <th scope="col" class="col products"><?php echo __('Product(s)') ?></th>
+                    <th scope="col" class="col status"><?php echo __('Status') ?></th>
+                    <th scope="col" class="col updated_at"><?php echo __('Updated At') ?></th>
+                    <th scope="col" class="col created_at"><?php echo __('Created At') ?></th>
+                    <th scope="col" class="col actions">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($requests as $request): ?>
+                    <tr>
+                        <td data-th="<?php echo $block->escapeHtml(__('Return ID')) ?>" class="col id">
+                            <?php echo $request->getIncrementId() ?>
+                        </td>
+                        <td data-th="<?php echo $block->escapeHtml(__('Order ID')) ?>" class="col order_id">
+                            <a href="<?php echo $block->getOrderViewUrl($request->getOrderId()) ?>">
+                                <span>#<?php echo $request->getOrderIncrementId() ?></span>
+                            </a>
+                        </td>
+                        <td data-th="<?php echo $block->escapeHtml(__('Product(s)')) ?>" class="col products">
+                            <?php foreach($request->getItemsCollection() as $requestItem): ?>
+                                <?php if ($block->isProductExists($requestItem->getProductId())): ?>
+                                    <a href="<?php echo $block->getProductViewUrl($requestItem) ?>">
+                                        <span><?php echo $requestItem->getName() ?></span>
+                                    </a>
+                                <?php else: ?>
+                                    <?php echo $requestItem->getName() ?>
+                                <?php endif; ?>
+                                <br/>
+                            <?php endforeach; ?>
+                        </td>
+                        <td data-th="<?php echo $block->escapeHtml(__('Status')) ?>" class="col status">
+                            <?php echo $request->getStatusFrontendLabel() ?>
+                        </td>
+                        <td data-th="<?php echo $block->escapeHtml(__('Updated At')) ?>" class="col updated_at">
+                            <?php echo $block->formatDate($request->getUpdatedAt()) ?>
+                        </td>
+                        <td data-th="<?php echo $block->escapeHtml(__('Created At')) ?>" class="col created_at">
+                            <?php echo $block->formatDate($request->getCreatedAt()) ?>
+                        </td>
+                        <td data-th="<?php echo $block->escapeHtml(__('Actions')) ?>" class="col actions">
+                            <a href="<?php echo $block->getRequestViewUrl($request->getId()) ?>">
+                                <span><?php echo __('View Request') ?></span>
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php if ($block->getPagerHtml()): ?>
+        <div class="aw-rma-list-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+    <?php endif ?>
+<?php else: ?>
+    <div class="message info empty"><span><?php echo __('You have no returns.'); ?></span></div>
+<?php endif ?>

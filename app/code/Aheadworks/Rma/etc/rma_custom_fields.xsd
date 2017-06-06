@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="config">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="custom_field" type="customField" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="customField">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="type" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="refers" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="visible_for_status_ids" type="statuses" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="editable_for_status_ids" type="statuses" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="editable_admin_for_status_ids" type="statuses" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="is_required" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="is_display_in_label" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="attribute" type="attribute" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="option" type="option" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="attribute">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="value" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="option">
+        <xs:sequence>
+            <xs:element name="value" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="default" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="statuses">
+        <xs:sequence>
+            <xs:element name="id" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

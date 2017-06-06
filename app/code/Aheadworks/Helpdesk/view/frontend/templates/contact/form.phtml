@@ -1,0 +1,30 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+// @codingStandardsIgnoreFile
+/** @var \Aheadworks\Helpdesk\Block\Contact\Form $block */
+?>
+<?php if ($block->getDepartments()) :?>
+    <div class="field department_id required" style="display:none">
+        <label for="department_id" class="label"><span><?php echo $block->escapeHtml(__('Department')); ?></span></label>
+        <div class="control">
+            <select id="department_id" name="department_id">
+                <?php foreach ($block->getDepartments() as $departmentId => $name): ?>
+                    <option value="<?php echo $block->escapeHtml($departmentId); ?>">
+                        <?php echo $block->escapeHtml($name); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <script type="text/x-magento-init">
+            {
+                ".contact .telephone": {
+                    "awHelpdeskContactForm": {"awHelpdeskSelector":".contact .department_id"}
+                }
+            }
+        </script>
+    </div>
+<?php endif; ?>

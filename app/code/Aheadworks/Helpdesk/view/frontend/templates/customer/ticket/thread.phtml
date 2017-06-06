@@ -1,0 +1,73 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Helpdesk\Block\Customer\Ticket\Thread */
+
+$ticket = $block->getTicket();
+$ticketIsSolved = $ticket->getStatus() == \Aheadworks\Helpdesk\Model\Source\Ticket\Status::SOLVED_VALUE;
+?>
+<div class="block block-thread">
+    <?php if (!$ticketIsSolved): ?>
+        <form id="aw-helpdesk-customer-reply-form" action="<?php echo $block->getSubmitReplyUrl() ?>" method="post" enctype="multipart/form-data">
+        <?php echo $block->getBlockHtml('formkey')?>
+        <?php if ($block->getExternalKey()): ?>
+        <input type="hidden" name="external_key" value="<?php echo $block->getExternalKey() ?>" />
+        <?php else: ?>
+        <input type="hidden" name="ticket_id" value="<?php echo $block->getTicket()->getId() ?>" />
+        <?php endif; ?>
+        <div class="field">
+            <div class="control">
+                <textarea id="aw-helpdesk-message" name="content" rows="5" placeholder="<?php echo __('Type here to add an answer') ?>" class="required-entry"></textarea>
+            </div>
+        </div>
+        <div class="actions">
+            <?php echo $block->getChildHtml('fileUpload') ?>
+            <button id="aw-helpdesk-reply-button" type="submit" title="<?php echo __('Post Reply') ?>" class="action primary post-reply">
+                <span><?php echo __('Post Reply'); ?></span>
+            </button>
+        </div>
+    </form>
+    <?php else: ?>
+        <?php if ($block->getCreateTicketUrl()): ?>
+        <span>This ticket is solved. Click <a href="<?php echo $block->getCreateTicketUrl() ?>">here</a> to create a new one.</span>
+        <?php endif; ?>
+    <?php endif; ?>
+    <script>
+        require([
+            'jquery',
+            'mage/mage'
+        ], function ($) {
+            'use strict';
+            var replyForm = $('#aw-helpdesk-customer-reply-form');
+            replyForm.mage('validation', {});
+            replyForm.on('submit', function() {
+                if (replyForm.valid()) {
+                    $('#aw-helpdesk-reply-button').attr('disabled', 'disabled');
+                }
+            });
+        });
+    </script>
+    <ul class="messages">
+        <?php foreach ($block->getTicket()->getFrontendThread() as $threadMessage):
+            /** @var \Aheadworks\Helpdesk\Model\ThreadMessage $threadMessage */
+            $classNames = ['aw-helpdesk-ticket-view__thread-message'];
+            $classNames[] = $threadMessage->getType();
+            ?>
+            <li class="<?php echo implode(' ', $classNames) ?>">
+                <div class="message-header">
+                    <span class='name'><?php echo $threadMessage->getAuthorName() ?></span>
+                    <span class='date'><?php echo $block->getSmartDate($threadMessage->getCreatedAt()) ?></span>
+                </div>
+                <div class="aw-helpdesk-ticket-view__message-text"><?php echo nl2br($block->escapeHtml($threadMessage->getContent())) ?></div>
+                <?php foreach ($threadMessage->getAttachments() as $attachmentData): ?>
+                    <div class="aw-helpdesk-ticket-view__attachment">
+                        <a href="<?php echo $block->getDownloadUrl($attachmentData['id']) ?>"><?php echo $block->escapeHtml($attachmentData['name']) ?></a> (<?php echo $block->formatFileSize($attachmentData['length'])?>)
+                    </div>
+                <?php endforeach; ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</div>

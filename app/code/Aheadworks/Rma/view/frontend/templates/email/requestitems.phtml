@@ -1,0 +1,36 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Magento\Framework\View\Element\Template */
+?>
+<?php
+    $request = $block->getRmaRequest();
+    $items = $request->getItems();
+?>
+<table border="1" class="aw-rma-datatable">
+    <thead style="font-size: -2px;">
+        <tr>
+            <th><?php echo __('Name') ?></th>
+            <th><?php echo __('SKU') ?></th>
+            <th><?php echo __('Count') ?></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if ($request && $items && $items['totalRecords'] > 0): ?>
+            <?php foreach ($items['items'] as $item): ?>
+                <tr>
+                    <td><?php echo $item['name'] ?></td>
+                    <td><span class="nobr"><?php echo $item['sku'] ?></span></td>
+                    <td align="center"><?php echo $item['qty'] ?></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr>
+                <td colspan="3"><?php echo __('No items requested') ?></td>
+            </tr>
+        <?php endif; ?>
+    </tbody>
+</table>

@@ -1,0 +1,14 @@
+<!--@subject [#{{var ticket.uid}}] Ticket assigned: {{var ticket.subject}}@-->
+
+Hello {{var agent.firstname}}<br/><br/>
+
+A customer ticket has been reassigned to you:<br/><br/>
+
+Department: {{var department_name}}<br/>
+Customer name: {{var ticket.customer_name}}<br/>
+Subject: {{var ticket.subject}}<br/>
+Content:<br/>
+{{var ticket.first_message}}<br/>
+Status: {{var ticket.status}}<br/><br/>
+
+Click <a href="{{var ticket.backend_url}}">here</a> to view ticket.

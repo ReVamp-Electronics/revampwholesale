@@ -1,0 +1,16 @@
+<!-- ko if: hasLink($row())-->
+<a
+        data-bind="
+            attr: {
+                href: getLinkUrl($row())
+            },
+            text: getCustomerName($row())"></a>
+<br/>
+<!-- ko text: getCustomerEmail($row()) --><!-- /ko -->
+<!-- /ko -->
+
+<!-- ko ifnot: hasLink($row()) -->
+<!-- ko text: getGuestCustomerName($row()) --><!-- /ko -->
+<br/>
+<!-- ko text: getGuestCustomerEmail($row()) --><!-- /ko -->
+<!-- /ko -->

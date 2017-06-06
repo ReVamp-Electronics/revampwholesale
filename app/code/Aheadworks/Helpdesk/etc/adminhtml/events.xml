@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="aheadworks_helpdesk_api_data_departmentinterface_save_before">
+        <observer name="departmentSaveBefore" instance="Aheadworks\Helpdesk\Model\ResourceModel\Department\Observer\SaveBefore" />
+    </event>
+</config>

@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="aheadworks" translate="label" sortOrder="300">
+            <label>Aheadworks Extensions</label>
+        </tab>
+        <section id="aw_rma" translate="label" type="text" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>RMA</label>
+            <tab>aheadworks</tab>
+            <resource>Aheadworks_Rma::config_aw_rma</resource>
+
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="return_period" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Return Period</label>
+                    <validate>validate-digits</validate>
+                    <comment>Allow to request RMA after order completion, days</comment>
+                </field>
+                <field id="allow_guest_requests" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allow guests to request RMA</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="confirm_shipping_popup_text" translate="label" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>"Confirm Shipping" alert text</label>
+                </field>
+            </group>
+            <group id="blocks_and_policy" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>RMA text blocks and Policy</label>
+                <field id="guest_rma_block" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Guest RMA page block</label>
+                    <source_model>Aheadworks\Rma\Model\Source\Config\Cms\Block</source_model>
+                </field>
+                <field id="product_selection_block" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product selection page block</label>
+                    <source_model>Aheadworks\Rma\Model\Source\Config\Cms\Block</source_model>
+                </field>
+                <field id="reasons_and_details_block" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Reasons and details page block</label>
+                    <source_model>Aheadworks\Rma\Model\Source\Config\Cms\Block</source_model>
+                </field>
+                <field id="policy_block" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Policy Block</label>
+                    <source_model>Aheadworks\Rma\Model\Source\Config\Cms\Block</source_model>
+                </field>
+            </group>
+            <group id="contacts" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Contacts</label>
+                <field id="department_name" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>RMA Department display name</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="department_email" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>RMA Department email</label>
+                    <validate>validate-email</validate>
+                </field>
+                <field id="department_address" translate="label" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>RMA Department address</label>
+                </field>
+            </group>
+            <group id="email" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Email Notifications</label>
+                <field id="template_to_customer_thread" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Reply by Admin</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="template_to_admin_thread" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Reply by Customer</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

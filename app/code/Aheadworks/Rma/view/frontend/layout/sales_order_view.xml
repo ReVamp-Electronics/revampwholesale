@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Aheadworks_Rma::css/style.css"/>
+    </head>
+    <body>
+        <referenceBlock name="sales.order.info.buttons">
+            <block class="Aheadworks\Rma\Block\Sales\Order\RequestLink" name="aw_rma.order.view.requestlink" />
+        </referenceBlock>
+    </body>
+</page>
