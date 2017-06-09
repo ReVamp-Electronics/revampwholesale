@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="buttons" xsi:type="array">
+            <item name="iwd_om_log" xsi:type="array">
+                <item name="name" xsi:type="string">iwd_om_log</item>
+                <item name="label" xsi:type="string" translate="true">Log</item>
+                <item name="url" xsi:type="string">iwdordermanager/log</item>
+            </item>
+        </item>
+    </argument>
+    <listingToolbar name="listing_top">
+        <massaction name="listing_massaction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>
+                </item>
+            </argument>
+            <action name="delete">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">delete</item>
+                        <item name="label" xsi:type="string" translate="true">Delete Order(s)</item>
+                        <item name="url" xsi:type="url" path="iwdordermanager/order_massactions/delete"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Delete Items</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure you wan't to delete selected items?</item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+            <action name="status">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">status</item>
+                        <item name="label" xsi:type="string" translate="true">Change status</item>
+                    </item>
+                </argument>
+                <argument name="actions" xsi:type="configurableObject">
+                    <argument name="class" xsi:type="string">IWD\OrderManager\Ui\Component\MassAction\Status\Options</argument>
+                    <argument name="data" xsi:type="array">
+                        <item name="urlPath" xsi:type="string">iwdordermanager/order_massactions/editstatus</item>
+                        <item name="paramName" xsi:type="string">status</item>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Change status</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure to change order status?</item>
+                        </item>
+                    </argument>
+                </argument>
+            </action>
+            <action name="iwd_print_orders">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">iwd_print_orders</item>
+                        <item name="label" xsi:type="string" translate="true">Print Order(s)</item>
+                        <item name="url" xsi:type="url" path="iwdordermanager/order_massactions/print"/>
+                    </item>
+                </argument>
+            </action>
+        </massaction>
+    </listingToolbar>
+</listing>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- need to override protected methods -->
+    <preference for="Magento\User\Model\ResourceModel\User" type="IWD\SalesRep\Model\Preference\ResourceModel\User\User"/>
+    <type name="\Magento\User\Block\User\Edit\Tabs">
+        <plugin name="salesrep_user_edit_grid" type="IWD\SalesRep\Block\Adminhtml\Plugin\User\Edit\Tabs"/>
+    </type>
+    <preference for="Magento\User\Controller\Adminhtml\User\Save" type="IWD\SalesRep\Controller\Adminhtml\Preference\User\Save"/>
+    <type name="Magento\User\Block\User\Edit">
+        <plugin name="salesrep_user" type="\IWD\SalesRep\Block\Adminhtml\Plugin\User\Edit" sortOrder="50" />
+    </type>
+    <type name="Magento\User\Block\User\Edit\Tab\Main">
+        <plugin name="salesrep_main_tab" type="\IWD\SalesRep\Block\Adminhtml\Plugin\User\Tab\Main"/>
+    </type>
+    <type name="Magento\User\Model\ResourceModel\User">
+        <plugin name="salesrep_on_delete_user" type="\IWD\SalesRep\Model\Plugin\User\ResourceModel\User" sortOrder="50" />
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <plugin name="salesrep_order_grids" type="\IWD\SalesRep\Model\Plugin\Framework\View\Element\UiComponent\DataProvider\DataProvider"/>
+    </type>
+    <preference for="Magento\Customer\Model\Data\Customer" type="IWD\SalesRep\Model\Preference\Customer\Data\Customer"/>
+    <type name="Magento\Customer\Model\AccountManagement">
+        <plugin name="salesrep_assign_customer" type="IWD\SalesRep\Model\Plugin\Customer\Backend\AccountManagement"/>
+    </type>
+</config>

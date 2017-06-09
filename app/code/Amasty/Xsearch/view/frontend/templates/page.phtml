@@ -1,0 +1,27 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_Xsearch
+ */
+?>
+<?php $_pageCollection = $block->getLoadedPageCollection();?>
+<?php if ($_pageCollection->count()): ?>
+<li class="amasty-xsearch-block-header"><?php echo __($block->getTitle())?></li>
+    <?php foreach ($_pageCollection as $_page): ?>
+
+        <li class="page-item" click-url="<?php /* @escapeNotVerified */ echo $block->getUrl(null, ['_direct' => $_page->getIdentifier()]) ?>">
+            <strong>
+                <a
+                   href="<?php /* @escapeNotVerified */ echo $block->getUrl(null, ['_direct' => $_page->getIdentifier()]) ?>">
+                    <?php /* @escapeNotVerified */ echo $block->getName($_page); ?>
+                </a>
+            </strong>
+            <?php if ($block->showDescription($_page)) :?>
+                <div>
+                    <?php /* @escapeNotVerified */ echo $block->getDescription($_page)?>
+                </div>
+            <?php endif; ?>
+        </li>
+    <?php endforeach;?>
+<?php endif; ?>

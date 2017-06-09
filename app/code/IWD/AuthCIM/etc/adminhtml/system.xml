@@ -1,0 +1,170 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="payment">
+            <group id="iwd_authcim" translate="label" type="text" sortOrder="4000" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Authorize.net CIM (by IWD)</label>
+                <field id="version" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Version</label>
+                    <frontend_model>IWD\AuthCIM\Block\Adminhtml\System\Config\Version</frontend_model>
+                </field>
+                <field id="documentation" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Documentation</label>
+                    <frontend_model>IWD\AuthCIM\Block\Adminhtml\System\Config\Documentation</frontend_model>
+                </field>
+                <group id="general" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>General Settings</label>
+                    <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Enabled</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>payment/iwd_authcim/active</config_path>
+                    </field>
+                    <field id="status" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Status</label>
+                        <frontend_model>IWD\AuthCIM\Block\Adminhtml\System\Config\Status</frontend_model>
+                        <config_path>payment/iwd_authcim/status</config_path>
+                    </field>
+                    <field id="api_key" translate="label" type="obscure" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>API Login ID</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <config_path>payment/iwd_authcim/api_key</config_path>
+                    </field>
+                    <field id="trans_key" translate="label" type="obscure" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Transaction Key</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <config_path>payment/iwd_authcim/trans_key</config_path>
+                    </field>
+                    <field id="sandbox" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Authorize.Net Sandbox Account</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>payment/iwd_authcim/sandbox</config_path>
+                        <comment>Set to 'Yes' if you entered API credentials for a sandbox account. Test mode for this account must be disabled in order to use CIM.</comment>
+                    </field>
+                    <field id="url_test" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                        <label>Test Gateway URL</label>
+                        <depends><field id="sandbox">1</field></depends>
+                        <config_path>payment/iwd_authcim/url_test</config_path>
+                    </field>
+                    <field id="url_live" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                        <label>Live Gateway URL</label>
+                        <depends><field id="sandbox">0</field></depends>
+                        <config_path>payment/iwd_authcim/url_live</config_path>
+                    </field>
+                    <field id="acceptjs_enabled" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Accept.js Enabled</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>payment/iwd_authcim/acceptjs_enabled</config_path>
+                        <comment><![CDATA[<b>Recommended.</b> Integrating the Accept.js library into your application helps minimize your PCI compliance because it sends payment data directly to Authorize.Net.
+                        <a href="https://developer.authorize.net/api/reference/features/acceptjs.html" target="_blank" >More information.</a><br/><b>Note:</b> https is required!]]></comment>
+                    </field>
+                    <field id="acceptjs_key" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Accept.js Client Key</label>
+                        <depends><field id="acceptjs_enabled">1</field></depends>
+                        <config_path>payment/iwd_authcim/acceptjs_key</config_path>
+                        <comment><![CDATA[Public key for the merchant. It can be generated in the Authorize.Net Merchant Interface at Account > Settings > Security Settings > General Security Settings > Manage Public Client Key.</a>]]></comment>
+                    </field>
+                    <field id="acceptjs_url_test" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                        <label>Accept.js Test URL</label>
+                        <depends><field id="acceptjs_enabled">1</field><field id="sandbox">1</field></depends>
+                        <config_path>payment/iwd_authcim/acceptjs_url_test</config_path>
+                    </field>
+                    <field id="acceptjs_url_live" translate="label" type="text" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                        <label>Accept.js Live URL</label>
+                        <depends><field id="acceptjs_enabled">1</field><field id="sandbox">0</field></depends>
+                        <config_path>payment/iwd_authcim/acceptjs_url_live</config_path>
+                    </field>
+                </group>
+                <group id="advanced" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Advanced Settings</label>
+                    <field id="title" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Title</label>
+                        <config_path>payment/iwd_authcim/title</config_path>
+                    </field>
+                    <field id="payment_action" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Payment Action</label>
+                        <source_model>IWD\AuthCIM\Model\Config\Source\PaymentAction</source_model>
+                        <config_path>payment/iwd_authcim/payment_action</config_path>
+                    </field>
+                    <field id="validation_type" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Validation Type</label>
+                        <source_model>IWD\AuthCIM\Model\Config\Source\Validation</source_model>
+                        <config_path>payment/iwd_authcim/validation_type</config_path>
+                        <comment><![CDATA[<i>Test transaction $0.01</i> - a test charge will be used to verify customer's card is valid. Transaction will be voided after check and customer will not be charged.<br/><i>Card number validation only</i> - system will verify the credit card number matches the card type]]></comment>
+                    </field>
+                    <field id="cc_save" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Save Cards</label>
+                        <config_path>payment/iwd_authcim/cc_save</config_path>
+                        <source_model>IWD\AuthCIM\Model\Config\Source\SaveCC</source_model>
+                        <comment><![CDATA[Credit cards never saved in Magento!<br/>Customer profile and payment profile will be created on Authorize.net server in any case.]]></comment>
+                    </field>
+                    <field id="order_status" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>New Order Status</label>
+                        <config_path>payment/iwd_authcim/order_status</config_path>
+                        <source_model>Magento\Sales\Model\Config\Source\Order\Status\Processing</source_model>
+                    </field>
+                    <field id="cctypes" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                        <label>Credit Card Types</label>
+                        <config_path>payment/iwd_authcim/cctypes</config_path>
+                        <source_model>Magento\Authorizenet\Model\Source\Cctype</source_model>
+                    </field>
+                    <field id="useccv" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Credit Card Verification</label>
+                        <config_path>payment/iwd_authcim/useccv</config_path>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="currency" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                        <label>Accepted Currency</label>
+                        <config_path>payment/iwd_authcim/currency</config_path>
+                        <source_model>Magento\Config\Model\Config\Source\Locale\Currency</source_model>
+                    </field>
+                    <field id="allowspecific" translate="label" type="allowspecific" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                        <label>Payment from Applicable Countries</label>
+                        <config_path>payment/iwd_authcim/allowspecific</config_path>
+                        <source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+                    </field>
+                    <field id="specificcountry" translate="label" type="multiselect" sortOrder="91" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Payment from Specific Countries</label>
+                        <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                        <config_path>payment/iwd_authcim/specificcountry</config_path>
+                        <depends><field id="allowspecific">1</field></depends>
+                    </field>
+                    <field id="min_order_total" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Minimum Order Total</label>
+                        <config_path>payment/iwd_authcim/min_order_total</config_path>
+                    </field>
+                    <field id="max_order_total" translate="label" type="text" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Maximum Order Total</label>
+                        <config_path>payment/iwd_authcim/max_order_total</config_path>
+                    </field>
+                    <field id="sort_order" translate="label" type="text" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Sort Order</label>
+                        <frontend_class>validate-number</frontend_class>
+                        <config_path>payment/iwd_authcim/sort_order</config_path>
+                    </field>
+                    <field id="debug" translate="label" type="select" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                        <label>Debug</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>payment/iwd_authcim/debug</config_path>
+                        <comment>If 'Yes' then all communication with the payment system is recorded in a log file</comment>
+                    </field>
+                </group>
+                <group id="additional" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Additional Settings</label>
+                    <field id="send_shipping_address" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Send Shipping Address</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>payment/iwd_authcim/send_shipping_address</config_path>
+                        <comment>If 'Yes' then the customers shipping address will be sent with the payment transaction</comment>
+                    </field>
+                    <field id="send_line_items" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Send Line Items</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>payment/iwd_authcim/send_line_items</config_path>
+                        <comment>If 'Yes' then the ordered items will be included with each transaction</comment>
+                    </field>
+                </group>
+            </group>
+        </section>
+    </system>
+</config>

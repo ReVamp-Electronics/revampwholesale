@@ -1,0 +1,347 @@
+.iwd-onepage-checkout {
+  #payment_form_iwd_authcim {
+    .field.iwd-authcim-saved-cc {
+      margin-bottom: 25px;
+    }
+    .field.choice {
+      margin-top: 25px;
+    }
+    .notice {
+      font-size: 10px;
+    }
+  }
+}
+#payment_form_iwd_authcim {
+  #iwd_authcim_cc_cid {
+    max-width:156px;
+  }
+}
+
+.iwd-authcim-customer-cards .iwd-customer-view-authcim {
+  fieldset {
+    border: none;
+  }
+  .fieldset {
+    margin: 0;
+  }
+  .iwd-customer-view-authcim-title {
+    margin-bottom: 40px;
+  }
+  .fieldset-wrapper-content {
+    fieldset {
+      padding: 0;
+
+      .profile-list {
+        float: left;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        width: 50%;
+
+        .profile-list-item {
+          margin: 0 20px 25px 0;
+          padding: 25px;
+          cursor: default;
+          z-index: 1;
+          background: #f1f1f1;
+          border-radius: 5px;
+          position: relative;
+
+          &.customer-profile-info {
+            background: none;
+            margin: 0 20px 17px 0;
+            padding: 0;
+            p {
+              font-size: 16px;
+              margin-bottom: 14px;
+              line-height: 24px;
+              a {
+                font-size: 14px;
+              }
+            }
+          }
+
+          .block-title {
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+          }
+
+          .profile-list-item-actions {
+            float: right;
+            &.actions {
+              button {
+                border-radius: 0;
+                margin: 0;
+              }
+            }
+            .action-cancel-delete {
+              display: none;
+              border-left: 1px solid #303030;
+              padding: 0 0 0 7px;
+            }
+            .action-delete-2 {
+              display: none;
+              color: #ff0000;
+              padding: 0 7px 0 0;
+            }
+
+            .action-delete {
+              color: #000000;
+              font-size: 16px;
+            }
+          }
+
+          .ui-state-active {
+            z-index: 1;
+          }
+
+          address {
+            margin: 8px 0 -5px 0;
+            line-height: 24px;
+            font-size: 16px;
+
+            &:first-line {
+              font-weight: bold;
+              line-height: 38px;
+            }
+          }
+
+          .card-info {
+            .cc-number {
+              float: left;
+              font-size: 16px;
+              font-weight: bold;
+              line-height: 18px;
+              padding-right: 7px;
+            }
+          }
+
+          .cc-expiration-date {
+            font-size: 16px;
+            line-height: 16px;
+            margin-right: 50px;
+          }
+          .cc-type {
+            line-height: 22px;
+            margin-top: 5px;
+            font-size: 16px;
+          }
+
+          .payment-profile-id {
+            clear: both;
+          }
+
+          .labels {
+            float: left;
+
+            .label {
+              cursor: pointer;
+              color: #ffffff;
+              line-height: 18px;
+              font-size: 16px;
+              padding: 0 5px;
+              width: auto;
+              float: left;
+              font-weight: 600;
+              position: relative;
+
+              &.disallow {
+                color: #ff0000;
+              }
+              &.is_in_use {
+                color: #41b767;
+              }
+              &.not-saved {
+                color: #6f8992;
+              }
+              .title {
+                display: none;
+              }
+
+              &:hover {
+                .title {
+                  display: inline-block;
+                }
+
+                &:before {
+                  position: absolute;
+                  content: attr(tooltip);
+                  color: #000000;
+                  font-weight: 100;
+                  background-color: #fcfcfc;
+                  border: 1px solid #989287;
+                  border-radius: .4rem;
+                  bottom: 100%;
+                  clip: auto;
+                  font-size: 1.2rem;
+                  height: auto;
+                  left: auto;
+                  margin: 0 auto .1rem;
+                  max-height: 50px;
+                  padding: .5rem;
+                  right: auto;
+                  top: auto;
+                  transition: all .01s linear .7s;
+                  white-space: nowrap;
+                  width: auto;
+                }
+              }
+            }
+          }
+
+          .actions {
+            height: 30px;
+            float: right;
+
+            .edit {
+              float: right;
+            }
+            .clear {
+              clear: both;
+            }
+
+            button {
+              border: none;
+              background: none;
+              color: #007dbd;
+              font-weight: 100;
+              padding: 0;
+              font-size: 14px;
+              margin-top: 10px;
+              float: right;
+              border-radius: 0;
+              box-shadow: none;
+              margin-right: 0;
+
+              &.action-save {
+                display: none;
+                padding: 0 7px 0 0;
+              }
+              &.action-cancel {
+                display: none;
+                border-left: 1px solid #303030;
+                padding: 0 0 0 7px;
+              }
+              &.action-edit {
+                margin-right: 0;
+              }
+            }
+          }
+
+          .bottom-actions {
+            position: absolute;
+            bottom: 18px;
+            right: 25px;
+          }
+        }
+      }
+      .address-item-edit-content {
+        padding: 0 0 30px 0;
+        margin-left: 50%;
+        display: none;
+
+        .iwd-customer-view-authcim-title {
+          padding: 14px 0 2px;
+          margin-bottom: 14px;
+        }
+
+        .iwd-authcim-edit-card-title {
+          text-align: right;
+          border: none;
+        }
+
+        #iwd_authcim_profile {
+          padding-left: 20px;
+          .block-title {
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+          }
+        }
+
+        .col-2 {
+          width: 50%;
+          position: relative;
+          margin-top: 0;
+
+          &.col-2-left {
+            float: left;
+            & > .label {
+              margin-right: 15px;
+            }
+            & > .control {
+              margin-right: 15px;
+            }
+          }
+
+          &.col-2-right {
+            float: right;
+            & > .label {
+              margin-left: 15px;
+            }
+            & > .control {
+              margin-left: 15px;
+            }
+          }
+        }
+
+        #iwd_cim_payment_form {
+          border-top: 1px solid #cccccc;
+          margin-top: 5px;
+          padding: 21px 0 5px 0;
+          clear: both;
+
+          #iwd_authcim_cc_type {
+            width: 100%;
+          }
+          #iwd_authcim_expiration {
+            width: 100%;
+          }
+          #iwd_authcim_expiration_yr {
+            width: 100%;
+          }
+        }
+      }
+
+      .actions {
+        button {
+          margin-right: 9px;
+        }
+      }
+    }
+  }
+
+  .block-title {
+    text-transform: capitalize;
+  }
+
+  label.error {
+    background: #fffbbb;
+    border: 1px solid #ee7d7d;
+    box-sizing: border-box;
+    color: #555555;
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.2;
+    margin: .2rem 0 0;
+    padding: .8rem 1rem .9rem;
+  }
+
+  .ajax-pre-loader {
+    display: none;
+    &.active {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255, 0.7);
+      z-index: 100;
+    }
+  }
+}
+
+.clear {
+  clear: both;
+}

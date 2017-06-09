@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="customer_delete_after">
+        <observer name="salesrep_cleanup" instance="IWD\SalesRep\Observer\Backend\CustomerDeleteAfterObserver" />
+    </event>
+    <event name="config_data_save_after">
+        <observer name="salesrep_enable_brb" instance="IWD\SalesRep\Observer\Backend\B2BEnabledObserver" />
+    </event>
+    <!-- if Sales Rep is deleted, delete related customer too, cause it's B2B sub-account -->
+    <event name="salesrep_user_delete_after">
+        <observer name="salesrep_delete_b2b_customer" instance="IWD\SalesRep\Observer\Backend\SalesrepUserDeleteAfterObserver"/>
+    </event>
+    <event name="admin_user_delete_after">
+        <observer name="salesrep_delete_user" instance="IWD\SalesRep\Observer\Backend\AdminUserDeleteAfterObserver"/>
+    </event>
+    <event name="sales_order_grid_collection_load_before">
+        <observer name="salesrep_delete_user" instance="IWD\SalesRep\Observer\Backend\SalesOrderGridCollectionLoadBeforeObserver"/>
+    </event>
+</config>

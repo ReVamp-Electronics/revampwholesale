@@ -1,0 +1,129 @@
+<?php
+
+/* @var $block IWD\OrderManager\Block\Adminhtml\Order\Info\Form */
+$order = $block->getOrder();
+$currentStatus = $order->getStatus();
+$currentState = $order->getState();
+$statuses = $block->getStatusList();
+$states = $block->getStateList();
+$websites = $block->getWebsiteList();
+$allowChangeState = $block->getAllowChangeState();
+$isSalesRepEnabled = $block->isSalesRepEnabled();
+$salesreps = $block->getSalesReps();
+$currentSalesrep = $block->getCurrentSalesReps();
+?>
+
+<div id="order-info-result-form">
+    <div class="message message-notice iwd-om-message-notice ">
+        <div class="message-inner">
+            <div class="message-content"><?php echo __('Changing order information will not recalculate shipping, tax, or other order variables.') ?></div>
+            <?php if($allowChangeState): ?>
+                <div class="message-content"><?php echo __('Do not change the order state if you are unsure of this action.') ?></div>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <form id="order_information_form" method="post">
+        <div class="admin__field field field-increment_id required _required">
+            <label class="label admin__field-label" for="order_info_increment_id"><span><?php echo __('Order Number') ?></span></label>
+            <div class="admin__field-control control">
+                <input id="order_info_increment_id" name="order_info[increment_id]" value="<?php echo $order->getIncrementId() ?>" class="input-text required-entry admin__control-text" type="text">
+            </div>
+        </div>
+
+        <div class="admin__field field field-created_at required _required">
+            <label class="label admin__field-label" for="order_info_created_at"><span><?php echo __('Order Date') ?></span></label>
+            <div class="admin__field-control control">
+                <input id="order_info_created_at" name="order_info[created_at]" value="<?php echo $block->getCreatedAt() ?>" class="input-text required-entry admin__control-text" type="text">
+            </div>
+        </div>
+
+        <div class="admin__field field field-status required _required">
+            <label class="label admin__field-label" for="order_info_status"><span><?php echo __('Order Status') ?></span></label>
+            <div class="admin__field-control control">
+                <select id="order_info_status" name="order_info[status]" class="required-entry select admin__control-select">
+                    <?php foreach ($statuses as $code => $label): ?>
+                        <option
+                            value="<?php echo $code ?>"
+                            <?php if ($code == $currentStatus) { echo 'selected = "selected"'; } ?>>
+                            <?php echo $label; ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+
+        <?php if($allowChangeState): ?>
+            <div class="admin__field field field-state required _required">
+                <label class="label admin__field-label" for="order_info_state"><span><?php echo __('Order State') ?></span></label>
+                <div class="admin__field-control control">
+                    <select name="order_info[state]" id="order_info_state" class="required-entry select admin__control-select">
+                        <?php foreach ($states as $code => $label): ?>
+                            <option
+                                value="<?php echo $code ?>"
+                                <?php if($code == $currentState) { echo 'selected = "selected"'; } ?>>
+                                <?php echo $label; ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <?php if(!$block->hasSingleStore()): ?>
+            <div class="admin__field field field-purchased_from required _required">
+                <label class="label admin__field-label" for="order_info_purchased_from"><span><?php echo __('Purchased From') ?></span></label>
+                <div class="admin__field-control control">
+                    <select id="order_info_purchased_from" name="order_info[store_id]" class="required-entry select admin__control-select">
+                        <?php foreach ($websites as $website): ?>
+                            <optgroup label="<?php echo $website->getName(); ?>"></optgroup>
+                            <?php foreach ($website->getGroups() as $group): ?>
+                                <optgroup label="&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $group->getName(); ?>"></optgroup>
+                                <?php foreach ($group->getStores() as $view): ?>
+                                    <option <?php if($view->getId() == $order->getStoreId()): ?>selected="selected"<?php endif; ?>
+                                        value="<?php echo $view->getId(); ?>">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $view->getName(); ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <?php if($isSalesRepEnabled): ?>
+            <div class="admin__field field field-state required _required">
+                <label class="label admin__field-label" for="order_info_state"><span><?php echo __('Sales Representative') ?></span></label>
+                <div class="admin__field-control control">
+                    <select name="order_info[salesrep_id]" id="order_info_salesrep_id" class="required-entry select admin__control-select">
+                        <option value="-1"><?php echo __('-- Not Assigned --') ?></option>
+                        <?php foreach ($salesreps as $user): ?>
+                            <option
+                                value="<?php echo $user->getSalesrepId() ?>"
+                                <?php if($user->getSalesrepId() == $currentSalesrep) { echo 'selected = "selected"'; } ?>>
+                                <?php echo $user->getFirstname() . ' ' . $user->getLastname() ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <?php echo $block->getActionsForm(); ?>
+    </form>
+
+    <script>
+        require([
+            "jquery",
+            "mage/calendar"
+        ], function($){
+            $("#order_info_created_at").calendar({
+                showsTime: true,
+                dateFormat: "yy-mm-dd",
+                timeFormat: "HH:mm:ss",
+                ampm: false
+            });
+        });
+    </script>
+</div>

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name='order_history'>
+            <action method='setTemplate'>
+                <argument name='template' xsi:type='string'>IWD_OrderManager::order/view/history/history.phtml</argument>
+            </action>
+            <block class="IWD\OrderManager\Block\Adminhtml\Order\History\Actions" name="order_history_action" template="IWD_OrderManager::order/view/history/actions.phtml"/>
+            <block class="IWD\OrderManager\Block\Adminhtml\Order\History\AdminName" name="order_history_admin_name" template="IWD_OrderManager::order/view/history/admin_name.phtml"/>
+        </referenceBlock>
+
+        <referenceContainer name="content">
+            <block class="IWD\OrderManager\Block\Adminhtml\Order\View\Jsinit" name="order_history_jsinit" template="IWD_OrderManager::order/view/jsinit.phtml" after="-" cache="false"/>
+            <block class="IWD\OrderManager\Block\Adminhtml\Order\View\Coupon" template="IWD_OrderManager::order/view/coupon.phtml" as="iwd_om_coupon" after="-"/>
+        </referenceContainer>
+
+        <referenceContainer name="after.body.start">
+            <block class="Magento\Catalog\Block\Adminhtml\Product\Composite\Configure" template="Magento_Catalog::catalog/product/composite/configure.phtml"/>
+        </referenceContainer>
+
+        <referenceBlock name="page.actions.toolbar">
+            <block class="IWD\OrderManager\Block\Adminhtml\Order\View\Toolbar" as="iwd_toolbar_button"/>
+        </referenceBlock>
+
+        <referenceBlock name="sales_order_tabs">
+            <block class="IWD\OrderManager\Block\Adminhtml\Order\View\Tab\Log" name="iwd_ordermanager_log.grid.container"/>
+            <action method="addTab">
+                <argument name="name" xsi:type="string">iwd_ordermanager_log</argument>
+                <argument name="block" xsi:type="string">iwd_ordermanager_log.grid.container</argument>
+            </action>
+        </referenceBlock>
+
+        <referenceBlock name="iwd_ordermanager_log.grid.container">
+            <uiComponent name="iwdordermanager_order_view_log_grid"/>
+        </referenceBlock>
+
+        <referenceBlock name="order_items">
+            <block class="IWD\OrderManager\Block\Adminhtml\Order\Items\Stock\Renderer" name="column_assign-stock" template="order/view/items/renderer/stock.phtml" group="column"/>
+        </referenceBlock>
+    </body>
+</page>

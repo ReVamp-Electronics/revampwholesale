@@ -1,0 +1,337 @@
+<div class="grid">
+    <div class="admin__data-grid-wrap" data-role="grid-wrapper">
+        <table class="data-grid data-grid-draggable" data-role="grid" cellspacing="0" id="table_cataloginventory_grid" width="100%">
+            <thead>
+                <tr class="headings">
+                    <th data-bind="i18n: 'Source', attr: { title: $t('Source') }"></th>
+                    <th class="width-115" data-bind="i18n: 'Manage Stock', attr: { title: $t('Manage Stock') }"></th>
+                    <!-- ko ifnot: isComplexProduct() -->
+                        <th class="width-75" data-bind="i18n: 'Qty', attr: { title: $t('Qty') }"></th>
+                    <!-- /ko -->
+                    <th class="width-180" data-bind="i18n: 'Stock Availability', attr: { title: $t('Stock Availability') }"></th>
+                    <!-- ko ifnot: isComplexProduct() -->
+                        <th class="width-115" data-bind="i18n: 'Out of Stock Qty', attr: { title: $t('Qty for Item\'s Status to become Out of Stock') }"></th>
+                        <th class="width-115" data-bind="i18n: 'Min Allowed Qty', attr: { title: $t('Minimum Qty Allowed in Shopping Cart') }"></th>
+                        <th class="width-115" data-bind="i18n: 'Max Allowed Qty', attr: { title: $t('Maximum Qty Allowed in Shopping Cart') }"></th>
+                            <!-- ko if: canUseQtyDecimals() -->
+                                <th class="width-90" data-bind="i18n: 'Decimals', attr: { title: $t('Qty Uses Decimals') }"></th>
+                                <th class="width-90" data-bind="i18n: 'Divided for Shipping', attr: { title: $t('Can be Divided into Multiple Boxes for Shipping') }"></th>
+                            <!-- /ko -->
+                        <th class="width-180" data-bind="i18n: 'Backorders', attr: { title: $t('Backorders') }"></th>
+                        <th class="width-115" data-bind="i18n: 'Notify Qty Below', attr: { title: $t('Notify for Quantity Below') }"></th>
+                    <!-- /ko -->
+                    <th class="width-115" data-bind="i18n: 'Enable Qty Inc', attr: { title: $t('Enable Qty Increments') }"></th>
+                    <th class="width-115" data-bind="i18n: 'Qty Inc', attr: { title: $t('Qty Increments') }"></th>
+                </tr>
+            </thead>
+
+            <tbody id="product_stocks_data_list">
+            <!-- ko foreach: getDefaultStocks() -->
+            <tr attr="class: $parent.getTableRowClass(id)">
+                <!-- Warehouse -->
+                <td>
+                    <b><!--ko text: name--><!--/ko--></b>
+                    <input type="hidden" attr="name: $parent.getFieldName(id, 'stock_id'), value: id" data-form-part="product_form">
+                </td>
+
+                <!-- Manage Stock -->
+                <td class="width-115">
+                    <div class="admin__actions-switch" data-role="switcher">
+                        <input type="checkbox" class="admin__actions-switch-checkbox" value="1"
+                               ko-checked="manageStock" data-form-part="product_form"
+                               data-bind="disable: useConfigManageStock(), css: manageStockDisabledClass()"
+                               attr="id: $parent.getFieldId(id, 'inventory_manage_stock'), name: $parent.getFieldName(id, 'manage_stock')" />
+                        <label class="admin__actions-switch-label" attr="for: $parent.getFieldId(id, 'inventory_manage_stock')">
+                            <span class="admin__actions-switch-text" data-text-on="Yes" data-text-off="No"></span>
+                        </label>
+                    </div>
+                    <div class="control-inner-wrap">
+                        <input type="checkbox" class="use-config admin__control-checkbox" value="1"
+                               ko-checked="useConfigManageStock" data-form-part="product_form"
+                               attr="id: $parent.getFieldId(id, 'inventory_use_config_manage_stock'), name: $parent.getFieldName(id, 'use_config_manage_stock')" />
+                        <label translate="'Use Config'" attr="for: $parent.getFieldId(id, 'inventory_use_config_manage_stock')"></label>
+                    </div>
+                </td>
+
+                <!-- Qty -->
+                <!-- ko ifnot: $parent.isComplexProduct() -->
+                <td class="width-75">
+                    <div data-bind="visible: manageStock()">
+                        <!-- ko if: $parent.isReadonly() -->
+                            <input type="hidden" data-form-part="product_form" name="product[quantity_and_stock_status][qty]"
+                                   attr="id: $parent.getFieldId(id, 'original_inventory_qty'), value: stockQty" />
+                        <!-- /ko -->
+                        <!-- ko ifnot: $parent.isReadonly() -->
+                            <input type="text" class="admin__control-text input-text validate-number inventory_qty_default"
+                                   data-form-part="product_form" name="product[quantity_and_stock_status][qty]"
+                                   data-bind="visible: manageStock()"
+                                   attr="id: $parent.getFieldId(id, 'inventory_qty'), value: stockQty, prevalue: stockQty" />
+                            <div class="control-inner-wrap"><b data-bind="i18n: 'Total'"></b></div>
+                        <!-- /ko -->
+                    </div>
+                </td>
+                <!-- /ko -->
+
+                <!-- Stock Availability -->
+                <td class="width-180">
+                    <div data-bind="visible: manageStock()">
+                        <!-- ko if: $parent.getStockOption().length == 2 -->
+                        <div class="admin__actions-switch" data-role="switcher">
+                            <input type="checkbox" class="admin__actions-switch-checkbox" value="1"
+                                   ko-checked="is_in_stock == '1'" data-form-part="product_form"
+                                   name="product[quantity_and_stock_status][is_in_stock]"
+                                   attr="id: $parent.getFieldId(id, 'inventory_stock_availability')" />
+                            <label class="admin__actions-switch-label" attr="for: $parent.getFieldId(id, 'inventory_stock_availability')">
+                                <span class="admin__actions-switch-text" data-text-on="In Stock" data-text-off="Out of Stock"></span>
+                            </label>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko if: $parent.getStockOption().length > 2 -->
+                        <select class="admin__control-select" data-form-part="product_form"
+                                name="product[quantity_and_stock_status][is_in_stock]"
+                                data-bind="options: $parent.getStockOption(),
+                                       optionsText: 'label',
+                                       optionsValue: 'value'"
+                                attr="id: $parent.getFieldId(id, 'inventory_stock_availability')">
+                        </select>
+                        <!-- /ko -->
+                    </div>
+                </td>
+
+                <!-- ko ifnot: $parent.isComplexProduct() -->
+                <!-- Out-of-Stock Threshold -->
+                    <td class="width-115">
+                        <div data-bind="visible: manageStock()">
+                            <input type="text" class="admin__control-text input-text validate-number" data-form-part="product_form"
+                                   data-bind="disable: useConfigInventoryMinQty(), value: valueMinQty()"
+                                   attr="id: $parent.getFieldId(id, 'inventory_min_qty'), name: $parent.getFieldName(id, 'min_qty'), value: min_qty * 1" />
+                            <div class="control-inner-wrap">
+                                <input type="checkbox" class="use-config admin__control-checkbox" value="1"
+                                       ko-checked="useConfigInventoryMinQty" data-form-part="product_form"
+                                       attr="id: $parent.getFieldId(id, 'inventory_use_config_min_qty'), name: $parent.getFieldName(id, 'use_config_min_qty')" />
+                                <label translate="'Use Config'" attr="for: $parent.getFieldId(id, 'inventory_use_config_min_qty')"></label>
+                            </div>
+                        </div>
+                    </td>
+
+                    <!-- Minimum Qty Allowed in Shopping Cart -->
+                    <td class="width-115">
+                        <input type="text" class="admin__control-text input-text validate-number" data-form-part="product_form"
+                               data-bind="disable: useConfigInventoryMinSaleQty(), value: valueInventoryMinSaleQty()"
+                               attr="id: $parent.getFieldId(id, 'inventory_min_sale_qty'), name: $parent.getFieldName(id, 'min_sale_qty')" />
+                        <div class="control-inner-wrap">
+                            <input type="checkbox" class="use-config admin__control-checkbox" value="1"
+                                   ko-checked="useConfigInventoryMinSaleQty" data-form-part="product_form"
+                                   attr="id: $parent.getFieldId(id, 'inventory_use_config_min_sale_qty'), name: $parent.getFieldName(id, 'use_config_min_sale_qty')" />
+                            <label translate="'Use Config'" attr="for: $parent.getFieldId(id, 'inventory_use_config_min_sale_qty')"></label>
+                        </div>
+                    </td>
+
+                    <!-- Maximum Qty Allowed in Shopping Cart -->
+                    <td class="width-115">
+                        <input type="text" class="admin__control-text input-text validate-number" data-form-part="product_form"
+                               data-bind="disable: useConfigInventoryMaxSaleQty(), value: valueInventoryMaxSaleQty()"
+                               attr="id: $parent.getFieldId(id, 'inventory_max_sale_qty'), name: $parent.getFieldName(id, 'max_sale_qty')" />
+                        <div class="control-inner-wrap">
+                            <input type="checkbox" class="use-config admin__control-checkbox" value="1"
+                                   ko-checked="useConfigInventoryMaxSaleQty" data-form-part="product_form"
+                                   attr="id: $parent.getFieldId(id, 'inventory_use_config_max_sale_qty'), name: $parent.getFieldName(id, 'use_config_max_sale_qty')" />
+                            <label translate="'Use Config'" attr="for: $parent.getFieldId(id, 'inventory_use_config_max_sale_qty')"></label>
+                        </div>
+                    </td>
+
+                    <!-- ko if: $parent.canUseQtyDecimals() -->
+                        <!-- Qty Uses Decimals -->
+                        <td class="width-90">
+                            <div data-bind="visible: manageStock()">
+                                <div class="admin__actions-switch" data-role="switcher">
+                                    <input type="checkbox" class="admin__actions-switch-checkbox" value="1"
+                                           ko-checked="is_qty_decimal == '1'" data-form-part="product_form"
+                                           attr="id: $parent.getFieldId(id, 'inventory_is_qty_decimal'), name: $parent.getFieldName(id, 'is_qty_decimal')" />
+                                    <label class="admin__actions-switch-label" attr="for: $parent.getFieldId(id, 'inventory_is_qty_decimal')">
+                                        <span class="admin__actions-switch-text" data-text-on="Yes" data-text-off="No"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </td>
+                        <!-- Can be Divided into Multiple Boxes for Shipping -->
+                        <td class="width-90">
+                            <div data-bind="visible: manageStock()">
+                                <div class="admin__actions-switch" data-role="switcher">
+                                    <input type="checkbox" class="admin__actions-switch-checkbox" value="1"
+                                           ko-checked="is_qty_decimal == '1'" data-form-part="product_form"
+                                           attr="id: $parent.getFieldId(id, 'inventory_is_decimal_divided'), name: $parent.getFieldName(id, 'is_decimal_divided')" />
+                                    <label class="admin__actions-switch-label" attr="for: $parent.getFieldId(id, 'inventory_is_decimal_divided')">
+                                        <span class="admin__actions-switch-text" data-text-on="Yes" data-text-off="No"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </td>
+                    <!-- /ko -->
+
+                    <!-- Backorders -->
+                    <td class="width-180">
+                        <div data-bind="visible: manageStock()">
+                            <select class="admin__control-select" data-form-part="product_form"
+                                    data-bind="options:$parent.getBackordersOption(), optionsText:'label', optionsValue:'value', disable:useConfigBackorders(), value:valueBackorders()"
+                                    attr="id: $parent.getFieldId(id, 'inventory_backorders'), name: $parent.getFieldName(id, 'backorders')">
+                            </select>
+                            <div class="control-inner-wrap">
+                                <input type="checkbox" class="use-config admin__control-checkbox" value="1"
+                                       ko-checked="useConfigBackorders" data-form-part="product_form"
+                                       attr="id: $parent.getFieldId(id, 'inventory_use_config_backorders'), name: $parent.getFieldName(id, 'use_config_backorders')" />
+                                <label translate="'Use Config'" attr="for: $parent.getFieldId(id, 'inventory_use_config_backorders')"></label>
+                            </div>
+                        </div>
+                    </td>
+
+                    <!-- Notify for Quantity Below -->
+                    <td class="width-115">
+                        <div data-bind="visible: manageStock()">
+                            <input type="text" class="admin__control-text input-text validate-number"
+                                   data-bind="disable: useConfigNotifyStockQty(), value: valueNotifyStockQty()" data-form-part="product_form"
+                                   attr="id: $parent.getFieldId(id, 'inventory_notify_stock_qty'), name: $parent.getFieldName(id, 'notify_stock_qty')" />
+                            <div class="control-inner-wrap">
+                                <input type="checkbox" class="use-config admin__control-checkbox" value="1"
+                                       ko-checked="useConfigNotifyStockQty" data-form-part="product_form"
+                                       attr="id: $parent.getFieldId(id, 'inventory_use_config_notify_stock_qty'), name: $parent.getFieldName(id, 'use_config_notify_stock_qty')" />
+                                <label translate="'Use Config'" attr="for: $parent.getFieldId(id, 'inventory_use_config_notify_stock_qty')"></label>
+                            </div>
+                        </div>
+                    </td>
+                <!-- /ko -->
+
+                <!-- Enable Qty Increments -->
+                <td class="width-90">
+                    <!--<div data-bind="visible: manageStock()">-->
+                        <div class="admin__actions-switch" data-role="switcher">
+                            <input type="checkbox" class="admin__actions-switch-checkbox" value="1"
+                                   data-bind="disable: useConfigEnableQtyInc(), css: enableQtyIncDisabledClass()"
+                                   ko-checked="enableQtyIncrements" data-form-part="product_form"
+                                   attr="id: $parent.getFieldId(id, 'inventory_enable_qty_increments'), name: $parent.getFieldName(id, 'enable_qty_increments')" />
+                            <label class="admin__actions-switch-label" attr="for: $parent.getFieldId(id, 'inventory_enable_qty_increments')">
+                                <span class="admin__actions-switch-text" data-text-on="Yes" data-text-off="No"></span>
+                            </label>
+                        </div>
+                        <div class="control-inner-wrap">
+                            <input type="checkbox" class="use-config admin__control-checkbox" value="1"
+                                   ko-checked="useConfigEnableQtyInc" data-form-part="product_form"
+                                   attr="id: $parent.getFieldId(id, 'inventory_use_config_enable_qty_inc'), name: $parent.getFieldName(id, 'use_config_enable_qty_inc')" />
+                            <label attr="for: $parent.getFieldId(id, 'inventory_use_config_enable_qty_inc')" translate="'Use Config'"></label>
+                        </div>
+                    <!--</div>-->
+                </td>
+
+                <!-- Qty Increments -->
+                <td class="width-115">
+                    <div data-bind="visible: enableQtyIncrements()">
+                        <input type="text" class="admin__control-text input-text validate-number" data-form-part="product_form"
+                               data-bind="disable: useConfigQtyIncrements(), value: valueQtyIncrements()"
+                               attr="id: $parent.getFieldId(id, 'inventory_qty_increments'), name: $parent.getFieldName(id, 'qty_increments'), value: qty_increments * 1" />
+                        <div class="control-inner-wrap">
+                            <input type="checkbox" class="use-config admin__control-checkbox" value="1"
+                                   ko-checked="useConfigQtyIncrements" data-form-part="product_form"
+                                   attr="id: $parent.getFieldId(id, 'inventory_use_config_qty_increments'), name: $parent.getFieldName(id, 'use_config_qty_increments')"/>
+                            <label attr="for: $parent.getFieldId(id, 'inventory_use_config_qty_increments')" translate="'Use Config'"></label>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <!-- /ko -->
+
+            <!-- ko foreach: getStocks() -->
+            <tr attr="class: $parent.getTableRowClass(id)">
+                <!-- Warehouse -->
+                <td>
+                    (#<!--ko text: id--><!--/ko-->) <!--ko text: name--><!--/ko-->
+                    <input type="hidden" attr="name: $parent.getFieldName(id, 'stock_id'), value: id" data-form-part="product_form">
+                </td>
+
+                <!-- Manage Stock -->
+                <td class="width-115">
+                    <div class="admin__actions-switch" data-role="switcher">
+                        <input type="checkbox" class="admin__actions-switch-checkbox" value="1"
+                               ko-checked="manageStock" data-form-part="product_form"
+                               attr="id: $parent.getFieldId(id, 'inventory_manage_stock'), name: $parent.getFieldName(id, 'manage_stock')" />
+                        <label class="admin__actions-switch-label" attr="for: $parent.getFieldId(id, 'inventory_manage_stock')">
+                            <span class="admin__actions-switch-text" data-text-on="Yes" data-text-off="No"></span>
+                        </label>
+                    </div>
+                </td>
+
+                <!-- Qty -->
+                <!-- ko ifnot: $parent.isComplexProduct() -->
+                <td class="width-75">
+                    <div data-bind="visible: manageStock()">
+                        <!-- ko if: $parent.isReadonly() -->
+                        <input type="hidden" data-form-part="product_form"
+                               attr="id: $parent.getFieldId(id, 'original_inventory_qty'), name: $parent.getFieldName(id, 'original_inventory_qty'), value: stockQty" />
+                        <!-- /ko -->
+                        <!-- ko ifnot: $parent.isReadonly() -->
+                        <input type="text" class="admin__control-text input-text validate-number inventory_qty" data-form-part="product_form"
+                               data-bind="visible: manageStock()"
+                               attr="id: $parent.getFieldId(id, 'inventory_qty'), name: $parent.getFieldName(id, 'qty'), value: stockQty, prevalue: stockQty" />
+                        <!-- /ko -->
+                    </div>
+                </td>
+                <!-- /ko -->
+
+                <!-- Stock Availability -->
+                <td class="width-180">
+                    <div data-bind="visible: manageStock()">
+                        <!-- ko if: $parent.getStockOption().length == 2 -->
+                        <div class="admin__actions-switch" data-role="switcher">
+                            <input type="checkbox" class="admin__actions-switch-checkbox" value="1"
+                                   ko-checked="is_in_stock == '1'" data-form-part="product_form"
+                                   attr="id: $parent.getFieldId(id, 'inventory_stock_availability'), name: $parent.getFieldName(id, 'is_in_stock')" />
+                            <label class="admin__actions-switch-label" attr="for: $parent.getFieldId(id, 'inventory_stock_availability')">
+                                <span class="admin__actions-switch-text" data-text-on="In Stock" data-text-off="Out of Stock"></span>
+                            </label>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko if: $parent.getStockOption().length > 2 -->
+                        <select class="admin__control-select" data-form-part="product_form"
+                                data-bind="options: $parent.getStockOption(),
+                                           optionsText: 'label',
+                                           optionsValue: 'value'"
+                                attr="id: $parent.getFieldId(id, 'inventory_stock_availability'), name: $parent.getFieldName(id, 'is_in_stock')">
+                        </select>
+                        <!-- /ko -->
+                    </div>
+                </td>
+
+                <!-- ko ifnot: $parent.isComplexProduct() -->
+                <!-- Out-of-Stock Threshold -->
+                <td class="width-115"></td>
+
+                <!-- Minimum Qty Allowed in Shopping Cart -->
+                <td class="width-115"></td>
+
+                <!-- Maximum Qty Allowed in Shopping Cart -->
+                <td class="width-115"></td>
+
+                <!-- ko if: $parent.canUseQtyDecimals() -->
+                    <!-- Qty Uses Decimals -->
+                    <td class="width-90"></td>
+                    <!-- Can be Divided into Multiple Boxes for Shipping -->
+                    <td class="width-90"></td>
+                <!-- /ko -->
+
+                <!-- Backorders -->
+                <td class="width-180"></td>
+
+                <!-- Notify for Quantity Below -->
+                <td class="width-115"></td>
+                <!-- /ko -->
+
+                <!-- Enable Qty Increments -->
+                <td class="width-90"></td>
+
+                <!-- Qty Increments -->
+                <td class="width-115"></td>
+            </tr>
+            <!-- /ko -->
+            </tbody>
+        </table>
+    </div>
+</div>

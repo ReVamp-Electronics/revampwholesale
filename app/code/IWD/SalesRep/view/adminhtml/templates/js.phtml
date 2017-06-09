@@ -1,0 +1,31 @@
+<?php
+/**
+ * @var $block \IWD\SalesRep\Block\Adminhtml\User\Edit\Customers
+ */
+$adminId = $block->getAdminUserId();
+$salesrepId = $block->getSalesrepId();
+$selectorDisabledRow = \IWD\SalesRep\Block\Adminhtml\User\Edit\Tab\SalesRepCustomers::CSS_CLASS_ROW_DISABLED;
+?>
+<style>
+    .iwd-sr-loader [type="checkbox"] { display: none; }
+    #iwd_salesrep_customers .<?php echo $selectorDisabledRow; ?> td { background: #bfbfbf; color: #4e4e4e; }
+    #iwd_salesrep_customers .checkbox[disabled] + label { cursor: not-allowed; margin-top: -3px; }
+    #iwd_salesrep_customers [title="Select All"], #iwd_salesrep_customers [title="Select All"] + label {display:none; }
+    .iwd-salesrep-assign .data-grid-checkbox-cell-inner { position: relative; }
+    .iwdsr-edit-commission span.field-row { display: block; margin: 10px 0; }
+    .iwdsr-edit-commission span.field-row > label { width: 200px; display: inline-block; text-align: left; }
+    .iwdsr-commission-modal .modal-inner-wrap { max-width: 500px; }
+</style>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "IWD_SalesRep/js/salesrep": {
+                "selectorDisabledRow": "<?php echo $selectorDisabledRow; ?>",
+                "adminUserId": <?php echo $adminId !== null ? $adminId : 'null'; ?>,
+                "salesrepId": <?php echo $salesrepId !== null ? $salesrepId : 'null'; ?>,
+                "attachUrl": "<?php echo $block->getAttachCustomerUrl(); ?>",
+                "commissionBlockUrl": "<?php echo $block->getCommissionBlockUrl(); ?>"
+             }
+        }
+    }
+</script>

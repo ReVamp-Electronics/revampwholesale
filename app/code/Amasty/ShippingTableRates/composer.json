@@ -1,0 +1,22 @@
+{
+    "name": "amasty/shippingtablerates",
+    "description": "Shipping Table Rates by Amasty",
+    "require": {
+        "php": "~5.6.5|7.0.2|7.0.4|~7.0.6",
+        "amasty/base": "*",
+        "magento/module-checkout": "*"
+    },
+    "type": "magento2-module",
+    "version": "1.1.7",
+    "license": [
+        "Commercial"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\ShippingTableRates\\": ""
+        }
+    }
+}

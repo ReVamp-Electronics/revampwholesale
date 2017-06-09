@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="IWD\OrderManager\Block\Adminhtml\Order\Shipping\Form" name="iwdordermamager_order_shipping_form" template="IWD_OrderManager::order/view/shipping/form.phtml">
+
+            <block class="IWD\OrderManager\Block\Adminhtml\Order\Shipping\Method" template="order/view/shipping/method/form.phtml" name="shipping_method"/>
+
+            <block class="IWD\OrderManager\Block\Adminhtml\Order\View\Actions" name="iwdordermamager_order_actions" template="IWD_OrderManager::order/view/actions.phtml">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">om-edit-shipping</argument>
+                </arguments>
+            </block>
+        </block>
+        </referenceContainer>
+    </body>
+</page>

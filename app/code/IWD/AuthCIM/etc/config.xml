@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <iwd_authcim>
+                <model>IWDAuthCIMFacade</model>
+                <title>Authorize.Net CIM</title>
+                <payment_action>authorize</payment_action>
+                <active>0</active>
+                <is_gateway>1</is_gateway>
+                <can_use_checkout>1</can_use_checkout>
+                <can_authorize>1</can_authorize>
+                <can_capture>1</can_capture>
+                <can_capture_partial>1</can_capture_partial>
+                <can_use_internal>1</can_use_internal>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <can_void>1</can_void>
+                <can_cancel>1</can_cancel>
+                <can_fetch_transaction_info>1</can_fetch_transaction_info>
+                <can_fetch_transaction_information>1</can_fetch_transaction_information>
+                <cctypes>AE,VI,MC,DI</cctypes>
+                <useccv>1</useccv>
+                <order_status>processing</order_status>
+                <sandbox>1</sandbox>
+                <validation_type>liveMode</validation_type>
+                <currency>USD</currency>
+                <require_ccv>1</require_ccv>
+                <cc_save>choice</cc_save>
+                <debug>0</debug>
+                <send_shipping_address>0</send_shipping_address>
+                <send_line_items>0</send_line_items>
+                <api_key backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+                <trans_key backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+                <url_test><![CDATA[https://apitest.authorize.net/xml/v1/request.api]]></url_test>
+                <url_live><![CDATA[https://api2.authorize.net/xml/v1/request.api]]></url_live>
+                <acceptjs_url_test><![CDATA[https://jstest.authorize.net/v1/Accept.js]]></acceptjs_url_test>
+                <acceptjs_url_live><![CDATA[https://js.authorize.net/v1/Accept.js]]></acceptjs_url_live>
+                <paymentInfoKeys>cc_type,cc_number</paymentInfoKeys>
+                <acceptjs_enabled>0</acceptjs_enabled>
+            </iwd_authcim>
+        </payment>
+    </default>
+</config>

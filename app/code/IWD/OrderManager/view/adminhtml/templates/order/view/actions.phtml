@@ -1,0 +1,77 @@
+<?php
+/**
+ * @var $block \IWD\OrderManager\Block\Adminhtml\Order\View\Actions
+ */
+
+$blockId = $block->getBlockId() . '-';
+
+//get value from layout xml
+$additionalButtons = $block->getAdditionalButtons();
+$dropdownMenu = $block->getDropdownMenu();
+?>
+
+<div class="iwd-om-actions-block" id="<?php echo $blockId ?>actions-block">
+    <div class="iwd-om-message hide"></div>
+    <button title="<?php echo __('Cancel') ?>" type="button" class="scalable cancel" id="<?php echo $blockId ?>cancel">
+        <span><?php echo __('Cancel') ?></span>
+    </button>
+
+    <div class="actions-split">
+        <button title="<?php echo __('Update') ?>" type="button"
+                class="scalable primary update action-default disabled <?php if(!empty($dropdownMenu)): ?>additional-action<?php endif; ?>"
+                id="<?php echo $blockId ?>update">
+            <span><?php echo __('Update') ?></span>
+        </button>
+
+        <?php if (!empty($dropdownMenu)) : ?>
+            <button title="<?php echo __('Additional Actions') ?>" class="action-toggle primary add disabled" data-toggle="dropdown">
+                <span><?php echo __('Additional Actions') ?></span>
+            </button>
+            <ul class="dropdown-menu">
+                <?php foreach ($dropdownMenu as $item) : ?>
+                    <?php
+                        $id = $blockId . $item['id'];
+                        $title = $item['title'];
+                    ?>
+                    <li>
+                        <label title="<?php echo __($title) ?>" class="item item-default">
+                            <input type="<?php echo $item['type'] ?>"
+                                   title="<?php echo __($title) ?>"
+                                   name="<?php echo $item['id'] ?>" id="<?php echo $id ?>"/>
+                            <span><?php echo __($title) ?></span>
+                        </label>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
+    </div>
+
+    <?php if (!empty($additionalButtons) && is_array($additionalButtons)) : ?>
+        <?php foreach ($additionalButtons as $buttonId => $params) : ?>
+            <?php if ($block->isAllowedAction($params['action'])) : ?>
+                <button title="<?php echo __($params['title']) ?>"
+                        type="button" class="scalable add"
+                        id="<?php echo $blockId . $buttonId ?>">
+                    <span><?php echo __($params['title']) ?></span>
+                </button>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
+
+    <div class="clear"></div>
+</div>
+
+<?php if (!empty($dropdownMenu)) : ?>
+    <script type="text/javascript">
+        // <![CDATA[
+        require([
+                'jquery',
+                'mage/dropdown'
+            ],
+            function($) {
+                $('.iwd-om-actions-block [data-toggle=dropdown]').dropdown();
+            }
+        );
+        // ]]>
+    </script>
+<?php endif; ?>

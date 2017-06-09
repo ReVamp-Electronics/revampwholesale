@@ -1,0 +1,53 @@
+<?php
+/**
+ * @var $block IWD\OrderManager\Block\Adminhtml\Order\View\Coupon
+ */
+?>
+
+<?php if ($block->isEnabled()) : ?>
+    <section id="iwd-om-coupon-section" class="admin__page-section" style="display:none">
+        <div class="clear"></div>
+        <div class="admin__page-section-title">
+            <span class="title"><?php /* @escapeNotVerified */ echo __('Discount') ?></span>
+        </div>
+        <div class="admin__page-section-content">
+            <form id="iwd-om-coupon-form">
+                <div class="admin__field field field-state">
+                    <label for="iwd_om_coupon" class="admin__field-label"><span><?php /* @escapeNotVerified */ echo __('Coupon Code') ?></span></label>
+                    <div class="admin__field-control">
+                        <div class="col col-2">
+                            <button id="iwd_om_coupon_apply" title="<?php /* @escapeNotVerified */ echo __('Apply Code') ?>" type="button" class="action-default scalable action-save">
+                                <span><?php /* @escapeNotVerified */ echo __('Apply Code') ?></span>
+                            </button>
+                            <?php if ($block->getCouponCode()) : ?>
+                                <button id="iwd_om_coupon_remove" title="<?php /* @escapeNotVerified */ echo __('Remove Code') ?>" type="button" class="action-default scalable action-save">
+                                    <span><?php /* @escapeNotVerified */ echo __('Remove') ?></span>
+                                </button>
+                            <?php endif; ?>
+                        </div>
+                        <div class="col col-1">
+                            <input type="text" name="iwd_om_coupon" id="iwd_om_coupon" maxlength="250" class="admin__control-text required-entry input-text _required" value="<?php echo $block->getCouponCode() ?>"/>
+                        </div>
+                    </div>
+                </div>
+            </form>
+    </div>
+        <div class="iwd-om-pre-loader hide"><i class="loader"></i></div>
+    </section>
+
+    <div style="display:none">
+        <script type="text/javascript">
+            // <![CDATA[
+            require([
+                    "jquery",
+                    "IWD_OrderManager/js/order/view/coupon"
+                ],
+                function($, orderManagerCoupon) {
+                    var omCoupon = new orderManagerCoupon();
+                    omCoupon.init(<?php echo $block->jsonJsParams() ?>);
+                }
+            );
+            // ]]>
+        </script>
+    </div>
+<?php endif; ?>

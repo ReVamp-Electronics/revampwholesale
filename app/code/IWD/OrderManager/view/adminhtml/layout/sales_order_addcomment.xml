@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <referenceBlock name='order_history'>
+        <action method='setTemplate'>
+            <argument name='template' xsi:type='string'>IWD_OrderManager::order/view/history/history.phtml</argument>
+        </action>
+        <block class="IWD\OrderManager\Block\Adminhtml\Order\History\Actions" name="order_history_action" template="IWD_OrderManager::order/view/history/actions.phtml"/>
+        <block class="IWD\OrderManager\Block\Adminhtml\Order\History\AdminName" name="order_history_admin_name" template="IWD_OrderManager::order/view/history/admin_name.phtml"/>
+    </referenceBlock>
+</layout>

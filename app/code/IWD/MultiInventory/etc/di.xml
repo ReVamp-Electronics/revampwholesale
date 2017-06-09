@@ -1,0 +1,30 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="IWD\MultiInventory\Api\Data\SourceSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="IWD\MultiInventory\Api\Data\SourceItemSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="IWD\MultiInventory\Api\Data\SourceAddressSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="IWD\MultiInventory\Api\SourceRepositoryInterface" type="IWD\MultiInventory\Model\Warehouses\SourceRepository" />
+    <preference for="IWD\MultiInventory\Api\SourceItemRepositoryInterface" type="IWD\MultiInventory\Model\Warehouses\SourceItemRepository" />
+    <preference for="IWD\MultiInventory\Api\SourceAddressRepositoryInterface" type="IWD\MultiInventory\Model\Warehouses\SourceAddressRepository" />
+    <preference for="IWD\MultiInventory\Api\Data\SourceInterface" type="IWD\MultiInventory\Model\Warehouses\Source" />
+    <preference for="IWD\MultiInventory\Api\Data\SourceItemInterface" type="IWD\MultiInventory\Model\Warehouses\SourceItem" />
+    <preference for="IWD\MultiInventory\Api\Data\SourceAddressInterface" type="IWD\MultiInventory\Model\Warehouses\SourceAddress" />
+
+    <!-- add column to ordered items grid -->
+    <type name="Magento\Sales\Block\Adminhtml\Order\View\Items">
+        <plugin name="afterGetColumns" type="IWD\MultiInventory\Plugin\Block\Sales\Adminhtml\Order\View\Items\Items" />
+    </type>
+    <type name="Magento\Sales\Block\Adminhtml\Order\View\Items\Renderer\DefaultRenderer">
+        <plugin name="afterGetColumns" type="IWD\MultiInventory\Plugin\Block\Sales\Adminhtml\Order\View\Items\DefaultRenderer" />
+    </type>
+    <type name="Magento\Bundle\Block\Adminhtml\Sales\Order\View\Items\Renderer">
+        <plugin name="beforeToHtml" type="IWD\MultiInventory\Plugin\Block\Sales\Adminhtml\Order\View\Items\Bundle" />
+    </type>
+
+    <type name="Magento\Framework\Module\Manager">
+        <arguments>
+            <argument name="outputConfigPaths" xsi:type="array">
+                <item name="IWD_MultiInventory" xsi:type="const">IWD\MultiInventory\Helper\Data::ENABLED</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

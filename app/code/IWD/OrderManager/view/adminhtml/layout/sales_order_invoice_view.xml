@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="page.actions.toolbar">
+            <block class="IWD\OrderManager\Block\Adminhtml\Invoice\View\Toolbar" as="iwd_toolbar_button"/>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="IWD\OrderManager\Block\Adminhtml\Invoice\View\Jsinit" name="invoice_view_jsinit" template="IWD_OrderManager::invoice/view/jsinit.phtml" after="-" />
+        </referenceContainer>
+    </body>
+</page>

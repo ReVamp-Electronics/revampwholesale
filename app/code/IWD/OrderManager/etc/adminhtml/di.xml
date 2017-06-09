@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Ui\Model\Export\MetadataProvider">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="iwdordermanager_order_view_log_grid" xsi:type="array">
+                    <item name="created_at" xsi:type="string">created_at</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- add totals -->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <plugin name="iwd_om_grid_totals" type="IWD\OrderManager\Plugin\Framework\View\Element\UiComponent\DataProvider\DataProvider"/>
+    </type>
+
+    <!-- add columns to order grid -->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <plugin name="iwd_om_grid_additional_columns" type="IWD\OrderManager\Plugin\Framework\View\Element\UiComponent\DataProvider\CollectionFactory" />
+    </type>
+</config>

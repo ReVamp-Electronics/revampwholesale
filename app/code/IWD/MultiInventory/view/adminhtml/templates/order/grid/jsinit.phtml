@@ -1,0 +1,17 @@
+<?php
+/**
+ * @var $block IWD\MultiInventory\Block\Adminhtml\Warehouses\Jsinit
+ */
+?>
+
+<script type="text/javascript">
+    // <![CDATA[
+    require([
+            "IWD_MultiInventory/js/order/warehouse/stock",
+            "prototype"
+        ],
+        function(iwdMultiInventoryWarehouse) {
+            iwdMultiInventoryWarehouse.init(<?php echo $block->jsonParamsWarehouses(); ?>);
+        });
+    // ]]>
+</script>

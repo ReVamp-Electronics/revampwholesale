@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="IWD_OrderManager::config_iwdordermanager" title="IWD Order Manager">
+                                <resource id="IWD_OrderManager::iwdordermanager_delete_sales" title="Delete Sales">
+                                    <resource id="IWD_OrderManager::iwdordermanager_delete" title="Delete Order"/>
+                                    <resource id="IWD_OrderManager::iwdordermanager_delete_invoice" title="Delete Invoice"/>
+                                    <resource id="IWD_OrderManager::iwdordermanager_delete_shipment" title="Delete Shipment"/>
+                                    <resource id="IWD_OrderManager::iwdordermanager_delete_creditmemo" title="Delete Credit Memo"/>
+                                </resource>
+                                <resource id="IWD_OrderManager::iwdordermanager_change_status" title="Change Order Status (from grid)"/>
+                                <resource id="IWD_OrderManager::iwdordermanager_info" title="Edit Order Info"/>
+                                <resource id="IWD_OrderManager::iwdordermanager_customer" title="Edit Customer Info"/>
+                                <resource id="IWD_OrderManager::iwdordermanager_change_customer" title="Change Customer"/>
+                                <resource id="IWD_OrderManager::iwdordermanager_payment" title="Edit Payment Method"/>
+                                <resource id="IWD_OrderManager::iwdordermanager_shipping" title="Edit Shipping Method"/>
+                                <resource id="IWD_OrderManager::iwdordermanager_address" title="Order Address">
+                                    <resource id="IWD_OrderManager::iwdordermanager_address_billing" title="Edit Billing Address"/>
+                                    <resource id="IWD_OrderManager::iwdordermanager_address_shipping" title="Edit Shipping Address"/>
+                                </resource>
+                                <resource id="IWD_OrderManager::iwdordermanager_items" title="Order Items">
+                                    <resource id="IWD_OrderManager::iwdordermanager_items_edit" title="Edit Items"/>
+                                    <resource id="IWD_OrderManager::iwdordermanager_items_delete" title="Delete Items"/>
+                                    <resource id="IWD_OrderManager::iwdordermanager_items_add" title="Add Items"/>
+                                </resource>
+                                <resource id="IWD_OrderManager::iwdordermanager_comments" title="Order Comments">
+                                    <resource id="IWD_OrderManager::iwdordermanager_comments_edit" title="Edit Comments"/>
+                                    <resource id="IWD_OrderManager::iwdordermanager_comments_delete" title="Delete Comments"/>
+                                </resource>
+                                <resource id="IWD_OrderManager::iwdordermanager_print" title="Print Order"/>
+                                <resource id="IWD_OrderManager::iwdordermanager_log" title="Log"/>
+                            </resource>
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

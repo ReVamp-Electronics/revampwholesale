@@ -1,0 +1,21 @@
+<?php
+/**
+ * @var $block IWD\OrderManager\Block\Adminhtml\Order\History\AdminName
+ */
+
+$username = $block->getAdminUsername();
+$email = $block->getAdminEmail();
+?>
+
+<?php if ($username || $email) : ?>
+    <div class="note-list-admin-name">
+        <small>
+            <?php if ($username) : ?>
+                <?php echo __('by') ?> <?php echo $username ?>
+            <?php endif; ?>
+            <?php if ($email) : ?>
+                (<?php echo $email ?>)
+            <?php endif; ?>
+        </small>
+    </div>
+<?php endif; ?>

@@ -1,0 +1,20 @@
+{
+    "name": "iwd/salesrep",
+    "description": "IWD Sales Representative",
+    "require": {
+        "magento/module-customer": "100.0.*"
+    },
+    "type": "magento2-module",
+    "version": "1.1.0",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "IWD\\SalesRep\\": ""
+        }
+    }
+}

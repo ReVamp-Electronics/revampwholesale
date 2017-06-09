@@ -1,0 +1,19 @@
+<?php
+/**
+ * @var $block IWD\OrderManager\Block\Adminhtml\Shipment\View\Jsinit
+ */
+?>
+
+<script type="text/javascript">
+    // <![CDATA[
+    require([
+            "IWD_OrderManager/js/shipment/view/info",
+            "prototype"
+        ],
+        function(iwdOrderManagerShipmentInfo) {
+            var orderManagerShipmentInfo = new iwdOrderManagerShipmentInfo();
+            orderManagerShipmentInfo.init(<?php echo $block->jsonParamsShipmentInfo(); ?>);
+        }
+    );
+    // ]]>
+</script>

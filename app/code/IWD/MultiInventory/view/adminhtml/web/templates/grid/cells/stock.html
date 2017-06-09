@@ -1,0 +1,44 @@
+<div class="iwd-assign-stock-cell iwd-assign-stock-cell-<%- id %>">
+    <% if (isNotApplicable) { %>
+        <div class="iwd-assign-stock-item">
+            <span>
+                <span>NA</span>
+                <span class="hint">Not Applicable</span>
+            </span>
+        </div>
+    <% } else { %>
+        <% if (isOrderPlacesBefore) { %>
+            <div class="iwd-assign-stock-item">
+                <span>
+                    <span><i class="fa fa-ban"></i><%- orderedQty %></span>
+                    <span class="hint"><i class="fa fa-ban" aria-hidden="true"></i>Order Placed Before Multiple Sources Created</span>
+                </span>
+            </div>
+        <% } else { %>
+            <% if (assignedQty > 0) { %>
+                <div class="iwd-assign-stock-item">
+                    <span>
+                        <span><i class="fa fa-check"></i><%- assignedQty %></span>
+                        <span class="hint"><i class="fa fa-check" aria-hidden="true"></i>Stock Source Assigned</span>
+                    </span>
+                </div>
+            <% } %>
+            <% if (notAssignedQty > 0) { %>
+                <div class="iwd-assign-stock-item">
+                    <span>
+                        <span><i class="fa fa-times"></i><%- notAssignedQty %></span>
+                        <span class="hint"><i class="fa fa-times" aria-hidden="true"></i>Stock Needs Source Assignment</span>
+                    </span>
+                </div>
+            <% } %>
+            <% if (refundedQty) { %>
+                <div class="iwd-assign-stock-item">
+                    <span>
+                        <span><i class="fa fa-arrow-down"></i><%- refundedQty %></span>
+                        <span class="hint"><i class="fa fa-arrow-down" aria-hidden="true"></i>Some Items Were Refunded After Assign Stock</span>
+                    </span>
+                </div>
+            <% } %>
+        <% } %>
+    <% } %>
+</div>

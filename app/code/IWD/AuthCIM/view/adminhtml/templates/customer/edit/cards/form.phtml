@@ -1,0 +1,67 @@
+<?php
+/**
+ * @var $block \IWD\AuthCIM\Block\Customer\Edit\Tab\Cards\Form
+ */
+?>
+
+<div class="iwd-customer-view-authcim fieldset-wrapper">
+    <div class="iwd-customer-view-authcim-title fieldset-wrapper-title">
+        <span class="title"><?php /* @escapeNotVerified */ echo __('IWD Authorize.net CIM Cards')?></span>
+    </div>
+
+    <div id="iwd-authcim-messages" class="messages" style="display: none">
+        <div class="message"><div></div></div>
+    </div>
+
+    <div class="admin__fieldset-wrapper-content">
+        <fieldset class="admin__fieldset">
+            <div class="ui-tabs">
+                <?php /* @escapeNotVerified */ echo $block->getChildHtml('iwd.authcim.edit.tab.cards.list') ?>
+                <div class="address-item-edit">
+                    <div class="address-item-edit-content">
+                        <form id="iwd_authcim_profile">
+                            <fieldset class="admin__fieldset">
+                                <?php echo $block->getChildHtml('iwd.authcim.edit.tab.cards.address') ?>
+                                <?php echo $block->getChildHtml('iwd.authcim.edit.tab.cards.card') ?>
+
+                                <div class="actions">
+                                    <button class="secondary add iwd_cim_save_cc" type="button">
+                                        <span><?php /* @escapeNotVerified */ echo __('Save') ?></span>
+                                    </button>
+                                    <button class="secondary cancel iwd_cim_cancel_save_cc" type="button">
+                                        <span><?php /* @escapeNotVerified */ echo __('Cancel') ?></span>
+                                    </button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+    <div class="ajax-pre-loader"></div>
+</div>
+
+<script>
+    // <![CDATA[
+    require([
+            'IWD_AuthCIM/js/customer/cards',
+            'IWD_AuthCIM/js/accept',
+            'jquery'
+        ],
+        function (iwdAuthCimCustomerCards, iwdAuthCimAcceptJs, $) {
+            var authCimCards = new iwdAuthCimCustomerCards();
+            $(document).ready(authCimCards.init(<?php echo $block->getJsConfig(); ?>));
+
+            var authCimAcceptJs = new iwdAuthCimAcceptJs();
+            $(document).ready(authCimAcceptJs.init({
+                'acceptEnabled': '<?php /* @escapeNotVerified */ echo $block->isAcceptJsEnabled() ?>',
+                'apiLoginId': '<?php /* @escapeNotVerified */ echo $block->getApiLoginId() ?>',
+                'acceptKey': '<?php /* @escapeNotVerified */ echo $block->getAcceptJsKey() ?>',
+                'hasVerification': '<?php /* @escapeNotVerified */ echo $block->hasVerification() ?>'
+            }));
+        }
+    );
+    // ]]>
+</script>

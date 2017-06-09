@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="IWD\MultiInventory\Block\Adminhtml\Warehouses\Jsinit" name="iwdmultiinventory_order_view_jsinit" template="IWD_MultiInventory::order/view/jsinit.phtml" after="-" cache="false"/>
+        </referenceContainer>
+
+        <referenceBlock name="order_items">
+            <block class="IWD\MultiInventory\Block\Adminhtml\Order\Items\Stock\Renderer" name="column_assign-stock" template="IWD_MultiInventory::order/view/items/renderer/stock.phtml" group="column"/>
+        </referenceBlock>
+    </body>
+</page>

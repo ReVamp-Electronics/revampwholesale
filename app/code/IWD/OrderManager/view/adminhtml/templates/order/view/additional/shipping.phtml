@@ -1,0 +1,32 @@
+<?php
+?>
+
+<div class="message message-notice iwd-om-message-notice ">
+    <div class="message-inner">
+        <?php if ($block->isNotAvailable()) : ?>
+            <div class="message-content"><?php echo __('Current shipping method is not available after edit.') ?></div>
+            <div class="message-content"><?php echo __('Please select a new shipping method.') ?></div>
+        <?php elseif ($block->isTotalChanged()) : ?>
+            <div class="message-content"><?php echo __('The shipping amount will be updated after editing the order.') ?></div>
+            <div class="message-content"><?php echo __('You can accept this change or adjust the shipping information.') ?></div>
+        <?php endif; ?>
+    </div>
+</div>
+
+<?php echo $block->getShippingForm() ?>
+
+<script type="text/javascript">
+    // <![CDATA[
+    require([
+            "IWD_OrderManager/js/order/view/shipping",
+            "prototype"
+        ],
+        function(iwdOrderManagerShipping)
+        {
+            var iwdOrderManagerAdditional = new iwdOrderManagerShipping();
+            iwdOrderManagerAdditional.init(<?php echo $block->jsonParamsShipping(); ?>);
+            window.iwdOrderManagerAdditional = iwdOrderManagerAdditional;
+        }
+    );
+    // ]]>
+</script>

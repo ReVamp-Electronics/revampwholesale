@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Customer\Model\AccountManagement" type="IWD\SalesRep\Model\Preference\Customer\AccountManagement"/>
+    <type name="\IWD\B2B\Helper\Data">
+        <plugin name="salesrep_set_b2b_user" type="\IWD\SalesRep\Helper\Plugin\B2B\Data"/>
+    </type>
+    <type name="\IWD\B2B\Helper\Roles">
+        <plugin name="salesrep_limit_b2b_user" type="\IWD\SalesRep\Helper\Plugin\B2B\Roles"/>
+    </type>
+</config>

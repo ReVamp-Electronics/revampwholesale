@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="editor"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="IWD\MultiInventory\Block\Adminhtml\Warehouses\Source\Edit" name="multiinventory_warehouses-source_edit"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="IWD\MultiInventory\Block\Adminhtml\Warehouses\Source\Edit\Tabs" name="multiinventory_warehouses-source_edit_tabs">
+                <block class="IWD\MultiInventory\Block\Adminhtml\Warehouses\Source\Edit\Tab\General" name="multiinventory_warehouses-source_edit_tab_general"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">general_section</argument>
+                    <argument name="block" xsi:type="string">multiinventory_warehouses-source_edit_tab_general</argument>
+                </action>
+                <block class="IWD\MultiInventory\Block\Adminhtml\Warehouses\Source\Edit\Tab\Address" name="multiinventory_warehouses-source_edit_tab_address"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">address_section</argument>
+                    <argument name="block" xsi:type="string">multiinventory_warehouses-source_edit_tab_address</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

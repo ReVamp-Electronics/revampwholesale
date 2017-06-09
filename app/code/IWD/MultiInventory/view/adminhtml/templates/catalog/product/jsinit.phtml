@@ -1,0 +1,77 @@
+<?php
+/**
+ * @var $block IWD\MultiInventory\Block\Adminhtml\Product\Edit\Jsinit
+ */
+?>
+
+<style type="text/css">
+    <?php if ($block->isExtensionEnabled()) : ?>
+    fieldset[data-index="quantity_and_stock_status_qty"] {display:none !important;}
+    <?php else : ?>
+    fieldset[data-index="iwd_quantity_and_stock_status_qty"] {display:none !important;}
+    #nav .item-catalog-warehouses-product, #nav .item-catalog-warehouses {
+        display:none !important;
+    }
+    <?php endif; ?>
+</style>
+
+<?php if ($block->isExtensionEnabled()) : ?>
+    <script type="text/javascript">
+        // <![CDATA[
+        require(
+            ['jquery'],
+            function($) {
+                window.iwdProductInventoryStockData = <?php echo $block->jsonProductInventoryStockData() ?>;
+
+                function changeQty()
+                {
+                    var $ = jQuery;
+
+                    $(document).off('change', '.inventory_qty');
+                    $(document).on('change', '.inventory_qty', function(){
+                        var changes = 0.0;
+                        $.each($('.inventory_qty'), function() {
+                            var val = parseFloat($(this).val()); val = isNaN(val) ? 0 : val;
+                            var prevVal = parseFloat($(this).attr('prevalue')); prevVal = isNaN(prevVal) ? 0 : prevVal;
+                            changes += (val - prevVal);
+                            $(this).attr('prevalue', $(this).val());
+                        });
+
+                        var totalQty = $('.inventory_qty_default');
+                        var totalQtyValue = parseFloat(totalQty.attr('prevalue'));
+                        totalQtyValue = isNaN(totalQtyValue) ? 0 : totalQtyValue;
+                        totalQty.val(totalQtyValue + changes);
+                        totalQty.attr('prevalue', totalQty.val());
+                        $('input[name="product[quantity_and_stock_status][qty]"]').val(totalQty.val());
+                    });
+
+                    $(document).off('change', '.inventory_qty_default');
+                    $(document).on('change', '.inventory_qty_default', function() {
+                        $(this).attr('prevalue', $(this).val());
+                        $('input[name="product[quantity_and_stock_status][qty]"]').val($(this).val());
+                    });
+                }
+
+                function validateNumber()
+                {
+                    var $ = jQuery;
+
+                    $(document).off('keypress', '#table_cataloginventory_grid input.input-text');
+                    $(document).on('keypress', '#table_cataloginventory_grid input.input-text', function(e){
+                        if (e.which == 13 || e.which == 8) return 1;
+                        var letters = '1234567890.,+-';
+                        return (letters.indexOf(String.fromCharCode(e.which)) != -1);
+                    });
+
+                    $(document).off('change', '#table_cataloginventory_grid input.input-text');
+                    $(document).on('change', '#table_cataloginventory_grid input.input-text', function(e){
+                        $(this).val(eval($(this).val()));
+                    });
+                }
+
+                changeQty();
+                validateNumber();
+            });
+        // ]]>
+    </script>
+<?php endif; ?>

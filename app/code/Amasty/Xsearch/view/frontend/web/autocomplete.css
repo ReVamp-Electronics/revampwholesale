@@ -1,0 +1,90 @@
+.amasty-xsearch-autocomplete .product-item-name{
+    margin: 0;
+}
+
+.amasty-xsearch-autocomplete-left-col{
+    float: left;
+    width: 30%;
+}
+
+.amasty-xsearch-autocomplete-right-col{
+    float: left;
+    width: 70%;
+}
+
+.amasty-xsearch-autocomplete-right-col-container{
+    padding-left: 0.5em;
+}
+
+.amasty-xsearch-autocomplete-right-col-container .product-item-details{
+    padding-left: 0.5em;
+    /*border-left: 1px solid #e5e5e5;*/
+}
+
+.amasty-xsearch-loader {
+    background-image: url(images/loader.gif);
+    background-repeat: no-repeat;
+    height: 11px;
+    width: 16px;
+    float: right;
+    clear: both;
+    position: relative;
+    margin-right: 5px;
+}
+
+.amasty-message.message.info{
+    margin: 0;
+}
+
+.search-autocomplete{
+    border: 1px solid #c2c2c2;
+}
+
+.search-autocomplete{
+    margin-top: 5px !important;
+}
+
+.search-autocomplete ul li{
+    padding-right: 10px;
+}
+
+.amasty-xsearch-num-results{
+    float: right;
+}
+
+.search-autocomplete ul li.amasty-more-results{
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.amasty-xsearch-highlight{
+    font-weight: bold;
+}
+
+.block-search .action.search.amasty-xsearch-hide,
+.amasty-xsearch-hide{
+    display: none;
+}
+
+.amasty-xsearch-block-header{
+    /*background: white;*/
+    font-weight: bold;
+    padding: 10px 5px 5px 10px;
+}
+
+.search-autocomplete ul:not(:empty),
+.search-autocomplete ul li:not(:empty){
+    border: 0px;
+}
+
+.amasty-xsearch-preload{
+    display: none;
+}
+
+@media only screen and (max-width: 599px){
+    .search-autocomplete{
+        width: 100% !important;
+        left: 0;
+    }
+}

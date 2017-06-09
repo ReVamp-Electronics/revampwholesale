@@ -1,0 +1,20 @@
+<?php
+/**
+ * @var $block \IWD\OrderManager\Block\Adminhtml\Order\Items\NewItem\Form
+ */
+?>
+
+<?php echo $block->getItemsForm(); ?>
+
+<?php foreach($block->getErrors() as $productName => $error): ?>
+    <?php $id = uniqid(); ?>
+    <tr class="headings type-quote" data-item-id="<?php echo $id ?>">
+        <td class="col-product"><?php echo $productName ?></td>
+        <td colspan="10"><span class="notice"><?php echo $error ?></span></td>
+        <td class="error_row_remove a-center last">
+            <span data-id="<?php echo $id ?>" class="remove_quote_item remove_quote_item_error">
+                <i class="fa fa-times"></i>
+            </span>
+        </td>
+    </tr>
+<?php endforeach; ?>

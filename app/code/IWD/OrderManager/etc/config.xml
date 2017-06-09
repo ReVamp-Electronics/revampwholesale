@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <iwdordermanager>
+            <general>
+                <enable>1</enable>
+                <order_statuses>fraud,holded,payment_review,paypal_reversed,pending,pending_payment,pending_paypal,processing</order_statuses>
+                <auto_apply_shipping>1</auto_apply_shipping>
+                <enable_edit_coupon>1</enable_edit_coupon>
+            </general>
+            <order_grid>
+                <order_grid_enable>1</order_grid_enable>
+                <order_grid_sets>shipped,tax,invoiced,discount,refunded</order_grid_sets>
+            </order_grid>
+            <order_info>
+                <edit_state>0</edit_state>
+            </order_info>
+            <update_reauthorize>
+                <shipments_update_mode>nothing</shipments_update_mode>
+                <invoice_update_mode>rebuild</invoice_update_mode>
+            </update_reauthorize>
+            <order_items>
+                <validate_inventory>1</validate_inventory>
+                <return_to_stock>1</return_to_stock>
+            </order_items>
+            <allow_delete>
+                <orders>1</orders>
+                <order_statuses>canceled,closed,complete,fraud,holded,pending,processing</order_statuses>
+                <invoices>1</invoices>
+                <credit_memos>1</credit_memos>
+                <shipments>1</shipments>
+            </allow_delete>
+        </iwdordermanager>
+    </default>
+</config>

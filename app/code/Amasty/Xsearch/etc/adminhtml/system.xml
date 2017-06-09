@@ -1,0 +1,197 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_Xsearch
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="amasty_xsearch" translate="label" type="text" sortOrder="161812" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <label>Search Pro</label>
+            <tab>amasty</tab>
+            <resource>Amasty_Xsearch::amasty_xsearch</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="width" translate="label comment" type="text" sortOrder="10" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Popup width (px)</label>
+                    <validate>validate-number</validate>
+                </field>
+
+                <field id="min_chars" translate="label comment" type="text" sortOrder="20" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Min characters</label>
+                    <validate>validate-number</validate>
+                </field>
+            </group>
+            <group id="search_attributes" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Search Attributes</label>
+                <field id="attributes" translate="label comment" sortOrder="2" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <frontend_model>Amasty\Xsearch\Block\Adminhtml\Form\Field\AttributesWeight</frontend_model>
+                    <backend_model>Amasty\Xsearch\Model\System\Config\Backend\Weight</backend_model>
+                </field>
+            </group>
+            <group id="recent_searches" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Recent Searches</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="first_click" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show on first click</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label comment" type="text" sortOrder="15" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                </field>
+                <field id="position" translate="label comment" type="text" sortOrder="20" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Position</label>
+                    <validate>validate-number</validate>
+                </field>
+                <field id="limit" translate="label comment" type="text" sortOrder="30" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Max Results</label>
+                    <validate>validate-number</validate>
+                </field>
+            </group>
+            <group id="popular_searches" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Popular Searches</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label comment" type="text" sortOrder="15" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                </field>
+                <field id="position" translate="label comment" type="text" sortOrder="20" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Position</label>
+                    <validate>validate-number</validate>
+                </field>
+                <field id="limit" translate="label comment" type="text" sortOrder="30" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Max Results</label>
+                    <validate>validate-number</validate>
+                </field>
+            </group>
+
+            <group id="category" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Categories</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label comment" type="text" sortOrder="15" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                </field>
+                <field id="position" translate="label comment" type="text" sortOrder="20" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Position</label>
+                    <validate>validate-number</validate>
+                </field>
+                <field id="limit" translate="label comment" type="text" sortOrder="30" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Max Results</label>
+                    <validate>validate-number</validate>
+                </field>
+                <field id="name_length" translate="label comment" type="text" sortOrder="40" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Name Length</label>
+                    <validate>validate-number</validate>
+                </field>
+                <field id="desc_length" translate="label comment" type="text" sortOrder="50" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Description Length</label>
+                    <validate>validate-number</validate>
+                </field>
+            </group>
+            <group id="page" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>СMS Pages</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label comment" type="text" sortOrder="15" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                </field>
+                <field id="position" translate="label comment" type="text" sortOrder="20" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Position</label>
+                    <validate>validate-number</validate>
+                </field>
+                <field id="limit" translate="label comment" type="text" sortOrder="30" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Max Results</label>
+                    <validate>validate-number</validate>
+                </field>
+                <field id="name_length" translate="label comment" type="text" sortOrder="40" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Content Heading Length</label>
+                    <validate>validate-number</validate>
+                </field>
+                <field id="desc_length" translate="label comment" type="text" sortOrder="50" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Content Length</label>
+                    <validate>validate-number</validate>
+                </field>
+            </group>
+            <group id="product" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Products</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label comment" type="text" sortOrder="15" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                </field>
+                <field id="position" translate="label comment" type="text" sortOrder="20" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Position</label>
+                    <validate>validate-number</validate>
+                </field>
+                <field id="limit" translate="label comment" type="text" sortOrder="30" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Max Results</label>
+                    <validate>validate-number</validate>
+                </field>
+                <field id="name_length" translate="label comment" type="text" sortOrder="40" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Name Length</label>
+                    <validate>validate-number</validate>
+                </field>
+                <field id="desc_length" translate="label comment" type="text" sortOrder="50" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Description Length</label>
+                    <validate>validate-number</validate>
+                </field>
+                <field id="reviews" translate="label comment" type="select" sortOrder="60" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Show reviews</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="add_to_cart" translate="label comment" type="select" sortOrder="70" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Enable "Add to Cart" button</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="layout" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Custom Layout</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="border" translate="label comment" type="text" sortOrder="20" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Border</label>
+                    <validate>color</validate>
+                </field>
+                <field id="hover" translate="label comment" type="text" sortOrder="20" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Hover</label>
+                    <validate>color</validate>
+                </field>
+                <field id="highlight" translate="label comment" type="text" sortOrder="20" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Highlight</label>
+                    <validate>color</validate>
+                </field>
+                <field id="background" translate="label comment" type="text" sortOrder="20" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Background</label>
+                    <validate>color</validate>
+                </field>
+                <field id="text" translate="label comment" type="text" sortOrder="20" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Text</label>
+                    <validate>color</validate>
+                </field>
+                <field id="hover_text" translate="label comment" type="text" sortOrder="20" showInDefault="1"   showInWebsite="1" showInStore="1">
+                    <label>Hover Text</label>
+                    <validate>color</validate>
+                </field>
+            </group>
+
+        </section>
+    </system>
+</config>

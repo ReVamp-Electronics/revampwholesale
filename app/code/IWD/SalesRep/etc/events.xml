@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="admin_user_save_after">
+        <observer name="salesrep_save_user" instance="IWD\SalesRep\Observer\Backend\AdminUserSaveAfterObserver" />
+    </event>
+    <event name="customer_save_after_data_object">
+        <observer name="salesrep_save_user" instance="IWD\SalesRep\Observer\Common\CustomerSaveAfterObserver" />
+    </event>
+    <event name="checkout_submit_all_after">
+        <observer name="salesrep_checkout_submit_all_after" instance="IWD\SalesRep\Observer\Common\CheckoutSubmitAllAfterObserver" />
+    </event>
+    <event name="iwd_om_change_order_customer">
+        <observer name="salesrep_change_order_customer" instance="IWD\SalesRep\Observer\Common\ChangeCustomerObserver" />
+    </event>
+    <event name="controller_action_predispatch_adminhtml_user_edit">
+        <observer name="predispatch_admin_user_edit" instance="IWD\SalesRep\Observer\Backend\AdminUserEditPredispatchObserver" />
+    </event>
+</config>

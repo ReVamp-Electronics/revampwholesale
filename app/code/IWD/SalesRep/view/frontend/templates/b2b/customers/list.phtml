@@ -1,0 +1,63 @@
+<?php
+/**
+ * @var $block \IWD\SalesRep\Block\B2B\CustomersList
+ */
+$customers = $block->getCustomersList();
+?>
+
+<div class="iwdsr input-wrapper b2b-overflow">
+    <input type="text" name="salesrep_customer_search" id="iwdsr-quick-search" placeholder="Search customer's name or email">
+</div>
+<ul class="iwdsr letter-search">
+    <?php foreach (range('A', 'Z') as $c) : ?>
+        <li data-letter="<?php echo $c; ?>">
+            <a><span><?php echo $c; ?></span></a>
+        </li>
+    <?php endforeach; ?>
+    <a class="iwdsr-filter-reset"><i class="filter-reset-icon fa fa-plus-circle transform-45-deg" style="font-size: 20px;"></i></a>
+</ul>
+<div class="iwdsr customers-list">
+    <div class="iwdsr_list_no_results">There are no results for <span></span></div>
+    <?php foreach ($customers as $customer) : ?>
+        <?php $image = $customer->getData('image'); ?>
+        <div class="iwdsr customer-item customer-hover-parent">
+            <div class="iwdsr-customer-item-inner">
+                <form class="customer-form" method="post" action="<?php echo $block->getUrl('salesrep/customer/loginAs')?>">
+                    <input type="hidden" name="customer_id" value="<?php echo $customer->getId(); ?>">
+                    <div class="iwdsr-logo-wrap">
+                    <?php $store_name = $customer->getData('store_name'); ?>
+                    <?php if ($image) : ?>
+                        <img src="<?php echo $image; ?>" alt="<?php echo $customer->getData('name'); ?>" title="<?php echo $customer->getData('name'); ?>">
+                    <?php else : ?>
+                        <?php
+                            $words = explode(' ', $store_name);
+                            $abr = [];
+                            foreach ($words as $word) {
+                                $word = trim($word);
+                                if (!empty($word)) {
+                                    $abr[] = $word[0];
+                                }
+                            }
+                            $abr = implode('', $abr);
+                            $words = strtoupper($abr);
+                            $words = substr($words, 0, 3);
+                        ?>
+                        <div class="iwdsr-logo-container">
+                            <div class="iwdsr-logo-default">
+                              <a class="customer-icon-wrapper customer-hover-child">
+                                <i class="fa fa-circle circle-icon-inner" aria-hidden="true"></i>
+                                <span class="company-initials"><?php echo $words;?></span>
+                              </a>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                    </div>
+                    <p class="iwdsr-company-name"><?php echo $store_name; ?></p>
+                    <p class="iwdsr-name"><?php echo $customer->getData('name'); ?></p>
+                    <p class="iwdsr-email"><?php echo $customer->getData('email'); ?></p>
+                    <p class="iwdsr-phone"><?php echo $customer->getData('telephone'); ?></p>
+                </form>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</div>

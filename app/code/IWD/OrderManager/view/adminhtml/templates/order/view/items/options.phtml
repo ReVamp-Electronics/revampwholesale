@@ -1,0 +1,28 @@
+<?php
+?>
+
+<?php if($block->getOrderOptions()): ?>
+    <dl class="item-options item_options_<?php echo $block->getItemId(); ?>">
+        <?php foreach ($block->getOrderOptions() as $_option): ?>
+            <dt><?php /* @escapeNotVerified */ echo $_option['label'] ?>:</dt>
+            <dd>
+                <?php if (isset($_option['custom_view']) && $_option['custom_view']): ?>
+                    <?php /* @escapeNotVerified */ echo $block->getCustomizedOptionValue($_option); ?>
+                <?php else: ?>
+                    <?php $_option = $block->getFormattedOption($_option['value']); ?>
+                    <?php /* @escapeNotVerified */ echo $_option['value']; ?><?php if (isset($_option['remainder']) && !empty($_option['remainder'])): ?><span id="<?php /* @escapeNotVerified */ echo $_dots = 'dots' . uniqid()?>"> ...</span><span id="<?php /* @escapeNotVerified */ echo $_id = 'id' . uniqid()?>"><?php /* @escapeNotVerified */ echo $_option['remainder'] ?></span>
+                        <script>
+                            require(['prototype'], function() {
+                                $('<?php /* @escapeNotVerified */ echo $_id ?>').hide();
+                                $('<?php /* @escapeNotVerified */ echo $_id ?>').up().observe('mouseover', function(){$('<?php /* @escapeNotVerified */ echo $_id ?>').show();});
+                                $('<?php /* @escapeNotVerified */ echo $_id ?>').up().observe('mouseover', function(){$('<?php /* @escapeNotVerified */ echo $_dots?>').hide();});
+                                $('<?php /* @escapeNotVerified */ echo $_id ?>').up().observe('mouseout',  function(){$('<?php /* @escapeNotVerified */ echo $_id ?>').hide();});
+                                $('<?php /* @escapeNotVerified */ echo $_id ?>').up().observe('mouseout',  function(){$('<?php /* @escapeNotVerified */ echo $_dots ?>').show();});
+                            });
+                        </script>
+                    <?php endif; ?>
+                <?php endif; ?>
+            </dd>
+        <?php endforeach; ?>
+    </dl>
+<?php endif; ?>

@@ -1,0 +1,350 @@
+<?php
+/**
+ * @var \IWD\OrderManager\Model\Order\Item $item
+ * @var \IWD\OrderManager\Block\Adminhtml\Order\Items\NewItem\AbstractType $block
+ * @var \Magento\CatalogInventory\Api\Data\StockItemInterface $stock
+ */
+$item      = $block->getOrderItem();
+$id        = $block->getOrderItemId();
+$type      = $block->getEditedItemType();
+$hasParent = $block->hasOrderItemParent();
+$parentId  = $block->getParentItemId();
+$stockQty  = $block->getStockQty();
+$itemQty   = $block->getItemQty();
+$stock     = $block->getStockObjectForOrderItem();
+$stockQtyIncrements = $stock->getQtyIncrements();
+$canShowPriceInfo = $block->canShowPriceInfo($item);
+$canEditItem = $block->isAllowedAction('items_edit');
+$canDeleteItem = $block->isAllowedAction('items_delete');
+?>
+
+<?php if ($hasParent && $item->hasOptionLabel()) : ?>
+    <tr class="headings has-parent has-parent-<?php echo $parentId ?> type-<?php echo $type?>"
+        data-parent-id="<?php echo $parentId ?>"
+        data-item-id="<?php echo $id ?>">
+         <td class="col-product" colspan="12">
+            <div class="option-label"><?php echo $item->getOptionLabel() ?></div>
+        </td>
+    </tr>
+<?php endif; ?>
+
+<tr class="headings <?php if ($hasParent) : ?>has-parent has-parent-<?php echo $parentId ?><?php endif; ?> type-<?php echo $type?>"
+    <?php if ($hasParent) : ?>data-parent-id="<?php echo $parentId ?>"<?php endif; ?>
+    data-item-id="<?php echo $id ?>">
+
+    <?php /** NAME / SKU **/ ?>
+    <td class="col-product">
+        <div>
+            <div class="product-title item_name_<?php echo $id ?>"><?php echo $item->getName() ?></div>
+            <div class="product-sku-block">
+                <span><?php echo __("SKU") ?>: </span>
+                <span class="item_sku_<?php echo $id ?>"><?php echo $item->getSku() ?></span>
+            </div>
+        </div>
+        <?php if ($canEditItem) : ?>
+            <input type="text" name="item[<?php echo $id ?>][description]"
+                   class="edit_order_item large"
+                   placeholder="<?php echo __('Description') ?>"
+                   title="<?php echo __("Description") ?>"
+                   value="<?php echo $item->getDescription() ?>"/>
+
+            <div class="product-configure-block">
+                <?php echo $block->getOptionsForProduct()  ?>
+                <div class="clear"></div>
+                <?php $button = $block->getConfigureButtonHtml() ?>
+                <?php if (!empty($button)) : ?>
+                    <?php echo $button; ?>
+                    <div style="display:none !important;">
+                        <input type="hidden" name="item[<?php echo $id ?>][product_options]" />
+                        <input type="hidden" name="item[<?php echo $id ?>][sku]" />
+                    </div>
+                <?php endif; ?>
+            </div>
+
+            <div class="notice notice_<?php echo $id ?>" style="display:none">
+                <div class="notice_qty" style="font-size:95%; display:none">
+                    <?php echo __('The requested quantity is not available. Allowed: ') . $stockQty ?>
+                </div>
+            </div>
+
+            <?php if ($item->getHasError() && $item->getMessage()) : ?>
+                <div class="notice"><?php echo $item->getMessage(); ?></div>
+            <?php endif; ?>
+        <?php endif; ?>
+    </td>
+
+    <?php /** STATUS **/ ?>
+    <td class="col-status">
+        <?php if ($canShowPriceInfo) : ?>
+            <?php echo ($type == 'quote') ? __('Added') : $item->getStatus(); ?>
+        <?php else : ?>
+            &nbsp;
+        <?php endif; ?>
+    </td>
+
+    <?php /** ORIGINAL PRICE **/ ?>
+    <td class="col-price-original">
+        <?php if ($canShowPriceInfo) : ?>
+            <?php echo $block->displayPriceAttribute('original_price') ?>
+        <?php else : ?>
+            &nbsp;
+        <?php endif; ?>
+    </td>
+
+    <?php /** PRICE **/ ?>
+    <td class="col-price">
+        <?php if ($canShowPriceInfo) : ?>
+            <label><?php echo __('Excl.Tax:') ?>&nbsp;<b><?php echo $block->getPriceHtml('price'); ?></b></label><br/>
+            <?php if ($canEditItem) : ?>
+                <input type="text" name="item[<?php echo $id ?>][price]"
+                   title="<?php echo __("Price excl tax") ?>"
+                   class="edit_order_item required-entry validate-number"
+                   value="<?php echo $block->getPrice('price'); ?>"/><br/>
+            <?php endif; ?>
+
+            <label>
+                <?php echo __('Incl.Tax:') ?>&nbsp;<b><?php echo $block->getPriceHtml('price_incl_tax'); ?></b>
+            </label><br/>
+            <?php if ($canEditItem) : ?>
+                <input type="text" name="item[<?php echo $id ?>][price_incl_tax]"
+                   title="<?php echo __("Price incl. tax") ?>"
+                   class="edit_order_item required-entry validate-number"
+                   value="<?php echo $block->getPrice('price_incl_tax'); ?>"/>
+            <?php endif; ?>
+        <?php else : ?>
+            &nbsp;
+        <?php endif; ?>
+    </td>
+
+    <?php /** QTY **/ ?>
+    <td class="col-ordered-qty">
+        <table class="qty-table">
+            <tr>
+                <td><?php echo __("Ordered"); ?></td><td><?php echo $item->getQtyOrdered() * 1; ?></td>
+            </tr>
+            <?php if ($item->getQtyInvoiced() > 0) : ?>
+                <tr>
+                    <td><?php echo __("Invoiced") ?></td><td><?php  echo $item->getQtyInvoiced() * 1; ?></td>
+                </tr>
+            <?php endif; ?>
+            <?php if ($item->getQtyRefunded() > 0) : ?>
+                <tr>
+                    <td><?php echo __("Refunded") ?></td><td><?php  echo $item->getQtyRefunded() * 1; ?></td>
+                </tr>
+            <?php endif; ?>
+            <?php if ($item->getQtyShipped() > 0) : ?>
+                <tr>
+                    <td><?php  echo __("Shipped") ?></td><td><?php  echo $item->getQtyShipped() * 1; ?></td>
+                </tr>
+            <?php endif; ?>
+            <?php if ($item->getQtyCanceled() > 0) : ?>
+                <tr>
+                    <td><?php  echo __("Canceled") ?></td><td><?php  echo $item->getQtyCanceled() * 1; ?></td>
+                </tr>
+            <?php endif; ?>
+            <?php if ($canEditItem) : ?>
+                <tr>
+                    <td><b><?php echo __("New&nbsp;qty"); ?></b></td>
+                    <td>
+                        <input type="text" class="edit_order_item required-entry validate-number qty_input"
+                               value="<?php echo $itemQty * 1; ?>"
+                               name="item[<?php echo $id; ?>][fact_qty]"
+                               data-stock-validate="<?php echo $block->isStockValidation($item, $stockQty) ?>"
+                               data-start-qty="<?php echo  $item->getQtyOrdered() * 1; ?>"
+                               data-fact-qty="<?php echo $itemQty; ?>"
+                               data-stock-qty-increment="<?php echo $stockQtyIncrements ? $stockQtyIncrements : 1 ?>"
+                               data-stock-qty="<?php echo $stockQty ? $stockQty : 1 ?>"
+                               data-stock-qty-min="<?php echo $stock->getMinQty() ? $stock->getMinQty() : 1 ?>"
+                               data-stock-min-sales-qty="<?php echo $stock->getMinSaleQty() ? $stock->getMinSaleQty() : 1 ?>"
+                               data-stock-max-sales-qty="<?php echo $stock->getMaxSaleQty() ? $stock->getMaxSaleQty() : 1 ?>"
+                               data-qty-refunded="<?php echo $item->getQtyRefunded(); ?>"
+                            <?php if ($stockQtyIncrements) : ?>
+                                title="<?php echo __('Qty increments x%1', $stockQtyIncrements); ?>"
+                            <?php endif; ?>
+                            />
+                    </td>
+                </tr>
+            <?php endif; ?>
+
+            <?php if ($hasParent) : ?>
+                <tr>
+                    <td colspan="2">
+                        <i>
+                            <?php echo __("Qty in bundle"); ?>:
+                            <span id="qty_in_bundle_<?php echo $id ?>">
+                                <?php echo ($item->getQtyOrdered() / $item->getParentItem()->getQtyOrdered()); ?>
+                            </span>
+                        </i>
+
+                        <?php $parentItemQty = $item->getParentItem()->getQtyOrdered() - $item->getParentItem()->getQtyRefunded(); ?>
+                        <?php $parentItemQty = $parentItemQty == 0 ? 1 : $parentItemQty * 1; ?>
+                        <input type="hidden" value="<?php echo $itemQty / $parentItemQty; ?>"
+                               name="item[<?php echo $id ?>][qty_item_in_bundle]"/>
+                        <input type="hidden" value="<?php echo $parentId ?>"
+                               name="item[<?php echo $id ?>][parent]"/>
+                    </td
+                </tr>
+            <?php endif; ?>
+        </table>
+    </td>
+
+    <?php /** SUBTOTAL **/ ?>
+    <td class="col-subtotal">
+        <?php if ($canShowPriceInfo) : ?>
+            <?php echo __("Excl.Tax") ?>:&nbsp;<b><?php echo $block->getPriceHtml('base_row_total'); ?></b>
+            <?php if ($canEditItem) : ?>
+                <input type="text" readonly="readonly" class="edit_order_item required-entry validate-number readonly"
+                       title="<?php echo __("Subtotal excl. tax") ?>"
+                       <?php if ($item->getQtyRefunded() > 0) : ?>readonly="readonly"<?php endif; ?>
+                       value="<?php echo $block->getPrice('base_row_total'); ?>"
+                       name="item[<?php echo $id ?>][subtotal]"/>
+            <?php endif; ?>
+            <br/>
+
+            <?php echo __("Incl.Tax") ?>:&nbsp;<b><?php echo $block->getPriceHtml('base_row_total_incl_tax'); ?></b>
+            <?php if ($canEditItem) : ?>
+                <input type="text" readonly="readonly" class="edit_order_item required-entry validate-number readonly"
+                   title="<?php echo __("Subtotal incl. tax") ?>"
+                   <?php if ($item->getQtyRefunded() > 0) : ?>readonly="readonly"<?php endif; ?>
+                   value="<?php echo $block->getPrice('base_row_total_incl_tax'); ?>"
+                   name="item[<?php echo $id ?>][subtotal_incl_tax]"/>
+            <?php endif; ?>
+        <?php else : ?>
+            &nbsp;
+        <?php endif; ?>
+    </td>
+
+    <?php /** TAX AMOUNT **/ ?>
+    <td class="col-tax-amount">
+        <?php if ($canShowPriceInfo) : ?>
+            <?php echo $block->getPriceHtml('tax_amount') ?>
+            <?php if ($canEditItem) : ?>
+                <input type="text" name="item[<?php echo $id ?>][tax_amount]" readonly="readonly"
+                   title="<?php echo __("Tax amount") ?>"
+                   class="edit_order_item small required-entry validate-number readonly"
+                   value="<?php echo $block->getPrice('base_tax_amount'); ?>"/>
+            <?php endif; ?>
+        <?php else : ?>
+            &nbsp;
+        <?php endif; ?>
+    </td>
+
+    <?php /** TAX PERCENT **/ ?>
+    <td class="col-tax-percent">
+        <?php if ($canShowPriceInfo) : ?>
+            <label><?php echo $block->getPercentHtml('tax_percent') ?></label><br/>
+            <?php if ($canEditItem) : ?>
+                <input type="text" name="item[<?php echo $id ?>][tax_percent]"
+                   title="<?php echo __("Tax percent") ?>"
+                   class="edit_order_item small required-entry validate-number"
+                   value="<?php echo $block->getPercent('tax_percent'); ?>"/>
+            <?php endif; ?>
+        <?php else : ?>
+            &nbsp;
+        <?php endif; ?>
+    </td>
+
+    <?php /** DISCOUNT AMOUNT **/ ?>
+    <td class="col-discount">
+        <?php if ($canShowPriceInfo) : ?>
+            <div>
+                <?php echo $block->getPriceHtml('base_discount_amount') ?><br/>
+                <?php if ($canEditItem) : ?>
+                    <input type="text" name="item[<?php echo $id ?>][discount_amount]" readonly="readonly"
+                       title="<?php echo __("Discount amount") ?>"
+                       class="edit_order_item small required-entry validate-number readonly"
+                       value="<?php echo $block->getPrice('base_discount_amount'); ?>"/>
+                <?php endif; ?>
+            </div>
+        <?php else : ?>
+            &nbsp;
+        <?php endif; ?>
+    </td>
+
+    <?php /** DISCOUNT PERCENT **/ ?>
+    <td class="col-discount-percent">
+        <?php if ($canShowPriceInfo) : ?>
+            <label><?php echo $block->getPercentHtml('discount_percent') ?></label><br/>
+            <?php if ($canEditItem) : ?>
+                <input type="text" name="item[<?php echo $id ?>][discount_percent]"
+                   title="<?php echo __("Discount percent") ?>"
+                   class="edit_order_item small required-entry validate-number"
+                   value="<?php echo $block->getPercent('discount_percent'); ?>"/>
+            <?php endif; ?>
+        <?php else : ?>
+            &nbsp;
+        <?php endif; ?>
+    </td>
+
+    <?php /** TOTAL **/ ?>
+    <td class="col-total">
+        <?php if ($canShowPriceInfo) : ?>
+            <label><b><?php echo $block->getItemTotalHtml() ?></b></label><br/>
+            <?php if ($canEditItem) : ?>
+                <input type="text" name="item[<?php echo $id ?>][row_total]" readonly="readonly"
+                   title="<?php echo __("Total") ?>"
+                   class="edit_order_item small required-entry validate-number readonly"
+                   value="<?php echo $block->getBaseItemTotal(); ?>"/>
+            <?php endif; ?>
+        <?php else : ?>
+            &nbsp;
+        <?php endif; ?>
+    </td>
+
+    <?php /** REMOVE **/ ?>
+    <td class="ordered_item_remove a-center last">
+        <?php if ($type == 'quote') : ?>
+            <?php if (!$hasParent) : ?>
+                <span <?php if ($hasParent) : ?>data-parent-id="<?php echo $parentId ?>"<?php endif; ?>
+                      data-id="<?php echo $id ?>" class="remove_quote_item">
+                    <i class="fa fa-times"></i>
+                </span>
+            <?php endif; ?>
+        <?php elseif ($item->getQtyRefunded() != $item->getQtyOrdered() && $canDeleteItem) : ?>
+            <div class="action-multicheck-wrap">
+                <input type="checkbox" name="item[<?php echo $id ?>][remove]"
+                       title="<?php echo __("Remove") ?>"
+                       class="remove_ordered_item"
+                       data-item-id="<?php echo $id ?>"
+                        <?php if ($hasParent) : ?>
+                            data-parent-id="<?php echo $parentId ?>"
+                        <?php endif; ?>
+                       id="remove_<?php echo $id ?>" value="1"/>
+                <label for="remove_<?php echo $id ?>"></label>
+                <button class="action-multicheck-toggle" data-toggle="dropdown" type="button">
+                    <span><?php echo __("Options") ?></span>
+                </button>
+                <ul class="action-menu">
+                    <li>
+                        <label>
+                            <input type="checkbox" class="back_to_stock"
+                                   name="item[<?php echo $id ?>][back_to_stock]"
+                                    <?php if ($block->getDefaultBackToStock()) : ?>
+                                        checked="checked"
+                                    <?php endif; ?>
+                                   title="<?php echo __("Back to stock") ?>" value="1"/>
+                            <?php echo __("Back to stock") ?>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        <?php endif; ?>
+
+        <?php /** ADDITIONAL PARAMS **/ ?>
+        <input type="hidden" class="edit_order_item"
+               value="<?php echo $block->getPrice('weee_tax_applied_row_amount'); ?>"
+               name="item[<?php echo $id ?>][weee_tax_applied_row_amount]"/>
+        <input type="hidden" class="edit_order_item"
+               value="<?php echo $block->getPrice('discount_tax_compensation_amount'); ?>"
+               name="item[<?php echo $id ?>][discount_tax_compensation_amount]"/>
+        <input type="hidden" class="edit_order_item"
+               value="<?php echo $item->getProductId() ?>"
+               name="item[<?php echo $id ?>][product_id]"/>
+        <input type="hidden"
+               value="<?php echo $type ?>"
+               name="item[<?php echo $id ?>][item_type]"/>
+        <input type="hidden"
+               value="<?php echo $item->getId() ?>"
+               name="item[<?php echo $id ?>][item_id]"/>
+    </td>
+</tr>

@@ -1,0 +1,195 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Payment\Gateway\Data\Order\OrderAdapter" type="IWD\AuthCIM\Gateway\Data\Order\OrderAdapter" />
+    <preference for="IWD\AuthCIM\Api\Data\CardSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="IWD\AuthCIM\Api\Data\CardInterface" type="IWD\AuthCIM\Model\Card" />
+    <preference for="IWD\AuthCIM\Api\Data\RefundSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="IWD\AuthCIM\Api\Data\RefundInterface" type="IWD\AuthCIM\Model\Refund" />
+    <preference for="IWD\AuthCIM\Api\CardRepositoryInterface" type="IWD\AuthCIM\Model\CardRepository" />
+
+    <!-- Payment Method Facade configuration -->
+    <virtualType name="IWDAuthCIMFacade" type="IWD\AuthCIM\Model\Method\AuthCim">
+        <arguments>
+            <argument name="code" xsi:type="const">IWD\AuthCIM\Model\Ui\ConfigProvider::CODE</argument>
+            <argument name="formBlockType" xsi:type="string">IWD\AuthCIM\Block\Form</argument>
+            <argument name="infoBlockType" xsi:type="string">IWD\AuthCIM\Block\Info</argument>
+            <argument name="valueHandlerPool" xsi:type="object">IWDAuthCIMValueHandlerPool</argument>
+            <argument name="commandPool" xsi:type="object">IWDAuthCIMCommandPool</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Configuration reader -->
+    <virtualType name="IWDAuthCIMConfig" type="IWD\AuthCIM\Gateway\Config\Config">
+        <arguments>
+            <argument name="methodCode" xsi:type="const">IWD\AuthCIM\Model\Ui\ConfigProvider::CODE</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Logger -->
+    <virtualType name="IWDAuthCIMLogger" type="Magento\Payment\Model\Method\Logger">
+        <arguments>
+            <argument name="config" xsi:type="object">IWDAuthCIMConfig</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Http client-->
+    <type name="IWD\AuthCIM\Gateway\Http\Client\AuthorizeNetRequest">
+        <arguments>
+            <argument name="logger" xsi:type="object">IWDAuthCIMLogger</argument>
+        </arguments>
+    </type>
+
+    <!-- Commands infrastructure -->
+    <virtualType name="IWDAuthCIMCommandPool" type="Magento\Payment\Gateway\Command\CommandPool">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="authorize" xsi:type="string">IWDAuthCIMAuthorizeCommand</item>
+                <item name="capture" xsi:type="string">IWDAuthCIMCaptureCommand</item>
+                <item name="void" xsi:type="string">IWDAuthCIMVoidCommand</item>
+                <item name="cancel" xsi:type="string">IWDAuthCIMVoidCommand</item>
+                <item name="refund" xsi:type="string">IWDAuthCIMRefundCommand</item>
+                <item name="fetch_transaction_information" xsi:type="string">IWDAuthCIMFetchInfoCommand</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Authorize command -->
+    <virtualType name="IWDAuthCIMAuthorizeCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">IWDAuthCIMAuthorizationRequest</argument>
+            <argument name="handler" xsi:type="object">IWD\AuthCIM\Gateway\Response\AuthorizeHandler</argument>
+            <argument name="transferFactory" xsi:type="object">IWD\AuthCIM\Gateway\Http\TransferFactory</argument>
+            <argument name="validator" xsi:type="object">IWD\AuthCIM\Gateway\Validator\ResponseCodeValidator</argument>
+            <argument name="client" xsi:type="object">IWD\AuthCIM\Gateway\Http\Client\AuthorizeNetRequest</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="IWDAuthCIMAuthorizationRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="init" xsi:type="string">IWD\AuthCIM\Gateway\Request\Help\InitRequest</item>
+                <item name="transaction" xsi:type="string">IWD\AuthCIM\Gateway\Request\Payment\AuthorizationRequest</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="IWD\AuthCIM\Gateway\Request\Payment\AuthorizationRequest">
+        <arguments>
+            <argument name="config" xsi:type="object">IWDAuthCIMConfig</argument>
+        </arguments>
+    </type>
+
+    <!-- Capture or Sale (Authorize and Capture) command -->
+    <virtualType name="IWDAuthCIMCaptureCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">IWDAuthCIMCaptureRequest</argument>
+            <argument name="handler" xsi:type="object">IWD\AuthCIM\Gateway\Response\CaptureHandler</argument>
+            <argument name="transferFactory" xsi:type="object">IWD\AuthCIM\Gateway\Http\TransferFactory</argument>
+            <argument name="validator" xsi:type="object">IWD\AuthCIM\Gateway\Validator\ResponseCodeValidator</argument>
+            <argument name="client" xsi:type="object">IWD\AuthCIM\Gateway\Http\Client\AuthorizeNetRequest</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="IWDAuthCIMCaptureRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="init" xsi:type="string">IWD\AuthCIM\Gateway\Request\Help\InitRequest</item>
+                <item name="transaction" xsi:type="string">IWD\AuthCIM\Gateway\Request\Payment\CaptureRequest</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="IWD\AuthCIM\Gateway\Request\Payment\CaptureRequest">
+        <arguments>
+            <argument name="config" xsi:type="object">IWDAuthCIMConfig</argument>
+        </arguments>
+    </type>
+
+    <!-- Void command -->
+    <virtualType name="IWDAuthCIMVoidCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">IWDAuthCIMVoidRequest</argument>
+            <argument name="handler" xsi:type="object">IWD\AuthCIM\Gateway\Response\VoidHandler</argument>
+            <argument name="transferFactory" xsi:type="object">IWD\AuthCIM\Gateway\Http\TransferFactory</argument>
+            <argument name="validator" xsi:type="object">IWD\AuthCIM\Gateway\Validator\ResponseCodeValidator</argument>
+            <argument name="client" xsi:type="object">IWD\AuthCIM\Gateway\Http\Client\AuthorizeNetRequest</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="IWDAuthCIMVoidRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="init" xsi:type="string">IWD\AuthCIM\Gateway\Request\Help\InitRequest</item>
+                <item name="transaction" xsi:type="string">IWD\AuthCIM\Gateway\Request\Payment\VoidRequest</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="IWD\AuthCIM\Gateway\Request\Payment\VoidRequest">
+        <arguments>
+            <argument name="config" xsi:type="object">IWDAuthCIMConfig</argument>
+        </arguments>
+    </type>
+
+    <!-- Refund command -->
+    <virtualType name="IWDAuthCIMRefundCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">IWDAuthCIMRefundRequest</argument>
+            <argument name="handler" xsi:type="object">IWD\AuthCIM\Gateway\Response\RefundHandler</argument>
+            <argument name="transferFactory" xsi:type="object">IWD\AuthCIM\Gateway\Http\TransferFactory</argument>
+            <argument name="validator" xsi:type="object">IWD\AuthCIM\Gateway\Validator\ResponseCodeRefundValidator</argument>
+            <argument name="client" xsi:type="object">IWD\AuthCIM\Gateway\Http\Client\AuthorizeNetRequest</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="IWDAuthCIMRefundRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="init" xsi:type="string">IWD\AuthCIM\Gateway\Request\Help\InitRequest</item>
+                <item name="transaction" xsi:type="string">IWD\AuthCIM\Gateway\Request\Payment\RefundRequest</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="IWD\AuthCIM\Gateway\Request\Payment\RefundRequest">
+        <arguments>
+            <argument name="config" xsi:type="object">IWDAuthCIMConfig</argument>
+        </arguments>
+    </type>
+
+    <!-- Value handlers infrastructure -->
+    <virtualType name="IWDAuthCIMValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">IWDAuthCIMConfigValueHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="IWDAuthCIMConfigValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">IWDAuthCIMConfig</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Fetch transaction info -->
+    <virtualType name="IWDAuthCIMFetchInfoCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">IWDAuthCIMFetchRequest</argument>
+            <argument name="handler" xsi:type="object">IWD\AuthCIM\Gateway\Response\FetchHandler</argument>
+            <argument name="transferFactory" xsi:type="object">IWD\AuthCIM\Gateway\Http\TransferFactory</argument>
+            <argument name="validator" xsi:type="object">IWD\AuthCIM\Gateway\Validator\ResponseCodeValidator</argument>
+            <argument name="client" xsi:type="object">IWD\AuthCIM\Gateway\Http\Client\AuthorizeNetRequest</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="IWDAuthCIMFetchRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="init" xsi:type="string">IWD\AuthCIM\Gateway\Request\Help\InitRequest</item>
+                <item name="transaction" xsi:type="string">IWD\AuthCIM\Gateway\Request\Payment\FetchRequest</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="IWD\AuthCIM\Block\Info">
+        <arguments>
+            <argument name="config" xsi:type="object">IWDAuthCIMConfig</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Sales\Model\Order\Payment">
+        <plugin name="addTransactionCommentsToOrder" type="IWD\AuthCIM\Plugin\Sales\Model\Order\Payment" />
+    </type>
+</config>

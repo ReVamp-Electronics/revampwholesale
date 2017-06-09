@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!--
+/*////////////////////////////////////////////////////////////////////////////////
+ \\\\\\\\\\\\\\\\\\\\\\\  Customer Approve/Disapprove 2.0 \\\\\\\\\\\\\\\\\\\\\\\\
+ /////////////////////////////////////////////////////////////////////////////////
+ \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ NOTICE OF LICENSE\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+ ///////                                                                   ///////
+ \\\\\\\ This source file is subject to the Open Software License (OSL 3.0)\\\\\\\
+ ///////   that is bundled with this package in the file LICENSE.txt.      ///////
+ \\\\\\\   It is also available through the world-wide-web at this URL:    \\\\\\\
+ ///////          http://opensource.org/licenses/osl-3.0.php               ///////
+ \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+ ///////                      * @category   EH                            ///////
+ \\\\\\\                      * @package    EH_CustomerApprove             \\\\\\\
+ ///////    * @author     Extensionhut <info@extensionhut.com>             ///////
+ \\\\\\\                                                                   \\\\\\\
+ /////////////////////////////////////////////////////////////////////////////////
+ \\\\\\* @copyright  Copyright 2016 © www.extensionhut.com All right reserved\\\\\
+ /////////////////////////////////////////////////////////////////////////////////
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <customerApprove>
+            <general>
+				<enabled>0</enabled>
+				<auto_approve>0</auto_approve>
+				<welcome_email>1</welcome_email>
+			</general>
+			<customer_group>
+				<enabled>0</enabled>
+			</customer_group>
+			<email>
+				<enabled>1</enabled>
+				<identity>custom2</identity>
+                <template>customerApprove_email_template</template>
+			</email>
+			<admin_notification>
+				<enabled>1</enabled>
+				<identity>custom2</identity>
+				<template>customerApprove_admin_notification_template</template>
+				<recipients><![CDATA[hello@example.com]]></recipients>
+			</admin_notification>
+			<redirect>
+				<enabled>1</enabled>
+				<cms_page>account-awaiting-approval</cms_page>
+				<use_custom_url>0</use_custom_url>
+			</redirect>
+			<error_msg>
+				<enabled>0</enabled>
+				<text>Your account needs to be approved before you can access this part of the site!</text>
+			</error_msg>
+        </customerApprove>
+    </default>
+</config>

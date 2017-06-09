@@ -1,0 +1,140 @@
+<% if (error) { %>
+<div class="messages">
+    <div class="message message-error"><%- error %></div>
+</div>
+<% } else if (stocksCount > 0) { %>
+<div id="assign-stock-tables-<%- orderId %>" class="assign-stock-tables <% if (hasRefund) { %>refunded<% } %>">
+    <div class="left-col">
+        <table class="products-table">
+            <thead>
+                <tr>
+                    <th class="col-product-name"><%- label.product %></th>
+                    <% if (hasRefund) { %>
+                        <th><%- label.qtyPurchased %></th>
+                        <th><%- label.qtyReturned %></th>
+                    <% } else { %>
+                        <th><%- label.qty %></th>
+                    <% } %>
+                </tr>
+            </thead>
+            <tbody>
+                <% i = 0 %>
+                <% _.each(orderItems, function(item) { %>
+                    <tr class="item-<%- item.orderItemId %> <% if (i%2 == 0) { %>odd<% } else { %>even<% } %><% if (item.hasChildItems) { %> parent-product<% } %>">
+                        <td class="product-name">
+                            <span title="<%- item.productName %>">
+                                <% if (!item.hasChildItems) { %><i class="fa fa-times" aria-hidden="true"></i><% } %>
+                                <a href="<%- item.productUrl %>" target="_blank"><%- item.productName %></a>
+                            </span>
+                        </td>
+                        <% if (hasRefund) { %>
+                            <td class="ordered-qty"><% if (!item.hasChildItems) { %><%- item.qtyOrdered %><% } %></td>
+                            <td class="refunded-qty">
+                                <% if (!item.hasChildItems) { %>
+                                    <% if (refundedItems[item.orderItemId] != 0) { %><%- refundedItems[item.orderItemId] %><% } %>
+                                <% } %>
+                            </td>
+                        <% } else { %>
+                            <td class="ordered-qty"><% if (!item.hasChildItems) { %><%- item.qtyOrdered %><% } %></td>
+                        <% } %>
+                    </tr>
+                    <% if (item.hasChildItems) { %>
+                        <% _.each(item.childItems, function(childItem) { %>
+                        <tr class="item-<%- childItem.orderItemId %> parent-item-<%- item.orderItemId %> <% if (i%2 == 0) { %>odd<% } else { %>even<% } %> child-product" data-parent-item="<%- item.orderItemId %>" >
+                            <td class="product-name">
+                                <span title="<%- childItem.productName %>">
+                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                    <a href="<%- childItem.productUrl %>" target="_blank"><%- childItem.productName %></a>
+                                </span>
+                            </td>
+                            <% if (hasRefund) { %>
+                                <td class="ordered-qty"><%- childItem.qtyOrdered %></td>
+                                <td class="refunded-qty">
+                                    <% if (refundedItems[item.orderItemId] != 0) { %><%- refundedItems[item.orderItemId] %><% } %>
+                                </td>
+                            <% } else { %>
+                                <td class="ordered-qty"><%- childItem.qtyOrdered %></td>
+                            <% } %>
+                        </tr>
+                        <% }); %>
+                    <% } %>
+                    <% i++ %>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+    <div class="right-col">
+        <table class="stocks-table">
+        <thead>
+            <tr>
+            <% _.each(stocks, function(stock) { %>
+                <th colspan="2"><a href="<%- stock.stockUrl %>" target="_blank" title="<%- stock.stockName %>"><%- stock.stockName %></a></th>
+            <% }); %>
+            </tr>
+        </thead>
+        <tbody>
+            <% i = 0 %>
+            <% _.each(orderItems, function(item) { %>
+                <% if (item.hasChildItems) { %>
+                    <tr class="item-<%- item.orderItemId %> <% if (i%2 == 0) { %>odd<% } else { %>even<% } %>">
+                        <% _.each(item.stockItems, function(stockItem) { %>
+                        <td></td><td></td>
+                        <% }); %>
+                    </tr>
+                    <% _.each(item.childItems, function(childItem) { %>
+                    <tr class="item-<%- childItem.orderItemId %> parent-item-<%- item.orderItemId %> <% if (i%2 == 0) { %>odd<% } else { %>even<% } %>" data-parent-item="<%- item.orderItemId %>">
+                        <% _.each(childItem.stockItems, function(stockItem) { %>
+                        <td><input name="stock[<%- childItem.productId %>][<%- stockItem.stockId %>]"
+                                   value="<%- stockItem.allowedQty %>"
+                                   title="Qty In Stock" readonly="readonly"
+                                   class="<% if (!stockItem.isInStock) { %>out-of-stock<% } %>"/>
+                        </td>
+                        <td><input name="order[<%- childItem.orderItemId %>][<%- stockItem.stockId %>]"
+                                   value="<% if (stockItem.assignedQty != 0) { %><%- stockItem.assignedQty %><% } %>"
+                                   data-item-id="<%- childItem.orderItemId %>" data-parent-id="<%- item.orderItemId %>"
+                                   data-stock-id="<%- stockItem.stockId %>" data-product-id="<%- childItem.productId %>"
+                                   <% if (stockItem.allowedQty == 0) { %>readonly<% } %>
+                                   title="Assigned Qty" class="qty-assigned" />
+                        </td>
+                        <% }); %>
+                    </tr>
+                    <% }); %>
+                <% } else { %>
+                    <tr class="item-<%- item.orderItemId %> <% if (i%2 == 0) { %>odd<% } else { %>even<% } %>">
+                        <% _.each(item.stockItems, function(stockItem) { %>
+                        <td><input name="stock[<%- item.productId %>][<%- stockItem.stockId %>]"
+                                   value="<%- stockItem.allowedQty %>"
+                                   title="Qty In Stock" readonly="readonly"
+                                   class="<% if (!stockItem.isInStock) { %>out-of-stock<% } %>"/>
+                        </td>
+                        <td><input name="order[<%- item.orderItemId %>][<%- stockItem.stockId %>]"
+                                   value="<% if (stockItem.assignedQty != 0) { %><%- stockItem.assignedQty %><% } %>"
+                                   data-item-id="<%- item.orderItemId %>" data-stock-id="<%- stockItem.stockId %>" data-product-id="<%- item.productId %>"
+                                   title="Assigned Qty" class="qty-assigned"/>
+                        </td>
+                        <% }); %>
+                    </tr>
+                <% } %>
+                <% i++ %>
+            <% }); %>
+        </tbody>
+    </table>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="legend">
+    <ul>
+        <li class="legend-assigned"><i class="fa fa-check marker" aria-hidden="true"></i><%- label.assigned %></li>
+        <li class="legend-not-assigned"><i class="fa fa-times marker" aria-hidden="true"></i><%- label.notAssigned %></li>
+    </ul>
+    <ul>
+        <li class="legend-in-stock"><i class="fa fa-square marker" aria-hidden="true"></i><%- label.inStock %></li>
+        <li class="legend-out-stock"><i class="fa fa-square marker" aria-hidden="true"></i><%- label.outOfStock %></li>
+        <li class="legend-not-applicable"><i class="fa fa-square marker" aria-hidden="true"></i><%- label.notApplicable %></li>
+    </ul>
+</div>
+<% } else { %>
+<div class="messages">
+    <div class="message message-warning"><%- label.createStocks %></div>
+</div>
+<% } %>

@@ -1,0 +1,121 @@
+.modal-open {
+    overflow: hidden;
+}
+.b2b-modal {
+    display: none;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+    text-align: left;
+}
+.b2b-modal * {
+    font-family: 'Open Sans', sans-serif !important;
+    margin: 0;
+    padding: 0;
+    line-height: 1.25em;
+    text-decoration: none;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+.b2b-modal.fade .b2b-modal-dialog {
+    -webkit-transition: -webkit-transform 0.3s ease-out;
+    -moz-transition: -moz-transform 0.3s ease-out;
+    -o-transition: -o-transform 0.3s ease-out;
+    transition: transform 0.3s ease-out;
+}
+.modal-open .b2b-modal {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.b2b-modal-dialog {
+    position: relative;
+    width: auto;
+    margin: 10px;
+}
+.b2b-modal-content {
+    position: relative;
+    background-color: #ffffff;
+    border: 3px solid #ededed;
+    background-clip: padding-box;
+    outline: 0;
+}
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background-color: #000000;
+}
+.modal-backdrop.fade {
+    opacity: 0;
+    filter: alpha(opacity = 0);
+}
+.modal-backdrop.in {
+    opacity: 0.5;
+    filter: alpha(opacity = 50);
+}
+.b2b-modal-body {
+    position: relative;
+    padding: 46px 51px;
+}
+.modal-scrollbar-measure {
+    position: absolute;
+    top: -9999px;
+    width: 50px;
+    height: 50px;
+    overflow: scroll;
+}
+.b2b-modal a.close {
+    background: none;
+    background-color: none;
+    display: block;
+    height: 30px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 30px;
+    cursor: pointer;
+}
+.b2b-modal input:focus,.b2b-modal select:focus,.b2b-modal textarea:focus {
+    background-color: #fff;
+}
+@media ( min-width : 480px) {
+    .b2b-modal-dialog {
+        width: 768px;
+        margin: 279px auto 0 auto;
+        z-index: 1060;
+    }
+}
+@media screen and (max-width: 480px) {
+    .b2b-modal-dialog {
+        z-index: 1060;
+    }
+}
+.hide {
+    display: none !important;
+}
+.show {
+    display: block !important;
+}
+.invisible {
+    visibility: hidden;
+}
+.hidden {
+    display: none !important;
+    visibility: hidden !important;
+}
+.affix {
+    position: fixed;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}

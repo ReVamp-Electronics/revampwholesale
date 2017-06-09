@@ -1,0 +1,57 @@
+<?php
+    // @codingStandardsIgnoreFile
+    $params = $block->getOrderCustomerParams();
+?>
+
+<div id="customer-result-form">
+    <div class="message message-notice iwd-om-message-notice ">
+        <div class="message-inner">
+            <div class="message-content"><?php echo __('Changing order information will not recalculate shipping, tax, or other order variables.') ?></div>
+        </div>
+    </div>
+
+    <form id="order_customer_info_form" method="post">
+        <?php foreach($params as $id => $param): ?>
+            <?php if(!isset($param['title'])): ?>
+                <input type="hidden" id="customer_info_<?php echo $id ?>"
+                       name="customer_info[<?php echo $id ?>]" style="display:none"
+                       value="<?php echo $param['value'] ?>"/>
+                <?php continue; ?>
+            <?php endif; ?>
+
+            <div class="admin__field field field-<?php echo $id ?> <?php if($param['required']){echo 'required _required';} ?>">
+                <label class="label admin__field-label" for="customer_info_<?php echo $id ?>"><span><?php echo __($param['title']) ?></span></label>
+                <div class="admin__field-control control">
+                    <?php if(isset($param['options']) && !empty($param['options'])): ?>
+                        <select name="customer_info[<?php echo $id ?>]" id="customer_info_<?php echo $id ?>"
+                                class="<?php if(isset($param['class'])){ echo $param['class']; } ?> select admin__control-select <?php if($param['required']): ?>required-entry _required<?php endif; ?>">
+                        <?php foreach($param['options'] as $code => $label): ?>
+                            <option
+                                value="<?php echo $code ?>"
+                                <?php if($code == $param['value']) { echo 'selected = "selected"'; } ?>>
+                                <?php echo __($label); ?>
+                            </option>
+                        <?php endforeach;?>
+                        </select>
+                    <?php else: ?>
+                        <input type="text"
+                            id="customer_info_<?php echo $id ?>" name="customer_info[<?php echo $id ?>]"
+                            value="<?php echo $param['value'] ?>"
+                            class="<?php if(isset($param['class'])){ echo $param['class']; } ?> input-text admin__control-text <?php if($param['required']): ?>required-entry _required<?php endif; ?>"/>
+                    <?php endif; ?>
+                </div>
+            </div>
+        <?php endforeach; ?>
+
+        <?php echo $block->getActionsForm(); ?>
+    </form>
+
+    <script>
+        require(["jquery", "mage/calendar"], function($){
+            $(".datapicker").calendar({
+                showsTime: false,
+                dateFormat: "yy-mm-dd"
+            });
+        });
+    </script>
+</div>
