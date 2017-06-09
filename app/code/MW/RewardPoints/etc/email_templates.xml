@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="rewardpoints_email_notifications_points_balance" label="Balance update email" file="mw_rewardpoints_balance_changed.html" type="html" module="MW_RewardPoints" area="frontend"/>
+    <template id="rewardpoints_email_notifications_points_expiration" label="Points expiration email" file="mw_rewardpoints_points_expiration.html" type="html" module="MW_RewardPoints" area="frontend"/>
+    <template id="rewardpoints_email_notifications_points_birthday" label="Points for customer's birthday email" file="mw_rewardpoints_customer_birthday.html" type="html" module="MW_RewardPoints" area="frontend"/>
+    <template id="rewardpoints_email_notifications_recipient_template" label="Sending Points email" file="mw_rewardpoints_sending_points.html" type="html" module="MW_RewardPoints" area="frontend"/>
+    <template id="rewardpoints_email_notifications_invitation_email" label="Invitation email template" file="mw_invitation_email_to_friend.html" type="html" module="MW_RewardPoints" area="frontend"/>
+</config>

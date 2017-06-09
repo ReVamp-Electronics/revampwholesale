@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="adminhtml_customer_save_after">
+        <observer name="mw_rewardpoints_adminhtml_customer_save_after" instance="MW\RewardPoints\Observer\Backend\SaveRewardPoints" />
+    </event>
+    <event name="catalog_product_save_before">
+    	<observer name="mw_rewardpoints_catalog_product_save_before" instance="MW\RewardPoints\Observer\Backend\CatalogProductSaveBefore" />
+    </event>
+    <event name="adminhtml_sales_order_create_process_data">
+        <observer name="mw_rewardpoints_adminhtml_sales_order_create_process_data" instance="MW\RewardPoints\Observer\Backend\ProcessOrderCreationData" />
+    </event>
+</config>

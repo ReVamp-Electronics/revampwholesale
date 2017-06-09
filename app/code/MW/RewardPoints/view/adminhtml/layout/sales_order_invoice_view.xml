@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="invoice_totals">
+            <block class="MW\RewardPoints\Block\Adminhtml\Sales\Order\Totals\Item" name="mw_reward_points_earn" template="MW_RewardPoints::sales/order/earn_points.phtml">
+                <action method="setBeforeCondition">
+                    <argument name="condition" xsi:type="string">subtotal</argument>
+                </action>
+            </block>
+
+            <block class="MW\RewardPoints\Block\Adminhtml\Sales\Order\Totals\Item" name="mw_reward_points_redeemed" template="MW_RewardPoints::sales/order/redeemed_points.phtml">
+                <action method="setAfterCondition">
+                    <argument name="condition" xsi:type="string">tax</argument>
+                </action>
+            </block>
+
+            <block class="MW\RewardPoints\Block\Adminhtml\Sales\Order\Totals\Item" name="mw_reward_points_totals_points" template="MW_RewardPoints::sales/order/totals_points.phtml">
+                <action method="setBeforeCondition">
+                    <argument name="condition" xsi:type="string">subtotal</argument>
+                </action>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

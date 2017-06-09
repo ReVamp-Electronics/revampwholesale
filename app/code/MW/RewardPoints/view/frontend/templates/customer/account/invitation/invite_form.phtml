@@ -1,0 +1,83 @@
+<form id="form-validate" method="post" action="<?php echo $block->getUrl('rewardpoints/invitation/invite') ?>" data-hasrequired="<?php echo __('* Required Fields') ?>" autocomplete="off">
+	<?php $url = $this->helper('MW\RewardPoints\Helper\Data')->getLink($block->getCustomer()); ?>
+	<div class="fieldset group-select">
+        <strong class="legend"><?php echo __('Connect & Share'); ?></strong>
+        <span><?php echo __('With friends on Facebook, Twitter, or Google.') ?></span>
+
+		<div class="name-firstname">
+			<div style = "padding-top: 10px;">
+				<!-- AddThis Button BEGIN -->
+				<div class="addthis_toolbox addthis_default_style addthis_32x32_style"
+					addthis:url="<?php echo $url;?>"
+					addthis:title="<?php echo $url; ?>"
+					addthis:description="<?php echo $url; ?>">
+				<a class="addthis_button_preferred_1"></a>
+				<a class="addthis_button_preferred_2"></a>
+				<a class="addthis_button_preferred_3"></a>
+				<a class="addthis_button_preferred_4"></a>
+				<a href="http://www.addthis.com/bookmark.php?v=250&pubid={YOUR_PROFILE_ID}" class="addthis_button_compact"></a>
+				<a class="addthis_counter addthis_bubble_style"></a>
+				</div>
+				<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-500a790c6c746380"></script>
+				<!-- AddThis Button END -->
+			</div>
+		</div>
+    </div>
+
+    <div class="fieldset group-select">
+        <strong class="legend"><?php echo __('Referral Link');?></strong>
+        <span><?php echo __('Copy + paste your personal link into your blog, email or IM.') ?></span>
+
+		<div class="div_share">
+			<input type="text" value="<?php echo $url ?>" style="width:100%" onclick="this.select()">
+			<div class="clear_both"><span> </span></div>
+		</div>
+    </div>
+
+    <div class="fieldset group-select">
+        <?php echo $block->getBlockHtml('formkey'); ?>
+        <strong class="legend"><?php echo __('Invite Friends Via Email');?></strong>
+        <span><?php echo __('Send invitation emails to your friends and family');?></span>
+        <br /><br />
+
+		<div class="field input-box name-firstname">
+			<label class="required" style="color:#666666" for="email"><?php echo __('Email of your friends');?><em style="color:#EB340A">*</em></label>
+			<div class="input-box">
+				<textarea class="input-text" data-validate="{required:true}" title="Email" name="email" id="email" style="height:70px"></textarea>
+				<div><?php echo __('Separate with commas (,)');?></div>
+			</div>
+			<label class="required" style="color:#666666" for="message"><?php echo __('Message');?><em style="color:#EB340A">*</em></label>
+			<div class="input-box">
+				<textarea class="input-text" data-validate="{required:true}" title="Message" name="message" id="message" style="height:200px"></textarea>
+			</div>
+		</div>
+
+		<div class="primary">
+			<button class="action save primary" type="submit" title="<?php echo __('Send') ?>">
+				<span><?php echo __('Send') ?></span>
+			</button>
+		</div>
+    </div>
+</form>
+
+<script>
+require([
+	'jquery',
+	'mage/mage'
+], function($) {
+	// Validate form
+	var dataForm = $('#form-validate');
+	dataForm.mage('validation');
+});
+
+// Show invitation popup
+function invitationPopup() {
+	var popWin = window.open(
+		'<?php echo $block->getUrl('rewardpoints/invitation/loginmail');?>',
+		'newwindow',
+		'toolbar=no,location=no,menubar=no,titlebar=no,status=yes,width=500,height=500,resizable=no,scrollbars=yes,top=0,left=0'
+	);
+
+	return false;
+}
+</script>

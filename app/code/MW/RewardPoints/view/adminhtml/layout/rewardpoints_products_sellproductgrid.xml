@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <container name="root">
+        <block class="MW\RewardPoints\Block\Adminhtml\Sellproducts\Edit\Tab\Grid" name="admin.rewardpoints.sellproducts" />
+        <block class="MW\RewardPoints\Block\Adminhtml\Sellproducts\Edit\Tab\Headjs" name="admin.rewardpoints.sellproducts.headjs" template="MW_RewardPoints::sellproducts/edit/tab/headjs.phtml" />
+    </container>
+</layout>

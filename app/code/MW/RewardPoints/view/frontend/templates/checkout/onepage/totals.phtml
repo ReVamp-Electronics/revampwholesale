@@ -1,0 +1,35 @@
+<?php
+$quote = $block->getQuote();
+$_dataHelper = $this->helper('MW\RewardPoints\Helper\Data');
+// Earning points
+$earnRewardPoint = (int) $quote->getEarnRewardpoint();
+if ($earnRewardPoint > 0) {
+	$earnRewardPoint = $_dataHelper->formatPoints($earnRewardPoint);
+} else {
+	$earnRewardPoint = 0;
+}
+
+// Redeeming points
+$redeemRewardPoint = $quote->getMwRewardpointDiscountShow();
+if ($redeemRewardPoint > 0) {
+	$redeemRewardPoint = $_dataHelper->formatMoney(-$redeemRewardPoint, true, false);
+} else {
+	$redeemRewardPoint = 0;
+}
+
+// Total points
+$rewardpoints = (int) $quote->getMwRewardpoint();
+$rewardpointSellProduct = (int) $quote->getMwRewardpointSellProduct();
+$totalRewardPoint = $rewardpoints + $rewardpointSellProduct;
+if ($totalRewardPoint && $rewardpointSellProduct) {
+	$totalRewardPoint = $_dataHelper->formatPoints($totalRewardPoint);
+} else {
+	$totalRewardPoint = 0;
+}
+?>
+
+<script>
+var mwEarnRewardPoint = '<?php echo $earnRewardPoint; ?>';
+var mwRedeemRewardPoint = '<?php echo $redeemRewardPoint; ?>';
+var mwTotalRewardPoint = '<?php echo $totalRewardPoint; ?>';
+</script>

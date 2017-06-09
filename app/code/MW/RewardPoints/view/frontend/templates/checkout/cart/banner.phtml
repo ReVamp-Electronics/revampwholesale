@@ -1,0 +1,60 @@
+<?php
+$listBanner = $this->getBannerRules();
+if (count($listBanner) > 0) :
+?>
+<style type="text/css" media="screen">
+    ul#mw_rewardpoint_promotion_banner {
+        margin-bottom: 15px;
+    }
+    ul#mw_rewardpoint_promotion_banner li {
+        display: block;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        text-align: center;
+    }
+    ul#mw_rewardpoint_promotion_banner li img {
+        border: 1px solid #333;
+    }
+</style>
+
+<?php
+    $height = 120;
+    $width = 900;
+    $bannerSizeConfig = $this->helper('MW\RewardPoints\Helper\Data')->getPromtionBannerSize();
+    $arraybannerSizeConfig = explode(',', $bannerSizeConfig);
+    if (isset($arraybannerSizeConfig[0])) {
+        $width = $arraybannerSizeConfig[0];
+    }
+    if (isset($arraybannerSizeConfig[1])) {
+        $height = $arraybannerSizeConfig[1];
+    }
+?>
+    <div class="mw_rwp_promotion_banner" style="height: <?php echo ($height+15).'px';?>">
+        <ul id="mw_rewardpoint_promotion_banner">
+            <?php
+                foreach($listBanner as $banner) :
+                    $imageUrl = $this->helper('MW\RewardPoints\Helper\Image')
+                        ->init($banner)
+                        ->keepAspectRatio(false)
+                        ->constrainOnly(false)
+                        ->keepFrame(false)
+                        ->resize($width, $height);
+            ?>
+                <li><img src="<?php echo $imageUrl;?>" /></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+
+    <script>
+        require([
+            'jquery',
+            'mwSlideShow'
+        ], function($) {
+            $(document).ready(function() {
+                new MwSlideShow('mw_rewardpoint_promotion_banner',{ slideDuration: 4, startHidden: false });
+            });
+        });
+    </script>
+<?php endif; ?>

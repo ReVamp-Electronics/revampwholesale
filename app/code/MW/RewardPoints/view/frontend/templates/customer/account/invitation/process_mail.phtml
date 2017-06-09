@@ -1,0 +1,56 @@
+<?php
+$inviter = $block->getInviter();
+$contacts = $inviter->getMyContacts();
+if ($inviter->showContacts()) :
+	if (count($contacts) == 0) :
+		echo __('You do not have any contacts in your address book.');
+	else :
+?>
+		<form action="<?php echo $block->getUrl('rewardpoints/invitation/submitmail');?>" name="form_submit_new" id="form_submit_new" method="post">
+			<div style="height: 380px; width: 450px; overflow-y: auto;">
+				<table class="data-table">
+				    <thead>
+				        <tr>
+							<th style="text-align: center;"><input type="checkbox" onChange="toggleAll(this)" name="toggle_all" title="Select/Deselect all">&nbsp;</th>
+							<th style="text-align: center;"><?php echo __('Name') ?></th>
+							<th style="text-align: center;"><?php echo __('Email') ?></th>
+				        </tr>
+				    </thead>
+				    <tbody>
+				        <?php foreach ($contacts as $email => $name) : ?>
+				            <tr style="text-align:left">
+				                <td><input type="checkbox" name="mw_contact_mail[]" value="<?php echo $email; ?>" /></td>
+								<td><?php echo $name; ?></td>
+								<td><?php echo $email; ?></td>
+				            </tr>
+				        <?php endif; ?>
+				    </tbody>
+				</table>
+			</div>
+
+			<div style="clear: both;padding: 8px 0 0; text-align: right; width: 450px;">
+				<p class="back-link" style="text-align: left;"><a href="<?php echo $block->getUrl('rewardpoints/invitation/loginmail') ?>" class="back-link"><small>&laquo; </small><?php echo __('Back') ?></a></p>
+			    <button type="submit" title="<?php echo __('Add Contact') ?>" id="mw_submit" class="button"><span><?php echo __('Add Contact') ?></span></button>
+			</div>
+		</form>
+
+		<script>
+		    require([
+		    	'jquery',
+		    	'mage/mage'
+		    ], function($) {
+		        var dataForm = $('#form_submit_new');
+		        dataForm.mage('validation');
+		    });
+
+		    function toggleAll(element) {
+		    	var form = document.forms.form_submit_new;
+		    	for(i = 0; i < form.length; i++) {
+	    			if(form[i].type == 'checkbox') {
+	    				form[i].checked = element.checked;
+	    			}
+	    	   	}
+	    	}
+	    </script>
+	<?php endif; ?>
+<?php endif; ?>

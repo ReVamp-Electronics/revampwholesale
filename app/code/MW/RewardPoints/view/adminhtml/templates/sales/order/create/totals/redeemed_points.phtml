@@ -1,0 +1,16 @@
+<?php
+$quote = $block->getSessionQuote()->getQuote();
+$amount = $quote->getMwRewardpointDiscountShow();
+
+if ($amount != 0) :
+    $_dataHelper = $this->helper('MW\RewardPoints\Helper\Data');
+    $point = $quote->getMwRewardpoint();
+    $pointShow = $_dataHelper->formatPoints($point);
+?>
+    <tr class="row-totals">
+        <th class="admin__total-mark"><?php echo __("You Redeem (%1)", $pointShow) ?></th>
+        <td class="admin__total-amount">
+            <span class="price"><?php echo $_dataHelper->formatMoney(-$amount, true, false); ?></span>
+        </td>
+    </tr>
+<?php endif; ?>

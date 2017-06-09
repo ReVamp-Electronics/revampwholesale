@@ -1,0 +1,59 @@
+<div class="block">
+    <div class="block-title">
+        <strong style="background: none; padding: 0px;"><?php echo __("Send Reward Points To Friend")?></strong>
+    </div>
+
+    <form id="send-point-form" method="post" action="<?php echo $block->getUrl('rewardpoints/rewardpoints/send')?>">
+        <table class="reward-table">
+            <tr>
+                <td>
+                    <label class="required" for="email"><?php echo __('Email of your friend');?><em style="color:#EB340A">*</em></label>
+                    <div class="input-box">
+                        <input type="text" class="input-text required-entry validate-email" title="Email" name="email" id="email">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="required" for="name"><?php echo __('Friend name');?><em style="color:#EB340A">*</em></label>
+                    <div class="input-box">
+                        <input type="text" class="input-text required-entry" title="Name" name="name" id="name">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="required" for="amount"><?php echo __('Points to send');?><em style="color:#EB340A">*</em></label>
+                    <div class="input-box">
+                        <input type="text" class="input-text required-entry validate-digits" title="Amount" name="amount" id="amount">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="message"><?php echo __('Message') ?></label>
+                    <div class="input-box">
+                        <textarea class="input-text" title="<?php echo __('Message') ?>" name="message" id="message"></textarea>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="button" title="<?php echo __("Send");?>" type="submit">
+                        <span><?php echo __("Send");?></span>
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script>
+require([
+    'jquery',
+    'mage/mage'
+], function($) {
+    // Validate form
+    var sendPointForm = $('#send-point-form');
+    sendPointForm.mage('validation');
+});
+</script>

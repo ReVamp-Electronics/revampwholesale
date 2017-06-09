@@ -1,0 +1,64 @@
+<?php
+$oi_services = $block->getOiServices();
+?>
+<div class="dashboard">
+    <?php echo $block->getLayout()->getMessagesBlock()->getGroupedHtml(); ?>
+	<div class="box-account box-info account-box ad-account-info">
+	    <div class="page-title">
+			<h1><?php echo __('Contact Address') ?></h1>
+	    </div>
+
+	    <form action="<?php echo $block->getUrl('rewardpoints/invitation/processmail');?>" id="form_validate_new" method="post" data-hasrequired="<?php echo __('* Required Fields') ?>" autocomplete="off">
+	        <div class="fieldset">
+	            <h2 class="legend"><?php echo __('Mail Information') ?></h2>
+
+                <label for="email_box" class="required"><?php echo __('Email Address') ?> <em>*</em></label>
+                <div class="input-box">
+                    <input type="text" name="email_box" id="email_box" value="<?php  ?>" title="<?php echo __('Email Address') ?>" class="input-text" data-validate="{required:true, 'validate-email':true}" />
+                </div>
+
+                <label for="password_box" class="required"><?php echo __('Password') ?> <em>*</em></label>
+                <div class="input-box">
+                	<input type="password" name="password_box" id="password_box" title="<?php echo __('Password') ?>" class="input-text" data-validate="{required:true, 'validate-password':true}" />
+                </div>
+
+                <label for="provider_box" class="required"><?php echo __('Email Provider') ?> <em>*</em></label>
+                <div class="input-box">
+                    <select id="provider_box" name="provider_box" data-validate="{required:true}">
+                    	<option value=""><?php echo __('Please select an email provider') ?></option>
+                    	<?php
+                    		foreach ($oi_services as $type=>$providers) :
+                    		  	if ($type == 'email') :
+                    		  		foreach ($providers as $provider => $details) :
+                    	?>
+									<option value="<?php echo $provider;?>"><?php echo $details['name'];?></option>
+				    	<?php
+				    				endforeach;
+                    			endif;
+							endforeach;
+						?>
+					</select>
+                </div>
+	        </div>
+
+	        <div class="buttons-set">
+		        <div class="primary">
+					<button class="action save primary" type="submit" title="<?php echo __('Next') ?>">
+						<span><?php echo __('Next') ?></span>
+					</button>
+				</div>
+	        </div>
+	    </form>
+
+	    <script>
+	    	require([
+	    		'jquery',
+	    		'mage/mage'
+	    	], function($) {
+	    		var dataForm = $('#form_validate_new');
+	    		dataForm.mage('validation');
+	    	});
+	    </script>
+	</div>
+</div>
+

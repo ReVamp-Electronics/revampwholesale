@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="Email Order Items List" design_abstraction="custom">
+    <body>
+        <referenceBlock name="order_totals">
+            <block class="MW\RewardPoints\Block\Sales\Order\Total" name="mw.reward.sales.order.earn.points" template="MW_RewardPoints::sales/order/earn_points.phtml" after="-">
+                <action method="setAfterTotal">
+                    <argument name="value" xsi:type="string">first</argument>
+                </action>
+            </block>
+
+            <block class="MW\RewardPoints\Block\Sales\Order\Total" name="mw.reward.sales.order.redeemed.points" template="MW_RewardPoints::sales/order/redeemed_points.phtml" after="-">
+                <action method="setAfterTotal">
+                    <argument name="value" xsi:type="string">discount</argument>
+                </action>
+            </block>
+
+            <block class="MW\RewardPoints\Block\Sales\Order\Total" name="mw.reward.sales.order.totals.points" template="MW_RewardPoints::sales/order/totals_points.phtml" after="-">
+                <action method="setAfterTotal">
+                    <argument name="value" xsi:type="string">discount</argument>
+                </action>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

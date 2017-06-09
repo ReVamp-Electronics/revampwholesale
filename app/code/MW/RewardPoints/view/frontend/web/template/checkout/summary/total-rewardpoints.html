@@ -1,0 +1,9 @@
+<!-- ko if: hasPoint() -->
+<tr class="totals totals-rewardpoints">
+    <th class="mark" scope="row">
+        <span data-bind="text: $t(title)"></th>
+    <td class="amount">
+        <span data-bind="html: $t(getValue()), attr: {'data-th': $t(title)}"></span>
+    </td>
+</tr>
+<!-- /ko -->

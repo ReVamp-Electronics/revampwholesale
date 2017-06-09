@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Quote\Model\Quote\Item\ToOrderItem">
+        <plugin name="mw_rewardpoints_quote_item_conversion" type="MW\RewardPoints\Model\Plugin\QuoteItem" disabled="false"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Address\ToOrderAddress">
+        <plugin name="mw_rewardpoints_quote_address_conversion" type="MW\RewardPoints\Model\Plugin\QuoteAddress" disabled="false"/>
+    </type>
+
+    <!-- APIs -->
+    <preference for="MW\RewardPoints\Api\DataRepositoryInterface" type="MW\RewardPoints\Model\ResourceModel\DataRepository" />
+</config>

@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="MW_RewardPoints::css/mw_reward_slider.css" />
+    </head>
+
+    <body>
+        <referenceBlock name="head.additional">
+            <block class="MW\RewardPoints\Block\Checkout\Onepage\Totals" name="mw.rewardpoint.checkout.totals" template="MW_RewardPoints::checkout/onepage/totals.phtml" cacheable="false" ifconfig="rewardpoints/general/enabled" />
+        </referenceBlock>
+
+        <referenceBlock name="checkout.root" ifconfig="rewardpoints/general/enabled">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="checkout" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="sidebar" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="summary" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="totals" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="earn-rewardpoints" xsi:type="array">
+                                                            <item name="component" xsi:type="string">MW_RewardPoints/js/view/checkout/summary/earn-rewardpoints</item>
+                                                            <item name="sortOrder" xsi:type="string">10</item>
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="title" xsi:type="string">You Earn</item>
+                                                            </item>
+                                                        </item>
+                                                        <item name="redeem-rewardpoints" xsi:type="array">
+                                                            <item name="component"  xsi:type="string">MW_RewardPoints/js/view/checkout/summary/redeem-rewardpoints</item>
+                                                            <item name="sortOrder" xsi:type="string">100</item>
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="title" xsi:type="string">You Redeem</item>
+                                                            </item>
+                                                        </item>
+                                                        <item name="total-rewardpoints" xsi:type="array">
+                                                            <item name="component"  xsi:type="string">MW_RewardPoints/js/view/checkout/summary/total-rewardpoints</item>
+                                                            <item name="sortOrder" xsi:type="string">110</item>
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="title" xsi:type="string">Total Points</item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+
+            <block class="MW\RewardPoints\Block\Checkout\Cart\Rewardpoints" name="rewardpoints.form" template="MW_RewardPoints::checkout/onepage/rewardpoints.phtml" ifconfig="rewardpoints/general/enabled" />
+        </referenceBlock>
+    </body>
+</page>

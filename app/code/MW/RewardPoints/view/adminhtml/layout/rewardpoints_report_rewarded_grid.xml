@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="page.main.actions">
+            <block class="Magento\Backend\Block\Store\Switcher" name="mw_rewardpoints_report_rewarded.grid.store_switcher" as="store_switcher">
+                <arguments>
+                    <argument name="use_confirm" xsi:type="string">0</argument>
+                    <argument name="switch_url" xsi:type="url" path="*/*/*">
+                        <param name="store">null</param>
+                    </argument>
+                    <argument name="switch_websites" xsi:type="string">1</argument>
+                    <argument name="switch_store_groups" xsi:type="string">1</argument>
+                    <argument name="switch_store_views" xsi:type="string">1</argument>
+                    <argument name="default_selection_name" xsi:type="string" translate="true">All Websites</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+
+        <referenceBlock name="mw_rewardpoints_report_rewarded.grid.container">
+            <block class="Magento\Reports\Block\Adminhtml\Grid" name="mw_rewardpoints_report_rewarded.grid" as="grid">
+                <arguments>
+                    <argument name="use_ajax" xsi:type="string">0</argument>
+                    <argument name="pager_visibility" xsi:type="string">0</argument>
+                    <argument name="id" xsi:type="string">gridRewarded</argument>
+                    <argument name="dataSource" xsi:type="object">MW\RewardPoints\Model\ResourceModel\Rewardpointshistory\Rewarded\Collection\Initial</argument>
+                </arguments>
+                <block class="Magento\Backend\Block\Widget\Grid\Export" name="mw_rewardpoints_report_rewarded.grid.export" as="grid.export">
+                    <arguments>
+                        <argument name="exportTypes" xsi:type="array">
+                            <item name="csv" xsi:type="array">
+                                <item name="urlPath" xsi:type="string">*/*/exportRewardedCsv</item>
+                                <item name="label" xsi:type="string" translate="true">CSV</item>
+                            </item>
+                            <item name="excel" xsi:type="array">
+                                <item name="urlPath" xsi:type="string">*/*/exportRewardedExcel</item>
+                                <item name="label" xsi:type="string" translate="true">Excel XML</item>
+                            </item>
+                        </argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Backend\Block\Widget\Grid\ColumnSet" as="grid.columnSet" name="mw_rewardpoints_report_rewarded.grid.columnSet">
+                    <arguments>
+                        <argument name="filter_visibility" xsi:type="string">0</argument>
+                        <argument name="empty_text" xsi:type="string" translate="true">We can't find records for this period.</argument>
+                        <argument name="empty_cell_label" xsi:type="string" translate="true">We can't find records for this period.</argument>
+                    </arguments>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="period">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Interval</argument>
+                            <argument name="sortable" xsi:type="string">0</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="id" xsi:type="string">period</argument>
+                            <argument name="index" xsi:type="string">period</argument>
+                            <argument name="grouped" xsi:type="string">1</argument>
+                            <argument name="totals_label" xsi:type="string" translate="true">Total</argument>
+                            <argument name="column_css_class" xsi:type="string">col-period</argument>
+                            <argument name="header_css_class" xsi:type="string">col-period</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="total_rewarded_sum">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Total Rewarded</argument>
+                            <argument name="sortable" xsi:type="string">0</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="index" xsi:type="string">total_rewarded_sum</argument>
+                            <argument name="id" xsi:type="string">total_rewarded_sum</argument>
+                            <argument name="column_css_class" xsi:type="string">col-total-rewarded-sum</argument>
+                            <argument name="header_css_class" xsi:type="string">col-total-rewarded-sum</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="rewarded_on_purchases_sum">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Rewarded on Purchases</argument>
+                            <argument name="sortable" xsi:type="string">0</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="index" xsi:type="string">rewarded_on_purchases_sum</argument>
+                            <argument name="id" xsi:type="string">rewarded_on_purchases_sum</argument>
+                            <argument name="column_css_class" xsi:type="string">col-rewarded-on-purchases-sum</argument>
+                            <argument name="header_css_class" xsi:type="string">col-rewarded-on-purchases-sum</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="rewarded_on_sign_up_sum">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Rewarded on Sign-Ups</argument>
+                            <argument name="sortable" xsi:type="string">0</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="index" xsi:type="string">rewarded_on_sign_up_sum</argument>
+                            <argument name="id" xsi:type="string">rewarded_on_sign_up_sum</argument>
+                            <argument name="column_css_class" xsi:type="string">col-rewarded-on-sign-up-sum</argument>
+                            <argument name="header_css_class" xsi:type="string">col-rewarded-on-sign-up-sum</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="rewarded_on_subscribers_sum">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Rewarded on Subscribers</argument>
+                            <argument name="sortable" xsi:type="string">0</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="index" xsi:type="string">rewarded_on_subscribers_sum</argument>
+                            <argument name="id" xsi:type="string">rewarded_on_subscribers_sum</argument>
+                            <argument name="column_css_class" xsi:type="string">col-rewarded-on-subscribers-sum</argument>
+                            <argument name="header_css_class" xsi:type="string">col-rewarded-on-subscribers-sum</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="rewarded_on_reviews_sum">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Rewarded on Reviews</argument>
+                            <argument name="sortable" xsi:type="string">0</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="index" xsi:type="string">rewarded_on_reviews_sum</argument>
+                            <argument name="id" xsi:type="string">rewarded_on_reviews_sum</argument>
+                            <argument name="column_css_class" xsi:type="string">col-rewarded-on-reviews-sum</argument>
+                            <argument name="header_css_class" xsi:type="string">col-rewarded-on-reviews-sum</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="rewarded_on_birthday_sum">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Rewarded on Birthday</argument>
+                            <argument name="sortable" xsi:type="string">0</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="index" xsi:type="string">rewarded_on_birthday_sum</argument>
+                            <argument name="id" xsi:type="string">rewarded_on_birthday_sum</argument>
+                            <argument name="column_css_class" xsi:type="string">col-rewarded-on-birthday-sum</argument>
+                            <argument name="header_css_class" xsi:type="string">col-rewarded-on-birthday-sum</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="rewarded_on_referal_sum">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Rewarded on Referal</argument>
+                            <argument name="sortable" xsi:type="string">0</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="index" xsi:type="string">rewarded_on_referal_sum</argument>
+                            <argument name="id" xsi:type="string">rewarded_on_referal_sum</argument>
+                            <argument name="column_css_class" xsi:type="string">col-rewarded-on-referal-sum</argument>
+                            <argument name="header_css_class" xsi:type="string">col-rewarded-on-referal-sum</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="other_rewards_sum">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Other Rewards</argument>
+                            <argument name="sortable" xsi:type="string">0</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="index" xsi:type="string">other_rewards_sum</argument>
+                            <argument name="id" xsi:type="string">other_rewards_sum</argument>
+                            <argument name="column_css_class" xsi:type="string">col-other-rewards-sum</argument>
+                            <argument name="header_css_class" xsi:type="string">col-other-rewards-sum</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="total_transaction_count">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Total Transactions</argument>
+                            <argument name="sortable" xsi:type="string">0</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="index" xsi:type="string">total_transaction_count</argument>
+                            <argument name="id" xsi:type="string">total_transaction_count</argument>
+                            <argument name="column_css_class" xsi:type="string">col-total-transaction-count</argument>
+                            <argument name="header_css_class" xsi:type="string">col-total-transaction-count</argument>
+                        </arguments>
+                    </block>
+                </block>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

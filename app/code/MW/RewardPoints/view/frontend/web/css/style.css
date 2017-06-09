@@ -1,0 +1,45 @@
+@media screen and (max-width:768px) {
+    .mw-reward-points .columns {
+        display: block;
+    }
+}
+.mw-reward-points .input-text {
+    width: 100%;
+}
+@media screen and (min-width:550px) {
+    .mw-reward-points textarea.input-text {
+        width: 500px;
+    }
+}
+@media screen and (min-width:350px) {
+    .mw-reward-points input.input-text {
+        width: 300px;
+    }
+}
+.mw-reward-points .bottom {
+    position: relative;
+}
+.mw-reward-points .reward-table tr td {
+    padding: 11px 0;
+}
+.mw-reward-points .input-coupon {
+    width:230px;
+    float:left;
+}
+.mw-reward-points .input-coupon input {
+    width: 230px !important;
+}
+.mw-reward-points .button-coupon {
+    float: left;
+}
+.mw-reward-points .button-coupon button {
+    margin: 20px 0 0 10px;
+}
+@media screen and (max-width:350px) {
+    .mw-reward-points .button-coupon {
+        clear: both;
+    }
+    .mw-reward-points .button-coupon button {
+        margin: 20px 0 0 0;
+    }
+}
