@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_Pgrid
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Catalog\Ui\DataProvider\Product\ProductDataProvider">
+        <plugin name="Amasty_Pgrid::ProductDataProvider" type="Amasty\Pgrid\Plugin\Catalog\Ui\DataProvider\Product\ProductDataProvider"/>
+
+        <arguments>
+            <argument name="addFilterStrategies" xsi:type="array">
+                <item name="amasty_categories" xsi:type="object">Amasty\Pgrid\Ui\DataProvider\Product\AddCategoryFilterToCollection</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

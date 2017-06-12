@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <mageworx_geoip>
+            <store_switcher>
+                <force_store_view>0</force_store_view>
+                <store_switcher_scope>0</store_switcher_scope>
+                <disable_store_switcher_key>off</disable_store_switcher_key>
+                <enable_auto_switch_country>0</enable_auto_switch_country>
+                <replace_switcher>0</replace_switcher>
+                <user_agent_list>
+googlebot*
+yahoo*
+msnbot*
+facebook*</user_agent_list>
+            </store_switcher>      
+        </mageworx_geoip>
+    </default>
+</config>

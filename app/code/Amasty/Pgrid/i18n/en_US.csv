@@ -1,0 +1,36 @@
+"Single Cell","Single Cell"
+"Multi Cell","Multi Cell"
+"In Stock","In Stock"
+"Ouf Of Stock","Ouf Of Stock"
+Yes,Yes
+No,No
+Columns,Columns
+Extra,Extra
+Attribute,Attribute
+Default,Default
+Column,Column
+Title,Title
+Edit,Edit
+Filter,Filter
+Save,Save
+Close,Close
+"You have successfully saved your edits.","You have successfully saved your edits."
+"Product Grid","Product Grid"
+"Editing Settings","Editing Settings"
+"Editing Mode","Editing Mode"
+"Single Cell - data is being saved right after any cell is edited. Multi Cell - Save button should be clicked after data in multiple cells has beed edited.","Single Cell - data is being saved right after any cell is edited. Multi Cell - Save button should be clicked after data in multiple cells has beed edited."
+"Additional Grid Columns","Additional Grid Columns"
+"Products Qty","Products Qty"
+"Related to: related product, up-sells, cross-sells","Related to: related product, up-sells, cross-sells"
+"Quantity Based Availability","Quantity Based Availability"
+"When set to yes, availability will automatically change to 'In stock' when quantity is positive and to 'Out of stock"" when quantity is zero or negative. When set to 'No', availability status will not be updated automatically.","When set to yes, availability will automatically change to 'In stock' when quantity is positive and to 'Out of stock"" when quantity is zero or negative. When set to 'No', availability status will not be updated automatically."
+Categories,Categories
+Links,Links
+"Front End Product Link","Front End Product Link"
+Availability,Availability
+"Creation Date","Creation Date"
+"Last Modified Date","Last Modified Date"
+"Related Products","Related Products"
+"Up Sells","Up Sells"
+"Cross Sells","Cross Sells"
+"Low Stock","Low Stock"

@@ -1,0 +1,146 @@
+.amasty-pgrid-tabs {
+  min-width: 320px;
+  max-width: 800px;
+  padding: 0px;
+  margin: 0 auto; 
+}
+
+section {
+  display: none;
+  /*padding: 0 15px;*/
+  /*background: #fff;*/
+  /*border: 1px solid #ddd;*/
+}
+.amasty-pgrid-tabs input.amasty-pgrid-tab{
+  display: none;
+}
+
+.amasty-pgrid-tabs label.amasty-pgrid-label {
+  display: inline-block;
+  margin: 0 0 -1px;
+  padding: 10px 25px;
+  border-radius: 3px 3px 0 0;
+  float: right;
+  margin-top: -6px;
+}
+
+.amasty-pgrid-tabs label.amasty-pgrid-label:before {
+  margin-right: 10px;
+}
+
+
+.amasty-pgrid-tabs label.amasty-pgrid-label:hover {
+  color: #888;
+  cursor: pointer;
+}
+
+.amasty-pgrid-tabs input.amasty-pgrid-tab + label
+{
+    border: 1px solid #ddd;
+    border-bottom: 1px solid #fff;
+    margin-left: 5px;
+}
+
+.amasty-pgrid-tabs input.amasty-pgrid-tab._selected + label
+{
+  color: #555;
+  border: 1px solid #ddd;
+  border-bottom: 1px solid #fff;
+  background: #E3E3E3;
+  font-weight: bold;
+}
+
+#tab1._selected ~ #amasty-pgrid-content #amasty-pgrid-content1,
+#tab2._selected ~ #amasty-pgrid-content #amasty-pgrid-content2,
+#tab3._selected ~ #amasty-pgrid-content #amasty-pgrid-content3,
+#tab4._selected ~ #amasty-pgrid-content #amasty-pgrid-content4 {
+  display: block;
+}
+
+@media screen and (max-width: 680px) {
+  .amasty-pgrid-tabs label {
+    font-size: 0;
+  }
+ 
+  .amasty-pgrid-tabs label:before {
+    margin: 0;
+    font-size: 18px;
+  }
+}
+@media screen and (max-width: 400px) {
+  .amasty-pgrid-tabs label {
+    padding: 15px;
+  }
+}
+
+.amasty-pgrid-data-grid-cell-cell{
+
+}
+
+.img-amasty-link-front-product {
+    background: url(../images/ico-amasty-product.png) no-repeat;
+    bottom: 0;
+    height: 13px;
+    right: 0;
+    visibility: visible;
+    width: 13px;
+}
+
+.img-amasty-edit {
+    background: url(../images/ico-amasty-edit.png) no-repeat;
+    bottom: 0;
+    height: 16px;
+    right: 0;
+    visibility: visible;
+    width: 16px;
+    display: inline-block;
+    float: right;
+}
+
+.data-grid-cell-content{
+  float: left;
+  width: auto;
+}
+
+.amasty-pgrid-table{
+  width: 100%;
+}
+
+.amasty-pgrid-table label{
+  text-align: left;
+}
+
+.amasty-pgrid-table td{
+  padding: 3px 0px;
+}
+
+._amastyEditable:after {
+    content:url(../images/ico-amasty-edit.png);
+    /*background: url(../images/ico-amasty-edit.png) no-repeat;*/
+    width: 16px;
+    /*content: "123"*/
+}
+
+._amastyEditable:after {
+    margin-top: -10px;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+}
+
+._amastyEditable span{
+    margin-right: 20px;
+}
+
+._amasty_pgrid_fixed{
+    left: 8.800000000000001rem;
+    position: fixed;
+    right: 0;
+    top: 5rem;
+    z-index: 400;
+
+    background-color: white;
+}
+.hasDatepicker + .ui-datepicker-trigger{
+    position: inherit;
+}

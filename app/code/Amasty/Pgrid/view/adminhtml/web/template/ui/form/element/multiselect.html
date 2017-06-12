@@ -1,0 +1,17 @@
+<select multiple class="admin__control-multiselect" data-bind="
+    attr: {
+        name: inputName,
+        id: uid,
+        size: size ? size : '6',
+        disabled: disabled,
+        'aria-describedby': noticeId,
+        placeholder: placeholder
+    },
+    event: {keyup: onKeyUp},
+    hasFocus: focused,
+    optgroup: options,
+    selectedOptions: value,
+    optionsCaption: caption,
+    optionsValue: 'value',
+    optionsText: 'label'"
+/>

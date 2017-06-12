@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="adminhtml_store_edit_form_prepare_form">
+        <observer name="mageworx_storeswitcher_observer_store_form" 
+                  instance="MageWorx\StoreSwitcher\Model\Observer\StoreForm"
+        />
+    </event>
+    <event name="store_save_before">
+        <observer name="mageworx_storeswitcher_observer_save_countries"
+                  instance="MageWorx\StoreSwitcher\Model\Observer\Countries"
+        />
+    </event>
+    <event name="store_load_after">
+        <observer name="mageworx_storeswitcher_observer_load_countries"
+                  instance="MageWorx\StoreSwitcher\Model\Observer"
+        />
+    </event>
+</config>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="mageworx" sortOrder="2001">
+            <label>MageWorx</label>
+        </tab>
+        <section id="mageworx_geoip" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>GeoIP Extensions</label>
+            <tab>mageworx</tab>
+            <resource>MageWorx_CurrencySwitcher::config_currencyswitcher</resource>
+            <group id="currency_switcher" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Currency Switcher</label>
+                <field id="user_agent_list" translate="label comment" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[User Agent List]]></label>
+                    <comment><![CDATA[List of User Agents for which Currency Auto Switcher should be disabled. Enter one User Agent per line<br/><b>Example:</b><br/>gsa-crawler<br/>Googlebot*]]></comment>
+                </field>
+                <field id="exception_urls" translate="label comment" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label><![CDATA[Exception URLs]]></label>
+                    <comment><![CDATA[Exception URLs are relative URLs to your Store URL used mainly to disable Currency Auto Switcher for payment processing gateways.<br/>Enter one URL per line.<br/><b>*</b> means anything<br/><b>Example:</b><br/>/paypal/*<br/>/twocheckout/*]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

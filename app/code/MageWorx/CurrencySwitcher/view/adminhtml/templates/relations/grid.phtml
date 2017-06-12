@@ -1,0 +1,114 @@
+<?php
+/**
+ * Copyright © 2015 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+?>
+
+<?php
+$allCountries = $this->getCountries();
+$currencyRelations = $this->getCurrencyRelations();
+?>
+<?php if (count($currencyRelations) > 0) { ?>
+<div class="entry-edit form-inline">
+    <form id="currency_relations_form" action="<?php echo $this->getFormActionUrl() ?>" method="post">
+        <div>
+            <input name="form_key" type="hidden" value="<?php echo $this->getFormKey() ?>" />
+        </div>
+        
+        <div class="fieldset admin__fieldset ">
+            <div class="grid">
+                <div class="hor-scroll">
+                    <table cellspacing="0" class="data-grid">
+                        <colgroup>
+                            <col width="5%" />
+                            <col width="15%"/>
+                            <col />
+                            <col width="10%" />
+                        </colgroup>
+                        <thead>
+                        <tr class="headings">
+                            <th class="data-grid-th"><span><?php echo __('ID'); ?></span></th>
+                            <th class="data-grid-th"><span><?php echo __('Currency'); ?></span></th>
+                            <th class="data-grid-th"><span><?php echo __('Countries'); ?></span></th>
+                            <th class="data-grid-th"><span><?php echo __('Reset'); ?></span></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($this->getCurrencyRelations() as $item): ?>
+                        <tr>
+                            <td>
+                                <?php echo $item->getRelationId() ?>
+                            </td>
+                            <td class="value">
+                                <label for="relation<?php echo $item->getRelationId(); ?>"><?php echo $item->getCurrencyCode(); ?></label>
+                                <input type="hidden" name="currency_relation[<?php echo $item->getRelationId(); ?>][code]" value="<?php echo $item->getCurrencyCode(); ?>" />
+                            </td>
+                            <td class="value">
+                                <span><?php echo str_replace(',', ', ', $item->getCountries()) ?></span>
+                                <a href="#" id="relation-change-button-<?php echo $item->getRelationId(); ?>" alt="<?php echo __('Change'); ?>" onclick="toggleRelation('<?php echo $item->getRelationId(); ?>')"><?php echo __('Change'); ?></a><br />
+
+                                <select disabled="disabled" style="display: none;" multiple="multiple" size="6" class="select multiselect" name="currency_relation[<?php echo $item->getRelationId(); ?>][countries][]" id="relation<?php echo $item->getRelationId(); ?>">
+                                <?php foreach ($allCountries as $country): ?>
+                                    <option<?php if (in_array($country['value'], explode(',', $item->getCountries()))) { echo ' selected="selected"'; } ?> value="<?php echo $country['value']; ?>"><?php echo $country['label']; ?></option>
+                                <?php endforeach; ?>
+                                </select>
+
+                            </td>
+                            <td>
+                                <input type="checkbox" name="currency_relation[<?php echo $item->getRelationId(); ?>][countries][use_default]" value="1" />
+                            </td>
+                        </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">    
+    require([
+        'jquery',
+        'mage/backend/form',
+        'mage/backend/validation'
+    ], function($) {
+
+        $('#currency_relations_form').form()
+            .validation({
+                validationUrl: '<?php echo $block->getValidationUrl() ?>',
+                highlight: function(element) {
+                    var detailsElement = $(element).closest('details');
+                    if (detailsElement.length && detailsElement.is('.details')) {
+                        var summaryElement = detailsElement.find('summary');
+                        if (summaryElement.length && summaryElement.attr('aria-expanded') === "false") {
+                            summaryElement.trigger('click');
+                        }
+                    }
+                    $(element).trigger('highlight.validate');
+                }
+            });
+
+    });
+    
+    function toggleRelation(relationId)
+    {
+        selectBox = jQuery('#relation' + relationId);
+        if (selectBox) {
+            if (selectBox.css('display') == 'none') {
+                selectBox.css('display','block');
+                selectBox.prop('disabled', false );
+                jQuery('#relation-change-button-' + relationId).text('<?php echo __('Change'); ?>');
+            } else {
+                selectBox.css('display','none');
+                selectBox.prop('disabled', true );
+                jQuery('#relation-change-button-' + relationId).text('<?php echo __('Cancel'); ?>');
+            }
+        }
+    }
+</script>
+<?php } else {
+    echo __('Please select "Refresh Relations"');
+} ?>
+    
+

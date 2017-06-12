@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="controller_action_predispatch">
+        <observer name="mageworx_currencyswitcher_currency_autoswitch" instance="MageWorx\CurrencySwitcher\Model\Observer\AutoSwitcher" />
+    </event>
+    <event name="controller_action_predispatch_directory_currency_switch">
+        <observer name="mageworx_currencyswitcher_set_currency" instance="MageWorx\CurrencySwitcher\Model\Observer\Setter" />
+    </event>
+</config>

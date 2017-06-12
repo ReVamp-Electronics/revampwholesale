@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <mageworx_geoip>
+            <currency_switcher>
+                <user_agent_list>
+googlebot*
+yahoo*
+msnbot*
+facebook*
+                </user_agent_list>
+            </currency_switcher>      
+        </mageworx_geoip>
+    </default>
+</config>
