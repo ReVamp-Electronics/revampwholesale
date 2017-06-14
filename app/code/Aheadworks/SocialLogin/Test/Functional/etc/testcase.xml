@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/Magento/Mtf/TestCase/etc/testcase.xsd">
+    <scenario name="LoginBlockSettingsTest" firstStep="setupConfiguration">
+        <step name="setupConfiguration" module="Magento_Config" next="flushCache" />
+        <step name="flushCache" module="Aheadworks_SocialLogin" />
+    </scenario>
+    <scenario name="CustomerSocialLoginTest" firstStep="setupConfiguration">
+        <step name="setupConfiguration" module="Magento_Config" next="flushCache" />
+        <step name="flushCache" module="Aheadworks_SocialLogin" next="logoutCustomerOnFrontend" />
+        <step name="logoutCustomerOnFrontend" module="Magento_Customer" next="socialLogin" />
+        <step name="socialLogin" module="Aheadworks_SocialLogin" next="submitSocialCredentials" />
+        <step name="submitSocialCredentials" module="Aheadworks_SocialLogin" />
+    </scenario>
+</config>

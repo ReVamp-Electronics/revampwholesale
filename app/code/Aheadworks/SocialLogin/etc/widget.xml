@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="social_login" class="Aheadworks\SocialLogin\Block\Widget\Customer\Login">
+        <label translate="true">Social Login</label>
+        <description translate="true">Links for social login</description>
+        <parameters>
+            <parameter name="configurable_group" xsi:type="select" visible="true" required="true" sort_order="10"
+                       source_model="Aheadworks\SocialLogin\Model\Config\Source\LoginBlock\Group">
+                <label translate="true">Block</label>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

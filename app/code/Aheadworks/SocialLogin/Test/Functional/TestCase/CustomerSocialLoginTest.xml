@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
+    <testCase name="Aheadworks\SocialLogin\Test\TestCase\CustomerSocialLoginTest" summary="Customer social login">
+        <variation name="CustomerSocialLoginTestVariationTwitter">
+            <data name="configData" xsi:type="string">social_enable,social_enable_twitter,social_block_setting_visible_all</data>
+            <data name="providerName" xsi:type="string">twitter</data>
+            <data name="socialCredential/dataset" xsi:type="string">twitter</data>
+            <constraint name="Aheadworks\SocialLogin\Test\Constraint\AssertSocialAccountLink" />
+        </variation>
+        <variation name="CustomerSocialLoginTestVariationFacebook">
+            <data name="configData" xsi:type="string">social_enable,social_enable_facebook,social_block_setting_visible_all</data>
+            <data name="providerName" xsi:type="string">facebook</data>
+            <data name="socialCredential/dataset" xsi:type="string">facebook</data>
+            <constraint name="Aheadworks\SocialLogin\Test\Constraint\AssertSocialAccountLink" />
+        </variation>
+        <variation name="CustomerSocialLoginTestVariationGoogle">
+            <data name="configData" xsi:type="string">social_enable,social_enable_google,social_block_setting_visible_all</data>
+            <data name="providerName" xsi:type="string">google</data>
+            <data name="socialCredential/dataset" xsi:type="string">google</data>
+            <constraint name="Aheadworks\SocialLogin\Test\Constraint\AssertSocialAccountLink" />
+        </variation>
+        <variation name="CustomerSocialLoginTestVariationLinkedin">
+            <data name="configData" xsi:type="string">social_enable,social_enable_linkedin,social_block_setting_visible_all</data>
+            <data name="providerName" xsi:type="string">linkedin</data>
+            <data name="socialCredential/dataset" xsi:type="string">linkedin</data>
+            <constraint name="Aheadworks\SocialLogin\Test\Constraint\AssertSocialAccountLink" />
+        </variation>
+    </testCase>
+</config>

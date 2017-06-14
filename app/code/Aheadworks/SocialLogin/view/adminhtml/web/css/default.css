@@ -1,0 +1,10 @@
+/* Default styles */
+
+/** Customer Tab */
+div.social-accounts {
+
+}
+
+div.social-accounts td.social-link-avatar img {
+    max-width: 40px;
+}

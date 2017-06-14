@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Aheadworks\SocialLogin\Test\Page\SocialProvider\LoginPagePool">
+        <arguments>
+            <argument name="pages" xsi:type="array">
+                <item name="twitter" xsi:type="object">Aheadworks\SocialLogin\Test\Page\TwitterLogin</item>
+                <item name="facebook" xsi:type="object">Aheadworks\SocialLogin\Test\Page\FacebookLogin</item>
+                <item name="google" xsi:type="object">Aheadworks\SocialLogin\Test\Page\GoogleLogin</item>
+                <item name="linkedin" xsi:type="object">Aheadworks\SocialLogin\Test\Page\LinkedinLogin</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

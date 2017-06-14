@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="customer_form">
+            <block class="Aheadworks\SocialLogin\Block\Adminhtml\Customer\Edit\Tab\Social" name="customer_edit_tab_social"
+                   template="Aheadworks_SocialLogin::customer/edit/social/tab.phtml">
+                <arguments>
+                    <argument name="tab_label" xsi:type="string" translate="true">Social Accounts</argument>
+                    <argument name="sort_order" xsi:type="number">35</argument>
+                </arguments>
+                <block name="customer_edit_tab_social_accounts_list"
+                       class="Aheadworks\SocialLogin\Block\Adminhtml\Customer\Edit\Tab\Social\AccountsList"
+                       template="Aheadworks_SocialLogin::customer/edit/social/account/list.phtml" />
+            </block>
+        </referenceBlock>
+    </body>
+</page>

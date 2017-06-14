@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- Secure urls -->
+    <type name="Magento\Framework\Url\SecurityInfo">
+        <arguments>
+            <argument name="secureUrlList" xsi:type="array">
+                <item name="social" xsi:type="string">/social/</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Checkout layout processor -->
+    <type name="Magento\Checkout\Block\Onepage">
+        <arguments>
+            <argument name="layoutProcessors" xsi:type="array">
+                <item name="social" xsi:type="object">Aheadworks\SocialLogin\Block\Checkout\SocialProcessor</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Authentication popup plugin -->
+    <type name="Magento\Customer\Block\Account\AuthenticationPopup">
+        <plugin name="social_js_layout_processor" type="Aheadworks\SocialLogin\Plugin\Customer\Block\Account\AuthenticationPopupPlugin"/>
+    </type>
+
+</config>

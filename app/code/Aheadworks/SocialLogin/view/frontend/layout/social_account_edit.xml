@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Edit Social Account</title>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Aheadworks\SocialLogin\Block\Account\Edit"
+                   cacheable="false"
+                   template="Aheadworks_SocialLogin::account/edit.phtml"
+                   name="social.edit" />
+        </referenceContainer>
+    </body>
+</page>

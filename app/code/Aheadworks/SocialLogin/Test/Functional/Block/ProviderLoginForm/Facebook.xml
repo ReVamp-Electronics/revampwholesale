@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<mapping strict="0">
+    <wrapper>variable</wrapper>
+    <fields>
+        <login>
+            <selector>input#email</selector>
+            <strategy>css selector</strategy>
+        </login>
+        <password>
+            <selector>input#pass</selector>
+            <strategy>css selector</strategy>
+        </password>
+    </fields>
+</mapping>

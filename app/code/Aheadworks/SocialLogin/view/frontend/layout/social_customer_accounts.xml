@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Aheadworks\SocialLogin\Block\Customer\Account\AccountsList"
+                   name="social_customer_account_list"
+                   template="Aheadworks_SocialLogin::customer/account/list.phtml" cacheable="false"/>
+        </referenceContainer>
+        <referenceBlock name="root">
+            <action method="setHeaderTitle">
+                <argument translate="true" name="title" xsi:type="string">My Social Accounts</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

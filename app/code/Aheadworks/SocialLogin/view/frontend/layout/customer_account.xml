@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="customer_account_navigation">
+            <block class="Aheadworks\SocialLogin\Block\Element\Html\Link\Current" name="customer-account-navigation-social-accounts-link">
+                <arguments>
+                    <argument name="path" xsi:type="string">social/customer/accounts</argument>
+                    <argument name="label" xsi:type="string">My Social Accounts</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,592 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- Account model -->
+    <preference for="Aheadworks\SocialLogin\Api\Data\AccountInterface" type="Aheadworks\SocialLogin\Model\Account" />
+    <preference for="Aheadworks\SocialLogin\Api\AccountRepositoryInterface" type="Aheadworks\SocialLogin\Model\AccountRepository" />
+
+    <!-- Account converter -->
+    <preference for="Aheadworks\SocialLogin\Model\Provider\Account\ConverterInterface"
+                type="Aheadworks\SocialLogin\Model\Provider\Account\Converter" />
+
+    <!-- Customer converter -->
+    <preference for="Aheadworks\SocialLogin\Model\Provider\Customer\ConverterInterface"
+                type="Aheadworks\SocialLogin\Model\Provider\Customer\Converter" />
+
+    <!-- Customer validator -->
+    <preference for="Aheadworks\SocialLogin\Model\Provider\Customer\ValidatorInterface"
+                type="Aheadworks\SocialLogin\Model\Provider\Customer\Validator" />
+
+    <!-- Admin UI -->
+    <!-- Accounts grid -->
+    <virtualType name="Aheadworks\SocialLogin\Model\ResourceModel\Account\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">social_account</argument>
+            <argument name="resourceModel" xsi:type="string">Aheadworks\SocialLogin\Model\ResourceModel\Account</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="social_account_listing_data_source" xsi:type="string">Aheadworks\SocialLogin\Model\ResourceModel\Account\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="SocialGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="SocialAccountGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Aheadworks\SocialLogin\Model\ResourceModel\Account\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">SocialGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+
+
+    <!-- PROVIDERS -->
+
+    <!-- Twitter -->
+    <!-- config -->
+    <virtualType name="SocialProviderTwitterConfig" type="Aheadworks\SocialLogin\Model\Config\Provider">
+        <arguments>
+            <argument name="code" xsi:type="string">twitter</argument>
+            <argument name="pathPrefix" xsi:type="string">social/twitter/</argument>
+        </arguments>
+    </virtualType>
+    <!-- storage -->
+    <virtualType name="SocialServiceTwitterStorage" type="Aheadworks\SocialLogin\Model\Provider\Service\Storage\Session">
+        <arguments>
+            <argument name="namespace" xsi:type="string">twitter</argument>
+        </arguments>
+    </virtualType>
+    <!-- credentials -->
+    <virtualType name="SocialServiceTwitterCredentials" type="Aheadworks\SocialLogin\Model\Provider\Service\Credentials\ConfigProvider">
+        <arguments>
+            <argument name="consumerIdPath" xsi:type="string">social/twitter/key</argument>
+            <argument name="consumerSecretPath" xsi:type="string">social/twitter/secret</argument>
+            <argument name="providerCode" xsi:type="string">twitter</argument>
+        </arguments>
+    </virtualType>
+    <!-- config -->
+    <virtualType name="SocialServiceTwitterConfig" type="Aheadworks\SocialLogin\Model\Provider\Service\Config\Base" />
+    <!-- service builder -->
+    <virtualType name="TwitterServiceBuilder" type="Aheadworks\SocialLogin\Model\Provider\ServiceBuilder\OAuth1">
+        <arguments>
+            <argument name="storage" xsi:type="object">SocialServiceTwitterStorage</argument>
+            <argument name="credentials" xsi:type="object">SocialServiceTwitterCredentials</argument>
+            <argument name="config" xsi:type="object">SocialServiceTwitterConfig</argument>
+            <argument name="service" xsi:type="string">Aheadworks\SocialLogin\Model\Provider\Service\Twitter</argument>
+        </arguments>
+    </virtualType>
+    <!-- Callback request processor -->
+    <virtualType name="TwitterCallbackRequestProcessor" type="Aheadworks\SocialLogin\Model\Provider\RequestProcessor\Callback\OAuth1\Twitter">
+        <arguments>
+            <argument name="accountRetriever" xsi:type="object">Aheadworks\SocialLogin\Model\Provider\Account\Retriever\Twitter</argument>
+        </arguments>
+    </virtualType>
+    <!-- factory -->
+    <virtualType name="TwitterFactory" type="Aheadworks\SocialLogin\Model\Provider\Factory\Base">
+        <arguments>
+            <argument name="serviceBuilder" xsi:type="object">TwitterServiceBuilder</argument>
+            <argument name="loginRequestProcessorType" xsi:type="string">Aheadworks\SocialLogin\Model\Provider\RequestProcessor\Login\OAuth1\Twitter</argument>
+            <argument name="callbackRequestProcessorType" xsi:type="string">TwitterCallbackRequestProcessor</argument>
+            <argument name="config" xsi:type="object">SocialProviderTwitterConfig</argument>
+        </arguments>
+    </virtualType>
+    <!-- EOF Twitter -->
+
+    <!-- Facebook -->
+    <!-- config -->
+    <virtualType name="SocialProviderFacebookConfig" type="Aheadworks\SocialLogin\Model\Config\Provider">
+        <arguments>
+            <argument name="code" xsi:type="string">facebook</argument>
+            <argument name="pathPrefix" xsi:type="string">social/facebook/</argument>
+        </arguments>
+    </virtualType>
+    <!-- storage -->
+    <virtualType name="SocialServiceFacebookStorage" type="Aheadworks\SocialLogin\Model\Provider\Service\Storage\Session">
+        <arguments>
+            <argument name="namespace" xsi:type="string">facebook</argument>
+        </arguments>
+    </virtualType>
+    <!-- credentials -->
+    <virtualType name="SocialServiceFacebookCredentials" type="Aheadworks\SocialLogin\Model\Provider\Service\Credentials\ConfigProvider">
+        <arguments>
+            <argument name="consumerIdPath" xsi:type="string">social/facebook/key</argument>
+            <argument name="consumerSecretPath" xsi:type="string">social/facebook/secret</argument>
+            <argument name="providerCode" xsi:type="string">facebook</argument>
+        </arguments>
+    </virtualType>
+    <!-- config -->
+    <virtualType name="SocialServiceFacebookConfig" type="Aheadworks\SocialLogin\Model\Provider\Service\Config\Base">
+        <arguments>
+            <argument name="scopes" xsi:type="array">
+                <item name="0" xsi:type="string">public_profile</item>
+                <item name="1" xsi:type="string">email</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <!-- service builder -->
+    <virtualType name="FacebookServiceBuilder" type="Aheadworks\SocialLogin\Model\Provider\ServiceBuilder\OAuth2">
+        <arguments>
+            <argument name="storage" xsi:type="object">SocialServiceFacebookStorage</argument>
+            <argument name="credentials" xsi:type="object">SocialServiceFacebookCredentials</argument>
+            <argument name="config" xsi:type="object">SocialServiceFacebookConfig</argument>
+            <argument name="service" xsi:type="string">Aheadworks\SocialLogin\Model\Provider\Service\Facebook</argument>
+        </arguments>
+    </virtualType>
+    <!-- Callback request processor -->
+    <virtualType name="FacebookCallbackRequestProcessor" type="Aheadworks\SocialLogin\Model\Provider\RequestProcessor\Callback\OAuth2">
+        <arguments>
+            <argument name="accountRetriever" xsi:type="object">Aheadworks\SocialLogin\Model\Provider\Account\Retriever\Facebook</argument>
+        </arguments>
+    </virtualType>
+    <!-- factory -->
+    <virtualType name="FacebookFactory" type="Aheadworks\SocialLogin\Model\Provider\Factory\Base">
+        <arguments>
+            <argument name="serviceBuilder" xsi:type="object">FacebookServiceBuilder</argument>
+            <argument name="loginRequestProcessorType" xsi:type="string">Aheadworks\SocialLogin\Model\Provider\RequestProcessor\Login\OAuth2</argument>
+            <argument name="callbackRequestProcessorType" xsi:type="string">FacebookCallbackRequestProcessor</argument>
+            <argument name="config" xsi:type="object">SocialProviderFacebookConfig</argument>
+        </arguments>
+    </virtualType>
+    <!-- EOF Facebook-->
+
+    <!-- Google -->
+    <!-- config -->
+    <virtualType name="SocialProviderGoogleConfig" type="Aheadworks\SocialLogin\Model\Config\Provider">
+        <arguments>
+            <argument name="code" xsi:type="string">google</argument>
+            <argument name="pathPrefix" xsi:type="string">social/google/</argument>
+        </arguments>
+    </virtualType>
+    <!-- storage -->
+    <virtualType name="SocialServiceGoogleStorage" type="Aheadworks\SocialLogin\Model\Provider\Service\Storage\Session">
+        <arguments>
+            <argument name="namespace" xsi:type="string">google</argument>
+        </arguments>
+    </virtualType>
+    <!-- credentials -->
+    <virtualType name="SocialServiceGoogleCredentials" type="Aheadworks\SocialLogin\Model\Provider\Service\Credentials\ConfigProvider">
+        <arguments>
+            <argument name="consumerIdPath" xsi:type="string">social/google/key</argument>
+            <argument name="consumerSecretPath" xsi:type="string">social/google/secret</argument>
+            <argument name="providerCode" xsi:type="string">google</argument>
+        </arguments>
+    </virtualType>
+    <!-- config -->
+    <virtualType name="SocialServiceGoogleConfig" type="Aheadworks\SocialLogin\Model\Provider\Service\Config\Base">
+        <arguments>
+            <argument name="scopes" xsi:type="array">
+                <item name="0" xsi:type="string">profile</item>
+                <item name="1" xsi:type="string">email</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <!-- service builder -->
+    <virtualType name="GoogleServiceBuilder" type="Aheadworks\SocialLogin\Model\Provider\ServiceBuilder\OAuth2">
+        <arguments>
+            <argument name="storage" xsi:type="object">SocialServiceGoogleStorage</argument>
+            <argument name="credentials" xsi:type="object">SocialServiceGoogleCredentials</argument>
+            <argument name="config" xsi:type="object">SocialServiceGoogleConfig</argument>
+            <argument name="service" xsi:type="string">Aheadworks\SocialLogin\Model\Provider\Service\Google</argument>
+        </arguments>
+    </virtualType>
+    <!-- Callback request processor -->
+    <virtualType name="GoogleCallbackRequestProcessor" type="Aheadworks\SocialLogin\Model\Provider\RequestProcessor\Callback\OAuth2">
+        <arguments>
+            <argument name="accountRetriever" xsi:type="object">Aheadworks\SocialLogin\Model\Provider\Account\Retriever\Google</argument>
+        </arguments>
+    </virtualType>
+    <!-- factory -->
+    <virtualType name="GoogleFactory" type="Aheadworks\SocialLogin\Model\Provider\Factory\Base">
+        <arguments>
+            <argument name="serviceBuilder" xsi:type="object">GoogleServiceBuilder</argument>
+            <argument name="loginRequestProcessorType" xsi:type="string">Aheadworks\SocialLogin\Model\Provider\RequestProcessor\Login\OAuth2</argument>
+            <argument name="callbackRequestProcessorType" xsi:type="string">GoogleCallbackRequestProcessor</argument>
+            <argument name="config" xsi:type="object">SocialProviderGoogleConfig</argument>
+        </arguments>
+    </virtualType>
+    <!-- EOF Google-->
+
+    <!-- LinkedIn -->
+    <!-- config -->
+    <virtualType name="SocialProviderLinkedInConfig" type="Aheadworks\SocialLogin\Model\Config\Provider">
+        <arguments>
+            <argument name="code" xsi:type="string">linkedin</argument>
+            <argument name="pathPrefix" xsi:type="string">social/linkedin/</argument>
+        </arguments>
+    </virtualType>
+    <!-- storage -->
+    <virtualType name="SocialServiceLinkedInStorage" type="Aheadworks\SocialLogin\Model\Provider\Service\Storage\Session">
+        <arguments>
+            <argument name="namespace" xsi:type="string">linkedin</argument>
+        </arguments>
+    </virtualType>
+    <!-- credentials -->
+    <virtualType name="SocialServiceLinkedInCredentials" type="Aheadworks\SocialLogin\Model\Provider\Service\Credentials\ConfigProvider">
+        <arguments>
+            <argument name="consumerIdPath" xsi:type="string">social/linkedin/key</argument>
+            <argument name="consumerSecretPath" xsi:type="string">social/linkedin/secret</argument>
+            <argument name="providerCode" xsi:type="string">linkedin</argument>
+        </arguments>
+    </virtualType>
+    <!-- config -->
+    <virtualType name="SocialServiceLinkedInConfig" type="Aheadworks\SocialLogin\Model\Provider\Service\Config\Base" />
+    <!-- service builder -->
+    <virtualType name="LinkedInServiceBuilder" type="Aheadworks\SocialLogin\Model\Provider\ServiceBuilder\OAuth2">
+        <arguments>
+            <argument name="storage" xsi:type="object">SocialServiceLinkedInStorage</argument>
+            <argument name="credentials" xsi:type="object">SocialServiceLinkedInCredentials</argument>
+            <argument name="config" xsi:type="object">SocialServiceLinkedInConfig</argument>
+            <argument name="service" xsi:type="string">Aheadworks\SocialLogin\Model\Provider\Service\LinkedIn</argument>
+        </arguments>
+    </virtualType>
+    <!-- Callback request processor -->
+    <virtualType name="LinkedInCallbackRequestProcessor" type="Aheadworks\SocialLogin\Model\Provider\RequestProcessor\Callback\OAuth2">
+        <arguments>
+            <argument name="accountRetriever" xsi:type="object">Aheadworks\SocialLogin\Model\Provider\Account\Retriever\LinkedIn</argument>
+        </arguments>
+    </virtualType>
+    <!-- factory -->
+    <virtualType name="LinkedInFactory" type="Aheadworks\SocialLogin\Model\Provider\Factory\Base">
+        <arguments>
+            <argument name="serviceBuilder" xsi:type="object">LinkedInServiceBuilder</argument>
+            <argument name="loginRequestProcessorType" xsi:type="string">Aheadworks\SocialLogin\Model\Provider\RequestProcessor\Login\OAuth2</argument>
+            <argument name="callbackRequestProcessorType" xsi:type="string">LinkedInCallbackRequestProcessor</argument>
+            <argument name="config" xsi:type="object">SocialProviderLinkedInConfig</argument>
+        </arguments>
+    </virtualType>
+    <!-- EOF LinkedIn -->
+
+    <!-- Instagram -->
+    <!-- config -->
+    <virtualType name="SocialProviderInstagramConfig" type="Aheadworks\SocialLogin\Model\Config\Provider">
+        <arguments>
+            <argument name="code" xsi:type="string">instagram</argument>
+            <argument name="pathPrefix" xsi:type="string">social/instagram/</argument>
+        </arguments>
+    </virtualType>
+    <!-- storage -->
+    <virtualType name="SocialServiceInstagramStorage" type="Aheadworks\SocialLogin\Model\Provider\Service\Storage\Session">
+        <arguments>
+            <argument name="namespace" xsi:type="string">instagram</argument>
+        </arguments>
+    </virtualType>
+    <!-- credentials -->
+    <virtualType name="SocialServiceInstagramCredentials" type="Aheadworks\SocialLogin\Model\Provider\Service\Credentials\ConfigProvider">
+        <arguments>
+            <argument name="consumerIdPath" xsi:type="string">social/instagram/key</argument>
+            <argument name="consumerSecretPath" xsi:type="string">social/instagram/secret</argument>
+            <argument name="providerCode" xsi:type="string">instagram</argument>
+        </arguments>
+    </virtualType>
+    <!-- config -->
+    <virtualType name="SocialServiceInstagramConfig" type="Aheadworks\SocialLogin\Model\Provider\Service\Config\Base">
+        <arguments>
+            <argument name="scopes" xsi:type="array">
+                <item name="0" xsi:type="string">basic</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <!-- service builder -->
+    <virtualType name="InstagramServiceBuilder" type="Aheadworks\SocialLogin\Model\Provider\ServiceBuilder\OAuth2">
+        <arguments>
+            <argument name="storage" xsi:type="object">SocialServiceInstagramStorage</argument>
+            <argument name="credentials" xsi:type="object">SocialServiceInstagramCredentials</argument>
+            <argument name="config" xsi:type="object">SocialServiceInstagramConfig</argument>
+            <argument name="service" xsi:type="string">Aheadworks\SocialLogin\Model\Provider\Service\Instagram</argument>
+        </arguments>
+    </virtualType>
+    <!-- Callback request processor -->
+    <virtualType name="InstagramCallbackRequestProcessor" type="Aheadworks\SocialLogin\Model\Provider\RequestProcessor\Callback\OAuth2">
+        <arguments>
+            <argument name="accountRetriever" xsi:type="object">Aheadworks\SocialLogin\Model\Provider\Account\Retriever\Instagram</argument>
+        </arguments>
+    </virtualType>
+    <!-- factory -->
+    <virtualType name="InstagramFactory" type="Aheadworks\SocialLogin\Model\Provider\Factory\Base">
+        <arguments>
+            <argument name="serviceBuilder" xsi:type="object">InstagramServiceBuilder</argument>
+            <argument name="loginRequestProcessorType" xsi:type="string">Aheadworks\SocialLogin\Model\Provider\RequestProcessor\Login\OAuth2</argument>
+            <argument name="callbackRequestProcessorType" xsi:type="string">InstagramCallbackRequestProcessor</argument>
+            <argument name="config" xsi:type="object">SocialProviderInstagramConfig</argument>
+        </arguments>
+    </virtualType>
+    <!-- EOF Instagram -->
+
+    <!-- Pinterest -->
+    <!-- config -->
+    <virtualType name="SocialProviderPinterestConfig" type="Aheadworks\SocialLogin\Model\Config\Provider">
+        <arguments>
+            <argument name="code" xsi:type="string">pinterest</argument>
+            <argument name="pathPrefix" xsi:type="string">social/pinterest/</argument>
+        </arguments>
+    </virtualType>
+    <!-- storage -->
+    <virtualType name="SocialServicePinterestStorage" type="Aheadworks\SocialLogin\Model\Provider\Service\Storage\Session">
+        <arguments>
+            <argument name="namespace" xsi:type="string">pinterest</argument>
+        </arguments>
+    </virtualType>
+    <!-- credentials -->
+    <virtualType name="SocialServicePinterestCredentials" type="Aheadworks\SocialLogin\Model\Provider\Service\Credentials\ConfigProvider">
+        <arguments>
+            <argument name="consumerIdPath" xsi:type="string">social/pinterest/key</argument>
+            <argument name="consumerSecretPath" xsi:type="string">social/pinterest/secret</argument>
+            <argument name="providerCode" xsi:type="string">pinterest</argument>
+        </arguments>
+    </virtualType>
+    <!-- config -->
+    <virtualType name="SocialServicePinterestConfig" type="Aheadworks\SocialLogin\Model\Provider\Service\Config\Base">
+        <arguments>
+            <argument name="scopes" xsi:type="array">
+                <item name="0" xsi:type="string">read_public</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <!-- service builder -->
+    <virtualType name="PinterestServiceBuilder" type="Aheadworks\SocialLogin\Model\Provider\ServiceBuilder\OAuth2">
+        <arguments>
+            <argument name="storage" xsi:type="object">SocialServicePinterestStorage</argument>
+            <argument name="credentials" xsi:type="object">SocialServicePinterestCredentials</argument>
+            <argument name="config" xsi:type="object">SocialServicePinterestConfig</argument>
+            <argument name="service" xsi:type="string">Aheadworks\SocialLogin\Model\Provider\Service\Pinterest</argument>
+        </arguments>
+    </virtualType>
+    <!-- Callback request processor -->
+    <virtualType name="PinterestCallbackRequestProcessor" type="Aheadworks\SocialLogin\Model\Provider\RequestProcessor\Callback\OAuth2">
+        <arguments>
+            <argument name="accountRetriever" xsi:type="object">Aheadworks\SocialLogin\Model\Provider\Account\Retriever\Pinterest</argument>
+        </arguments>
+    </virtualType>
+    <!-- factory -->
+    <virtualType name="PinterestFactory" type="Aheadworks\SocialLogin\Model\Provider\Factory\Base">
+        <arguments>
+            <argument name="serviceBuilder" xsi:type="object">PinterestServiceBuilder</argument>
+            <argument name="loginRequestProcessorType" xsi:type="string">Aheadworks\SocialLogin\Model\Provider\RequestProcessor\Login\OAuth2</argument>
+            <argument name="callbackRequestProcessorType" xsi:type="string">PinterestCallbackRequestProcessor</argument>
+            <argument name="config" xsi:type="object">SocialProviderPinterestConfig</argument>
+        </arguments>
+    </virtualType>
+    <!-- EOF Pinterest -->
+
+    <!-- Vk -->
+    <!-- config -->
+    <virtualType name="SocialProviderVkConfig" type="Aheadworks\SocialLogin\Model\Config\Provider">
+        <arguments>
+            <argument name="code" xsi:type="string">vk</argument>
+            <argument name="pathPrefix" xsi:type="string">social/vk/</argument>
+        </arguments>
+    </virtualType>
+    <!-- storage -->
+    <virtualType name="SocialServiceVkStorage" type="Aheadworks\SocialLogin\Model\Provider\Service\Storage\Session">
+        <arguments>
+            <argument name="namespace" xsi:type="string">vk</argument>
+        </arguments>
+    </virtualType>
+    <!-- credentials -->
+    <virtualType name="SocialServiceVkCredentials" type="Aheadworks\SocialLogin\Model\Provider\Service\Credentials\ConfigProvider">
+        <arguments>
+            <argument name="consumerIdPath" xsi:type="string">social/vk/key</argument>
+            <argument name="consumerSecretPath" xsi:type="string">social/vk/secret</argument>
+            <argument name="providerCode" xsi:type="string">vk</argument>
+        </arguments>
+    </virtualType>
+    <!-- config -->
+    <virtualType name="SocialServiceVkConfig" type="Aheadworks\SocialLogin\Model\Provider\Service\Config\Base" />
+    <!-- service builder -->
+    <virtualType name="VkServiceBuilder" type="Aheadworks\SocialLogin\Model\Provider\ServiceBuilder\OAuth2">
+        <arguments>
+            <argument name="storage" xsi:type="object">SocialServiceVkStorage</argument>
+            <argument name="credentials" xsi:type="object">SocialServiceVkCredentials</argument>
+            <argument name="config" xsi:type="object">SocialServiceVkConfig</argument>
+            <argument name="service" xsi:type="string">Aheadworks\SocialLogin\Model\Provider\Service\Vk</argument>
+        </arguments>
+    </virtualType>
+    <!-- Callback request processor -->
+    <virtualType name="VkCallbackRequestProcessor" type="Aheadworks\SocialLogin\Model\Provider\RequestProcessor\Callback\OAuth2">
+        <arguments>
+            <argument name="accountRetriever" xsi:type="object">Aheadworks\SocialLogin\Model\Provider\Account\Retriever\Vk</argument>
+        </arguments>
+    </virtualType>
+    <!-- factory -->
+    <virtualType name="VkFactory" type="Aheadworks\SocialLogin\Model\Provider\Factory\Base">
+        <arguments>
+            <argument name="serviceBuilder" xsi:type="object">VkServiceBuilder</argument>
+            <argument name="loginRequestProcessorType" xsi:type="string">Aheadworks\SocialLogin\Model\Provider\RequestProcessor\Login\OAuth2</argument>
+            <argument name="callbackRequestProcessorType" xsi:type="string">VkCallbackRequestProcessor</argument>
+            <argument name="config" xsi:type="object">SocialProviderVkConfig</argument>
+        </arguments>
+    </virtualType>
+    <!-- EOF Vk -->
+
+    <!-- Odnoklassniki -->
+    <!-- config -->
+    <virtualType name="SocialProviderOdnoklassnikiConfig" type="Aheadworks\SocialLogin\Model\Config\Provider">
+        <arguments>
+            <argument name="code" xsi:type="string">odnoklassniki</argument>
+            <argument name="pathPrefix" xsi:type="string">social/odnoklassniki/</argument>
+        </arguments>
+    </virtualType>
+    <!-- storage -->
+    <virtualType name="SocialServiceOdnoklassnikiStorage" type="Aheadworks\SocialLogin\Model\Provider\Service\Storage\Session">
+        <arguments>
+            <argument name="namespace" xsi:type="string">odnoklassniki</argument>
+        </arguments>
+    </virtualType>
+    <!-- credentials -->
+    <virtualType name="SocialServiceOdnoklassnikiCredentials" type="Aheadworks\SocialLogin\Model\Provider\Service\Credentials\AdditionalConfigProvider">
+        <arguments>
+            <argument name="consumerIdPath" xsi:type="string">social/odnoklassniki/key</argument>
+            <argument name="consumerSecretPath" xsi:type="string">social/odnoklassniki/secret</argument>
+            <argument name="publicKeyPath" xsi:type="string">social/odnoklassniki/public</argument>
+            <argument name="providerCode" xsi:type="string">odnoklassniki</argument>
+        </arguments>
+    </virtualType>
+    <!-- config -->
+    <virtualType name="SocialServiceOdnoklassnikiConfig" type="Aheadworks\SocialLogin\Model\Provider\Service\Config\Base">
+        <arguments>
+            <argument name="scopes" xsi:type="array">
+                <item name="0" xsi:type="string">VALUABLE_ACCESS</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <!-- service builder -->
+    <virtualType name="OdnoklassnikiServiceBuilder" type="Aheadworks\SocialLogin\Model\Provider\ServiceBuilder\OAuth2">
+        <arguments>
+            <argument name="storage" xsi:type="object">SocialServiceOdnoklassnikiStorage</argument>
+            <argument name="credentials" xsi:type="object">SocialServiceOdnoklassnikiCredentials</argument>
+            <argument name="config" xsi:type="object">SocialServiceOdnoklassnikiConfig</argument>
+            <argument name="service" xsi:type="string">Aheadworks\SocialLogin\Model\Provider\Service\Odnoklassniki</argument>
+        </arguments>
+    </virtualType>
+    <!-- Callback request processor -->
+    <virtualType name="OdnoklassnikiCallbackRequestProcessor" type="Aheadworks\SocialLogin\Model\Provider\RequestProcessor\Callback\OAuth2">
+        <arguments>
+            <argument name="accountRetriever" xsi:type="object">Aheadworks\SocialLogin\Model\Provider\Account\Retriever\Odnoklassniki</argument>
+        </arguments>
+    </virtualType>
+    <!-- factory -->
+    <virtualType name="OdnoklassnikiFactory" type="Aheadworks\SocialLogin\Model\Provider\Factory\Base">
+        <arguments>
+            <argument name="serviceBuilder" xsi:type="object">OdnoklassnikiServiceBuilder</argument>
+            <argument name="loginRequestProcessorType" xsi:type="string">Aheadworks\SocialLogin\Model\Provider\RequestProcessor\Login\OAuth2</argument>
+            <argument name="callbackRequestProcessorType" xsi:type="string">OdnoklassnikiCallbackRequestProcessor</argument>
+            <argument name="config" xsi:type="object">SocialProviderOdnoklassnikiConfig</argument>
+        </arguments>
+    </virtualType>
+    <!-- EOF Odnoklassniki -->
+
+    <!-- Paypal -->
+    <!-- config -->
+    <virtualType name="SocialProviderPaypalConfig" type="Aheadworks\SocialLogin\Model\Config\Provider">
+        <arguments>
+            <argument name="code" xsi:type="string">paypal</argument>
+            <argument name="pathPrefix" xsi:type="string">social/paypal/</argument>
+        </arguments>
+    </virtualType>
+    <!-- storage -->
+    <virtualType name="SocialServicePaypalStorage" type="Aheadworks\SocialLogin\Model\Provider\Service\Storage\Session">
+        <arguments>
+            <argument name="namespace" xsi:type="string">paypal</argument>
+        </arguments>
+    </virtualType>
+    <!-- credentials -->
+    <virtualType name="SocialServicePaypalCredentials" type="Aheadworks\SocialLogin\Model\Provider\Service\Credentials\ConfigProvider">
+        <arguments>
+            <argument name="consumerIdPath" xsi:type="string">social/paypal/key</argument>
+            <argument name="consumerSecretPath" xsi:type="string">social/paypal/secret</argument>
+            <argument name="providerCode" xsi:type="string">paypal</argument>
+        </arguments>
+    </virtualType>
+    <!-- config -->
+    <virtualType name="SocialServicePaypalConfig" type="Aheadworks\SocialLogin\Model\Provider\Service\Config\Base">
+        <arguments>
+            <argument name="scopes" xsi:type="array">
+                <item name="0" xsi:type="string">openid</item>
+                <item name="1" xsi:type="string">profile</item>
+                <item name="2" xsi:type="string">email</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <!-- service builder -->
+    <virtualType name="PaypalServiceBuilder" type="Aheadworks\SocialLogin\Model\Provider\ServiceBuilder\OAuth2">
+        <arguments>
+            <argument name="storage" xsi:type="object">SocialServicePaypalStorage</argument>
+            <argument name="credentials" xsi:type="object">SocialServicePaypalCredentials</argument>
+            <argument name="config" xsi:type="object">SocialServicePaypalConfig</argument>
+            <argument name="service" xsi:type="string">Aheadworks\SocialLogin\Model\Provider\Service\Paypal</argument>
+        </arguments>
+    </virtualType>
+    <!-- Callback request processor -->
+    <virtualType name="PaypalCallbackRequestProcessor" type="Aheadworks\SocialLogin\Model\Provider\RequestProcessor\Callback\OAuth2">
+        <arguments>
+            <argument name="accountRetriever" xsi:type="object">Aheadworks\SocialLogin\Model\Provider\Account\Retriever\Paypal</argument>
+        </arguments>
+    </virtualType>
+    <!-- factory -->
+    <virtualType name="PaypalFactory" type="Aheadworks\SocialLogin\Model\Provider\Factory\Base">
+        <arguments>
+            <argument name="serviceBuilder" xsi:type="object">PaypalServiceBuilder</argument>
+            <argument name="loginRequestProcessorType" xsi:type="string">Aheadworks\SocialLogin\Model\Provider\RequestProcessor\Login\OAuth2</argument>
+            <argument name="callbackRequestProcessorType" xsi:type="string">PaypalCallbackRequestProcessor</argument>
+            <argument name="config" xsi:type="object">SocialProviderPaypalConfig</argument>
+        </arguments>
+    </virtualType>
+    <!-- EOF Paypal -->
+
+    <!-- Register Providers -->
+    <type name="Aheadworks\SocialLogin\Model\ProviderManagement">
+        <arguments>
+            <argument name="factories" xsi:type="array">
+                <item name="twitter" xsi:type="object">TwitterFactory</item>
+                <item name="facebook" xsi:type="object">FacebookFactory</item>
+                <item name="google" xsi:type="object">GoogleFactory</item>
+                <item name="linkedin" xsi:type="object">LinkedInFactory</item>
+                <item name="instagram" xsi:type="object">InstagramFactory</item>
+                <item name="pinterest" xsi:type="object">PinterestFactory</item>
+                <item name="vk" xsi:type="object">VkFactory</item>
+                <item name="odnoklassniki" xsi:type="object">OdnoklassnikiFactory</item>
+                <item name="paypal" xsi:type="object">PaypalFactory</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Callback forwards -->
+    <type name="Aheadworks\SocialLogin\Controller\Account\Callback">
+        <arguments>
+            <argument name="forwardsMap" xsi:type="array">
+                <item name="login" xsi:type="string">callback_login</item>
+                <item name="link" xsi:type="string">callback_link</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Login Block Templates -->
+    <virtualType name="Aheadworks\SocialLogin\Model\LoginBlock\Template\Default" type="Aheadworks\SocialLogin\Model\LoginBlock\Template">
+        <arguments>
+            <argument name="path" xsi:type="string">Aheadworks_SocialLogin::customer/login/default.phtml</argument>
+            <argument name="additionalData" xsi:type="array">
+                <item name="size" xsi:type="string">big</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Aheadworks\SocialLogin\Model\LoginBlock\Template\Provider">
+        <arguments>
+            <argument name="templatesData" xsi:type="array">
+                <item name="default" xsi:type="array">
+                    <item name="title" xsi:type="string">Default</item>
+                    <item name="template_instance" xsi:type="object">Aheadworks\SocialLogin\Model\LoginBlock\Template\Default</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+</config>
