@@ -1,0 +1,70 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_Reports
+ */
+?>
+<?php /** @var \Amasty\Reports\Block\Adminhtml\Report\Chart $block */ ?>
+
+
+<?php
+$axis = $block->getAxisFields();
+?>
+<div class="content" data-role="amreports-content">
+    <script>
+        window.chartData = [];
+        window.isDate = 0;
+        <?php
+        foreach ($block->getCollection() as $item) {
+        ?>
+        window.chartData.push({
+            date: '<?php echo $item->getData($axis['y'])?>',
+            new_customers: '<?php echo $item->getData('new_customers')?>',
+            returning_customers: '<?php echo $item->getData('returning_customers')?>'
+        });
+        <?php
+        }
+        ?>
+    </script>
+    <div class="chart">
+        <script>
+            function draw_chart () {
+                var chart;
+                if (AmCharts.onReadyArray.length  < 1) {
+                    AmCharts.ready(function () {
+                        chart = getChart('date');
+                        chart = addCategoryAxis(chart, '<?php echo __('Date')?>');
+                        chart = addValueAxis(chart, '<?php echo __('Value')?>');
+                        chart = addGraph(chart, 'line', 'new_customers', 'New Customers', 0);
+                        chart = addGraph(chart, 'line', 'returning_customers', 'Returning Customers', 0);
+                        chart = addCursorToGraph(chart);
+
+                        // LEGEND
+                        var legend = new AmCharts.AmLegend();
+                        chart.addLegend(legend, "legenddiv");
+
+                        chart.write("chartdiv");
+                    });
+                }
+            }
+            require([
+                'jquery',
+                'Amasty_Reports/js/amchart',
+                'Amasty_Reports/amcharts/amcharts'
+            ], function($) {
+                require(['Amasty_Reports/amcharts/serial'], function($) {
+                    draw_chart();
+                });
+            });
+        </script>
+
+        <div id="chartdiv" style="width: 100%; height: 400px;"></div>
+    </div>
+
+    <div id="legenddiv" style="height: 100px !important;overflow: auto;position: relative;"></div>
+
+    <div class="listing">
+        <?= $block->getChildHtml() ?>
+    </div>
+</div>

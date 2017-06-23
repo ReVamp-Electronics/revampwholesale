@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_Reports
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Reports::report">
+                    <resource id="Amasty_Reports::reports" title="Advanced Reports" sortOrder="100">
+                        <resource id="Amasty_Reports::reports_sales" title="Sales" sortOrder="10">
+                            <resource id="Amasty_Reports::reports_sales_overview" title="Overview" sortOrder="10"/>
+                            <resource id="Amasty_Reports::reports_sales_orders" title="Orders" sortOrder="20"/>
+                            <resource id="Amasty_Reports::reports_sales_hour" title="Sales By Hour" sortOrder="30"/>
+                            <resource id="Amasty_Reports::reports_sales_weekday" title="Sales By Day of Week" sortOrder="40"/>
+                            <resource id="Amasty_Reports::reports_sales_country" title="Sales By Country" sortOrder="50"/>
+                            <resource id="Amasty_Reports::reports_sales_payment" title="Sales By Payment Type" sortOrder="60"/>
+                            <resource id="Amasty_Reports::reports_sales_group" title="Sales By Customer Group" sortOrder="70"/>
+                            <resource id="Amasty_Reports::reports_sales_coupon" title="Sales By Coupon" sortOrder="80"/>
+                            <resource id="Amasty_Reports::reports_sales_category" title="Sales By Category" sortOrder="90"/>
+                        </resource>
+                        <resource id="Amasty_Reports::reports_catalog" title="Catalog" sortOrder="20">
+                            <resource id="Amasty_Reports::reports_catalog_by_product" title="By Product" sortOrder="10"/>
+                            <resource id="Amasty_Reports::reports_catalog_bestsellers" title="Bestsellers" sortOrder="20"/>
+                            <resource id="Amasty_Reports::reports_catalog_by_attributes" title="By Product Attributes" sortOrder="30"/>
+                        </resource>
+                        <resource id="Amasty_Reports::reports_customers" title="Customers" sortOrder="30">
+                            <resource id="Amasty_Reports::reports_customers_customers" title="Customers" sortOrder="10"/>
+                            <resource id="Amasty_Reports::reports_customers_returning" title="New vs Returning Customers" sortOrder="20"/>
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

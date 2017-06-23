@@ -1,0 +1,20 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_Reports
+ */
+?>
+<?php /** @var \Amasty\Reports\Block\Adminhtml\Report\Toolbar $block */ ?>
+<h1><?= $block->getCurrentTitle()?></h1>
+<div class="toolbar" data-role="amreports-toolbar">
+    <?php echo $block->getFormHtml();?>
+    <script>
+        require([
+            'jquery',
+            'Amasty_Reports/js/toolbar'
+        ], function ($) {
+            $('[data-role="amreports-toolbar"]').amreportsToolbar();
+        });
+    </script>
+</div>

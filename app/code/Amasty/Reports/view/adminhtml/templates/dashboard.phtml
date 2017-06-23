@@ -1,0 +1,243 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_Reports
+ */
+?>
+<?php /** @var \Amasty\Reports\Block\Adminhtml\Dashboard $block */ ?>
+<h1><?= __('Dashboard') ?></h1>
+<div class="toolbar" data-role="amreports-toolbar">
+    <?php echo $block->getFormHtml();?>
+</div>
+<?php
+$funnelData = $block->getConversionFunnel();
+
+?>
+
+<div id="amreportsDashboard">
+    <div class="widgets">
+        <?php foreach ($block->getCurrentWidgets() as $widget => $currentWidget):
+            ?>
+
+            <div class="widget">
+                <div class="header">
+                    <span id="header"><?= $currentWidget['title'] ?></span>
+                    <div class="switch">
+                        <div class="options">
+                            <?php
+                            foreach ($block->getAllWidgets() as $key=>$value):
+                                ?>
+                                <a href="#" data-parent="<?= $widget?>" name="<?= $key?>" class="item"><?= $value['title'] ?></a>
+                                <?php
+                            endforeach;
+                            ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <img src="<?= $block->getViewFileUrl($currentWidget['icon']) ?>" class="icon"/>
+                    <div class="total"><?= round($block->getWidgetsData($currentWidget['name'])) ?></div>
+                </div>
+                <a class="more" href="<?= $block->getUrl($currentWidget['link'])?>"><?= __('more...') ?></a>
+            </div>
+
+            <?php
+        endforeach;
+        ?>
+    </div>
+
+    <form id="salesForm">
+        <div class="sales-overview chart">
+            <div class="header">
+                <?= __('Sales overview')?>
+                <div class="controls">
+                    <span class="field-row">
+                        <label class="label admin__field-label" for="from" data-ui-id="amreports-report-toolbar-element-text-from-label"><span>From</span></label>
+                        <input name="from" id="from" value="<?= $block->getFromDate()?>" type="text" class=" admin__control-text  input-text" data-mage-init="{&quot;calendar&quot;:{&quot;dateFormat&quot;:&quot;y-MM-dd&quot;,&quot;showsTime&quot;:false,&quot;timeFormat&quot;:null,&quot;buttonImage&quot;:null,&quot;buttonText&quot;:&quot;Select Date&quot;,&quot;disabled&quot;:null}}" />
+                    </span>
+                    <span class="field-row">
+                        <label class="label admin__field-label" for="to" data-ui-id="amreports-report-toolbar-element-text-to-label"><span>To</span></label>
+                        <input name="to" id="to" value="<?= $block->getToDate()?>" type="text" class=" admin__control-text  input-text" data-mage-init="{&quot;calendar&quot;:{&quot;dateFormat&quot;:&quot;y-MM-dd&quot;,&quot;showsTime&quot;:false,&quot;timeFormat&quot;:null,&quot;buttonImage&quot;:null,&quot;buttonText&quot;:&quot;Select Date&quot;,&quot;disabled&quot;:null}}" />
+                    </span>
+                </div>
+            </div>
+            <div class="content">
+                <script>
+                    window.chartData = [];
+                    <?php
+                    foreach ($block->getSalesCollection() as $item) {
+                    ?>
+                    window.chartData.push({
+                        date: '<?php echo $item->getCreatedAt()?>',
+                        visits: '<?php echo $item->getGrandTotal()?>'
+                    });
+                    <?php
+                    }
+                    ?>
+                    function draw_chart () {
+                        var chart;
+                        AmCharts.ready(function () {
+                            chart = getChart('date');
+                            chart = addCategoryAxis(chart, '<?php echo __('Date')?>', true);
+                            chart = addValueAxis(chart, '<?php echo __('Amount')?>');
+                            chart = addGraph(chart, 'line', 'visits', 'Overview Chart', 0);
+                            chart = addCursorToGraph(chart);
+                            chart.write("chartdiv");
+                            window.currentChart = chart;
+                        });
+                    }
+                    require([
+                        'jquery',
+                        'Amasty_Reports/js/amchart',
+                        'Amasty_Reports/amcharts/amcharts'
+                    ], function($) {
+                        require(['Amasty_Reports/amcharts/serial'], function($) {
+                            draw_chart();
+                        });
+                    });
+                </script>
+                <div id="chartdiv" style="width: 100%; height: 400px;"></div>
+            </div>
+        </div>
+    </form>
+
+    <div class="conversion-sellers-wrap">
+        <div class="conversion-funnel chart">
+            <div class="header">
+                <?= __('Conversion funnel')?>
+                <div class="controls">
+                    <form id="funnel">
+                            <span class="field-row">
+                                <label class="label admin__field-label" for="from" data-ui-id="amreports-report-toolbar-element-text-from-label"><span>From</span></label>
+                                <input name="funnel_from" id="funnel_from" value="<?= $block->getFromDate()?>" type="text" class=" admin__control-text  input-text" data-mage-init="{&quot;calendar&quot;:{&quot;dateFormat&quot;:&quot;y-MM-dd&quot;,&quot;showsTime&quot;:false,&quot;timeFormat&quot;:null,&quot;buttonImage&quot;:null,&quot;buttonText&quot;:&quot;Select Date&quot;,&quot;disabled&quot;:null}}" />
+                            </span>
+                            <span class="field-row">
+                                <label class="label admin__field-label" for="to" data-ui-id="amreports-report-toolbar-element-text-to-label"><span>To</span></label>
+                                <input name="funnel_to" id="funnel_to" value="<?= $block->getToDate()?>" type="text" class=" admin__control-text  input-text" data-mage-init="{&quot;calendar&quot;:{&quot;dateFormat&quot;:&quot;y-MM-dd&quot;,&quot;showsTime&quot;:false,&quot;timeFormat&quot;:null,&quot;buttonImage&quot;:null,&quot;buttonText&quot;:&quot;Select Date&quot;,&quot;disabled&quot;:null}}" />
+                            </span>
+                    </form>
+                </div>
+            </div>
+            <div class="content">
+                <div class="funnel">
+                    <div class="stage stage1">
+                        <div class="row">
+                            <div id="viewedCount" class="number"><?= round($funnelData['viewedCount'])?></div>
+                            <div class="text"><?= __('Products viewed')?></div>
+                        </div>
+                        <div id="viewedPercent" class="percent"><?= round($funnelData['viewedPercent'])?>%</div>
+                        <div class="label-wrap">
+                            <div class="label">
+                                <div id="notViewed" class="number"><?= round($funnelData['notViewed'])?></div>
+                                <div class="text"><?= __('Not interested')?></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stage stage2">
+                        <div class="row">
+                            <div id="addedCount" class="number"><?= round($funnelData['addedCount'])?></div>
+                            <div class="text"><?= __('Added to cart')?></div>
+                        </div>
+                        <div id="addedPercent" class="percent"><?= round($funnelData['addedPercent'])?>%</div>
+                        <div class="label-wrap">
+                            <div class="label">
+                                <div id="notAdded" class="number"><?= round($funnelData['abandoned'])?></div>
+                                <div class="text"><?= __('Abandoned cart')?></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stage stage3">
+                        <div class="row">
+                            <div id="orderedCount" class="number"><?= round($funnelData['orderedCount'])?></div>
+                            <div class="text"><?= __('ordered')?></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bestsellers grid">
+            <div class="header">
+                <?= __('Bestsellers (Last 30 days)')?>
+            </div>
+            <div class="content">
+                <table>
+                    <thead>
+                    <tr>
+                        <td>#</td>
+                        <td><?= __('Name')?></td>
+                        <td><?= __('Orders')?></td>
+                        <td><?= __('Amount')?></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    $bestsellers = $block->getBestsellers();
+                    $i = 1;
+
+                    if ($bestsellers->getSize() > 0):
+                        foreach ($bestsellers as $bestseller):
+                            ?>
+                            <tr>
+                                <td><?= $i?></td>
+                                <td><?= $bestseller->getName()?></td>
+                                <td><?= $bestseller->getQty()?></td>
+                                <td><?= floatval($bestseller->getTotal())?></td>
+                            </tr>
+                            <?php
+                            $i++;
+                        endforeach;
+                    endif;
+                    ?>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="last-order grid">
+        <div class="header">
+            <?= __('Last order')?>
+        </div>
+        <div class="content">
+            <table>
+                <thead>
+                <tr>
+                    <td><?= __('Order')?></td>
+                    <td><?= __('Customer')?></td>
+                    <td><?= __('Status')?></td>
+                    <td><?= __('Date')?></td>
+                    <td><?= __('Items')?></td>
+                    <td><?= __('Grand Total')?></td>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
+                $orders = $block->getLastOrders();
+                foreach ($orders as $order):
+                    ?>
+                    <tr>
+                        <td>#<?= $order->getIncrementId()?></td>
+                        <td><?= $order->getCustomerFirstname().' '.$order->getCustomerLastname()?></td>
+                        <td><?= $order->getStatus()?></td>
+                        <td><?= $order->getCreatedAt()?></td>
+                        <td><?= $order->getTotalItemCount()?></td>
+                        <td><?= floatval($order->getGrandTotal())?></td>
+                    </tr>
+                    <?php
+                endforeach;
+                ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    require([
+        'jquery',
+        'Amasty_Reports/js/dashboard'
+    ], function ($) {
+        $('#amreportsDashboard').amreportsDashboard();
+    });
+</script>

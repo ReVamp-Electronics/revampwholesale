@@ -1,0 +1,3 @@
+.admin__menu .item-faq > a::before{content: "\e609" !important;
+    font-size: 2rem;
+    padding-top: 0.2rem;}

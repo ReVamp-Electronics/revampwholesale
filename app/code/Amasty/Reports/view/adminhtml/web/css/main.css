@@ -1,0 +1,465 @@
+/* Menu */
+
+.amreports-menu {
+    background: #fafafa;
+    width: 350px;
+    float: left;
+    padding-bottom: 20px;
+    position: absolute;
+}
+
+.amreports-menu .level-0 {
+    border-bottom: #e5e5e5 1px solid;
+}
+
+.amreports-menu .level-0 a {
+    color: #404040;
+}
+
+.amreports-menu .level-0 .level-1 a {
+    color: #6f6f6f;
+    display: block;
+    width: 100%;
+    padding: 5px 17px;
+}
+
+.amreports-menu a:hover {
+    text-decoration: none;
+    background-color: #f1f1f1;
+}
+
+.amreports-menu .level-1:last-child {
+    margin-bottom: 12px;
+}
+
+.amreports-menu .level-0 .label {
+    padding-left: 9px;
+    margin: 7px 0;
+    display: block;
+    height: 30px;
+    line-height: 30px;
+}
+
+.amreports-menu .level-0.active .label {
+    border-left: 2px solid #f58c11;
+    padding-left: 7px;
+}
+
+.amreports-menu .amreports-menu-item.active .label,
+.amreports-menu .level-1.active a {
+    background-color: #f1f1f1;
+}
+
+/* Content */
+
+#container {
+    min-height: 640px;
+}
+
+.amreports-content {
+    margin-left: 400px;
+}
+
+/* Toolbar */
+
+.amreports-content .toolbar {
+    background-color: #f1f1f1;
+    padding: 15px 25px;
+    margin-bottom: 12px;
+}
+
+.amreports-content .toolbar:after {
+    content: '';
+    clear: both;
+    display: block;
+}
+
+.amreports-content .toolbar .right {
+    float: right;
+    margin: 0 7px;
+}
+
+.amreports-content .toolbar .admin__field-option {
+    border: 1px solid #adadad;
+    border-right: none;
+    display: inline-block;
+    background-color: white;
+}
+
+.amreports-content .toolbar .field-row {
+    display: inline-block;
+    margin: 0 7px;
+}
+
+.amreports-content .toolbar .admin__field-option:last-child {
+    border-right: 1px solid #adadad;
+}
+
+.amreports-content .toolbar .admin__control-radio + label:before,
+.amreports-content .toolbar .admin__control-radio:checked + label:after {
+    /* Disable default Magento style */
+    display: none;
+}
+
+.amreports-content .toolbar .admin__field-option {
+    padding: 0;
+}
+
+.amreports-content .toolbar .admin__field.admin__field-option ~ .admin__field-option {
+    margin: 0;
+}
+
+.amreports-content .toolbar .admin__field-option label {
+    display: block;
+    min-width: 75px;
+    height: 31px;
+    line-height: 18px;
+    padding: 7px 21px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.amreports-content .toolbar input,
+.amreports-content .toolbar button,
+.amreports-content .toolbar select {
+    height: 31px;
+    box-sizing: border-box;
+}
+
+.amreports-content .toolbar .admin__control-radio:checked + .admin__field-label {
+    font-weight: bold;
+}
+
+/* Grid component */
+.amreports-content .admin__data-grid-outer-wrap {
+    margin-top: 12px;
+}
+
+.amreports-content .col-xs-9,
+.amreports-content .col-xs-3 {
+    width: auto;
+    margin-right: 12px;
+}
+
+@media (min-width: 1650px) {
+    .amreports-content .admin__data-grid-header-row + .admin__data-grid-header-row {
+        margin-top: 0;
+        position: absolute;
+        top: 0;
+    }
+}
+
+/* Dashboard */
+
+.amreports-content .widgets {
+    display: flex;
+    justify-content: space-between;
+    align-content: space-between;
+    flex-wrap: wrap;
+}
+
+.amreports-content .widgets .widget {
+    /*margin-right: 55px;*/
+    width: calc(25% - (55px * 3 / 4)); /* 100% / N - (margin-left * (N-1) / N) */
+    box-sizing: border-box;
+    float: left;
+    background: #f1f1f1;
+    box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, .05);
+}
+
+@media (max-width: 1300px) {
+    .amreports-content .widgets .widget {
+        width: calc(50% - 25px);
+    }
+    .amreports-content .widgets {
+        height: 230px;
+    }
+}
+
+.amreports-content .widgets .widget:last-child {
+    margin-right: 0;
+}
+
+.amreports-content .widgets .widget .content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 54px;
+    padding: 0 7px;
+}
+
+.amreports-content .widgets .widget .more {
+    background-color: #4d5367;
+    color: white;
+    font-size: 12px;
+    padding: 2px 7px;
+    display: block;
+    text-align: right;
+}
+
+.amreports-content .widgets .widget .header {
+    background-color: #e9e9e9;
+    padding: 3px 7px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.amreports-content .widgets .widget .total {
+    font-size: 32px;
+}
+
+.amreports-content .widgets .widget .header .switch {
+    background: url(../img/gear.png);
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    position: relative;
+}
+
+.amreports-content .widgets .widget .header .switch .options {
+    display: none;
+    position: absolute;
+    background: #f1f1f1;
+    right: 0;
+    z-index: 9;
+}
+
+.amreports-content .widgets .widget .header .switch .options .item {
+    white-space: nowrap;
+    display: block;
+    color: black;
+    text-decoration: none;
+    padding: 7px 12px;
+}
+
+.amreports-content .widgets .widget .header .switch .options .item:hover {
+    background: #d8d8d8;
+}
+
+.amasty-reports-report-index .chart,
+.amasty-reports-report-index .grid .header {
+    margin-top: 50px;
+    background: #fafafa;
+}
+
+.amasty-reports-report-index .chart .header,
+.amasty-reports-report-index .grid .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 12px;
+    box-sizing: border-box;
+    height: 48px;
+}
+
+.amasty-reports-report-index .chart .header {
+    border-top: 4px solid #cfcfcf;
+}
+
+.amasty-reports-report-index .grid .header {
+    border-bottom: 4px solid #e6e6e6;
+}
+
+.amasty-reports-report-index .chart .content:before {
+    display: block;
+    content: '';
+    width: 100%;
+    height: 0;
+    border-bottom: 1px solid #fff;
+    border-top: 1px solid #e3e3e3;
+}
+
+.amasty-reports-report-index .chart .header .controls {
+    white-space: nowrap;
+}
+
+.amasty-reports-report-index .conversion-sellers-wrap {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-left: -30px;
+}
+
+.amasty-reports-report-index .conversion-funnel {
+    width: 675px;
+    flex-shrink: 0;
+}
+
+.amasty-reports-report-index .bestsellers {
+    flex-grow: 1;
+}
+
+.amasty-reports-report-index .conversion-sellers-wrap>* {
+    margin-left: 30px;
+}
+
+.funnel {
+    padding: 30px 23px;
+}
+
+.funnel .stage {
+    height: 78px;
+    position: relative;
+    margin: 8px auto;
+}
+
+.funnel .row {
+    color: white;
+    height: 100%;
+    padding: 0 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    right: 430px;
+}
+
+.funnel .row .number {
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.funnel .row .text,
+.funnel .label .text {
+    font-size: 18px;
+}
+
+.funnel .row:before,
+.funnel .row:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    border-top: 78px solid transparent;
+}
+
+.funnel .row:before {
+    border-left: 30px solid #fafafa;
+    left: 0;
+}
+
+.funnel .row:after {
+    border-right: 30px solid #fafafa;
+    right: 0;
+}
+
+.funnel .stage1 .row {
+    background: #41475d;
+    width: 350px;
+    margin-right: -175px; /* width / 2 */
+}
+
+.funnel .stage2 .row {
+    background: #3e9fa4;
+    width: 285px;
+    margin-right: -142px;
+}
+
+.funnel .stage3 .row {
+    background: #82caa7;
+    width: 217px;
+    margin-right: -108px;
+}
+
+.funnel .percent {
+    background: white;
+    width: 105px;
+    height: 45px;
+    text-align: center;
+    line-height: 45px;
+    font-size: 22px;
+    position: absolute;
+    top: 50%;
+    margin-top: -22px;
+    z-index: 2;
+}
+
+.funnel .stage1 .percent {
+    right: 200px;
+}
+
+.funnel .stage2 .percent {
+    right: 230px;
+}
+
+.funnel .label .wrap {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.funnel .label {
+    background: #dddddd;
+    height: 78px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    float: right;
+    padding: 17px 17px 17px 30px;
+}
+
+.funnel .label .number {
+    font-size: 22px;
+}
+
+.funnel .stage1 .label .number {
+    color: #41475d;
+}
+
+.funnel .stage2 .label .number {
+    color: #3e9fa4;
+}
+
+.funnel .label:before {
+    content: '';
+    display: block;
+    border-bottom: 78px solid transparent;
+    border-left: 30px solid #fafafa;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.funnel .stage1 .label {
+    width: 250px;
+}
+
+.funnel .stage2 .label {
+    width: 283px;
+}
+
+.amasty-reports-report-index table {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.amasty-reports-report-index table thead td {
+    background: #41475d;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.amasty-reports-report-index table tbody tr:nth-child(2n) td {
+    background: #f1f1f1;
+}
+
+.amasty-reports-report-index table td {
+    padding: 12px;
+    border-right: 2px dotted #e6e6e6;
+    text-align: center;
+}
+
+.amasty-reports-report-index table td:last-child {
+    border-right: none;
+}
+
+
+.bestsellers.grid table td:nth-child(2) {
+    text-align: left;
+}

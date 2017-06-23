@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_Reports
+ */
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Amasty_Reports::css/main.css" />
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Amasty\Reports\Block\Adminhtml\Menu" name="amreports.menu" template="Amasty_Reports::menu.phtml" />
+            <container name="amreports.container" htmlTag="div" htmlClass="amreports-content" />
+        </referenceContainer>
+    </body>
+</page>
