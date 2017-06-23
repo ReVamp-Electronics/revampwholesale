@@ -1,0 +1,31 @@
+<!--@subject Account confirmed for {{var customer_name}} @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"store url=\"customer/account/\"":"Customer Account Url",
+"htmlescape var=$customer.name":"Customer Name",
+"var customer.email":"Customer Email",
+"store url=\"customer/account/confirm/\" _query_id=$customer.id _query_key=$customer.confirmation _query_back_url=$back_url":"Confirmation Url",
+"htmlescape var=$customer.password":"Customer password"}
+@-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+
+<h1>Dear {{htmlescape var=$customer_name}},</h1>
+<p>Welcome to {{var store.getFrontendName()}}. To log in when visiting our site just click <a href="{{store url='customer/account/'}}">Login</a> or <a href="{{store url="customer/account/"}}" style="color:#1E7EC8;">My Account</a> at the top of every page, and then enter your e-mail address and password.</p>
+<p>When you log in to your account, you will be able to do the following:</p>
+
+<p>{{trans "Proceed through checkout faster when making a purchase"}}</p>
+<p>{{trans "Check the status of orders"}}</p>
+<p>{{trans "View past orders"}}</p>
+<p>{{trans "Make changes to your account information"}}</p>
+<p>{{trans "Change your password"}}</p>
+<p>{{trans "Store alternative addresses (for shipping to multiple family members and friends!)"}}</p>
+</ul>
+<p>If you have any questions about your account or any other matter, please feel free to contact us at <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#1E7EC8;">{{config path='trans_email/ident_support/email'}}</a> or by phone at {{config path='general/store_information/phone'}}.</p>
+
+<p>{{trans "Thank you again,%store" store=store.getFrontendName()}}</p>

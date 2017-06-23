@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerAttributes
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Amasty_CustomerAttributes::css/jquery.jqplot.css"/>
+    </head>
+    <body>
+        <referenceContainer name="left">
+            <block class="Amasty\CustomerAttributes\Block\Adminhtml\Customer\Attribute\Edit\Tabs"
+                   name="attribute_edit_tabs">
+                <container label="Main" name="main">
+                    <block class="Amasty\CustomerAttributes\Block\Adminhtml\Customer\Attribute\Edit\Tab\Main" as="base"/>
+                </container>
+                <container label="Options" name="options">
+                    <block class="Amasty\CustomerAttributes\Block\Adminhtml\Customer\Attribute\Edit\Tab\Options" as="options"/>
+                </container>
+                <container label="Reports" name="reports">
+                    <block class="Amasty\CustomerAttributes\Block\Adminhtml\Customer\Attribute\Edit\Tab\Reports" as="reports"/>
+                </container>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Amasty\CustomerAttributes\Block\Adminhtml\Customer\Attribute\Edit"
+                   name="attribute_edit_content"/>
+        </referenceContainer>
+        <referenceContainer name="js">
+            <block class="Magento\Backend\Block\Template" name="attribute_edit_js"
+                   template="Amasty_CustomerAttributes::attribute/js.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

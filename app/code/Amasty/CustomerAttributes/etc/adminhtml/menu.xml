@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerAttributes
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Amasty_CustomerAttributes::attributes"
+             title="Customer Attributes"
+             module="Amasty_CustomerAttributes"
+             sortOrder="35"
+             parent="Magento_Customer::customer"
+             resource="Amasty_CustomerAttributes::attribute"/>
+        <add id="Amasty_CustomerAttributes::attributes_manage"
+             title="Manage Attributes"
+             module="Amasty_CustomerAttributes"
+             sortOrder="10"
+             parent="Amasty_CustomerAttributes::attributes"
+             action="amcustomerattr/attribute/"
+             resource="Amasty_CustomerAttributes::attributes_manage"/>
+        <add id="Amasty_CustomerAttributes::attributes_relation"
+             title="Manage Attribute Relations"
+             module="Amasty_CustomerAttributes"
+             sortOrder="20"
+             parent="Amasty_CustomerAttributes::attributes"
+             action="amcustomerattr/relation/index"
+             resource="Amasty_CustomerAttributes::attributes_relation"/>
+    </menu>
+</config>

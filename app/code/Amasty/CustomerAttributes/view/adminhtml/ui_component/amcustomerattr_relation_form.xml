@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerAttributes
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">amcustomerattr_relation_form.amcustomerattr_relation_form_data_source</item>
+            <item name="deps" xsi:type="string">amcustomerattr_relation_form.amcustomerattr_relation_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Customer Group Catalog Relation</item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">amcustomerattr_relation_form</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="array">
+                <item name="name" xsi:type="string">back</item>
+                <item name="label" xsi:type="string" translate="true">Back</item>
+                <item name="class" xsi:type="string">back</item>
+                <item name="url" xsi:type="string">*/*/</item>
+            </item>
+            <item name="save" xsi:type="string">Amasty\CustomerAttributes\Block\Adminhtml\Relation\Edit\SaveButton</item>
+            <item name="reset" xsi:type="string">Amasty\CustomerAttributes\Block\Adminhtml\Relation\Edit\ResetButton</item>
+            <item name="save_and_continue" xsi:type="string">Amasty\CustomerAttributes\Block\Adminhtml\Relation\Edit\SaveAndContinueButton</item>
+            <item name="delete" xsi:type="string">Amasty\CustomerAttributes\Block\Adminhtml\Relation\Edit\DeleteButton</item>
+        </item>
+    </argument>
+    <dataSource name="amcustomerattr_relation_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Amasty\CustomerAttributes\Model\Relation\DataProvider</argument>
+            <argument name="name" xsi:type="string">amcustomerattr_relation_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">relation_id</argument>
+            <argument name="requestFieldName" xsi:type="string">relation_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" xsi:type="url" path="amcustomerattr/relation/save"/>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <fieldset name="general">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Relation Information</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">10</item>
+                <item name="opened" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+        <field name="relation_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">amcustomerattr_relation</item>
+                    <item name="dataScope" xsi:type="string">relation_id</item>
+                </item>
+            </argument>
+        </field>
+        <field name="name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Relation Name</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">amcustomerattr_relation</item>
+                    <item name="dataScope" xsi:type="string">name</item>
+                    <item name="notice" xsi:type="string" translate="true">For internal use</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="attribute_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Amasty_CustomerAttributes/js/relation/edit/parent_attribute</item>
+                    <item name="update_url" xsi:type="url" path="amcustomerattr/relation/UpdateParentAttribute/attribute_id/:aid"/>
+                    <item name="label" xsi:type="string" translate="true">Parent Attribute</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="showSpinner" xsi:type="boolean">true</item>
+                    <item name="loading" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">amcustomerattr_relation</item>
+                    <item name="dataScope" xsi:type="string">attribute_id</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+                <item name="options" xsi:type="object">Amasty\CustomerAttributes\Model\Relation\ParentAttributeProvider</item>
+            </argument>
+        </field>
+        <field name="attribute_options">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Attribute Options</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="source" xsi:type="string">amcustomerattr_relation</item>
+                    <item name="dataScope" xsi:type="string">attribute_options</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+                <item name="options" xsi:type="object">Amasty\CustomerAttributes\Model\Relation\AttributeOptionsProvider</item>
+            </argument>
+        </field>
+        <field name="dependent_attributes">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Dependent Attributes</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="source" xsi:type="string">amcustomerattr_relation</item>
+                    <item name="dataScope" xsi:type="string">dependent_attributes</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+                <item name="options" xsi:type="object">Amasty\CustomerAttributes\Model\Relation\DependentAttributeProvider</item>
+            </argument>
+        </field>
+    </fieldset>
+</form>

@@ -1,0 +1,20 @@
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2016 Amasty (http://www.amasty.com)
+* @package Amasty_CustomerAttributes
+*/
+-->
+<input class="input-text" type="text" data-bind="
+    datepicker: { storage: value,
+        options: options,
+        showsTime: true,
+        timeFormat: 'hh:mm'
+    },
+    attr: {
+        value: value,
+        name: inputName,
+        placeholder: placeholder,
+        'aria-describedby': noticeId,
+        disabled: disabled
+    }" />
