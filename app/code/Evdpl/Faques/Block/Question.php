@@ -37,7 +37,7 @@ class Question extends Template
     public function getFaqs()
     {
     	  $collection = $this->_questionFactory->create()->getCollection();
-        $collection->addFieldToFilter('status', 1)->setOrder('displayorder','desc');
+        $collection->addFieldToFilter('status', 1)->setOrder('displayorder','asc');
     	  $collection->getSelect();	
     	  return $collection;
     }
