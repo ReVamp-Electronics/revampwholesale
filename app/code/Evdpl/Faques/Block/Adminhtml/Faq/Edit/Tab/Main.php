@@ -110,8 +110,7 @@ class Main extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
                 'style' => 'height:36em;',
                 'required' => true,
                 'disabled' => $isElementDisabled,
-                'config' => $wysiwygConfig,
-                'value'=>'345'
+                'config' => $wysiwygConfig
             ]
         );
 

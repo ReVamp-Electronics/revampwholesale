@@ -1,0 +1,59 @@
+/**
+ * @package     Evdpl_Ourteam
+ * @author      Evdpl Development
+ */
+.ourteam-list-container{}
+.teamGallery{display: inline-block;}
+.teamGallery li{
+    display: inline-block;
+    text-align: center;
+    float: left;
+    background: #fff;
+    max-height:366px;
+    min-height: 366px!important;
+    margin: 5px 16px 20px 0;
+    width: 276px;
+    background-color: #fff;
+    padding: 10px;
+    box-shadow: 0 0px 18px #ddd;
+        
+}
+.teamGallery li:hover{}
+.teamGallery li:hover a{text-decoration: none;}
+.teamGallery li .member_avatar {
+max-width: 100%;
+text-align: center;
+display: inherit;
+}
+h2.member_name{font-size: 16px;  margin: 10px 0px; max-height: 20px; overflow: hidden;}
+h2.member_name a{color: #000; text-decoration: none;}
+.teamGallery li #greg_description {max-height: 45px; overflow: hidden;}
+.ourteam-detail .ourteam-short_desc{ float: left; margin-left: 0; width: 100%; }
+.ourteam-description{float: left; margin-top: 10px;}
+
+.read-more {
+padding: 7px 22px;
+background-color: #3399cc;
+color: #fff!important;
+margin: 15px 0;
+display: inline-block;
+text-transform: uppercase;
+border-radius: 2px;
+}
+.read-more :hover{color: #fff;}
+
+
+
+.ourteam-view {
+background: #f4f4f4;
+padding: 20px;
+display: inline-block;
+width: 100%;
+margin-bottom: 35px;
+
+}
+.ourteam-image{float: left; width: 40%; margin-right: 20px;text-align: -webkit-center;
+border: 1px solid rgba(204, 204, 204, 0.41);
+}
+.ourteam-image img{max-width: 100%;}
+.ourteam-right{float: left; width: 50%;}

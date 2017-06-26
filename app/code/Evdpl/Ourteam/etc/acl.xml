@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::content">
+                    <resource id="Evdpl_Ourteam::ourteam_content" title="Ourteam" sortOrder="10" >
+                        <resource id="Evdpl_Ourteam::post" title="Team Member" sortOrder="40">
+                            <resource id="Evdpl_Ourteam::save" title="Save Team Member" sortOrder="10" />
+                            <resource id="Evdpl_Ourteam::post_delete" title="Delete Team Member" sortOrder="20" />
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

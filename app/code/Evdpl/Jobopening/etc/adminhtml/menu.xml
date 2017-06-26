@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+    	<add id="Evdpl_Jobopening::home" title="Evdpl Job Opening" translate="title" module="Evdpl_Jobopening" sortOrder="120" parent="Magento_Backend::content" resource="Evdpl_Jobopening::manage"/>
+        <add id="Evdpl_Jobopening::jobopening" title="Job Opening" translate="title" module="Evdpl_Jobopening" sortOrder="0" parent="Evdpl_Jobopening::home" action="jobopening/index/" resource="Evdpl_Jobopening::manage"/>
+    </menu>
+</config>

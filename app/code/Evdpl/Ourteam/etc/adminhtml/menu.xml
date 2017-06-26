@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Evdpl_Ourteam::home" title="Evdpl Our Team" module="Evdpl_Ourteam" sortOrder="110" parent="Magento_Backend::content"  resource="Evdpl_Ourteam::ourteam" />
+        <add id="Evdpl_Ourteam::post" title="Team Member" module="Evdpl_Ourteam" sortOrder="0" parent="Evdpl_Ourteam::home" action="ourteam/post" resource="Evdpl_Ourteam::post"/>
+    </menu>
+</config>
