@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<body>
+		<referenceBlock name="head.additional">
+			<block class="MW\RewardPoints\Block\Facebook\Like" name="mw_like_head" as="mw_like_head" template="MW_RewardPoints::facebook/head.phtml" />
+		</referenceBlock>
+
+		<referenceContainer name="footer">
+			<block class="MW\RewardPoints\Block\Facebook\Like" name="mw_like_init" as="mw_like_init" before="copyrighta" template="MW_RewardPoints::facebook/facebook_init.phtml" />
+		</referenceContainer>
+	</body>
+</page>

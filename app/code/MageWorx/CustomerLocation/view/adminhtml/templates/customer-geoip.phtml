@@ -1,0 +1,27 @@
+<?php
+/**
+ * Copyright © 2015 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+?>
+
+<?php
+    $isCityDbType = $this->helper('MageWorx\GeoIP\Helper\Database')->isCityDbType();
+?>
+<?php if ($_item = $this->getItem()): ?>
+    <?php $_geoip = $_item->getGeoIp() ?>
+    <?php if ($_item->getIp()): ?>
+        <?php echo $_item->getIp() ?>
+    <?php endif; ?>
+    <?php if ($_geoip->getCode()): ?>
+        <?php if ($_geoip->getFlag()): ?>
+            <img class="v-middle" src="<?php echo $_geoip->getFlag() ?>" title="<?php echo $_geoip->getCode() ?>" />
+        <?php endif; ?>
+        <?php echo $_geoip->getCode() ?>, <?php echo $_geoip->getCountry() ?>
+        <?php if ($isCityDbType): ?>
+            <?php echo implode(', ', array_filter(array($_geoip->getRegion(), $_geoip->getCity(), $_geoip->getPostalCode()))) ?>
+        <?php endif; ?>
+    <?php else: ?>
+        <?php echo __('n/a') ?>
+    <?php endif; ?>
+<?php endif; ?>

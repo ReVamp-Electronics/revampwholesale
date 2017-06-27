@@ -1,0 +1,20 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Rma\Block\BackLink */
+?>
+<button id="aw-rma-back-button" type="button" class="action secondary" title="<?php echo $block->escapeHtml(__('Back')) ?>">
+    <span><?php echo $block->escapeHtml(__('Back')) ?></span>
+</button>
+<script type="text/x-magento-init">
+{
+    "#aw-rma-back-button": {
+        "awRmaButtonControl": {
+            "newLocation": <?php echo \Zend_Json::encode($block->getBackUrl()) ?>
+        }
+    }
+}
+</script>

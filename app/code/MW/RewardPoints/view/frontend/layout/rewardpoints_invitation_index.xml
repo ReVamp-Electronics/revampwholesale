@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<update handle="customer_account"/>
+	<head>
+		<css src="MW_RewardPoints::css/style.css"/>
+	</head>
+	<body>
+		<referenceBlock name="reward_points_invitation">
+            <arguments>
+                <argument name="is_highlighted" xsi:type="boolean">true</argument>
+            </arguments>
+        </referenceBlock>
+		<referenceContainer name="content">
+			<block class="Magento\Framework\View\Element\Template" name="customer_invitation_dashboard" template="MW_RewardPoints::customer/account/invitation.phtml" cacheable="false">
+	            <block class="MW\RewardPoints\Block\Invitation\Form" name="customer_invitation_form" as="invite_form" template="MW_RewardPoints::customer/account/invitation/invite_form.phtml"/>
+	        </block>
+		</referenceContainer>
+	</body>
+</page>

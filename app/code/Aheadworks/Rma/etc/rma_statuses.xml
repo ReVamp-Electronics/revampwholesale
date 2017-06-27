@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="rma_statuses.xsd">
+    <status>
+        <id>1</id>
+        <is_email_customer>1</is_email_customer>
+        <is_email_admin>0</is_email_admin>
+        <is_thread>1</is_thread>
+        <attribute>
+            <name>frontend_label</name>
+            <value>Approved</value>
+        </attribute>
+        <attribute>
+            <name>template_to_admin</name>
+            <value></value>
+        </attribute>
+        <attribute>
+            <name>template_to_customer</name>
+            <value>aw_rma_email_template_to_customer_status_1</value>
+        </attribute>
+        <attribute>
+            <name>template_to_thread</name>
+            <value>The request has been approved.</value>
+        </attribute>
+    </status>
+    <status>
+        <id>2</id>
+        <is_email_customer>1</is_email_customer>
+        <is_email_admin>1</is_email_admin>
+        <is_thread>1</is_thread>
+        <attribute>
+            <name>frontend_label</name>
+            <value>Canceled</value>
+        </attribute>
+        <attribute>
+            <name>template_to_admin</name>
+            <value>aw_rma_email_template_to_admin_status_2</value>
+        </attribute>
+        <attribute>
+            <name>template_to_customer</name>
+            <value>aw_rma_email_template_to_customer_status_2</value>
+        </attribute>
+        <attribute>
+            <name>template_to_thread</name>
+            <value>The request has been cancelled.</value>
+        </attribute>
+    </status>
+    <status>
+        <id>3</id>
+        <is_email_customer>1</is_email_customer>
+        <is_email_admin>0</is_email_admin>
+        <is_thread>1</is_thread>
+        <attribute>
+            <name>frontend_label</name>
+            <value>Closed</value>
+        </attribute>
+        <attribute>
+            <name>template_to_admin</name>
+            <value></value>
+        </attribute>
+        <attribute>
+            <name>template_to_customer</name>
+            <value>aw_rma_email_template_to_customer_status_3</value>
+        </attribute>
+        <attribute>
+            <name>template_to_thread</name>
+            <value>The request has been closed.</value>
+        </attribute>
+    </status>
+    <status>
+        <id>4</id>
+        <is_email_customer>0</is_email_customer>
+        <is_email_admin>1</is_email_admin>
+        <is_thread>0</is_thread>
+        <attribute>
+            <name>frontend_label</name>
+            <value>Issue Refund</value>
+        </attribute>
+        <attribute>
+            <name>template_to_admin</name>
+            <value>aw_rma_email_template_to_admin_status_4</value>
+        </attribute>
+        <attribute>
+            <name>template_to_customer</name>
+            <value></value>
+        </attribute>
+        <attribute>
+            <name>template_to_thread</name>
+            <value>The request obtained "Issue Refund" status.</value>
+        </attribute>
+    </status>
+    <status>
+        <id>5</id>
+        <is_email_customer>1</is_email_customer>
+        <is_email_admin>0</is_email_admin>
+        <is_thread>1</is_thread>
+        <attribute>
+            <name>frontend_label</name>
+            <value>Package Received</value>
+        </attribute>
+        <attribute>
+            <name>template_to_admin</name>
+            <value></value>
+        </attribute>
+        <attribute>
+            <name>template_to_customer</name>
+            <value>aw_rma_email_template_to_customer_status_5</value>
+        </attribute>
+        <attribute>
+            <name>template_to_thread</name>
+            <value>The request obtained "Package Received" status.</value>
+        </attribute>
+    </status>
+    <status>
+        <id>6</id>
+        <is_email_customer>0</is_email_customer>
+        <is_email_admin>1</is_email_admin>
+        <is_thread>1</is_thread>
+        <attribute>
+            <name>frontend_label</name>
+            <value>Package Sent</value>
+        </attribute>
+        <attribute>
+            <name>template_to_admin</name>
+            <value>aw_rma_email_template_to_admin_status_6</value>
+        </attribute>
+        <attribute>
+            <name>template_to_customer</name>
+            <value></value>
+        </attribute>
+        <attribute>
+            <name>template_to_thread</name>
+            <value>The request obtained "Package Sent" status.</value>
+        </attribute>
+    </status>
+    <status>
+        <id>7</id>
+        <is_email_customer>1</is_email_customer>
+        <is_email_admin>1</is_email_admin>
+        <is_thread>1</is_thread>
+        <attribute>
+            <name>frontend_label</name>
+            <value>Pending Approval</value>
+        </attribute>
+        <attribute>
+            <name>template_to_admin</name>
+            <value>aw_rma_email_template_to_admin_status_7</value>
+        </attribute>
+        <attribute>
+            <name>template_to_customer</name>
+            <value>aw_rma_email_template_to_customer_status_7</value>
+        </attribute>
+        <attribute>
+            <name>template_to_thread</name>
+            <value>The request is pending approval.</value>
+        </attribute>
+    </status>
+</config>

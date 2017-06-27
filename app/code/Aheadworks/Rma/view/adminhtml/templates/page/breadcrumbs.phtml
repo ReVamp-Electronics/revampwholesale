@@ -1,0 +1,25 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Rma\Block\Adminhtml\Page\Breadcrumbs */
+?>
+<?php if ($crumbs && is_array($crumbs)) : ?>
+<div class="<?php echo $block->getClassName() ?>">
+    <ul class="items">
+        <?php foreach ($crumbs as $crumbName => $crumbInfo) : ?>
+            <li class="item <?php echo $crumbName ?>">
+            <?php if ($crumbInfo['link']) : ?>
+                <a href="<?php echo $crumbInfo['link'] ?>" title="<?php echo $block->escapeHtml($crumbInfo['title']) ?>"><?php echo $block->escapeHtml($crumbInfo['label']) ?></a>
+            <?php elseif ($crumbInfo['last']) : ?>
+                <strong><?php echo $block->escapeHtml($crumbInfo['label']) ?></strong>
+            <?php else: ?>
+                <?php echo $block->escapeHtml($crumbInfo['label']) ?>
+            <?php endif; ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</div>
+<?php endif; ?>

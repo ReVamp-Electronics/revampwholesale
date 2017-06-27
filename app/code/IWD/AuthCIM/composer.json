@@ -1,0 +1,27 @@
+{
+  "name": "iwd/authcim",
+  "description": "IWD Authorize.net CIM",
+  "type": "magento2-module",
+  "version": "2.2.0",
+  "license": [
+    "proprietary"
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "IWD\\AuthCIM\\": ""
+    }
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://repo.magento.com/"
+    }
+  ],
+  "require": {
+    "magento/module-backend": "~100.1.0",
+    "magento/module-sales": "~100.1.0"
+  }
+}

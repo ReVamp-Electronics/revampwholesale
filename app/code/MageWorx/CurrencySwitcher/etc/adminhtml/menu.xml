@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="MageWorx_CurrencySwitcher::system_currency_relations" title="Currency Relations" module="MageWorx_CurrencySwitcher" sortOrder="30" parent="Magento_CurrencySymbol::system_currency" action="currencyswitcher/relations/index" resource="Magento_CurrencySymbol::currency_rates"/>
+    </menu>
+</config>

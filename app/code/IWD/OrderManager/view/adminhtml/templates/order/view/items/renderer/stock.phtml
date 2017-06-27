@@ -1,0 +1,17 @@
+<?php
+    /** @var $block IWD\OrderManager\Block\Adminhtml\Order\Items\Stock\Renderer */
+    $item = $block->getItem();
+?>
+
+<?php
+    $id = $item->getItemId();
+    $type = $item->getProductType();
+    if ($type == 'configurable') {
+        $childItems = $item->getChildrenItems();
+        if (isset($childItems[0])) {
+            $item = $childItems[0];
+            $id = $item->getItemId();
+        }
+    }
+?>
+<div id="assign_stock_<?php echo $block->escapeHtml($id) ?>"></div>

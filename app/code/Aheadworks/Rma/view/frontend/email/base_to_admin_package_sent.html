@@ -1,0 +1,19 @@
+<!--@subject RMA {{var request.getTextId()}} by {{var request.getCustomerName()}} @-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+.awrma-datatable { border-collapse: collapse; }
+.awrma-datatable th { font-size: 12px; }
+.awrma-datatable td, .awrma-datatable th { padding: 3px; }
+@-->
+<p>RMA {{var request.getTextId()}} status changed to "Package Sent".</p>
+<h3>RMA details</h3>
+<p>ID: {{var request.getTextId()}}<br />
+    Order ID: <a href="{{var request.getNotifyOrderAdminLink()}}">#{{var request.getOrderId()}}</a>.<br />
+    Customer: {{var request.getCustomerName()}} &lt;{{var request.getCustomerEmail()}}&gt;<br />
+    Date: {{var request.getFormattedCreatedAt()}}
+    Request Type: {{var request.getRequestTypeName()}}<br />
+    Package Opened: {{var request.getPackageOpenedLabel()}}</p>
+<p>Items<br />
+{{layout handle="aw_rma_email_request_item" rma_request=$request area="frontend"}}
+<br/>
+<p>You can manage the request by following the link: <a href="{{var request.getAdminUrl()}}">{{var request.getAdminUrl()}}</a></p>

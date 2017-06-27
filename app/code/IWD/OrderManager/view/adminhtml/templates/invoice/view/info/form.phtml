@@ -1,0 +1,57 @@
+<?php
+/**
+ * @var $block IWD\OrderManager\Block\Adminhtml\Invoice\Info\Form
+ */
+$invoice = $block->getInvoice();
+$currentStatus = $invoice->getState();
+$statuses = $block->getStatusList();
+?>
+
+<div id="order-info-result-form">
+    <form id="order_information_form" method="post">
+        <div class="admin__field field field-increment_id required _required">
+            <label class="label admin__field-label" for="invoice_info_increment_id"><span><?php echo __('Invoice Number') ?></span></label>
+            <div class="admin__field-control control">
+                <input id="invoice_info_increment_id" name="invoice_info[increment_id]" value="<?php echo $invoice->getIncrementId() ?>" class="input-text required-entry admin__control-text" type="text">
+            </div>
+        </div>
+
+        <div class="admin__field field field-created_at required _required">
+            <label class="label admin__field-label" for="invoice_info_created_at"><span><?php echo __('Invoice Date') ?></span></label>
+            <div class="admin__field-control control">
+                <input id="invoice_info_created_at" name="invoice_info[created_at]" value="<?php echo date('Y-m-d H:i:s', strtotime($invoice->getCreatedAt())) ?>" class="input-text required-entry admin__control-text" type="text">
+            </div>
+        </div>
+
+        <div class="admin__field field field-status required _required">
+            <label class="label admin__field-label" for="invoice_info_status"><span><?php echo __('Invoice Status') ?></span></label>
+            <div class="admin__field-control control">
+                <select id="invoice_info_status" name="invoice_info[status]" class="required-entry select admin__control-select">
+                    <?php foreach ($statuses as $code => $label) : ?>
+                        <option
+                            value="<?php echo $code ?>"
+                            <?php echo ($code == $currentStatus) ? 'selected = "selected"' : '' ?>>
+                            <?php echo $label; ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+
+        <?php echo $block->getActionsForm(); ?>
+    </form>
+
+    <script>
+        require([
+            "jquery",
+            "mage/calendar"
+        ], function($){
+            $("#invoice_info_created_at").calendar({
+                showsTime: true,
+                dateFormat: "yy-mm-dd",
+                timeFormat: "HH:mm:ss",
+                ampm: false
+            });
+        });
+    </script>
+</div>

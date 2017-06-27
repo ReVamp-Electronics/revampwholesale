@@ -1,0 +1,11 @@
+<?php
+/** @var $block Magento\Framework\View\Element\Template */
+// clear url fragment after login via facebook
+?>
+<script>
+    (function(){
+        if (window.location.hash == '#_=_') {
+            window.location.hash = '';
+        }
+    })();
+</script>

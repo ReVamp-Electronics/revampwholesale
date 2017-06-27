@@ -1,0 +1,18 @@
+<?php
+/** @var IWD\AuthCIM\Block\Customer\Edit\Tab\Cards\Form $block */
+?>
+
+<li class="address-list-item customer-profile-id">
+    <div class="admin__field">
+        <label class="admin__field-label">
+            <span><?php /* @escapeNotVerified */ echo __('Customer Profile ID') ?></span>
+        </label>
+        <div class="admin__field-control synchronize-profile">
+            <input class="admin__control-text" type="text" id="authorize_profile_id"
+                   value="<?php /* @escapeNotVerified */ echo $block->getCustomerProfileId() ?>"/>
+            <button class="scalable add" type="button" id="authorize_profile_id_button">
+                <span><?php /* @escapeNotVerified */ echo __('Sync'); ?></span>
+            </button>
+        </div>
+    </div>
+</li>

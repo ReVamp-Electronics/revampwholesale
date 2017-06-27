@@ -1,0 +1,14 @@
+<?php
+$quote = $block->getSessionQuote()->getQuote();
+$rewardpoints = $quote->getMwRewardpoint();
+$rewardpointSellProduct = $quote->getMwRewardpointSellProduct();
+$totalRewardpoints = $rewardpoints + $rewardpointSellProduct;
+?>
+<?php if ($totalRewardpoints && $rewardpointSellProduct) : ?>
+    <tr class="row-totals">
+        <th class="admin__total-mark"><?php echo __('Total Points') ?></th>
+        <td class="admin__total-amount">
+            <span class="price"><?php echo $this->helper('MW\RewardPoints\Helper\Data')->formatPoints($totalRewardpoints) ?></span>
+        </td>
+    </tr>
+<?php endif; ?>

@@ -1,0 +1,42 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Rma\Block\CustomField\Input\Renderer\Select */
+?>
+<?php
+    $isWrapped = $block->getIsWrapped();
+    $isRequired = $block->isRequired();
+    $fieldClasses = 'field aw-rma-custom-field';
+    if ($isRequired) {
+        $fieldClasses .= ' required';
+    }
+    $labelClasses = 'label';
+    if ($isRequired) {
+        $labelClasses .= ' required';
+    }
+?>
+<?php if ($isWrapped): ?>
+    <div class="<?php echo $fieldClasses ?>">
+        <label class="<?php echo $labelClasses ?>" for="<?php echo $block->getHtmlId() ?>"><span><?php echo $block->getCustomField()->getFrontendLabel() ?></span></label>
+        <div class="control">
+<?php endif; ?>
+        <?php if ($block->isEditable()): ?>
+            <select id="<?php echo $block->getHtmlId() ?>"
+                    name="<?php echo $block->getName() ?>"
+                    class="<?php echo $block->getCssClass() ?>"
+                    data-id="<?php echo $block->getCustomField()->getId() ?>"
+                >
+                <?php foreach ($block->getOptions() as $option): ?>
+                    <option value="<?php echo $option['value'] ?>"<?php if ($block->isSelected($option['value'])): ?> selected="selected"<?php endif; ?>><?php echo $option['label'] ?></option>
+                <?php endforeach; ?>
+            </select>
+        <?php else: ?>
+            <span><?php echo $block->getValueLabel() ?></span>
+        <?php endif; ?>
+<?php if ($isWrapped): ?>
+        </div>
+    </div>
+<?php endif; ?>

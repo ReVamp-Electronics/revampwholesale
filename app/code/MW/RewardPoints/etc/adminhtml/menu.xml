@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="MW_RewardPoints::rewardpoints" title="Reward Points Pro" module="MW_RewardPoints" sortOrder="20" resource="MW_RewardPoints::rewardpoints" />
+
+		<add id="MW_RewardPoints::earn_rewardpoints" title="Earning Rules" module="MW_RewardPoints" sortOrder="1" parent="MW_RewardPoints::rewardpoints" resource="MW_RewardPoints::earn_rewardpoints" />
+		<add id="MW_RewardPoints::catalog_rules" title="Catalog Earning Rules" module="MW_RewardPoints" sortOrder="1" parent="MW_RewardPoints::earn_rewardpoints" resource="MW_RewardPoints::catalog_rules" action="rewardpoints/catalogrules" />
+		<add id="MW_RewardPoints::products" title="Individual Reward Points" module="MW_RewardPoints" sortOrder="2" parent="MW_RewardPoints::earn_rewardpoints" resource="MW_RewardPoints::products" action="rewardpoints/products" />
+		<add id="MW_RewardPoints::cart_rules" title="Shopping Cart Earning Rules" module="MW_RewardPoints" sortOrder="3" parent="MW_RewardPoints::earn_rewardpoints" resource="MW_RewardPoints::cart_rules" action="rewardpoints/cartrules" />
+		<add id="MW_RewardPoints::active_rules" title="Customer Behavior Rules" module="MW_RewardPoints" sortOrder="4" parent="MW_RewardPoints::earn_rewardpoints" resource="MW_RewardPoints::active_rules" action="rewardpoints/activerules" />
+
+		<add id="MW_RewardPoints::customers" title="Customers" module="MW_RewardPoints" sortOrder="2" parent="MW_RewardPoints::rewardpoints" resource="MW_RewardPoints::customers" />
+		<add id="MW_RewardPoints::spend_rewardpoints" title="Spending Rules" module="MW_RewardPoints" sortOrder="2" parent="MW_RewardPoints::customers" resource="MW_RewardPoints::spend_rewardpoints" action="rewardpoints/spendcartrules" />
+		<add id="MW_RewardPoints::member" title="Customer Accounts" module="MW_RewardPoints" sortOrder="3" parent="MW_RewardPoints::customers" resource="MW_RewardPoints::member" action="rewardpoints/member" />
+		<add id="MW_RewardPoints::products_sell" title="Sell Products in Points" module="MW_RewardPoints" sortOrder="4" parent="MW_RewardPoints::customers" resource="MW_RewardPoints::products_sell" action="rewardpoints/products/sell" />
+		<add id="MW_RewardPoints::history" title="All Transaction History" module="MW_RewardPoints" sortOrder="5" parent="MW_RewardPoints::customers" resource="MW_RewardPoints::history" action="rewardpoints/history" />
+
+		<add id="MW_RewardPoints::report" title="Reports" module="MW_RewardPoints" sortOrder="3" parent="MW_RewardPoints::rewardpoints" resource="MW_RewardPoints::report" />
+		<add id="MW_RewardPoints::overview" title="Overview" module="MW_RewardPoints" sortOrder="1" parent="MW_RewardPoints::report" resource="MW_RewardPoints::overview" action="rewardpoints/report/dashboard" />
+		<add id="MW_RewardPoints::all_transactions" title="All transactions" module="MW_RewardPoints" sortOrder="2" parent="MW_RewardPoints::report" resource="MW_RewardPoints::all_transactions" action="rewardpoints/report/overview" />
+		<add id="MW_RewardPoints::rewarded" title="Rewarded Points" module="MW_RewardPoints" sortOrder="3" parent="MW_RewardPoints::report" resource="MW_RewardPoints::rewarded" action="rewardpoints/report/rewarded" />
+		<add id="MW_RewardPoints::redeemed" title="Redeemed Points" module="MW_RewardPoints" sortOrder="4" parent="MW_RewardPoints::report" resource="MW_RewardPoints::redeemed" action="rewardpoints/report/redeemed" />
+
+		<add id="MW_RewardPoints::settings" title="Settings" module="MW_RewardPoints" sortOrder="4" parent="MW_RewardPoints::rewardpoints" resource="MW_RewardPoints::settings" />
+		<add id="MW_RewardPoints::configuration" title="Configuration" module="MW_RewardPoints" sortOrder="1" parent="MW_RewardPoints::settings" action="adminhtml/system_config/edit/section/rewardpoints" resource="MW_RewardPoints::configuration" />
+	</menu>
+</config>

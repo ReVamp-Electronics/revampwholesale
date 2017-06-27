@@ -1,0 +1,167 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Rma\Block\Customer\Request\View */
+?>
+<?php
+    $request = $block->getRequestModel();
+    $hasApprovedStatus = $request->getStatusId() == \Aheadworks\Rma\Model\Source\Request\Status::APPROVED;
+?>
+<div class="aw-rma-view">
+    <div class="block block-rma-general">
+        <div class="block-content">
+            <div class="box box-rma-general">
+                <div class="box-content fieldset">
+                    <div class="field status aw-rma-view__field <?php echo $hasApprovedStatus ? 'approved' : '' ?>">
+                        <label class="label aw-rma-view__box-title"><span><?php echo __('Status') ?></span></label>
+                        <div class="control"><span><?php echo $request->getStatusFrontendLabel() ?></span></div>
+                    </div>
+                    <?php foreach ($block->getCustomFieldCollection() as $customField): ?>
+                        <?php $formHtmlId = 'aw-rma-customer-customfield-form-' . $customField->getId(); ?>
+                        <form id="<?php echo $formHtmlId ?>" action="<?php echo $block->getSubmitCustomFieldUrl() ?>" method="post">
+                            <?php echo $block->getBlockHtml('formkey') ?>
+                            <input type="hidden" name="request_id" value="<?php echo $block->getRequestIdentityValue() ?>" />
+                            <?php echo $block->getRequestCustomFieldsInputHtml($customField, $request) ?>
+                            <button type="submit"
+                                    title="<?php echo __('Save') ?>"
+                                    class="action primary save-custom-field"
+                                    style="display: none;"
+                                    data-visible="<?php echo $formHtmlId ?>"
+                                >
+                                <span><?php echo __('Save') ?></span>
+                            </button>
+                        </form>
+                        <script>
+                            require(['jquery', 'mage/mage'], function ($) {
+                                'use strict';
+                                $('#<?php echo $formHtmlId ?>').mage('validation', {});
+                                $('#<?php echo $formHtmlId ?>').find('select, input, textarea')
+                                    .on('change', function(event) {
+                                        $('[data-visible=<?php echo $formHtmlId ?>]').show().insertAfter(event.target);
+                                    });
+                            });
+                        </script>
+                    <?php endforeach; ?>
+                    <div class="field aw-rma-view__field">
+                        <label class="label"><?php echo __('Order Date') ?></label>
+                        <div class="control"><span><?php echo $block->formatDate($request->getOrder()->getCreatedAt()) ?></span></div>
+                    </div>
+                    <div class="field aw-rma-view__field">
+                        <label class="label"><?php echo __('Order') ?></label>
+                        <div class="control">
+                            <a href="<?php echo $block->getOrderViewUrl($request->getOrderId()) ?>">
+                                <span>#<?php echo $request->getOrder()->getIncrementId() ?></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box box-rma-contact-info">
+                <div class="aw-rma-view__box-title">
+                    <a id="contact-info-link" href="#">
+                        <span><?php echo __('Contact Information') ?></span>
+                    </a>
+                </div>
+                <div class="box-content"><?php echo $block->getChildHtml('address') ?></div>
+            </div>
+        </div>
+    </div>
+    <div class="block block-items">
+        <div class="aw-rma-view__box-title"><span><?php echo __('Items') ?>:</span></span></div>
+        <div class="block-content">
+            <table id="aw-rma-view-items">
+                <caption class="table-caption"><?php echo __('Items') ?></caption>
+                <tbody>
+                    <?php foreach ($request->getItemsCollection() as $requestItem): ?>
+                        <tr>
+                            <td data-th="<?php echo $block->escapeHtml(__('Product')) ?>" class="col product">
+                                <?php if ($block->isProductExists($requestItem->getProductId())): ?>
+                                    <a href="<?php echo $block->getProductViewUrl($requestItem) ?>">
+                                        <span><?php echo $requestItem->getName() ?></span>
+                                    </a>
+                                <?php else: ?>
+                                    <?php echo $requestItem->getName() ?>
+                                <?php endif; ?>
+                            </td>
+                            <td data-th="<?php echo $block->escapeHtml(__('Reason')) ?>" class="col reason">
+                                <?php echo $block->getRequestItemCustomFieldHtml('Reason', $requestItem) ?>
+                            </td>
+                            <td data-th="<?php echo $block->escapeHtml(__('Qty')) ?>" class="col qty">
+                                <?php echo __('Qty') ?>: <?php echo $requestItem->getQty() ?>
+                            </td>
+                            <td data-th="<?php echo $block->escapeHtml(__('Price')) ?>" class="col price">
+                                <?php echo $block->convertAndFormatPrice($requestItem->getPrice()) ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="block block-thread">
+        <?php if ($block->canReply()): ?>
+        <form id="aw-rma-customer-reply-form" action="<?php echo $block->getSubmitReplyUrl() ?>" method="post" enctype="multipart/form-data">
+            <?php echo $block->getBlockHtml('formkey') ?>
+            <input type="hidden" name="request_id" value="<?php echo $block->getRequestIdentityValue() ?>" />
+            <div class="field">
+                <div class="control">
+                    <textarea id="aw-rma-message" name="text" rows="5" placeholder="<?php echo __('Type here to add an answer') ?>" class="required-entry"></textarea>
+                </div>
+            </div>
+            <div class="actions">
+                <?php echo $block->getChildHtml('fileUpload') ?>
+                <button id="aw-rma-reply-button" type="submit" title="<?php echo __('Post Reply') ?>" class="action primary post-reply">
+                    <span><?php echo __('Post Reply') ?></span>
+                </button>
+            </div>
+        </form>
+        <?php endif; ?>
+        <script>
+            require([
+                'jquery',
+                'mage/mage'
+            ], function ($) {
+                'use strict';
+                var replyForm = $('#aw-rma-customer-reply-form');
+                replyForm.mage('validation', {});
+                replyForm.on('submit', function() {
+                    if (replyForm.valid()) {
+                        $('#aw-rma-reply-button').attr('disabled', 'disabled');
+                    }
+                });
+            });
+        </script>
+        <ul class="messages">
+            <?php foreach ($block->getThreadMessageCollection() as $threadMessage): ?>
+                <?php
+                $classNames = ['aw-rma-view__thread-message'];
+                if ($threadMessage->isAdmin()) {
+                    $classNames[] = 'admin';
+                }
+                if ($threadMessage->isCustomer()) {
+                    $classNames[] = 'customer';
+                }
+                if ($threadMessage->getIsAuto()) {
+                    $classNames[] = 'auto';
+                }
+                ?>
+                <li class="<?php echo implode(' ', $classNames) ?>">
+                    <strong>
+                        <?php echo $threadMessage->getOwnerName() ?> (<?php if ($threadMessage->isAdmin()):
+                            echo $block->getDepartmentName();
+                        else: ?>me<?php endif; ?>), <?php echo $block->formatDate($threadMessage->getCreatedAt(), \IntlDateFormatter::MEDIUM, true) ?>
+                    </strong>
+                    <div class="aw-rma-view__message-text"><?php echo nl2br($block->escapeHtml($threadMessage->getText())) ?></div>
+                    <?php foreach ($threadMessage->getAttachments() as $attachmentData): ?>
+                        <div class="aw-rma-view__attachment">
+                            <a href="<?php echo $block->getDownloadUrl($attachmentData['id']) ?>"><?php echo $block->escapeHtml($attachmentData['name']) ?></a> (<?php echo $block->formatFileSize($attachmentData['length'])?>)
+                        </div>
+                    <?php endforeach; ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</div>

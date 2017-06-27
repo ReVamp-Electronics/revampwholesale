@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="iwd_om_update_additional_info"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Sales\Block\Adminhtml\Order\View\Items" name="order_items" template="order/view/items.phtml">
+                <block class="Magento\Sales\Block\Adminhtml\Order\View\Items\Renderer\DefaultRenderer" as="default" template="order/view/items/renderer/default.phtml"/>
+                <block class="Magento\Sales\Block\Adminhtml\Items\Column\Qty" name="column_qty" template="items/column/qty.phtml" group="column"/>
+                <block class="Magento\Sales\Block\Adminhtml\Items\Column\Name" name="column_name" template="items/column/name.phtml" group="column"/>
+                <block class="Magento\Framework\View\Element\Text\ListText" name="order_item_extra_info"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

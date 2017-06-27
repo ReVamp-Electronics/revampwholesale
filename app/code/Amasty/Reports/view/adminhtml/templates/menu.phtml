@@ -1,0 +1,29 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_Reports
+ */
+?>
+<?php /** @var \Amasty\Reports\Block\Adminhtml\Menu $block */ ?>
+<div class="amreports-menu">
+<?php foreach ($block->getMenu() as $group): ?>
+    <div class="amreports-menu-item level-0<?php if (isset($group['active'])): ?> active<?php endif ?>">
+        <?php if (isset($group['url'])): ?>
+        <a class="label" href="<?= $block->getUrl($group['url'])?>"><?= $group['title'] ?></a>
+        <?php else: ?>
+        <div class="label"><?= $group['title'] ?></div>
+        <?php endif ?>
+
+        <?php foreach ($group['children'] as $child): ?>
+        <div class="amreports-menu-item level-1<?php if (isset($child['active'])): ?> active<?php endif ?>">
+            <?php if (isset($child['url'])): ?>
+                <a href="<?= $block->getUrl($child['url'])?>"><?= $child['title'] ?></a>
+            <?php else: ?>
+                <?= $child['title'] ?>
+            <?php endif ?>
+        </div>
+        <?php endforeach; ?>
+    </div>
+<?php endforeach; ?>
+</div>

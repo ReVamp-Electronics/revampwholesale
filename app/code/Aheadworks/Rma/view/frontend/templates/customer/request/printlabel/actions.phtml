@@ -1,0 +1,22 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Magento\Framework\View\Element\Template */
+?>
+<div class="aw-rma-view-actions">
+    <button id="aw-rma-save-and-print-button" type="button" class="action primary" title="<?php echo __('Save and Print Label') ?>">
+        <span><?php echo __('Save and Print Label') ?></span>
+    </button>
+    <script>
+        require(['jquery'], function($){
+            $(document).ready(function() {
+                $('#aw-rma-save-and-print-button').on('click', function() {
+                    $('#aw-rma-view-print-label-form').submit();
+                });
+            });
+        });
+    </script>
+</div>

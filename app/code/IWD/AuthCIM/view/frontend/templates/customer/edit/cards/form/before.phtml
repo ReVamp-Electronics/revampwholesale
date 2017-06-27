@@ -1,0 +1,27 @@
+<?php
+/**
+ * @var $block \IWD\AuthCIM\Block\Customer\Edit\Tab\Cards\Form
+ */
+$cards = $block->getSavedCcList();
+?>
+
+<?php if (count($cards) == 0) : ?>
+    <li class="profile-list-item customer-profile-info">
+        <div class="block-title"><strong><?php /* @escapeNotVerified */ echo __("Save Your Payment Info"); ?></strong></div>
+        <p>
+            Sucrely authorize your payment details for later use.
+            Instead of keeping all of your information here, we utilize Authorize.Net’s secure servers
+            to generate a token for your payment information when purchases are made in the future.
+        </p>
+        <p>
+            <a href="http://www.authorize.net/solutions/merchantsolutions/merchantservices/security/" target="_blank">
+                Learn more about Authorize.Net
+            </a>
+        </p>
+    </li>
+<?php else : ?>
+    <li class="profile-list-item customer-profile-info">
+        <div class="block-title"><strong><?php /* @escapeNotVerified */ echo __("My Wallet"); ?></strong></div>
+    </li>
+<?php endif; ?>
+

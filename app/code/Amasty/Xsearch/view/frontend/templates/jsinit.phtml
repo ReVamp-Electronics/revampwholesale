@@ -1,0 +1,48 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_Xsearch
+ */
+?>
+<script>
+    require([
+        'amasty_xsearch_autocomplete'
+    ], function (autocomplete) {
+        'use strict';
+        autocomplete.init('<?php echo $block->getUrl('amasty_xsearch/autocomplete/index')?>', {
+            width: '<?php echo $block->escapeJsQuote($block->getWidth())?>',
+            minChars: '<?php echo $block->escapeJsQuote($block->getMinChars())?>'
+        },'<?php echo $block->getCurrentUrlEncoded();?>')
+    })
+</script>
+<?php if ($block->getLoadPreload()): ?>
+<div id="amasty_xsearch_preload" class="amasty-xsearch-preload">
+    <?php echo $block->getPreload();?>
+</div>
+<?php endif;?>
+<?php if ($block->getLayoutEnabled()) :?>
+<style>
+.search-autocomplete ul li:hover,
+.search-autocomplete ul li.selected{
+    background-color: #<?php echo $block->getLayoutHover()?> !important;
+}
+
+.amasty-xsearch-highlight{
+    background-color: #<?php echo $block->getLayoutHighlight()?> !important;
+    color: #<?php echo $block->getLayoutHoverText()?> !important;
+}
+
+.search-autocomplete ul:not(:empty){
+    background-color: #<?php echo $block->getLayoutBackground()?> !important;
+}
+
+.search-autocomplete{
+    border: 1px solid #<?php echo $block->getLayoutBorder()?> !important;
+}
+
+.search-autocomplete{
+    color: #<?php echo $block->getLayoutText()?> !important;
+}
+</style>
+<?php endif;?>

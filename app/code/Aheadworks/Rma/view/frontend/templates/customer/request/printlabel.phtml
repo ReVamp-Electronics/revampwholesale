@@ -1,0 +1,151 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Rma\Block\Customer\Request\PrintLabel */
+?>
+<?php
+    $request = $block->getRequestModel();
+    $printLabel = $block->getPrintLabel();
+?>
+<div id="aw-rma-print-label">
+    <form id="aw-rma-view-print-label-form" action="<?php echo $block->getSubmitUrl() ?>" method="post">
+        <?php echo $block->getBlockHtml('formkey') ?>
+        <input name="request_id" type="hidden" value="<?php echo $request->getId() ?>" />
+        <fieldset class="fieldset">
+            <legend class="legend">
+                <span><?php echo __('Contact Information') ?></span>
+            </legend>
+            <div class="field firstname required aw-rma-print-label__field">
+                <label class="label name required" for="firstname">
+                    <span><?php echo __('First Name') ?></span>
+                </label>
+                <div class="control">
+                    <input id="firstname" name="firstname" type="text" class="input-text required-entry" value="<?php echo $printLabel['firstname'] ?>" />
+                </div>
+            </div>
+            <div class="field lastname required aw-rma-print-label__field">
+                <label class="label name required" for="lastname">
+                    <span><?php echo __('Last Name') ?></span>
+                </label>
+                <div class="control">
+                    <input id="lastname" name="lastname" type="text" class="input-text required-entry" value="<?php echo $printLabel['lastname'] ?>" />
+                </div>
+            </div>
+            <div class="field company aw-rma-print-label__field">
+                <label class="label company" for="company">
+                    <span><?php echo __('Company') ?></span>
+                </label>
+                <div class="control">
+                    <input id="company" name="company" type="text" class="input-text" value="<?php echo $printLabel['company'] ?>" />
+                </div>
+            </div>
+            <div class="field telephone required aw-rma-print-label__field">
+                <label class="label" for="telephone">
+                    <span><?php echo __('Phone Number') ?></span>
+                </label>
+                <div class="control">
+                    <input id="telephone" name="telephone" type="text" class="input-text required-entry" value="<?php echo $printLabel['telephone'] ?>">
+                </div>
+            </div>
+            <div class="field fax aw-rma-print-label__field">
+                <label class="label fax" for="fax">
+                    <span><?php echo __('Fax') ?></span>
+                </label>
+                <div class="control">
+                    <input id="fax" name="fax" type="text" class="input-text" value="<?php echo $printLabel['fax'] ?>" />
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="fieldset">
+            <legend class="legend">
+                <span><?php echo __('Return address') ?></span>
+            </legend>
+            <div class="field street required aw-rma-print-label__field">
+                <label class="label" for="street1">
+                    <span><?php echo __('Street Address') ?></span>
+                </label>
+                <div class="control">
+                    <div class="control-street first"><input id="street1" name="street[0]" type="text" class="input-text required-entry" value="<?php echo $printLabel['street'][0] ?>" /></div>
+                    <div class="control-street"><input id="street2" name="street[1]" type="text" class="input-text" value="<?php echo $printLabel['street'][1] ?>" /></div>
+                </div>
+            </div>
+            <div class="field city required aw-rma-print-label__field">
+                <label class="label" for="city">
+                    <span><?php echo __('City') ?></span>
+                </label>
+                <div class="control">
+                    <input id="city" name="city" type="text" class="input-text required-entry" value="<?php echo $printLabel['city'] ?>" />
+                </div>
+            </div>
+            <div class="field region required aw-rma-print-label__field">
+                <label class="label" for="region-id">
+                    <span><?php echo __('State/Region') ?></span>
+                </label>
+                <div class="control">
+                    <select id="region-id" name="region_id" class="validate-select">
+                        <option value=""><?php echo __('Please select a region, state or province.') ?></option>
+                    </select>
+                    <input id="region" name="region" type="text" value="<?php echo $printLabel['region'] ?>" class="input-text required-entry" />
+                </div>
+            </div>
+            <div class="field zip required aw-rma-print-label__field">
+                <label class="label" for="zip">
+                    <span><?php echo __('Zip/Postal Code') ?></span>
+                </label>
+                <div class="control">
+                    <input id="zip" name="postcode" type="text" class="input-text validate-zip-international required-entry" value="<?php echo $printLabel['postcode'] ?>" >
+                </div>
+            </div>
+            <div class="field country required aw-rma-print-label__field">
+                <label class="label" for="country-id">
+                    <span><?php echo __('Country') ?></span>
+                </label>
+                <div class="control">
+                    <select id="country-id" name="country_id" class="validate-select">
+                        <?php foreach ($block->getCountryOptions() as $countryOption): ?>
+                            <option value="<?php echo $countryOption['value'] ?>" <?php if ($countryOption['value'] == $printLabel['country_id']): ?>selected="selected"<?php endif; ?>>
+                                <?php echo $countryOption['label'] ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="fieldset">
+            <legend class="legend">
+                <span><?php echo __('Additional Information') ?></span>
+            </legend>
+            <div class="field additionalinfo">
+                <div class="control">
+                    <textarea id="additionalinfo" name="additionalinfo"><?php echo nl2br($block->escapeHtml($printLabel['additionalinfo'])) ?></textarea>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+    <script>
+        require(['jquery', 'mage/mage'], function ($) {
+            'use strict';
+            $('#aw-rma-view-print-label-form').mage('validation', {});
+        });
+    </script>
+    <script type="text/x-magento-init">
+    {
+         "#country-id": {
+            "regionUpdater": {
+                "optionalRegionAllowed": <?php echo ($block->isOptionalRegionAllowed() ? 'true' : 'false'); ?>,
+                "regionListId": "#region-id",
+                "regionInputId": "#region",
+                "postcodeId": "#zip",
+                "form": "#aw-rma-view-print-label-form",
+                "regionJson": <?php echo $block->getRegionJson() ?>,
+                "defaultRegion": "<?php echo $printLabel['region_id'] ?>",
+                "countriesWithOptionalZip": <?php echo $block->getCountriesWithOptionalZip() ?>
+            }
+        }
+    }
+</script>
+</div>
+

@@ -1,0 +1,19 @@
+<?php
+/**
+ * @var $block IWD\OrderManager\Block\Adminhtml\Invoice\View\Jsinit
+ */
+?>
+
+<script type="text/javascript">
+    // <![CDATA[
+    require([
+            "IWD_OrderManager/js/invoice/view/info",
+            "prototype"
+        ],
+        function(iwdOrderManagerInvoiceInfo) {
+            var orderManagerInvoiceInfo = new iwdOrderManagerInvoiceInfo();
+            orderManagerInvoiceInfo.init(<?php echo $block->jsonParamsInvoiceInfo(); ?>);
+        }
+    );
+    // ]]>
+</script>

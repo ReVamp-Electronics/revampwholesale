@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Aheadworks_Rma::home" title="RMA by aheadWorks" module="Aheadworks_Rma" sortOrder="100" parent="Magento_Sales::sales" resource="Aheadworks_Rma::home"/>
+
+        <add id="Aheadworks_Rma::manage_rma" title="Manage RMA" module="Aheadworks_Rma" sortOrder="10" parent="Aheadworks_Rma::home" action="aw_rma_admin/rma/index" resource="Aheadworks_Rma::manage_rma"/>
+        <add id="Aheadworks_Rma::statuses" title="Statuses and Email Templates" module="Aheadworks_Rma" sortOrder="20" parent="Aheadworks_Rma::home" action="aw_rma_admin/status/index" resource="Aheadworks_Rma::statuses"/>
+        <add id="Aheadworks_Rma::custom_fields" title="Custom Fields" module="Aheadworks_Rma" sortOrder="30" parent="Aheadworks_Rma::home" action="aw_rma_admin/customfield/index" resource="Aheadworks_Rma::custom_fields"/>
+    </menu>
+</config>

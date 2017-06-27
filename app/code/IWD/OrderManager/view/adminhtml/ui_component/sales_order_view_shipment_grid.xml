@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <!-- REASON FOR DISABLE IS BUG https://github.com/magento/magento2/issues/3852-->
+    <!--<container name="listing_top">
+        <massaction name="listing_massaction">
+            <action name="delete">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">delete</item>
+                        <item name="label" xsi:type="string" translate="true">Delete</item>
+                        <item name="url" xsi:type="url" path="iwdordermanager/shipment_massactions/delete"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Delete shipments</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure you wan't to delete selected shipments?</item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+        </massaction>
+    </container>-->
+</listing>

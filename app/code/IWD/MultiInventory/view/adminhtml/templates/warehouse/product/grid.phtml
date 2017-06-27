@@ -1,0 +1,22 @@
+<div id="messages">
+    <div class="messages">
+        <div class="message message-success success" style="display:none">
+            <div data-ui-id="messages-message-success">Updated successfully.</div>
+        </div>
+        <div class="message message-error error" style="display:none">
+            <div data-ui-id="messages-message-error">Error during updated process.</div>
+        </div>
+    </div>
+</div>
+
+<?php echo $block->getGridHtml(); ?>
+
+<script type="text/javascript">
+    // <![CDATA[
+    require(["IWD_MultiInventory/js/warehouse/product/grid"],
+        function(iwdMultiInventoryWarehouseProductGrid) {
+            iwdMultiInventoryWarehouseProductGrid.init();
+            window.iwdWarehouseProductUpdate = iwdMultiInventoryWarehouseProductGrid.iwdWarehouseProductUpdate;
+        });
+    // ]]>
+</script>

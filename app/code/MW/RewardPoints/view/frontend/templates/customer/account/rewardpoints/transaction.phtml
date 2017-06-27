@@ -1,0 +1,40 @@
+<?php $transactions = $block->getTransaction(); ?>
+<div id="transaction_history_box" class="table-wrapper">
+    <table id="my-transaction-table" class="data table" style="clear: both">
+        <col width="1">
+        <col width="1">
+        <col width="1">
+        <col width="1">
+        <col width="1">
+        <thead>
+            <tr>
+                <th class="col"><?php echo __('ID') ?></th>
+                <th class="col"><?php echo __('Date') ?></th>
+                <th class="col"><?php echo __('Points') ?></th>
+                <th class="col"><?php echo __('Balance') ?></th>
+                <th class="col"><?php echo __('Transaction Detail') ?></th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+            if (sizeof($transactions) > 0) :
+                foreach($transactions as $transaction) :
+        ?>
+                <tr>
+                    <td class="col" data-th="<?php echo __('ID') ?>"><?php echo $transaction->getHistoryId()?></td>
+                    <td class="col" data-th="<?php echo __('Date') ?>"><?php echo $block->getFormatDateNew($transaction)?></td>
+                    <td class="col" data-th="<?php echo __('Points') ?>"><span class="price"><?php echo $block->formatAmount($transaction->getAmount(), $transaction->getTypeOfTransaction())?></span></td>
+                    <td class="col" data-th="<?php echo __('Balance') ?>"><?php echo $transaction->getBalance() ?></td>
+                    <td class="col" data-th="<?php echo __('Transaction Detail') ?>"><?php echo $block->getTransactionDetailNew($transaction)?></td>
+                </tr>
+        <?php
+                endforeach;
+            endif;
+        ?>
+        </tbody>
+    </table>
+</div>
+
+<div class="toolbar bottom">
+    <?php echo $this->getToolbarHtml()?>
+</div>

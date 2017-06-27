@@ -1,0 +1,114 @@
+<p class="switcher a-right">
+    <label for="store_switcher"><?php echo __('Date Range:') ?></label>
+    <select name="report_range" id="report_range" class="admin__control-select">
+        <option value="1"><?php echo __('Last 24h')?></option>
+        <option value="2"><?php echo __('Last Week')?></option>
+        <option value="3"><?php echo __('Last Month')?></option>
+        <option value="4"><?php echo __('Last 7 days')?></option>
+        <option value="5" selected="selected"><?php echo __('Last 30 days')?></option>
+        <option value="7"><?php echo __('Custom')?></option>
+    </select>
+    <span id="custom_range" style="display: none">
+        <label for="from_date"><?php echo __('From:') ?></label>
+        <input type="text" name="report_from" id="report_from" class="input-text admin__control-text" />
+        <label for="to_date"><?php echo __('To:') ?></label>
+        <input type="text" name="report_to" id="report_to" class="input-text admin__control-text" />
+        <input type="button" id="report_refresh" value="<?php echo __('Refresh') ?>" class="action-default button">
+    </span>
+</p>
+<div id="rwp-container" style="height: 300px"></div>
+<p class="switcher a-right" id="debug">
+
+</p>
+
+<div class="box-left" style="float: left; width: 70%;">
+    <!--Order Information-->
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-account"><?php echo __('Rewarded Points by Activities')?></h4>
+        </div>
+        <div class="fieldset">
+            <div id="rwp-container-pie" style="height: 330px"></div>
+        </div>
+    </div>
+</div>
+
+<div class="admin__page-section-item order-totals">
+    <div class="admin__page-section-item-title">
+        <span class="title"><?php echo __('Statistics')?></span>
+    </div>
+
+    <table class="data-table admin__table-secondary order-subtotal-table">
+        <tbody>
+            <tr>
+                <td class="label"><?php echo __('Total Rewarded Points')?></td>
+                <td><span id="total_rewarded">...</span></td>
+            </tr>
+            <tr>
+                <td class="label"><?php echo __('Total Redeemed Points')?></td>
+                <td><span id="total_redeemed">...</span></td>
+            </tr>
+            <tr>
+                <td class="label"><?php echo __('Average Rewarded Points per Customer')?></td>
+                <td><span id="avg_rewarded_customer">...</span></td>
+            </tr>
+            <tr>
+                <td class="label"><?php echo __('Average Rewarded Points per Order')?></td>
+                <td><span id="avg_rewarded_order">...</span></td>
+            </tr>
+            <tr>
+                <td class="label"><?php echo __('Average Redeemed Points per Order')?></td>
+                <td><span id="avg_redeemded_order">...</span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="admin__page-section-item order-totals" style="margin-top: 20px;">
+    <div class="admin__page-section-item-title">
+        <span class="title"><h4><?php echo __('Top Customers')?></span>
+    </div>
+
+    <table class="data-table admin__table-secondary order-subtotal-table">
+        <tbody>
+            <tr>
+                <td><strong>#</strong></td>
+                <td><strong><?php echo __('Email customer')?></strong></td>
+                <td><strong><?php echo __('Points')?></strong></td>
+            </tr>
+            <?php
+                $rank = 1;
+                $customers = $block->getMostUserPoint();
+                foreach($customers as $customer) :
+            ?>
+                <?php $customerData = $this->getCustomer($customer['customer_id']); ?>
+                <tr>
+                    <td class=" top-<?php echo ($rank <= 3 ? $rank : 'all')?>"><?php echo $rank ?></td>
+                    <td class="label"><?php echo $customerData->getEmail() ?></td>
+                    <td><?php echo number_format($customer['mw_reward_point'], 0, '.', ',') ?></td>
+                </tr>
+                <?php $rank++;?>
+            <?php endforeach; ?>
+            <tr>
+                <td colspan="3">....</td>
+            </tr>
+            <tr>
+                <td class="label" colspan="2"><strong><?php echo __('Total Customer Balance')?></strong></td>
+                <td><span id="total_customer_bal">0,000</span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+require([
+    'jquery',
+    'mwHeadMain'
+], function($) {
+    $(document).ready(function() {
+        window.mwReport = new MW.RewardPoint.Report.Dashboard({
+            url: '<?php echo $block->getUrl('rewardpoints/report/dashboard')?>'
+        });
+    });
+});
+</script>

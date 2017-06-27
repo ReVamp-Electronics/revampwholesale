@@ -1,0 +1,27 @@
+<?php
+/**
+ * @var $block IWD\OrderManager\Block\Adminhtml\Order\Grid\Totals
+ */
+?>
+
+<?php if ($block->isGridTotalsEnabled()) : ?>
+    <div>
+        <div data-bind="scope:'iwd_om_grid_totals'">
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        </div>
+
+        <script type="text/x-magento-init">
+            {
+                "*": {
+                    "Magento_Ui/js/core/app": {
+                        "components": {
+                            "iwd_om_grid_totals": {
+                                "component": "IWD_OrderManager/js/order/grid/totals/totals"
+                            }
+                        }
+                    }
+                }
+            }
+        </script>
+    </div>
+<?php endif; ?>

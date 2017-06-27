@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="rma_custom_fields.xsd">
+    <custom_field>
+        <name>Resolution</name>
+        <type>select</type>
+        <refers>request</refers>
+        <visible_for_status_ids>
+            <id>all</id>
+        </visible_for_status_ids>
+        <editable_for_status_ids>
+            <id>-1</id>
+            <id>7</id>
+        </editable_for_status_ids>
+        <editable_admin_for_status_ids>
+            <id>7</id>
+        </editable_admin_for_status_ids>
+        <is_required>1</is_required>
+        <is_display_in_label>1</is_display_in_label>
+        <attribute>
+            <name>frontend_label</name>
+            <value>Resolution</value>
+        </attribute>
+        <option>
+            <value>Refund</value>
+            <default>0</default>
+        </option>
+        <option>
+            <value>Replacement</value>
+            <default>0</default>
+        </option>
+    </custom_field>
+    <custom_field>
+        <name>Package Condition</name>
+        <type>select</type>
+        <refers>request</refers>
+        <visible_for_status_ids>
+            <id>all</id>
+        </visible_for_status_ids>
+        <editable_for_status_ids>
+            <id>-1</id>
+        </editable_for_status_ids>
+        <editable_admin_for_status_ids>
+            <id>none</id>
+        </editable_admin_for_status_ids>
+        <is_required>1</is_required>
+        <is_display_in_label>1</is_display_in_label>
+        <attribute>
+            <name>frontend_label</name>
+            <value>Package Condition</value>
+        </attribute>
+        <option>
+            <value>Opened</value>
+            <default>0</default>
+        </option>
+        <option>
+            <value>Not opened</value>
+            <default>0</default>
+        </option>
+        <option>
+            <value>Damaged</value>
+            <default>0</default>
+        </option>
+    </custom_field>
+    <custom_field>
+        <name>Reason</name>
+        <type>select</type>
+        <refers>item</refers>
+        <visible_for_status_ids>
+            <id>all</id>
+        </visible_for_status_ids>
+        <editable_for_status_ids>
+            <id>-1</id>
+        </editable_for_status_ids>
+        <editable_admin_for_status_ids>
+            <id>none</id>
+        </editable_admin_for_status_ids>
+        <is_required>1</is_required>
+        <is_display_in_label>1</is_display_in_label>
+        <attribute>
+            <name>frontend_label</name>
+            <value>Reason</value>
+        </attribute>
+        <option>
+            <value>Wrong size</value>
+            <default>0</default>
+        </option>
+        <option>
+            <value>Wrong color</value>
+            <default>0</default>
+        </option>
+        <option>
+            <value>Don't like</value>
+            <default>0</default>
+        </option>
+        <option>
+            <value>I've changed my mind</value>
+            <default>0</default>
+        </option>
+        <option>
+            <value>Item broken</value>
+            <default>0</default>
+        </option>
+    </custom_field>
+</config>

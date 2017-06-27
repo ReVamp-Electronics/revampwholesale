@@ -1,0 +1,57 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_Reports
+ */
+?>
+<?php /** @var \Amasty\Reports\Block\Adminhtml\Report\Chart $block */ ?>
+
+<?php
+    $axis = $block->getAxisFields();
+?>
+<div class="content" data-role="amreports-content">
+    <script>
+        window.chartData = [];
+        window.isDate = 0;
+        <?php
+            foreach ($block->getCollection() as $item) {
+        ?>
+                window.chartData.push({
+                    title: '<?php echo $item->getData($axis['y'])?>',
+                    value: '<?php echo $item->getData($axis['x'])?>'
+                });
+        <?php
+            }
+        ?>
+    </script>
+    <div class="chart">
+        <script>
+            function draw_chart () {
+                if (AmCharts.onReadyArray.length  < 1) {
+                    AmCharts.ready(function () {
+                        getPieChart();
+                    });
+                }
+            }
+            require([
+                'jquery',
+                'Amasty_Reports/js/amchart',
+                'Amasty_Reports/amcharts/amcharts'
+            ], function($) {
+                require([
+                    'Amasty_Reports/amcharts/serial',
+                    'Amasty_Reports/amcharts/pie'
+                ], function() {
+                    draw_chart();
+                });
+            });
+        </script>
+    
+        <div id="chartdiv" style="width: 100%; height: 400px;"></div>
+    </div>
+    
+    <div class="listing">
+        <?= $block->getChildHtml() ?>
+    </div>
+</div>

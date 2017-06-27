@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="IWD_SalesRep::css/bootstrap.css"/>
+        <css src="IWD_SalesRep::css/styles.css"/>
+    </head>
+    <body>
+        <referenceContainer name="before.body.end">
+            <block name="salesrep.modal" class="\Magento\Framework\View\Element\Template" template="IWD_SalesRep::b2b/modal.phtml"/>
+        </referenceContainer>
+        <referenceContainer name="b2b.sticky.footer">
+            <block class="\IWD\SalesRep\Block\B2B\Footer" name="b2b.salesrep.footer" template="IWD_SalesRep::b2b/footer.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

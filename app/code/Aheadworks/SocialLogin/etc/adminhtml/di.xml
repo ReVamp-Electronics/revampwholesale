@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Customer edit back button plugin -->
+    <type name="Magento\Customer\Block\Adminhtml\Edit\BackButton">
+        <plugin name="social_back_url" type="Aheadworks\SocialLogin\Plugin\Customer\Block\Adminhtml\Edit\BackButtonPlugin" />
+    </type>
+    <!-- Export metadata -->
+    <type name="Magento\Ui\Model\Export\MetadataProvider">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="social_account_listing" xsi:type="array">
+                    <item name="created_at" xsi:type="string">created_at</item>
+                    <item name="last_signed_at" xsi:type="string">last_signed_at</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

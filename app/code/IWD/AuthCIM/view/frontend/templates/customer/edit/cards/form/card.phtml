@@ -1,0 +1,94 @@
+<?php
+/** @var IWD\AuthCIM\Block\Customer\Edit\Tab\Cards\Form $block */
+$code = $block->escapeHtml($block->getMethodCode());
+?>
+
+<div id="iwd_cim_payment_form" class="fieldset">
+    <div class="field _required cc-info-field">
+        <label class="label" for="<?php /* @noEscape */ echo $code; ?>_cc_type" >
+            <span><?php echo $block->escapeHtml(__('Credit Card Type')); ?></span>
+        </label>
+        <div class="control">
+            <select id="<?php /* @noEscape */ echo $code; ?>_cc_type" name="payment[cc_type]"
+                    class="required-entry select control-select validate-cc-type-select">
+                <?php foreach ($block->getCcAvailableTypes() as $typeCode => $typeName) : ?>
+                    <option value="<?php echo $block->escapeHtml($typeCode); ?>">
+                        <?php echo $block->escapeHtml($typeName); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+    </div>
+    <div class="field-number field _required cc-info-field">
+        <label class="label" for="<?php /* @noEscape */ echo $code; ?>_cc_number">
+            <span><?php echo $block->escapeHtml(__('Credit Card Number')); ?></span>
+        </label>
+        <div class="control">
+            <input type="text" id="<?php /* @noEscape */ echo $code; ?>_cc_number"
+                    <?php if (!$block->isAcceptJsEnabled()) : ?>name="payment[cc_number]"<?php endif; ?>
+                   class="text validate-cc-number" value=""/>
+        </div>
+    </div>
+    <div class="fieldset">
+        <div class="field field-date _required cc-info-field col-2 col-2-left">
+            <label class="label" for="<?php /* @noEscape */ echo $code; ?>_expiration">
+                <span><?php echo $block->escapeHtml(__('Month')); ?></span>
+            </label>
+            <div class="control">
+                <select id="<?php /* @noEscape */ echo $code ?>_expiration" name="payment[cc_exp_month]"
+                        class="select select-month validate-cc-exp required-entry">
+                    <?php foreach ($block->getCcMonths() as $k => $v) : ?>
+                        <option value="<?php echo $k ? $block->escapeHtml($k) : ''; ?>">
+                            <?php echo $block->escapeHtml($v); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        <div class="field field-date _required cc-info-field col-2 col-2-right">
+            <label class="label" for="<?php /* @noEscape */ echo $code; ?>_expiration">
+                <span><?php echo $block->escapeHtml(__('Year')); ?></span>
+            </label>
+            <div class="control">
+                <select id="<?php /* @noEscape */ echo $code ?>_expiration_yr" name="payment[cc_exp_year]"
+                        class="select control-select-year required-entry">
+                    <?php foreach ($block->getCcYears() as $k => $v) : ?>
+                        <option value="<?php /* @noEscape */ echo $k ? $block->escapeHtml($k) : '' ?>">
+                            <?php echo $block->escapeHtml($v); ?>
+                        </option>
+                    <?php endforeach ?>
+                </select>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <?php if ($block->hasVerification()) : ?>
+        <div class="field field-number required field _required cc-info-field cc-verification">
+            <label class="label" for="<?php /* @noEscape */ echo $code; ?>_cc_cid">
+                <span><?php echo $block->escapeHtml(__('Card Verification Number')); ?></span>
+            </label>
+            <div class="control">
+                <input type="text" class="required-entry validate-cc-cvn control-cvn control-text"
+                       id="<?php /* @noEscape */ echo $code; ?>_cc_cid"
+                        <?php if (!$block->isAcceptJsEnabled()) : ?>name="payment[cc_cid]"<?php endif; ?> value=""/>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <div style="display: none !important;">
+        <input type="hidden" name="hash" id="iwd_cc_hash" value="0"/>
+        <input type="hidden" name="customer_id" id="iwd_customer_id"
+               value="<?php /* @noEscape */ echo $block->getCustomerId() ?>" />
+
+        <?php if ($block->isAcceptJsEnabled()) : ?>
+            <input type="hidden" name="payment[opaque_number]"
+                   id="<?php /* @noEscape */ echo $code; ?>_opaque_number" value="" />
+            <input type="hidden" name="payment[opaque_descriptor]"
+                   id="<?php /* @noEscape */ echo $code; ?>_opaque_descriptor" value="" />
+            <input type="hidden" name="payment[opaque_value]"
+                   id="<?php /* @noEscape */ echo $code; ?>_opaque_value" value="" />
+        <?php endif; ?>
+    </div>
+
+    <label class="error" style="display:none" id="iwd_authcim_error_message"></label>
+</div>

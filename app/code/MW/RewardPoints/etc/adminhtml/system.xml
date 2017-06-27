@@ -1,0 +1,214 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+    	<tab id="mageworld" translate="label" sortOrder="200">
+            <label>MW Reward Points</label>
+        </tab>
+		<section id="rewardpoints" translate="label" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+			<label>Reward Points Pro</label>
+			<tab>mageworld</tab>
+			<resource>Mw_RewardPoints::system_config</resource>
+			<group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>General</label>
+                <field id="enabled" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enable Reward Points</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="point_money_rate" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Points/Currency Exchange Rate</label>
+					<validate>required-entry</validate>
+					<comment>Format x/y (x points / y monetary units). X and Y must be integer.</comment>
+				</field>
+				<field id="point_step" translate="label comment" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Redeem points in increments of:</label>
+					<validate>required-entry validate-digits validate-greater-than-zero</validate>
+					<comment>Increment must be in integer. Ex 5: Redeem points in groups of 5. 5,10,15 etc.</comment>
+				</field>
+				<field id="apply_reward_point" translate="label comment" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Calculate Reward Points Earned</label>
+					<source_model>MW\RewardPoints\Model\System\Config\Source\Applyreward</source_model>
+					<comment>Condition only applies to Shopping cart rules. For Catalog rules change RP in Individual Reward Point Earning Rule or create new RP Catalog Rule</comment>
+				</field>
+				<field id="apply_reward_point_tax" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Calculate Reward Points Earned</label>
+					<source_model>MW\RewardPoints\Model\System\Config\Source\Applyrewardtax</source_model>
+				</field>
+				<field id="redeem_point_on_tax" translate="label" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Calculate to TAX</label>
+					<frontend_model>MW\RewardPoints\Block\Adminhtml\System\Config\Caltax</frontend_model>
+					<source_model>MW\RewardPoints\Model\System\Config\Source\Redeemtax</source_model>
+				</field>
+				<field id="extend_cart" translate="label comment" type="select" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Extend shopping cart page to display reward points block</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<comment>Default: No (Only set Yes if there is no other module extends shopping cart page to avoid conflict)</comment>
+				</field>
+				<field id="redeemed_tax" translate="label" type="select" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Allow redeemed points to apply to tax</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<validate>required-entry</validate>
+				</field>
+				<field id="redeemed_shipping" translate="label" type="select" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Allow redeemed points to apply to shipping</label>
+                    <frontend_model>MW\RewardPoints\Block\Adminhtml\System\Config\Redship</frontend_model>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<validate>required-entry</validate>
+				</field>
+				<field id="using_coupon_rwp" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Allow using reward points and coupon code at the same time</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<validate>required-entry</validate>
+				</field>
+				<field id="min_checkout" translate="label comment" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Minimum points required to be redeemed per purchase</label>
+                    <validate>validate-digits</validate>
+                    <comment>Set 0 or leave empty if no limitations</comment>
+				</field>
+				<field id="max_point_balance" translate="label comment" type="text" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Maximum Points allowed per account</label>
+                    <validate>validate-digits</validate>
+                    <comment>Set 0 or leave empty if no limitations</comment>
+				</field>
+				<field id="status_add_reward_point" translate="label" type="select" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Add reward points to account balance when order status is</label>
+					<source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+					<validate>required-entry</validate>
+				</field>
+				<field id="subtract_reward_point" translate="label" type="select" sortOrder="14" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Subtract earned points when order is refunded</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="restore_spent_points" translate="label" type="select" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Restore redeemed points when order is refunded</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="default_comment" translate="label" type="text" sortOrder="16" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Default Comment when importing points from CSV file</label>
+				</field>
+				<field id="expiration_days" translate="label comment" type="text" sortOrder="17" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Default Reward Point Expiration (in days)</label>
+					<validate>validate-digits</validate>
+                    <comment>Enter 0 or leave the field empty if Reward Points do not expire</comment>
+				</field>
+			</group>
+
+			<group id="display" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Display Configuration</label>
+                <field id="point_curency" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Unit name of reward points</label>
+					<validate>required-entry</validate>
+				</field>
+				<field id="curency_position" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Position of Unit Name</label>
+					<source_model>MW\RewardPoints\Model\System\Config\Source\Position</source_model>
+				</field>
+				<field id="reward_icon" translate="label" type="image" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Reward Icon</label>
+					<backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">mw_rewardpoint</upload_dir>
+                    <base_url type="media" scope_info="1">mw_rewardpoint</base_url>
+				</field>
+				<field id="link_reward_icon_to" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Link Reward Icon to</label>
+					<comment>Ex. Reward Points policy page</comment>
+				</field>
+				<field id="point_curency_image" translate="label" type="image" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Reward Points Icon</label>
+					<backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">mw_rewardpoint</upload_dir>
+                    <base_url type="media" scope_info="1">mw_rewardpoint</base_url>
+				</field>
+				<field id="enable_image" translate="label comment" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Display Reward Points Icon</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<comment>Default is No. If Yes, Reward Point Icon replaces Unit name of Reward Points.</comment>
+				</field>
+				<field id="show_credit_info" translate="label comment" type="select" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Add option to show credit info</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<comment>Ex: You will earn 100 points ($10)</comment>
+				</field>
+				<field id="enable_message" translate="label comment" type="select" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Display Promotion Message</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<comment>Create message in Earning Rules / Shopping Cart Rules</comment>
+				</field>
+				<field id="enable_banner" translate="label comment" type="select" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Display Promotion Banner</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<comment>Upload banner under Earning Rules / Shopping Cart Rules</comment>
+				</field>
+				<field id="banner_size" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Default Banner Size</label>
+					<validate>validate-digits required-entry validate-greater-than-zero</validate>
+                    <frontend_model>MW\RewardPoints\Block\Adminhtml\Renderer\Config\Bannersize</frontend_model>
+					<comment>Default is 900 x 120.</comment>
+				</field>
+			</group>
+
+			<group id="using_points" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Sharing Reward Points</label>
+                <field id="allow_send_reward_point_to_friend" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Allow sending points to friends</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="time_life" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Sending point transaction to expire after (set hours) if not accepted by friend</label>
+					<validate>validate-digits</validate>
+					<comment>Enter 0 or leave the field empty if not expire</comment>
+				</field>
+			</group>
+
+			<group id="facebook" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Facebook Configuration</label>
+                <field id="appid" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Facebook Application ID</label>
+					<comment><![CDATA[ Get <a href="https://developers.facebook.com/apps" target="_blank">Facebook API</a> access info.]]></comment>
+				</field>
+			</group>
+
+			<group id="email_notifications" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Email Notification</label>
+                <field id="enable_notifications" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enable notifications</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="email_sender" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Email Sender</label>
+					<source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+					<comment>System will use this address to sent email</comment>
+				</field>
+				<field id="points_balance" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Balance update email template</label>
+					<source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+				</field>
+				<field id="points_expiration" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Reward Points Expiration Email Template</label>
+					<source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+				</field>
+				<field id="points_birthday" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Points for Customer's Birthday Email Template</label>
+					<source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+				</field>
+				<field id="recipient_template" translate="label" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Sending Points Email Template</label>
+					<source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+				</field>
+				<field id="invitation_email" translate="label" type="select" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Invitation email template</label>
+					<source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+				</field>
+				<field id="expiration_days" translate="label comment" type="text" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Reminder email sent before points expire (in # of days)</label>
+					<validate>validate-digits</validate>
+					<comment>Enter 0 or leave the field empty if not require (not recommend)</comment>
+				</field>
+			</group>
+
+			<group id="author_information" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+				<frontend_model>MW\RewardPoints\Block\Adminhtml\System\Config\AuthorInformation</frontend_model>
+			</group>
+		</section>
+    </system>
+</config>

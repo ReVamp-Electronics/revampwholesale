@@ -1,0 +1,296 @@
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div data-bind="collapsible"
+     class="admin__action-dropdown-wrap admin__data-grid-action-columns"
+     data-role="toolbar-menu-item">
+    <button
+        class="admin__action-dropdown"
+        type="button"
+        data-bind="toggleCollapsible"
+        data-toggle="dropdown"
+        aria-haspopup="true">
+        <span class="admin__action-dropdown-text" data-bind="i18n: 'Columns'"></span>
+    </button>
+
+    <div data-bind="css: {_overflow: hasOverflow()}" class="admin__action-dropdown-menu admin__data-grid-action-columns-menu">
+
+        <div class="amasty-pgrid-tabs">
+            <input id="tab2" value="tab2" type="radio" class="amasty-pgrid-tab" name="amasty-pgrid-tabs"
+                   data-bind="{
+                   checked: selectedTab,
+                   css: {_selected: hasSelected('tab2')},
+               }"
+            />
+            <label class="amasty-pgrid-label" for="tab2" data-bind="i18n: 'Extra'"></label>
+
+            <input id="tab3" value="tab3" type="radio" class="amasty-pgrid-tab" name="amasty-pgrid-tabs"
+                   data-bind="{
+                   checked: selectedTab,
+                   css: {_selected: hasSelected('tab3')},
+               }"
+            />
+            <label class="amasty-pgrid-label" for="tab3" data-bind="i18n: 'Attribute'"></label>
+
+            <input id="tab1" value="tab1" type="radio" class="amasty-pgrid-tab" name="amasty-pgrid-tabs"
+               data-bind="{
+                   checked: selectedTab,
+                   css: {_selected: hasSelected('tab1')},
+               }"
+            />
+            <label class="amasty-pgrid-label" for="tab1" data-bind="i18n: 'Default'"></label>
+
+
+            <div class="admin__action-dropdown-menu-header">
+                <span data-bind="text: getHeaderMessage()"></span>
+            </div>
+            <div id="amasty-pgrid-content" class="admin__action-dropdown-menu-content">
+                <section id="amasty-pgrid-content1">
+                    <table class="amasty-pgrid-table">
+                        <tr>
+                            <th data-bind="i18n: 'Column'"></th>
+                            <th data-bind="i18n: 'Title'"></th>
+                            <th data-bind="i18n: 'Edit'"></th>
+                            <th data-bind="i18n: 'Filter'"></th>
+                        </tr>
+                        <tr data-bind="repeat: {foreach: getDefaultColumns(), item: '$col'}">
+                            <td>
+
+                                    <input
+                                        class="admin__control-checkbox"
+                                        type="checkbox"
+                                        data-bind="
+                                            attr: {
+                                                id: ++ko.bindingHandlers['uniqueName'].currentIndex + '_uid'
+                                            },
+                                            checked: $col().ampgrid.visible"/>
+                                    <label
+                                        class="admin__field-label"
+                                        data-bind="
+                                            text: $col().ampgrid_def_label,
+                                            attr: {
+                                                for: ko.bindingHandlers['uniqueName'].currentIndex + '_uid'
+                                            }"></label>
+
+                            </td>
+                            <td>
+                                <input
+                                    class="admin__control-text"
+                                    type="text"
+                                    data-bind="
+                                        attr: {
+                                            id: ++ko.bindingHandlers['uniqueName'].currentIndex + '_utitle'
+                                        },
+                                        value: $col().ampgrid.title"/>
+                            </td>
+                            <td>
+                                <input
+                                    class="admin__control-checkbox"
+                                    type="checkbox"
+                                    data-bind="
+                                        attr: {
+                                            id: ++ko.bindingHandlers['uniqueName'].currentIndex + '_ueditable'
+                                        },
+                                        disable: !$col().ampgrid.has_editor,
+                                        checked: $col().ampgrid.editable"/>
+                                <label
+                                    class="admin__field-label"
+                                    data-bind="
+                                        attr: {
+                                            for: ko.bindingHandlers['uniqueName'].currentIndex + '_ueditable'
+                                        }"></label>
+                            </td>
+                            <td>
+                                <input
+                                    class="admin__control-checkbox"
+                                    type="checkbox"
+                                    data-bind="
+                                        attr: {
+                                            id: ++ko.bindingHandlers['uniqueName'].currentIndex + '_ufilterable'
+                                        },
+                                        disable: !$col().ampgrid.has_filter,
+                                        checked: $col().ampgrid.filterable"/>
+                                <label
+                                    class="admin__field-label"
+                                    data-bind="
+                                        attr: {
+                                            for: ko.bindingHandlers['uniqueName'].currentIndex + '_ufilterable'
+                                        }"></label>
+                            </td>
+                        </tr>
+
+                    </table>
+                </section>
+                <section id="amasty-pgrid-content2">
+                    <table class="amasty-pgrid-table">
+                        <tr>
+                            <th data-bind="i18n: 'Column'"></th>
+                            <th data-bind="i18n: 'Title'"></th>
+                            <th data-bind="i18n: 'Edit'"></th>
+                            <th data-bind="i18n: 'Filter'"></th>
+                        </tr>
+                        <tr data-bind="repeat: {foreach: getExtraColumns(), item: '$col'}">
+                            <td>
+
+                                    <input
+                                        class="admin__control-checkbox"
+                                        type="checkbox"
+                                        data-bind="
+                                            attr: {
+                                                id: ++ko.bindingHandlers['uniqueName'].currentIndex + '_uid'
+                                            },
+                                            checked: $col().ampgrid.visible"/>
+                                    <label
+                                        class="admin__field-label"
+                                        data-bind="
+                                            text: $col().ampgrid_def_label,
+                                            attr: {
+                                                for: ko.bindingHandlers['uniqueName'].currentIndex + '_uid'
+                                            }"></label>
+
+                            </td>
+                            <td>
+                                <input
+                                    class="admin__control-text"
+                                    type="text"
+                                    data-bind="
+                                        attr: {
+                                            id: ++ko.bindingHandlers['uniqueName'].currentIndex + '_utitle'
+                                        },
+                                        value: $col().ampgrid.title"/>
+                            </td>
+                            <td>
+                                <input
+                                    class="admin__control-checkbox"
+                                    type="checkbox"
+                                    data-bind="
+                                        attr: {
+                                            id: ++ko.bindingHandlers['uniqueName'].currentIndex + '_ueditable'
+                                        },
+                                        disable: !$col().ampgrid.has_editor,
+                                        checked: $col().ampgrid.editable"/>
+                                <label
+                                    class="admin__field-label"
+                                    data-bind="
+                                        attr: {
+                                            for: ko.bindingHandlers['uniqueName'].currentIndex + '_ueditable'
+                                        }"></label>
+                            </td>
+                            <td>
+                                <input
+                                    class="admin__control-checkbox"
+                                    type="checkbox"
+                                    data-bind="
+                                        attr: {
+                                            id: ++ko.bindingHandlers['uniqueName'].currentIndex + '_ufilterable'
+                                        },
+                                        disable: !$col().ampgrid.has_filter,
+                                        checked: $col().ampgrid.filterable"/>
+                                <label
+                                    class="admin__field-label"
+                                    data-bind="
+                                        attr: {
+                                            for: ko.bindingHandlers['uniqueName'].currentIndex + '_ufilterable'
+                                        }"></label>
+                            </td>
+                        </tr>
+
+                    </table>
+                </section>
+                <section id="amasty-pgrid-content3">
+                    <table class="amasty-pgrid-table">
+                        <tr>
+                            <th data-bind="i18n: 'Column'"></th>
+                            <th data-bind="i18n: 'Title'"></th>
+                            <th data-bind="i18n: 'Edit'"></th>
+                            <th data-bind="i18n: 'Filter'"></th>
+                        </tr>
+                        <tr data-bind="repeat: {foreach: getAtttributeColumns(), item: '$col'}">
+                            <td>
+
+                                    <input
+                                        class="admin__control-checkbox"
+                                        type="checkbox"
+                                        data-bind="
+                                            attr: {
+                                                id: ++ko.bindingHandlers['uniqueName'].currentIndex + '_uid'
+                                            },
+                                            checked: $col().ampgrid.visible"/>
+                                    <label
+                                        class="admin__field-label"
+                                        data-bind="
+                                            text: $col().ampgrid_def_label,
+                                            attr: {
+                                                for: ko.bindingHandlers['uniqueName'].currentIndex + '_uid'
+                                            }"></label>
+
+                            </td>
+                            <td>
+                                <input
+                                    class="admin__control-text"
+                                    type="text"
+                                    data-bind="
+                                        attr: {
+                                            id: ++ko.bindingHandlers['uniqueName'].currentIndex + '_utitle'
+                                        },
+                                        value: $col().ampgrid.title"/>
+                            </td>
+                            <td>
+                                <input
+                                    class="admin__control-checkbox"
+                                    type="checkbox"
+                                    data-bind="
+                                        attr: {
+                                            id: ++ko.bindingHandlers['uniqueName'].currentIndex + '_ueditable'
+                                        },
+                                        disable: !$col().ampgrid.has_editor,
+                                        checked: $col().ampgrid.editable"/>
+                                <label
+                                    class="admin__field-label"
+                                    data-bind="
+                                        attr: {
+                                            for: ko.bindingHandlers['uniqueName'].currentIndex + '_ueditable'
+                                        }"></label>
+                            </td>
+                            <td>
+                                <input
+                                    class="admin__control-checkbox"
+                                    type="checkbox"
+                                    data-bind="
+                                        attr: {
+                                            id: ++ko.bindingHandlers['uniqueName'].currentIndex + '_ufilterable'
+                                        },
+                                        disable: !$col().ampgrid.has_filter,
+                                        checked: $col().ampgrid.filterable"/>
+                                <label
+                                    class="admin__field-label"
+                                    data-bind="
+                                        attr: {
+                                            for: ko.bindingHandlers['uniqueName'].currentIndex + '_ufilterable'
+                                        }"></label>
+                            </td>
+                        </tr>
+
+                    </table>
+                </section>
+            </div>
+        </div>
+
+        <div class="admin__action-dropdown-menu-footer">
+            <div class="admin__action-dropdown-footer-secondary-actions">
+                <button data-bind="click: save, closeCollapsible" class="action-tertiary" type="button">
+                    <span data-bind="i18n: 'Save'"></span>
+                </button>
+            </div>
+            <div class="admin__action-dropdown-footer-main-actions">
+                <button data-bind="click: close, closeCollapsible" class="action-tertiary" type="button">
+                    <span data-bind="i18n: 'Close'"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,18 @@
+Save Currency Relations,Save Currency Relations
+Refresh Relations,Refresh Relations
+Manage Currency Relations,Manage Currency Relations
+Currency Relations,Currency Relations
+Currency relations were saved successfully.,Currency relations were saved successfully.
+No data to save,No data to save
+ID,ID
+Currency,Currency
+Countries,Countries
+Reset,Reset
+Change,Change
+"Please select ""Refresh Relations""","Please select ""Refresh Relations"""
+User Agent List,User Agent List
+"List of User Agents for which Currency Auto Switcher should be disabled. Enter one User Agent per line<br/><b>Example:</b><br/>gsa-crawler<br/>Googlebot*","List of User Agents for which Currency Auto Switcher should be disabled. Enter one User Agent per line<br/><b>Example:</b><br/>gsa-crawler<br/>Googlebot*"
+Exception URLs,Exception URLs
+"Exception URLs are relative URLs to your Store URL used mainly to disable Currency Auto Switcher for payment processing gateways.<br/>Enter one URL per line.<br/><b>*</b> means anything<br/><b>Example:</b><br/>/paypal/*<br/>/twocheckout/*","Exception URLs are relative URLs to your Store URL used mainly to disable Currency Auto Switcher for payment processing gateways.<br/>Enter one URL per line.<br/><b>*</b> means anything<br/><b>Example:</b><br/>/paypal/*<br/>/twocheckout/*"
+GeoIP Extensions,GeoIP Extensions
+Currency Switcher,Currency Switcher

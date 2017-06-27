@@ -1,0 +1,41 @@
+<?php
+$order = $block->getOrder();
+$block->setPriceDataObject($block->getSource());
+$rewardOrder = $block->getRewardOrder()->load($order->getId());
+
+$rewardpointDiscount = $order->getMwRewardpointDiscount();
+if ($rewardpointDiscount == 0) {
+	$rewardpointDiscount = $rewardOrder->getMoney();
+}
+
+if ($rewardpointDiscount > 0) :
+	$rewardpointDiscountShow = $order->getMwRewardpointDiscountShow();
+	if ($rewardpointDiscountShow == 0) {
+		$rewardpointDiscountShow = $this->helper('Magento\Directory\Helper\Data')->currencyConvert(
+			$rewardOrder->getMoney(),
+			$order->getBaseCurrencyCode(),
+			$order->getOrderCurrencyCode()
+		);
+	}
+
+	$rewardpoints = (int) $order->getMwRewardpoint();
+	if ($rewardpoints == 0) {
+		$rewardpoints = $rewardOrder->getRewardPoint();
+	}
+
+	$value = - $rewardpointDiscount;
+	$valueShow = - $rewardpointDiscountShow;
+	if ($block->getSource() instanceof \Magento\Sales\Model\Order\Creditmemo) {
+		$value = - $value;
+	}
+
+	$_dataHelper = $this->helper('MW\RewardPoints\Helper\Data');
+	$storeCode = $_dataHelper->getStoreById($block->getSource()->getStoreId())->getCode();
+?>
+    <tr>
+        <td class="label"><?php echo __('You Redeemed (%1)',trim($_dataHelper->formatPoints($rewardpoints ,$storeCode))) ?></td>
+        <td>
+            <?php echo $block->displayPrices($value, $valueShow); ?>
+        </td>
+    </tr>
+<?php endif; ?>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+   
+    <update handle="editor"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Evdpl\Jobopening\Block\Adminhtml\Jobopening\Edit" name="jobopening_edit"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Evdpl\Jobopening\Block\Adminhtml\Jobopening\Edit\Tabs" name="jobopening_edit_tabs">
+                <block class="Evdpl\Jobopening\Block\Adminhtml\Jobopening\Edit\Tab\Main" name="jobopening_edit_tab_main"/>
+                
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">main_section</argument>
+                    <argument name="block" xsi:type="string">jobopening_edit_tab_main</argument>
+                </action>
+               
+            </block>
+        </referenceContainer>
+    </body>
+</page>

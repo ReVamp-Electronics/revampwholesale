@@ -1,0 +1,173 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/Magento/Mtf/Repository/etc/repository.xsd">
+    <repository class="Magento\Config\Test\Repository\ConfigData">
+
+        <!-- General module enable -->
+        <dataset name="social_enable">
+            <field name="social/general/enabled" xsi:type="array">
+                <item name="scope" xsi:type="string">social</item>
+                <item name="scope_id" xsi:type="number">1</item>
+                <item name="label" xsi:type="string">Yes</item>
+                <item name="value" xsi:type="number">1</item>
+            </field>
+        </dataset>
+        <dataset name="social_enable_rollback">
+            <field name="social/general/enabled" xsi:type="array">
+                <item name="scope" xsi:type="string">social</item>
+                <item name="scope_id" xsi:type="number">1</item>
+                <item name="label" xsi:type="string">No</item>
+                <item name="value" xsi:type="number">0</item>
+            </field>
+        </dataset>
+
+        <!-- Twitter provider enable -->
+        <dataset name="social_enable_twitter">
+            <field name="social/twitter/enabled" xsi:type="array">
+                <item name="scope" xsi:type="string">social</item>
+                <item name="scope_id" xsi:type="number">1</item>
+                <item name="label" xsi:type="string">Yes</item>
+                <item name="value" xsi:type="number">1</item>
+            </field>
+            <field name="social/twitter/key" xsi:type="array">
+                <item name="scope" xsi:type="string">social</item>
+                <item name="scope_id" xsi:type="number">1</item>
+                <item name="label" xsi:type="string"/>
+                <item name="value" xsi:type="string">TWITTER_KEY</item>
+            </field>
+            <field name="social/twitter/secret" xsi:type="array">
+                <item name="scope" xsi:type="string">social</item>
+                <item name="scope_id" xsi:type="number">1</item>
+                <item name="label" xsi:type="string"/>
+                <item name="value" xsi:type="string">TWITTER_SECRET</item>
+            </field>
+        </dataset>
+        <dataset name="social_enable_twitter_rollback">
+            <field name="social/twitter/enabled" xsi:type="array">
+                <item name="scope" xsi:type="string">social</item>
+                <item name="scope_id" xsi:type="number">1</item>
+                <item name="label" xsi:type="string">No</item>
+                <item name="value" xsi:type="number">0</item>
+            </field>
+        </dataset>
+
+        <!-- Facebook provider enable -->
+        <dataset name="social_enable_facebook">
+            <field name="social/facebook/enabled" xsi:type="array">
+                <item name="scope" xsi:type="string">social</item>
+                <item name="scope_id" xsi:type="number">1</item>
+                <item name="label" xsi:type="string">Yes</item>
+                <item name="value" xsi:type="number">1</item>
+            </field>
+            <field name="social/facebook/key" xsi:type="array">
+                <item name="scope" xsi:type="string">social</item>
+                <item name="scope_id" xsi:type="number">1</item>
+                <item name="label" xsi:type="string"/>
+                <item name="value" xsi:type="string">FACEBOOK_KEY</item>
+            </field>
+            <field name="social/facebook/secret" xsi:type="array">
+                <item name="scope" xsi:type="string">social</item>
+                <item name="scope_id" xsi:type="number">1</item>
+                <item name="label" xsi:type="string"/>
+                <item name="value" xsi:type="string">FACEBOOK_SECRET</item>
+            </field>
+        </dataset>
+        <dataset name="social_enable_facebook_rollback">
+            <field name="social/facebook/enabled" xsi:type="array">
+                <item name="scope" xsi:type="string">social</item>
+                <item name="scope_id" xsi:type="number">1</item>
+                <item name="label" xsi:type="string">No</item>
+                <item name="value" xsi:type="number">0</item>
+            </field>
+        </dataset>
+
+        <!-- Google provider enable -->
+        <dataset name="social_enable_google">
+            <field name="social/google/enabled" xsi:type="array">
+                <item name="scope" xsi:type="string">social</item>
+                <item name="scope_id" xsi:type="number">1</item>
+                <item name="label" xsi:type="string">Yes</item>
+                <item name="value" xsi:type="number">1</item>
+            </field>
+            <field name="social/google/key" xsi:type="array">
+                <item name="scope" xsi:type="string">social</item>
+                <item name="scope_id" xsi:type="number">1</item>
+                <item name="label" xsi:type="string"/>
+                <item name="value" xsi:type="string">GOOGLE_KEY</item>
+            </field>
+            <field name="social/google/secret" xsi:type="array">
+                <item name="scope" xsi:type="string">social</item>
+                <item name="scope_id" xsi:type="number">1</item>
+                <item name="label" xsi:type="string"/>
+                <item name="value" xsi:type="string">GOOGLE_SECRET</item>
+            </field>
+        </dataset>
+        <dataset name="social_enable_google_rollback">
+            <field name="social/google/enabled" xsi:type="array">
+                <item name="scope" xsi:type="string">social</item>
+                <item name="scope_id" xsi:type="number">1</item>
+                <item name="label" xsi:type="string">No</item>
+                <item name="value" xsi:type="number">0</item>
+            </field>
+        </dataset>
+
+        <!-- LinkedIn provider enable -->
+        <dataset name="social_enable_linkedin">
+            <field name="social/linkedin/enabled" xsi:type="array">
+                <item name="scope" xsi:type="string">social</item>
+                <item name="scope_id" xsi:type="number">1</item>
+                <item name="label" xsi:type="string">Yes</item>
+                <item name="value" xsi:type="number">1</item>
+            </field>
+            <field name="social/linkedin/key" xsi:type="array">
+                <item name="scope" xsi:type="string">social</item>
+                <item name="scope_id" xsi:type="number">1</item>
+                <item name="label" xsi:type="string"/>
+                <item name="value" xsi:type="string">LINKEDIN_KEY</item>
+            </field>
+            <field name="social/linkedin/secret" xsi:type="array">
+                <item name="scope" xsi:type="string">social</item>
+                <item name="scope_id" xsi:type="number">1</item>
+                <item name="label" xsi:type="string"/>
+                <item name="value" xsi:type="string">LINKEDIN_SECRET</item>
+            </field>
+        </dataset>
+        <dataset name="social_enable_linkedin_rollback">
+            <field name="social/linkedin/enabled" xsi:type="array">
+                <item name="scope" xsi:type="string">social</item>
+                <item name="scope_id" xsi:type="number">1</item>
+                <item name="label" xsi:type="string">No</item>
+                <item name="value" xsi:type="number">0</item>
+            </field>
+        </dataset>
+
+        <!-- Block settings -->
+        <dataset name="social_block_setting_visible_all">
+            <field name="social/login_block/group_setting" xsi:type="array">
+                <item name="scope" xsi:type="string">social</item>
+                <item name="scope_id" xsi:type="number">1</item>
+                <item name="value" xsi:type="array">
+                    <!-- "][" - workaround for storage multi-dimensions array to config data via config curl handler -->
+                    <item name="_1][group" xsi:type="string">Login</item>
+                    <item name="_1][is_visible" xsi:type="string">1</item>
+                    <item name="_1][template" xsi:type="string">default</item>
+                    <item name="_2][group" xsi:type="string">Register</item>
+                    <item name="_2][is_visible" xsi:type="string">1</item>
+                    <item name="_2][template" xsi:type="string">default</item>
+                    <item name="_3][group" xsi:type="string">Cart</item>
+                    <item name="_3][is_visible" xsi:type="string">1</item>
+                    <item name="_3][template" xsi:type="string">default</item>
+                    <item name="_4][group" xsi:type="string">Checkout</item>
+                    <item name="_4][is_visible" xsi:type="string">1</item>
+                    <item name="_4][template" xsi:type="string">default</item>
+                </item>
+            </field>
+        </dataset>
+        <dataset name="social_block_setting_visible_all_rollback">
+            <field name="social/login_block/group_setting" xsi:type="array">
+                <item name="scope" xsi:type="string">social</item>
+                <item name="scope_id" xsi:type="number">1</item>
+                <item name="value" xsi:type="string"><![CDATA[]]></item>
+            </field>
+        </dataset>
+    </repository>
+</config>

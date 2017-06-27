@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+		<css src="MW_RewardPoints::css/report.css"/>
+		<link src="MW_RewardPoints::js/lib/prototype-adapter.js"/>
+        <link src="MW_RewardPoints::js/lib/highcharts.js"/>
+        <link src="MW_RewardPoints::js/lib/exporting.js"/>
+	</head>
+
+	<body>
+		<referenceContainer name="content">
+			<block class="MW\RewardPoints\Block\Adminhtml\Report\Dashboard" name="mw_rewardpoints_report_dashboard.grid.container" />
+		</referenceContainer>
+	</body>
+</page>

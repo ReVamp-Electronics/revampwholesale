@@ -1,0 +1,9 @@
+<form action="<?php echo $block->getUrl('rewardpoints/rewardpoints/email') ?>" method="post" id="form-validate">
+    <div style="margin-bottom: 40px;">
+        <input type="checkbox" name="subscribed_balance_update" id="subscribed_balance_update" value="1" title="<?php echo __('Subscribe to balance update') ?>"<?php if($block->getSubscribedBalanceUpdate()): ?> checked="checked"<?php endif; ?> class="checkbox" />
+        <label for="subscribed_balance_update"><?php echo __('Subscribe to balance update') ?></label>
+    </div>
+    <div class="actions-toolbar">
+        <div class="primary"><button class="action save primary" type="submit" title="<?php echo __('Save') ?>"><span><?php echo __('Save') ?></span></button></div>
+    </div>
+</form>

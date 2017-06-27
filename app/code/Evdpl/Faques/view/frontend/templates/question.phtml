@@ -1,0 +1,38 @@
+
+<form method="POST" action="<?php echo $this->getUrl('faques/index/post'); ?>" data-hasrequired="<?php echo __('* Required Fields') ?>" data-mage-init='{"validation":{}}'> 
+<?php $_faqss = $this->getFaqs();    
+            if(count($_faqss)>0){
+?>
+     <div class="faq faqs-list-container">
+        <ol class="accordion" id="accordion">
+            <?php foreach ($_faqss as $_faqs) : ?>
+                <li class="">
+                    <div  class="accordianheader" ><a href="#faq"><?php echo "<strong>" . $_faqs->getFaqQuestion() . "</strong>" ?></a>
+                    </div>
+                    <div class="cont faqs-list-ans" style="display: none;">
+                        <?php echo $_faqs->getFaqAnswer(); ?>
+                    </div>
+                </li>
+            <?php endforeach; ?>
+        </ol>
+    </div>
+      <?php } else{
+
+        echo __('There are no faqs at this moment');        
+        } ?>
+</form>
+<script type="text/javascript">
+ require([
+     'jquery',
+     'jquery/ui'
+     ],
+     function($, accordion) {
+    $( "#accordion" ).accordion({
+      heightStyle: "content",
+      active:false,
+      collapsible: true,
+      header:"div.accordianheader"
+    });
+     }
+);
+</script>

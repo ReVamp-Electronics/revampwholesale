@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="aw_rma_admin_default"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Aheadworks\Rma\Block\Adminhtml\CustomField" name="aw_rma_custom_field_grid_container">
+                <block class="Aheadworks\Rma\Block\Adminhtml\CustomField\Grid" name="aw_rma_custom_field_grid" as="grid" />
+            </block>
+        </referenceContainer>
+    </body>
+</page>

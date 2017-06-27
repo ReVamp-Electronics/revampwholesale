@@ -1,0 +1,386 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerAttributes
+ */
+?>
+<script>
+    require([
+        "jquery",
+        "uiRegistry",
+        "collapsable",
+        "prototype"
+    ], function(jQuery, rg){
+
+        function saveAndContinueEdit() {
+            editForm.submit($('edit_form').action + 'back/edit/tab/' + product_attribute_tabsJsTabs.activeTab.id);
+        }
+
+        function toggleApplyVisibility(select) {
+            if ($(select).value == 1) {
+                $(select).next('select').removeClassName('no-display');
+                $(select).next('select').removeClassName('ignore-validate');
+
+            } else {
+                $(select).next('select').addClassName('no-display');
+                $(select).next('select').addClassName('ignore-validate');
+                var options = $(select).next('select').options;
+                for (var i = 0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+            }
+        }
+
+        function checkOptionsPanelVisibility() {
+            window.optionDefaultInputType = 'checkbox';
+            if ($('manage-options-panel')) {
+                rg.get('manage-options-panel', function () {
+                    jQuery('#manage-options-panel').trigger('render');
+                });
+                var panel = $('manage-options-panel').up();
+                var input = $('frontend_input');
+                if (input
+                    && jQuery.inArray(input.value, [ 'select', 'multiselect', 'selectimg', 'multiselectimg', 'selectgroup' ] ) >= 0
+                ) {
+                    panel.show();
+                    if ('selectgroup' == input.value && !input.disabled) {
+                        $('add_new_option_button').hide();
+                        // delete all options
+                        jQuery('.delete-option').trigger('click');
+                        $('new-selectgroup-message').show();
+                    } else {
+                        $('new-selectgroup-message').hide();
+                        $('add_new_option_button').show();
+                    }
+                    allNodes = document.getElementsByClassName('a-left');
+                    for (i = 0; i < allNodes.length; i++) {
+                        allNodes[i].hide();
+                    }
+                    allNodes = document.getElementsByClassName('group_name');
+                    for (i = 0; i < allNodes.length; i++) {
+                        allNodes[i].show();
+                    }
+                }
+                else {
+                    $('new-selectgroup-message').hide();
+                    panel.hide();
+                }
+            }
+        }
+
+        function bindAttributeInputType() {
+            checkOptionsPanelVisibility();
+            switchDefaultValueField();
+            checkIsConfigurableVisibility();
+            checkIsAccountFilled();
+            checkIsBillingFilled();
+            var input = $('frontend_input');
+            if (input
+                && jQuery.inArray(input.value, [ 'select', 'multiselect', 'selectimg', 'multiselectimg', 'selectgroup' ] ) >= 0
+            ) {
+                if ($('is_filterable')) {
+                    $('is_filterable').disabled = false;
+                }
+                if ($('is_used_in_grid')) {
+                    //$('is_filterable_in_search').disabled = false;
+                }
+                if ($('backend_type') && $('backend_type').options) {
+                    for (var i = 0; i < $('backend_type').options.length; i++) {
+                        if ($('backend_type').options[i].value == 'int') $('backend_type').selectedIndex = i;
+                    }
+                }
+            }
+            else {
+                if ($('is_filterable')) {
+                    $('is_filterable').selectedIndex = 0;
+                    $('is_filterable').disabled = true;
+                }
+                if ($('is_used_in_grid')) {
+                    //$('is_filterable_in_search').disabled = true;
+                }
+            }
+
+            if ($('used_for_sort_by')) {
+                $('used_for_sort_by').disabled =
+                    jQuery.inArray(input.value, ['multiselect', 'multiselectimg', 'gallery', 'textarea']) >= 0;
+            }
+            if ($('is_html_allowed_on_front')) {
+                if (input && (input.value == 'text' || input.value == 'textarea')) {
+                    $('is_html_allowed_on_front').disabled = false;
+                }
+                else {
+                    $('is_html_allowed_on_front').selectedIndex = 0;
+                    $('is_html_allowed_on_front').disabled = true;
+                }
+            }
+
+            if (input.value == 'selectimg' || input.value == 'multiselectimg') {
+               jQuery('#save-page-message').show();
+            } else {
+                jQuery('#save-page-message').hide();
+            }
+
+            switchIsFilterable();
+        }
+
+        function switchIsFilterable() {
+            if ($('is_filterable')) {
+                $('position').disabled = $('is_filterable').selectedIndex == 0;
+            }
+        }
+
+        function disableApplyToValue(value) {
+            return;
+        }
+        window.iconColumnVisibility = false;
+
+        function switchDefaultValueField() {
+            if (!$('frontend_input')) {
+                return;
+            }
+
+            var currentValue = $('frontend_input').value;
+
+            var defaultValueTextVisibility = false;
+            var defaultValueTextareaVisibility = false;
+            var defaultValueDateVisibility = false;
+            var defaultValueYesnoVisibility = false;
+            var scopeVisibility = true;
+            window.iconColumnVisibility = false;
+
+            checkFrontendClass();
+            checkIsRequired();
+            checkFileFields();
+
+            switch (currentValue) {
+                case 'selectimg':
+                    window.iconColumnVisibility = true;
+                case 'select':
+                    optionDefaultInputType = 'radio';
+                    break;
+
+                case 'multiselectimg':
+                    window.iconColumnVisibility = true;
+                case 'multiselect':
+                    optionDefaultInputType = 'checkbox';
+                    break;
+
+                case 'date':
+                    defaultValueDateVisibility = true;
+                    break;
+                case 'boolean':
+                    defaultValueYesnoVisibility = true;
+                    break;
+                case 'statictext':
+                case 'textarea':
+                    defaultValueTextareaVisibility = true;
+                    break;
+                case 'media_image':
+                case 'selectgroup':
+                case 'file':
+                    defaultValueTextVisibility = false;
+                    break;
+                case 'price':
+                    scopeVisibility = false;
+                default:
+                    defaultValueTextVisibility = true;
+                    break;
+            }
+
+            switch (currentValue) {
+            <?php foreach ($this->helper('Magento\Catalog\Helper\Data')->getAttributeHiddenFields() as $type=>$fields): ?>
+                case '<?php echo $type; ?>':
+                <?php foreach ($fields as $one): ?>
+                <?php if ($one == '_front_fieldset'): ?>
+                    $('front_fieldset').previous().hide();
+                    $('front_fieldset').hide();
+                <?php elseif ($one == '_default_value'): ?>
+                    defaultValueTextVisibility =
+                        defaultValueTextareaVisibility =
+                            defaultValueDateVisibility =
+                                defaultValueYesnoVisibility = false;
+                <?php elseif ($one == '_scope'): ?>
+                    scopeVisibility = false;
+                <?php else: ?>
+                    setRowVisibility('<?php echo $one; ?>', false);
+                <?php endif; ?>
+                <?php endforeach; ?>
+                    break;
+            <?php endforeach; ?>
+
+                default:
+                    $('front_fieldset').previous().show();
+                    $('front_fieldset').show();
+                    setRowVisibility('is_configurable', true);
+                    break;
+            }
+
+            setRowVisibility('default_value_text', defaultValueTextVisibility);
+            setRowVisibility('default_value_textarea', defaultValueTextareaVisibility);
+            setRowVisibility('default_value_date', defaultValueDateVisibility);
+            setRowVisibility('default_value_yesno', defaultValueYesnoVisibility);
+            setClassVisibility('.type-image-icon', window.iconColumnVisibility);
+            //setRowVisibility('is_global', scopeVisibility);
+
+            var elems = document.getElementsByName('default[]');
+            for (var i = 0; i < elems.length; i++) {
+                elems[i].type = optionDefaultInputType;
+            }
+        }
+
+        function setRowVisibility(id, isVisible) {
+            if ($(id)) {
+                var td = $(id).parentNode;
+                var tr = $(td.parentNode);
+
+                if (isVisible) {
+                    tr.show();
+                } else {
+                    tr.blur();
+                    tr.hide();
+                }
+            }
+        }
+
+        function setClassVisibility(selector, isVisible) {
+            var element = jQuery(selector);
+            if (element) {
+                if (isVisible) {
+                    element.show();
+                } else {
+                    element.hide();
+                }
+            }
+        }
+
+        function checkIsConfigurableVisibility() {
+            if (!$('is_configurable') || !$('is_global') || !$('frontend_input')) return;
+            if ($F('is_global') == 1 && $F('frontend_input') == 'select') {
+                setRowVisibility('is_configurable', true);
+            } else {
+                setRowVisibility('is_configurable', false);
+            }
+        }
+
+        function checkIsReadOnly() {
+            if (!$('frontend_input')) return;
+            var readOnlyAttributes = ['text', 'textarea', 'date']; //'select' - do not need to be `Read Only`
+            if (readOnlyAttributes.indexOf($('frontend_input').value) >= 0) {
+                setRowVisibility('is_read_only', true);
+            } else {
+                setRowVisibility('is_read_only', false);
+                /* Set Read Only Dropdown to "No" */
+                $('is_read_only').value = 0;
+            }
+        }
+
+        function checkFrontendClass() {
+            if (!$('frontend_input')) return;
+            if ($('frontend_input').value == 'text') {
+                setRowVisibility('frontend_class', true);
+            } else {
+                setRowVisibility('frontend_class', false);
+                /* Set Input Validation Dropdown to "None" */
+                $('frontend_class').value = '';
+            }
+        }
+
+        function checkIsRequired() {
+            if (!$('frontend_input')) return;
+            if ($('frontend_input').value == 'statictext') {
+                setRowVisibility('is_required', false);
+                /* Set Values Required Dropdown to "No" */
+                $('is_required').value = 0;
+            } else {
+                setRowVisibility('is_required', true);
+            }
+        }
+
+        function checkIsUnique() {
+            if (!$('frontend_input')) return;
+            var uniqueAttributes = ['text', 'textarea'];
+            if (uniqueAttributes.indexOf($('frontend_input').value) >= 0) {
+                setRowVisibility('is_unique', true);
+            } else {
+                setRowVisibility('is_unique', false);
+                /* Set Unique Value Dropdown to "No" */
+                $('is_unique').value = 0;
+            }
+        }
+
+        function checkFileFields() {
+            if (!$('frontend_input')) return;
+            if ($('frontend_input').value == 'file') {
+                setRowVisibility('file_size', true);
+                setRowVisibility('file_types', true);
+                setRowVisibility('used_in_product_listing', false);
+                $('used_in_product_listing').value = 0;
+            } else {
+                setRowVisibility('file_size', false);
+                setRowVisibility('file_types', false);
+                setRowVisibility('used_in_product_listing', true);
+                /* Set File Fields to "" */
+                $('file_size').value = '';
+                $('file_types').value = '';
+            }
+        }
+
+        function checkIsAccountFilled() {
+            if (!$('is_visible_on_front')) return;
+            if ($('is_visible_on_front').value == 1) {
+                setRowVisibility('account_filled', true);
+            } else {
+                setRowVisibility('account_filled', false);
+                $('account_filled').value = 0;
+            }
+        }
+
+        function checkIsBillingFilled() {
+            if (!$('used_in_product_listing')) return;
+            if ($('used_in_product_listing').value == 1) {
+                setRowVisibility('billing_filled', true);
+            } else {
+                setRowVisibility('billing_filled', false);
+                $('billing_filled').value = 0;
+            }
+        }
+
+        function updateRequriedOptions() {
+            try{
+                if ($F('frontend_input') == 'select' && $F('is_required') == 1) {
+                    $('option-count-check').addClassName('required-options-count');
+                } else {
+                    $('option-count-check').removeClassName('required-options-count');
+                }
+            }catch(e){}
+
+        }
+
+        if ($('frontend_input')) {
+            Event.observe($('frontend_input'), 'change', updateRequriedOptions);
+            Event.observe($('frontend_input'), 'change', bindAttributeInputType);
+            //Event.observe($('is_global'), 'change', checkIsConfigurableVisibility);
+        }
+
+        if ($('is_filterable')) {
+            Event.observe($('is_filterable'), 'change', switchIsFilterable);
+        }
+
+        if ($('is_required')) {
+            Event.observe($('is_required'), 'change', updateRequriedOptions);
+        }
+
+        if ($('is_visible_on_front')) {
+            Event.observe($('is_visible_on_front'), 'change', checkIsAccountFilled);
+        }
+
+        if ($('used_in_product_listing')) {
+            Event.observe($('used_in_product_listing'), 'change', checkIsBillingFilled);
+        }
+
+        bindAttributeInputType();
+
+    });
+</script>
+

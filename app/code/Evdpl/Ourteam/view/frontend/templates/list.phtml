@@ -1,0 +1,32 @@
+<?php /** @var $block \Evdpl\Ourteam\Block\PostList */ ?>
+<div class="ourteam-list-container">
+        <ul class="teamGallery">
+            <?php foreach ($block->getPosts() as $_ourteam) : ?>
+                <?php $assignedstore = explode(',', $_ourteam->getStoreIds());
+                if(in_array($block->getStoreId(), $assignedstore) || $_ourteam->getStoreIds() == '0'){ ?>
+                <li class="ourteam-list-item">
+                     <a href="<?php echo $_ourteam->getUrl(); ?>" title="<?php echo $_ourteam->getTitle() ?>">
+                     <?php if($_ourteam->getData('image')){ ?>
+                       <img class="member_avatar " src="<?php echo $this->getUrl('pub/media/').$_ourteam->getData('image'); ?>" alt="<?php echo $_ourteam->getTitle(); ?>" width="190" height="190"/>
+                    <?php } else { ?>
+                       <img class="member_avatar" src="<?php echo $block->getViewFileUrl('Evdpl_Ourteam::images/team.png');?>" alt="<?php echo $_ourteam->getName(); ?>" width="190" height="190"/>
+                   <?php  }?>
+                    <h2 class="member_name"><?php echo $_ourteam->getTitle(); ?>                
+                    </h2></a>
+                    <?php if ($_ourteam->getDesignation()) { ?>
+                        <div id="greg_description"><?php echo $_ourteam->getDesignation(); ?>
+                        <?php } ?>
+                    </div>
+                       <?php if ($_ourteam->getContent()) {  ?>
+                    <a class="read-more" href="<?php echo $_ourteam->getUrl(); ?>" title="<?php echo $_ourteam->getName()?>">
+                                <?php echo 'View'; ?>   
+                            </a>
+                        <?php } ?>
+                </li>
+                <?php } else {
+                        echo "No any team member's found fot this store. ";
+                        break;
+                    } ?>
+            <?php endforeach; ?>
+        </ul>
+    </div>

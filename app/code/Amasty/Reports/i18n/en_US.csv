@@ -1,0 +1,81 @@
+Dashboard,Dashboard
+Sales,Sales
+Overview,Overview
+Orders,Orders
+"Sales By Hour","Sales By Hour"
+"Sales By Day of Week","Sales By Day of Week"
+"Sales By Country","Sales By Country"
+"Sales By Payment Type","Sales By Payment Type"
+"Sales By Customer Group","Sales By Customer Group"
+"Sales By Coupon","Sales By Coupon"
+"Sales By Category","Sales By Category"
+Catalog,Catalog
+"By Product","By Product"
+Bestsellers,Bestsellers
+"By Product Attributes","By Product Attributes"
+Customers,Customers
+"New vs Returning Customers","New vs Returning Customers"
+Quantity,Quantity
+Total,Total
+"Collection is not specified for chart block","Collection is not specified for chart block"
+Day,Day
+Week,Week
+Month,Month
+Year,Year
+"Items Ordered","Items Ordered"
+"By Status","By Status"
+From,From
+To,To
+"Advanced Reports","Advanced Reports"
+"Total Orders","Total Orders"
+"Total Sales","Total Sales"
+"Total Customers","Total Customers"
+"Total Items Ordered","Total Items Ordered"
+"Total Refunded","Total Refunded"
+"Total Abandoned Cart","Total Abandoned Cart"
+"Amasty Customers Report","Amasty Customers Report"
+more...,more...
+"Sales overview","Sales overview"
+Date,Date
+Amount,Amount
+"Conversion funnel","Conversion funnel"
+"Products viewed","Products viewed"
+"Not interested","Not interested"
+"Added to cart","Added to cart"
+"Abandoned cart","Abandoned cart"
+ordered,ordered
+"Bestsellers (Last 30 days)","Bestsellers (Last 30 days)"
+Name,Name
+"Last order","Last order"
+Order,Order
+Customer,Customer
+Status,Status
+Items,Items
+"Grand Total","Grand Total"
+Attribute,Attribute
+Value,Value
+Coupon,Coupon
+Qty,Qty
+Hour,Hour
+Payment,Payment
+Country,Country
+"Number Of Orders","Number Of Orders"
+SKU,SKU
+"Number of Orders","Number of Orders"
+Subtotal,Subtotal
+Tax,Tax
+Discounts,Discounts
+Invoiced,Invoiced
+Refunded,Refunded
+Period,Period
+"New Accounts","New Accounts"
+Reviews,Reviews
+"New Customers","New Customers"
+"Returning Customers","Returning Customers"
+"Percent of Returning","Percent of Returning"
+Category,Category
+Shipping,Shipping
+"Coupon Code","Coupon Code"
+"Customer Group","Customer Group"
+"Payment Type","Payment Type"
+"Day Of Week","Day Of Week"

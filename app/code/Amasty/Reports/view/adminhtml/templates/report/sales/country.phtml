@@ -1,0 +1,59 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_Reports
+ */
+?>
+<?php /** @var \Amasty\Reports\Block\Adminhtml\Report\Chart $block */ ?>
+<?php
+    $axis = $block->getAxisFields();
+?>
+<script type='text/javascript' src='https://www.google.com/jsapi'></script>
+<div class="content" data-role="amreports-content">
+    <div class="chart">
+        <script>
+            function draw_chart () {
+                google.load('visualization', '1.1', {
+                    packages: ['geochart'],
+                    callback: function() {
+                        var data = google.visualization.arrayToDataTable(window.chartData);
+                        var options = {};
+                        var chart = new google.visualization.GeoChart(document.getElementById('chartdiv'));
+                        chart.draw(data, options);
+                    }
+                } )
+            }
+            require([
+                'jquery',
+                'mage/translate',
+                'https://www.google.com/jsapi'
+            ], function($) {
+                window.chartData = [[$.mage.__('Country'), $.mage.__('Number Of Orders')]];
+                window.isDate = 0;
+                <?php
+                foreach ($block->getCollection() as $item) {
+                ?>
+                window.chartData.push([
+                    '<?php echo $item->getData($axis['y'])?>',
+                    <?php echo $item->getData($axis['x'])?>
+                ]);
+                <?php
+                }
+                if ($block->isDate()) {
+                ?>
+                window.isDate = 1;
+                <?php
+                }
+                ?>
+                draw_chart ()
+            });
+        </script>
+    
+        <div id="chartdiv" style="width: 100%; height: 400px;"></div>
+    </div>
+    
+    <div class="listing">
+        <?= $block->getChildHtml() ?>
+    </div>
+</div>

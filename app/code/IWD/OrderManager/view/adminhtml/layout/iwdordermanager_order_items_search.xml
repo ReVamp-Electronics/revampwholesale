@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Backend\Block\Template" template="IWD_OrderManager::order/view/items/search/js.phtml" name="create"/>
+
+            <block class="IWD\OrderManager\Block\Adminhtml\Order\Items\Search\Search" template="Magento_Sales::order/create/abstract.phtml" name="search">
+                <block class="IWD\OrderManager\Block\Adminhtml\Order\Items\Search\Grid" name="search_grid" as="grid"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

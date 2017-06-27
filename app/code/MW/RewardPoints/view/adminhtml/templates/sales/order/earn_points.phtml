@@ -1,0 +1,20 @@
+<?php
+$order = $block->getOrder();
+$rewardOrder = $block->getRewardOrder()->load($order->getId());
+$earnRewardpoint = (int) $rewardOrder->getEarnRewardpoint();
+
+if ($earnRewardpoint) :
+	$_dataHelper = $this->helper('MW\RewardPoints\Helper\Data');
+	$storeCode = $_dataHelper->getStoreById($order->getStoreId())->getCode();
+?>
+    <tr>
+    	<?php if ($block->getSource() instanceof \Magento\Sales\Model\Order\Creditmemo) : ?>
+			<td class="label"><?php echo __('You Lose') ?></td>
+    	<?php else : ?>
+	        <td class="label"><?php echo __('You Earn') ?></td>
+	    <?php endif; ?>
+        <td>
+            <?php echo $_dataHelper->formatPoints($earnRewardpoint, $storeCode); ?>
+        </td>
+    </tr>
+<?php endif; ?>

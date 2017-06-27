@@ -1,0 +1,17 @@
+<?php // @codingStandardsIgnoreFile ?>
+<?php /** @var $block \Aheadworks\SocialLogin\Block\Customer\Login */ ?>
+<?php $providers = $block->getProviders(); ?>
+<?php if(count($providers)): ?>
+<ul class="social-login-list <?php echo $block->escapeUrl($block->getCssClass()); ?> <?php echo $block->escapeUrl($block->getThemeCssClass()); ?>">
+    <?php foreach($providers as $provider): ?>
+    <li>
+        <a href="<?php echo $block->escapeUrl($block->getLoginUrl($provider)) ?>"
+           data-post='<?php /* @noEscape */ echo $block->getLoginPostData($provider); ?>'
+           class="social-login-btn social-login-btn-<?php echo $block->escapeUrl($provider->getConfig()->getCode()); ?>">
+            <span class="social-login-icon social-login-icon-<?php echo $block->escapeUrl($provider->getConfig()->getCode()); ?>"></span>
+            <?php /* @noEscape */ echo __('Login with <span class="social-login-label">%1</span>', $provider->getConfig()->getTitle()); ?>
+        </a>
+    </li>
+    <?php endforeach; ?>
+</ul>
+<?php endif; ?>

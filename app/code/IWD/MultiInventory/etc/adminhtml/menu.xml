@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="IWD_MultiInventory::catalog_warehouses_product"
+             title="Manage Stocks For Product" module="IWD_MultiInventory"
+             sortOrder="100" parent="Magento_Catalog::inventory"
+             action="iwdmultiinventory/warehouses_product/index"
+             resource="IWD_MultiInventory::iwdmultiinventory_warehouses_product"/>
+        <add id="IWD_MultiInventory::catalog_warehouses"
+             title="Manage Sources" module="IWD_MultiInventory"
+             sortOrder="101" parent="Magento_Catalog::inventory"
+             action="iwdmultiinventory/warehouses/index"
+             resource="IWD_MultiInventory::iwdmultiinventory_warehouses"/>
+    </menu>
+</config>

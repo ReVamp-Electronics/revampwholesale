@@ -1,0 +1,6 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Backend/etc/menu.xsd">
+    <menu>
+        <add id="Evdpl_Faques::home" title="Evdpl faq" module="Evdpl_Faques" sortOrder="100" parent="Magento_Backend::content" resource="Evdpl_Faques::faq"/>
+        <add id="Evdpl_Faques::faq" title="All Questions" translate="title" module="Evdpl_Faques" sortOrder="150" parent="Evdpl_Faques::home" action="faques/faq/" resource="Evdpl_Faques::faq"/> 
+    </menu>
+</config>

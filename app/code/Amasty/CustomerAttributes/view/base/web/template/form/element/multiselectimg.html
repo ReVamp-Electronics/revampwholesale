@@ -1,0 +1,29 @@
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2016 Amasty (http://www.amasty.com)
+* @package Amasty_CustomerAttributes
+*/
+-->
+<!-- ko foreach:  { data: options, as: 'item' }-->
+    <div class="amorderattr_img_checkbox" style="display: inline-block; padding-right: 4px;">
+        <!-- ko if: item.icon -->
+            <img onclick="jQuery(this).parent().find('input').click();"
+                 data-bind="attr: { for: $parent.uid + '-' + item.value, src: item.icon }" />
+        <!-- /ko -->
+        <div class="field choice admin__field admin__field-option">
+            <input type="checkbox" class="checkbox" data-bind="
+            checked: $parent.value,
+            checkedValue: value,
+            attr: { id: $parent.uid + '-' + value,
+                disabled: $parent.disabled,
+                name: $parent.inputName
+            },
+            hasFocus: $parent.focused">
+            <label class="label" data-bind="text: $parent.description || item.label, attr: { for: $parent.uid + '-' + item.value }"></label>
+        </div>
+    </div>
+<!-- /ko -->
+<!-- ko if: notice -->
+<div class="admin__field-note" data-bind="attr: {id: noticeId}"><span data-bind="text: notice"></span></div>
+<!-- /ko -->

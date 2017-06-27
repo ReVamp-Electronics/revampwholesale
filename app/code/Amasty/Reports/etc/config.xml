@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_Reports
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <amreports>
+            <widgets>
+                <widget1>total_orders</widget1>
+                <widget2>total_sales</widget2>
+                <widget3>total_customers</widget3>
+                <widget4>total_items</widget4>
+            </widgets>
+        </amreports>
+    </default>
+</config>

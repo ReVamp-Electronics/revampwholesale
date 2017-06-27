@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="iwd" translate="label" sortOrder="999998" class="iwd-extensions-tab">
+            <label>IWD Agency</label>
+        </tab>
+        <section id="iwdordermanager" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Order Manager</label>
+            <tab>iwd</tab>
+            <resource>IWD_OrderManager::config_iwdordermanager</resource>
+
+            <group id="info" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Info</label>
+                <field id="version" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Version</label>
+                    <frontend_model>IWD\OrderManager\Block\Adminhtml\System\Config\Version</frontend_model>
+                </field>
+                <field id="documentation" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Documentation</label>
+                    <frontend_model>IWD\OrderManager\Block\Adminhtml\System\Config\Documentation</frontend_model>
+                </field>
+                <field id="user_email" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Purchased Email</label>
+                    <validate>required-entry validate-email</validate>
+                    <comment><![CDATA[To activate this product, please enter the email address that was used to purchase this product from <a href="https://www.iwdagency.com/extensions/">IWD Agency</a>]]></comment>
+                </field>
+                <field id="status" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Status</label>
+                    <frontend_model>IWD\OrderManager\Block\Adminhtml\System\Config\Status</frontend_model>
+                </field>
+            </group>
+
+            <group id="general" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="enable" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable/Disable extension</comment>
+                </field>
+                <field id="order_statuses" translate="label" type="multiselect" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allow Edit Order With Statuses</label>
+                    <source_model>IWD\OrderManager\Model\Config\Source\Order\Statuses</source_model>
+                    <comment>Allow edit order only with selected statuses</comment>
+                </field>
+                <field id="auto_apply_shipping" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Apply Shipping Amount Automatically</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Update shipping amount automatically after updating the shipping address or ordered items.</comment>
+                </field>
+                <field id="enable_edit_coupon" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Edit Coupon Code</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+
+            <group id="order_grid" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Order Grid</label>
+                <field id="order_grid_enable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable Order Grid Totals</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="order_grid_sets" translate="label" type="multiselect" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Order Grid Totals</label>
+                    <source_model>IWD\OrderManager\Model\Config\Source\Order\Totals</source_model>
+                    <depends><field id="order_grid_enable">1</field></depends>
+                    <validate>required-entry</validate>
+                </field>
+            </group>
+
+            <group id="order_info" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Order Info</label>
+                <field id="edit_state" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Edit State</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Allow edit order state</comment>
+                </field>
+            </group>
+
+            <group id="update_reauthorize" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Update / Re-Authorization Process</label>
+                <field id="invoice_update_mode" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Updating Invoices</label>
+                    <source_model>IWD\OrderManager\Model\Config\Source\Invoice\UpdateMode</source_model>
+                    <comment>Specify how invoices are updated if an order's total increases after modifying the order.</comment>
+                </field>
+                <field id="shipments_update_mode" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Updating Shipments</label>
+                    <source_model>IWD\OrderManager\Model\Config\Source\Shipments\UpdateMode</source_model>
+                    <comment>Specify how shipments are updated after modifying an order.</comment>
+                </field>
+            </group>
+
+            <group id="order_items" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Edit Items</label>
+                <field id="validate_inventory" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Validate Inventory</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable validation of stock qty during order items editing</comment>
+                </field>
+                <field id="return_to_stock" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Return Item To Stock</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Default value for checkbox "Back to stock". Return to stock after remove item or reduce count item</comment>
+                </field>
+            </group>
+
+            <group id="allow_delete" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Delete Process</label>
+                <field id="orders" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Allow Delete Order(s)</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Delete order and related information like invoices, shipments, credit memos, etc.</comment>
+                </field>
+                <field id="order_statuses" translate="label" type="multiselect" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allow Delete Order With Statuses</label>
+                    <depends><field id="orders">1</field></depends>
+                    <source_model>IWD\OrderManager\Model\Config\Source\Order\Statuses</source_model>
+                    <comment>Allow delete orders only with selected statuses</comment>
+                </field>
+                <field id="invoices" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Allow Delete Invoice(s)</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Delete invoice and related information like credit memos, transactions, etc.</comment>
+                </field>
+                <field id="credit_memos" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Allow Delete Credit Memo(s)</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Delete credit memo and related information</comment>
+                </field>
+                <field id="shipments" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Allow Delete Shipment(s)</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Delete shipments and related information like shipments tracks, etc.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

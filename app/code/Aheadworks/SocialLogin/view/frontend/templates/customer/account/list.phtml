@@ -1,0 +1,55 @@
+<?php // @codingStandardsIgnoreFile ?>
+<?php /** @var $block \Aheadworks\SocialLogin\Block\Customer\Account\AccountsList */ ?>
+<?php $accounts = $block->getAccounts(); ?>
+<div class="block block-social-accounts-linked">
+    <div class="block-title"><strong><?php /* @noEscape */ echo __('Linked accounts') ?></strong></div>
+    <div class="block-content social-account-list">
+        <?php if(count($accounts)): ?>
+            <?php /** @var $account Aheadworks\SocialLogin\Api\Data\AccountInterface */ ?>
+            <?php foreach($accounts as $account): ?>
+                <div class="social-account-item">
+                    <div class="item-cell social-account-wrapper">
+                        <span class="social-account-icon social-account-<?php /* @noEscape */ echo $account->getType(); ?>"></span>
+                    </div>
+                    <div class="item-cell social-link-avatar">
+                        <img src="<?php echo /* @noEscape */ $block->getAccountImageUrl($account); ?>" class="social-link-avatar-img" />
+                        <span class="social-link-avatar-name">
+                            <span><?php /* @noEscape */ echo $account->getFirstName(); ?></span>
+                            <span><?php /* @noEscape */ echo $account->getLastName(); ?></span>
+                        </span>
+                    </div>
+                    <div class="item-cell social-account-unlink">
+                        <button type="button" class="action primary add"
+                                title="<?php /* @noEscape */ echo __('Unlink') ?>"
+                                data-post='<?php /* @noEscape */ echo $block->getUnlinkPostData($account); ?>'>
+                            <span><?php /* @noEscape */ echo __('Unlink') ?></span>
+                        </button>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <div class="message info empty"><span><?php /* @noEscape */ echo __('You have not linked any social accounts yet.'); ?></span></div>
+        <?php endif; ?>
+    </div>
+</div>
+<?php $unUsagesProviders = $block->getUnUsagesProviders(); ?>
+<?php if(count($unUsagesProviders)): ?>
+<div class="block block-social-accounts-link">
+    <div class="block-title"><strong><?php /* @noEscape */ echo __('Link new accounts') ?></strong></div>
+    <div class="block-content">
+        <ul class="social-login-list">
+            <?php foreach($unUsagesProviders as $provider): ?>
+                <li>
+                    <a href="<?php echo $block->escapeUrl($block->getLinkUrl($provider)) ?>"
+                       class="social-login-btn social-login-btn-<?php echo $block->escapeHtml($provider->getConfig()->getCode()); ?>"
+                       data-post='<?php /* @noEscape */ echo $block->getLinkPostData($provider); ?>'>
+                        <span class="social-login-icon social-login-icon-<?php echo $block->escapeHtml($provider->getConfig()->getCode()); ?>"></span>
+                        <?php /* @noEscape */ echo __('Link <span class="social-login-label">%1</span> account', $provider->getConfig()->getTitle()); ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</div>
+<?php endif; ?>

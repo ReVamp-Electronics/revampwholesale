@@ -1,0 +1,27 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_Xsearch
+ */
+?>
+<?php $_categoryCollection = $block->getLoadedCategoryCollection();?>
+<?php if ($_categoryCollection->count()): ?>
+<li class="amasty-xsearch-block-header"><?php echo __($block->getTitle())?></li>
+    <?php foreach ($_categoryCollection as $_category): ?>
+        
+        <li class="category-item" click-url="<?php /* @escapeNotVerified */ echo $_category->getUrl() ?>">
+            <strong>
+                <a
+                   href="<?php /* @escapeNotVerified */ echo $_category->getUrl() ?>">
+                    <?php /* @escapeNotVerified */ echo $block->getName($_category); ?>
+                </a>
+            </strong>
+            <?php if ($block->showDescription($_category)) :?>
+                <div>
+                    <?php /* @escapeNotVerified */ echo $block->getDescription($_category)?>
+                </div>
+            <?php endif; ?>
+        </li>
+    <?php endforeach;?>
+<?php endif; ?>

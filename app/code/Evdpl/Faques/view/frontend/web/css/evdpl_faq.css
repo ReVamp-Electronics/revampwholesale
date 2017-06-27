@@ -1,0 +1,50 @@
+/**
+ * @package     Evdpl_Ourteam
+ * @author      Evdpl Development
+ */
+.faq {}
+.accordion {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 0 30px;
+    border-top: none;
+    border-left: none;
+}
+.accordion li {
+    width: 100%;
+    float: left;
+    padding: 0;
+}
+.accordion a.ui-accordion-header{
+    background: #FFFFFF url('../images/open.png') no-repeat center right;
+    border-radius: 2px;
+    box-shadow: 0 0 1px #d5d5d5;
+    color: #121212;
+    float: left;
+    margin: 0 0 18px;
+    padding: 1%;
+    text-decoration: none;
+    font-weight: normal;
+    width: 98%;
+    font-size: 14px;
+}
+.accordion li.active>a {
+    background: #FFFFFF url('../images/close.png') no-repeat center right;
+}
+.accordion a.ui-accordion-header:hover {
+    color: #242424;
+}
+.accordion li .cont {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 2px;
+    box-shadow: 0 0 2px #d5d5d5;
+    color: #636363;
+    float: left;
+    margin: 0 0 18px;
+    padding: 1% 1% 0 1%;
+    width: 98%;
+}
+.accordion li div p {
+    line-height: 18px;
+    padding: 0 0 10px 0;
+}

@@ -1,0 +1,51 @@
+<?php
+$_dataHelper = $this->helper('MW\RewardPoints\Helper\Data');
+$rate = $block->getPointPerMoney();
+?>
+<div class="block">
+    <div class="block-title">
+        <strong style="background: none; padding: 0px;"><?php echo $this->helper('MW\RewardPoints\Helper\Data')->getRewardIconHtml().__('Reward Points Information') ?></strong>
+    </div>
+
+    <table>
+        <tr>
+            <td>
+                <p class="amount"><?php echo __('Your Reward Points: <strong>%1</strong> = <strong>%2</strong>',$_dataHelper->formatPoints($block->getRewardPoints()), $block->getMoney()) ?></p>
+                <p class="amount"><?php echo __('Points/Currency Exchange Rate: <strong>%1</strong> = <strong>%2</strong>', $_dataHelper->formatPoints($rate[0]), $_dataHelper->formatMoney($rate[1])) ?></p>
+
+                <?php if ($block->canExchangeToCredit()) : ?>
+                    <?php $_rate = $block->getPointPerCredit(); ?>
+                    <p class="amount"><?php echo __('Reward Point/Credit Rate: <strong>%1</strong> = <strong>%2</strong> (credit)', $_dataHelper->formatPoints($_rate[0]), $rate[1]) ?></p>
+                <?php endif; ?>
+            </td>
+
+            <?php if ($block->canExchangeToCredit()) : ?>
+                <td style="width: 50%;padding-left:50px">
+                    <form name="frm_exchange_rewardpoints" id="frm_exchange_rewardpoints" action="<?php echo $block->getUrl('rewardpoints/rewardpoints/exchange');?>" method="post">
+                        <h2 style="font-size: 12px; font-weight: bold;padding-bottom:10px;"><?php echo __('Exchange Reward Points To Credit')?></h2>
+                        <div style="width:185px; float:left;">
+                            <label><?php echo __("Points:")?> </label>
+                            <input type="text" name="exchange_points" class="input-text required-entry validate-digits" />
+                        </div>
+                        <div style="float:left; text-align: right;">
+                            <button type="submit" title="<?php echo __("Exchange")?>" class="button">
+                                <span><span><?php echo __("Exchange")?></span></span>
+                            </button>
+                        </div>
+                    </form>
+                </td>
+
+                <script>
+                    require([
+                        'jquery',
+                        'mage/mage'
+                    ], function($) {
+                        // Validate form
+                        var exchangeForm = $('#frm_exchange_rewardpoints');
+                        exchangeForm.mage('validation');
+                    });
+                </script>
+            <?php endif; ?>
+        </tr>
+    </table>
+</div>

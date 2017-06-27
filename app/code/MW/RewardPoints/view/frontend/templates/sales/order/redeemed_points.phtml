@@ -1,0 +1,36 @@
+<?php
+$order = $block->getOrder();
+$rewardOrder = $block->getRewardOrder()->load($order->getId());
+
+$rewardpointDiscountShow = $order->getMwRewardpointDiscountShow();
+if ($rewardpointDiscountShow == 0) {
+	$rewardpointDiscountShow = $this->helper('Magento\Directory\Helper\Data')->currencyConvert(
+		$rewardOrder->getMoney(),
+		$order->getBaseCurrencyCode(),
+		$order->getOrderCurrencyCode()
+	);
+}
+
+if ($rewardpointDiscountShow) :
+	$rewardpoints = (int) $block->getOrder()->getMwRewardpoint();
+	if ($rewardpoints == 0) {
+		$rewardpoints = $rewardOrder->getRewardPoint();
+	}
+
+	$value = - $rewardpointDiscountShow;
+	if ($block->getSource() instanceof \Magento\Sales\Model\Order\Creditmemo) {
+		$value = - $value;
+	}
+
+	$_dataHelper = $this->helper('MW\RewardPoints\Helper\Data');
+	$storeCode = $_dataHelper->getStoreById($block->getSource()->getStoreId())->getCode();
+?>
+	<tr class="rewardpoint_discount">
+		<td <?php echo $block->getLabelProperties() ?> scope="row">
+		    <?php echo __('You Redeemed (%1)', trim($_dataHelper->formatPoints($rewardpoints ,$storeCode))); ?>
+		</td>
+		<td <?php echo $block->getValueProperties() ?>>
+			<?php echo $order->formatPrice($value) ?>
+		</td>
+	</tr>
+<?php endif; ?>

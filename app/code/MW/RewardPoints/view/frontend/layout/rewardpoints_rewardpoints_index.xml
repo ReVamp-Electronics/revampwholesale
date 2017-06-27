@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<update handle="customer_account"/>
+	<head>
+		<link src="MW_RewardPoints::js/transaction.js"/>
+		<css src="MW_RewardPoints::css/style.css"/>
+	</head>
+
+	<body>
+		<referenceBlock name="reward_points">
+            <arguments>
+                <argument name="is_highlighted" xsi:type="boolean">true</argument>
+            </arguments>
+        </referenceBlock>
+		<referenceContainer name="content">
+			<block class="Magento\Framework\View\Element\Template" name="customer_rewardpoints_dashboard" template="MW_RewardPoints::customer/account/rewardpoints.phtml" cacheable="false" after="page.main.title">
+				<block class="MW\RewardPoints\Block\Rewardpoints\Info" name="customer_rewardpoints_info" as="info" template="MW_RewardPoints::customer/account/rewardpoints/info.phtml"/>
+	            <block class="MW\RewardPoints\Block\Rewardpoints\Email" name="customer_rewardpoints_email" as="email" template="MW_RewardPoints::customer/account/rewardpoints/email.phtml"/>
+	            <block class="MW\RewardPoints\Block\Rewardpoints\Transaction" name="customer_rewardpoints_transaction" as="transaction" template="MW_RewardPoints::customer/account/rewardpoints/transaction.phtml">
+	            	<action method="setPageSize"><page_size>15</page_size></action>
+	            	<block class="Magento\Framework\View\Element\Template" name="customer_rewardpoints_transaction_note" as="note" template="MW_RewardPoints::customer/account/rewardpoints/transaction/note.phtml"/>
+	            </block>
+				<block class="Magento\Framework\View\Element\Template" name="customer_rewardpoints_send" as="send" template="MW_RewardPoints::customer/account/rewardpoints/send.phtml"/>
+			</block>
+		</referenceContainer>
+	</body>
+</page>

@@ -1,0 +1,45 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Rma\Block\Customer\Request\NewRequest\Step\SelectOrder\Items\Renderer */
+?>
+<?php if ($block->canRender()): ?>
+    <?php
+        /** @var \Magento\Sales\Model\Order\Item $item */
+        $item = $block->getItem();
+        $order = $item->getOrder();
+    ?>
+    <tr data-order-id="<?php echo $order->getId() ?>" data-order-item-id="<?php echo $item->getId() ?>" class="order-item-row" style="display: none;">
+        <td class="col item_id"></td>
+        <td colspan="2">
+            <a href="<?php echo $item->getProduct()->getProductUrl() ?>">
+                <span><?php echo $item->getName() ?></span>
+            </a>
+        </td>
+        <td class="col items_for_return" colspan="3"></td>
+    </tr>
+    <?php $lastBundleOptionId = null; ?>
+    <?php foreach ($item->getChildrenItems($item) as $childItem): ?>
+        <?php
+            $options = $childItem->getProductOptions();
+            $selectedAttributes = isset($options['bundle_selection_attributes']) ?
+                unserialize($options['bundle_selection_attributes']) :
+                null
+            ;
+        ?>
+        <?php if ($selectedAttributes && $selectedAttributes['option_id'] != $lastBundleOptionId): ?>
+            <tr data-order-id="<?php echo $order->getId() ?>" data-order-item-id="<?php echo $item->getId() ?>" class="order-item-row bundle-option" style="display: none;">
+                <td class="col item_id"></td>
+                <td class="col option-label" colspan="2">
+                    <span><?php echo $selectedAttributes['option_label'] ?></span>
+                </td>
+                <td class="col items_for_return" colspan="3"></td>
+            </tr>
+            <?php $lastBundleOptionId = $selectedAttributes['option_id']; ?>
+        <?php endif; ?>
+        <?php echo $block->getItemRenderer($childItem)->toHtml() ?>
+    <?php endforeach; ?>
+<?php endif; ?>

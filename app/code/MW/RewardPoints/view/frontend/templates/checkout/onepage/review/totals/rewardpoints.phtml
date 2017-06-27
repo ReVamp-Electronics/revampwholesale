@@ -1,0 +1,12 @@
+<?php
+$quote = $block->getCheckoutSession()->getQuote();
+$earnRewardpoint = (int) $quote->getEarnRewardpoint();
+?>
+<?php if ($earnRewardpoint) : ?>
+	<tr>
+	    <th class="mark" colspan="<?php echo $this->getColumnSpan() ?>" scope="row"><?php echo __("You Earn"); ?></th>
+	    <td class="amount">
+	    	<span class="price"><?php echo $this->helper('MW\RewardPoints\Helper\Data')->formatPoints($earnRewardpoint)?></span>
+	    </td>
+	</tr>
+<?php endif; ?>

@@ -1,0 +1,25 @@
+<?php
+$post = $block->getPost();
+?>
+<div class="ourteam-view">
+    
+    <div class="ourteam-detail">
+        <div class="ourteam-image">
+            <?php if ($post->getData('image')) { ?>
+                <img src="<?php echo $this->getUrl('pub/media/').$post->getData('image'); ?>" alt="<?php echo $post->getTitle(); ?>" />
+            <?php } else {?>
+                <img class="member_avatar" src="<?php echo $block->getViewFileUrl('Evdpl_Ourteam::images/team.png');?>" alt="<?php echo $_ourteam->getName(); ?>" width="190" height="190"/>
+                <?php } ?>
+        </div>
+       <div class="ourteam-right">
+        <h2 class="ourteam-name">
+        <b><?php echo 'Name'; ?>:</b> <?php echo $post->getTitle(); ?>
+    </h2>
+        <div class="ourteam-short_desc">
+            <b><?php echo 'Designation'; ?>:</b><br><?php echo $post->getDesignation(); ?>
+        </div>
+    <div class="ourteam-description">
+        <b><?php echo 'Description'; ?>:</b> <?php echo $post->getContent(); ?>
+    </div>
+       </div>        
+</div>

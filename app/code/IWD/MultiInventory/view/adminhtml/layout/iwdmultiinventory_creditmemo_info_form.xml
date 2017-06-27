@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <!--<body>
+        <referenceContainer name="content">
+            <block class="IWD\MultiInventory\Block\Adminhtml\Creditmemo\Info\Form" name="iwdordermamager_creditmemo_info_form" template="IWD_MultiInventory::creditmemo/view/info/form.phtml">
+                <block class="IWD\MultiInventory\Block\Adminhtml\Order\View\Actions" name="iwdordermamager_order_actions" template="IWD_MultiInventory::order/view/actions.phtml">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">om-order-information</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>-->
+</page>

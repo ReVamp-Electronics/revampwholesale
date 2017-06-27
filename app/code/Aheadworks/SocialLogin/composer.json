@@ -1,0 +1,25 @@
+{
+    "name": "aheadworks/module-social-login",
+    "description": "Social login for customers.",
+    "require": {
+        "php": "~5.5.0|~5.6.0|~7.0.0",
+        "magento/framework": "*",
+        "magento/module-customer": "*",
+        "magento/module-backend": "*",
+        "magento/module-config": "*",
+        "magento/module-ui": "*",
+        "lusitanian/oauth": "*"
+    },
+    "type": "magento2-module",
+    "version": "1.4.0",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "autoload": {
+        "files": [ "registration.php" ],
+        "psr-4": {
+            "Aheadworks\\SocialLogin\\": ""
+        }
+    }
+}

@@ -1,0 +1,57 @@
+<?php
+$listMessages = $block->getMessageRules();
+if (sizeof($listMessages)) :
+?>
+	<style type="text/css" media="screen">
+		.mw_rwp_promotion {
+			background: #EFF5EA;
+			color: #3D6611;
+			padding: 8px 8px 8px 8px;
+			margin-bottom: 15px;
+			font-weight: bold;
+			font-size: 12px;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+		}
+		ul#mw_rewardpoint_promotion_message {
+			min-height: 24px;
+			margin: 0;
+			padding: 0;
+			position: relative;
+			overflow: hidden
+		}
+		ul#mw_rewardpoint_promotion_message li {
+			display: block;
+			list-style: none;
+			margin: 0;
+			padding: 0 0 0 5px;
+			position: relative !important;
+			line-height: 24px;
+		}
+	</style>
+
+    <div style="overflow: hidden;">
+	    <div style="padding: 8px 0 0 10px; float: left; position: relative; z-index: 10;">
+	    	<?php echo $this->helper('MW\RewardPoints\Helper\Data')->getRewardIconHtml(); ?>
+	    </div>
+
+		<div id="mw_rwp_promotion" class="mw_rwp_promotion">
+	        <ul id="mw_rewardpoint_promotion_message">
+	            <?php foreach($listMessages as $message) : ?>
+					<li><?php echo $message; ?></li>
+				<?php endforeach; ?>
+	        </ul>
+	    </div>
+    </div>
+
+	<script>
+		require([
+			'jquery',
+			'mwSlideShow'
+		], function($) {
+			$(document).ready(function() {
+				new MwSlideShow('mw_rewardpoint_promotion_message', { slideDuration: 4, startHidden: false });
+			});
+		});
+	</script>
+<?php endif; ?>

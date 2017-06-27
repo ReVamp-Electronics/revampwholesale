@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="after.body.start">
+            <block class="IWD\MultiInventory\Block\Adminhtml\Product\Edit\Jsinit" name="iwd_product_edit_jsinit" template="IWD_MultiInventory::catalog/product/jsinit.phtml" after="-" />
+        </referenceContainer>
+    </body>
+</page>

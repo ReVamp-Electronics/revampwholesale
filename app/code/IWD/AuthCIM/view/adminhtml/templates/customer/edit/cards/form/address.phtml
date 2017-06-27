@@ -1,0 +1,114 @@
+<?php
+/** @var IWD\AuthCIM\Block\Customer\Edit\Tab\Cards\Form $block */
+?>
+
+<div id="iwd_cim_address_form" class="admin__fieldset">
+    <div class="admin__field _required">
+        <label class="admin__field-label"><span><?php /* @escapeNotVerified */ echo __('First Name')?></span></label>
+        <div class="admin__field-control">
+            <input class="admin__control-text required-entry" type="text" name="address[firstname]" id="authcim_address_firstname"/>
+        </div>
+    </div>
+    <div class="admin__field _required">
+        <label class="admin__field-label"><span><?php /* @escapeNotVerified */ echo __('Last Name')?></span></label>
+        <div class="admin__field-control">
+            <input class="admin__control-text required-entry" type="text" name="address[lastname]" />
+        </div>
+    </div>
+    <div class="admin__field">
+        <label class="admin__field-label"><span><?php /* @escapeNotVerified */ echo __('Company')?></span></label>
+        <div class="admin__field-control">
+            <input class="admin__control-text" type="text" name="address[company]" />
+        </div>
+    </div>
+    <div class="admin__field _required">
+        <label class="admin__field-label"><span><?php /* @escapeNotVerified */ echo __('Street Address')?></span></label>
+        <div class="admin__field-control">
+            <div class="admin__field _required">
+                <input class="admin__control-text required-entry" type="text" name="address[street_line_1]" />
+            </div>
+            <div class="admin__field _required">
+                <input class="admin__control-text" type="text" name="address[street_line_2]" />
+            </div>
+        </div>
+    </div>
+    <div class="admin__field _required">
+        <label class="admin__field-label"><span><?php /* @escapeNotVerified */ echo __('City')?></span></label>
+        <div class="admin__field-control">
+            <input class="admin__control-text required-entry" type="text" name="address[city]" />
+        </div>
+    </div>
+    <div class="admin__field">
+        <div class="admin__field _required col-2">
+            <label class="admin__field-label"><span><?php /* @escapeNotVerified */ echo __('Country')?></span></label>
+            <div class="admin__field-control">
+                <select class="admin__control-select" name="address[country_id]" id="iwd_cim_address_country_id">
+                    <?php $countries = $block->getCountries(); ?>
+                    <?php foreach ($countries as $country) : ?>
+                        <option value="<?php /* @escapeNotVerified */ echo $country['value'] ?>" <?php if ($country['value'] == 'US') : ?>selected="selected"<?php endif; ?>>
+                            <?php /* @escapeNotVerified */ echo $country['label'] ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        <div class="admin__field _required field-region_id col-2">
+            <label class="admin__field-label"><span><?php /* @escapeNotVerified */ echo __('State/Province')?></span></label>
+            <div class="admin__field-control">
+                <select class="admin__control-select required-entry" name="address[region_id]" id="iwd_cim_address_region_id"></select>
+            </div>
+        </div>
+        <div class="admin__field field-region col-2">
+            <label class="admin__field-label"><span><?php /* @escapeNotVerified */ echo __('State/Province')?></span></label>
+            <div class="admin__field-control">
+                <input class="admin__control-text" type="text" name="address[region]" />
+            </div>
+        </div>
+    </div>
+    <div class="admin__field">
+        <div class="admin__field _required col-2">
+            <label class="admin__field-label"><span><?php /* @escapeNotVerified */ echo __('Zip/Postal Code')?></span></label>
+            <div class="admin__field-control">
+                <input class="admin__control-text required-entry" type="text" name="address[postcode]" />
+            </div>
+        </div>
+        <div class="admin__field col-2">
+            <label class="admin__field-label"><span><?php /* @escapeNotVerified */ echo __('Phone Number')?></span></label>
+            <div class="admin__field-control">
+                <input class="admin__control-text" type="text"  name="address[telephone]" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    require (["jquery", "jquery/ui"],
+        function ($j) {
+            var countryRegions=<?php /* @escapeNotVerified */ echo json_encode($block->getCountryRegions()) ?>;
+            $j("#iwd_cim_address_form").on("change", "#iwd_cim_address_country_id",
+                function(event) {
+                    var id = $j("#iwd_cim_address_country_id").val();
+                    initRegion(id, null);
+                });
+            function initRegion(countryId, regionId) {
+                if (countryRegions[countryId]) {
+                    var regionOptions = $j("#iwd_cim_address_region_id");
+                    regionOptions.find("option").remove();
+                    $j.each(countryRegions[countryId], function(i, val){
+                        var opt = $j("<option />");
+                        opt.val(i).text(val);
+                        if (i == regionId) {
+                            opt.attr("selected", "selected");
+                        }
+                        regionOptions.append(opt);
+                    });
+                    $j(".field-region").hide();
+                    $j(".field-region_id").show();
+                } else {
+                    $j(".field-region").show();
+                    $j(".field-region_id").hide();
+                }
+            }
+            initRegion("US", 1);
+        });
+</script>

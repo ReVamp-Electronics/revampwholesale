@@ -1,0 +1,34 @@
+<?php if ($block->getAppId() != "") : ?>
+<script>
+require([
+  'jquery'
+], function($) {
+  window.fbAsyncInit = function() {
+      FB.init({
+        appId  : <?php echo $block->getAppId() ?>,
+        cookie : true,
+        status : true,
+        oauth  : true,
+        xfbml  : true
+      });
+
+      FB.Event.subscribe('edge.create',
+          function(response) {
+            $.ajax({
+              url: '<?php echo $block->getUrl('rewardpoints/rewardpoints/setpointsfblike');?>',
+              type: 'POST',
+              data: {pageurl: response},
+            });
+          }
+      );
+  };
+
+  (function(d){
+      var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+      js = d.createElement('script'); js.id = id; js.async = true;
+      js.src = "//connect.facebook.net/en_US/all.js";
+      d.getElementsByTagName('head')[0].appendChild(js);
+  }(document));
+});
+</script>
+<?php endif; ?>

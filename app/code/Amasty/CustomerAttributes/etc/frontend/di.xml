@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerAttributes
+ */Magento\Customer\Model\ResourceModel\CustomerRepository
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Checkout\Block\Onepage">
+        <arguments>
+            <argument name="layoutProcessors" xsi:type="array">
+                <item name="customerAttributes" xsi:type="object">Amasty\CustomerAttributes\Block\Checkout\LayoutProcessor</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Validator">
+        <plugin name="Amasty_CustomerAttributes::customer-validation" type="Amasty\CustomerAttributes\Model\Validator"/>
+    </type>
+    <type name="\Magento\Customer\Model\Form">
+        <plugin name="Amasty_CustomerAttributes::ee-version-compatibility"
+                type="Amasty\CustomerAttributes\Plugin\Customer\Model\Form"/>
+    </type>
+</config>

@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+		<css src="MW_RewardPoints::css/mw_reward_slider.css" />
+	</head>
+
+	<body>
+		<referenceContainer name="checkout.cart.form.before">
+			<block class="MW\RewardPoints\Block\Checkout\Cart\Message" name="cart.rewardpoints.message" cacheable="false" />
+			<block class="MW\RewardPoints\Block\Checkout\Cart\Banner" name="cart.rewardpoints.promotion_banner" cacheable="false" />
+		</referenceContainer>
+
+		<referenceBlock name="checkout.cart.coupon">
+	    	<action method="setTemplate" ifconfig="rewardpoints/general/extend_cart">
+	    		<argument name="template" xsi:type="string">MW_RewardPoints::checkout/cart/coupon.phtml</argument>
+	    	</action>
+	    	<block class="MW\RewardPoints\Block\Checkout\Cart\Rewardpoints" name="rewardpoints.checkout.cart.rewardpoints" as="rewardpoints" template="MW_RewardPoints::checkout/cart/rewardpoints.phtml"/>
+	    </referenceBlock>
+
+		<referenceBlock name="checkout.cart.order.actions.gift_options">
+			<arguments>
+				<argument name="jsLayout" xsi:type="array">
+					<item name="components" xsi:type="array">
+						<item name="giftOptionsCart" xsi:type="array">
+							<item name="config" xsi:type="array">
+								<item name="template" xsi:type="string">MW_RewardPoints/gift-message</item>
+							</item>
+						</item>
+					</item>
+				</argument>
+			</arguments>
+		</referenceBlock>
+		<referenceBlock name="checkout.cart.item.renderers.default.actions.gift_options">
+			<arguments>
+				<argument name="jsLayout" xsi:type="array">
+					<item name="components" xsi:type="array">
+						<item name="giftOptionsCartItem" xsi:type="array">
+							<item name="config" xsi:type="array">
+								<item name="template" xsi:type="string">MW_RewardPoints/gift-message-item-level</item>
+							</item>
+						</item>
+					</item>
+				</argument>
+			</arguments>
+		</referenceBlock>
+		<referenceBlock name="checkout.cart.item.renderers.simple.actions.gift_options">
+			<arguments>
+				<argument name="jsLayout" xsi:type="array">
+					<item name="components" xsi:type="array">
+						<item name="giftOptionsCartItem" xsi:type="array">
+							<item name="config" xsi:type="array">
+								<item name="template" xsi:type="string">MW_RewardPoints/gift-message-item-level</item>
+							</item>
+						</item>
+					</item>
+				</argument>
+			</arguments>
+		</referenceBlock>
+		<referenceBlock name="checkout.cart.item.renderers.bundle.actions.gift_options">
+			<arguments>
+				<argument name="jsLayout" xsi:type="array">
+					<item name="components" xsi:type="array">
+						<item name="giftOptionsCartItem" xsi:type="array">
+							<item name="config" xsi:type="array">
+								<item name="template" xsi:type="string">MW_RewardPoints/gift-message-item-level</item>
+							</item>
+						</item>
+					</item>
+				</argument>
+			</arguments>
+		</referenceBlock>
+		<referenceBlock name="checkout.cart.item.renderers.grouped.actions.gift_options">
+			<arguments>
+				<argument name="jsLayout" xsi:type="array">
+					<item name="components" xsi:type="array">
+						<item name="giftOptionsCartItem" xsi:type="array">
+							<item name="config" xsi:type="array">
+								<item name="template" xsi:type="string">MW_RewardPoints/gift-message-item-level</item>
+							</item>
+						</item>
+					</item>
+				</argument>
+			</arguments>
+		</referenceBlock>
+		<referenceBlock name="checkout.cart.item.renderers.configurable.actions.gift_options">
+			<arguments>
+				<argument name="jsLayout" xsi:type="array">
+					<item name="components" xsi:type="array">
+						<item name="giftOptionsCartItem" xsi:type="array">
+							<item name="config" xsi:type="array">
+								<item name="template" xsi:type="string">MW_RewardPoints/gift-message-item-level</item>
+							</item>
+						</item>
+					</item>
+				</argument>
+			</arguments>
+		</referenceBlock>
+		<referenceBlock name="checkout.cart.item.renderers.gift-card.actions.gift_options">
+			<arguments>
+				<argument name="jsLayout" xsi:type="array">
+					<item name="components" xsi:type="array">
+						<item name="giftOptionsCartItem" xsi:type="array">
+							<item name="config" xsi:type="array">
+								<item name="template" xsi:type="string">MW_RewardPoints/gift-message-item-level</item>
+							</item>
+						</item>
+					</item>
+				</argument>
+			</arguments>
+		</referenceBlock>
+
+	    <referenceBlock name="checkout.cart.totals">
+	    	<action method="setTemplate" ifconfig="rewardpoints/general/enabled">
+	    		<argument name="template" xsi:type="string">MW_RewardPoints::checkout/cart/totals.phtml</argument>
+	    	</action>
+	    	<block class="MW\RewardPoints\Block\Checkout\Cart\Totals\Rewardpoints" name="rewardpoints.checkout.cart.totals.rewardpoints" as="rewardpoints" template="MW_RewardPoints::checkout/cart/totals/rewardpoints.phtml"/>
+	    	<block class="MW\RewardPoints\Block\Checkout\Cart\Totals\Rewardpoints" name="rewardpoints.checkout.cart.totals.redeempoints" as="redeempoints" template="MW_RewardPoints::checkout/cart/totals/redeempoints.phtml"/>
+	    	<block class="MW\RewardPoints\Block\Checkout\Cart\Totals\Rewardpoints" name="rewardpoints.checkout.cart.totals.rewardpoints_totals" as="rewardpoints_totals" template="MW_RewardPoints::checkout/cart/totals/rewardpoints_totals.phtml"/>
+	    </referenceBlock>
+	</body>
+</page>

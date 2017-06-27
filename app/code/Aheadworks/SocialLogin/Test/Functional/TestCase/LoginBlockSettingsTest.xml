@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../vendor/magento/mtf/etc/variations.xsd">
+    <testCase name="Aheadworks\SocialLogin\Test\TestCase\LoginBlockSettingsTest" summary="Login Block settings">
+        <variation name="LoginBlockSettingsTestVariation1">
+            <data name="configData" xsi:type="string">social_enable,social_enable_twitter,social_block_setting_visible_all</data>
+            <constraint name="Aheadworks\SocialLogin\Test\Constraint\LoginBlock\AssertLoginPageVisible" />
+            <constraint name="Aheadworks\SocialLogin\Test\Constraint\LoginBlock\AssertRegisterPageVisible" />
+        </variation>
+    </testCase>
+</config>

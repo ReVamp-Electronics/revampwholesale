@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="IWD_SalesRep::salesrep_index" title="Sales Representatives" module="IWD_SalesRep" sortOrder="211" parent="Magento_Sales::sales_operation" action="salesrep/salesrep/index" resource="IWD_SalesRep::salesrep"/>
+        <add id="IWD_SalesRep::report_order" title="Sales Representatives" module="IWD_SalesRep" sortOrder="71" parent="Magento_Reports::report_salesroot" action="salesrep/reports/order" resource="IWD_SalesRep::reports_order"/>
+    </menu>
+</config>

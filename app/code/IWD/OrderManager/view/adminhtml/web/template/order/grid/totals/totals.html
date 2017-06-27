@@ -1,0 +1,80 @@
+<!-- ko if: iwdTotals -->
+<div class="iwd-om-totals">
+    <div class="default-totals" data-bind='visible:!showMoreLess()'>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                 <td>
+                     <div class="group-title">
+                         (<span data-bind="html: fromToPageLabel()"></span>)
+                     </div>
+                     <div class="col-2">
+                        <div class="total-block">
+                            <span class="total-title" data-bind="text: 'Page subtotal'"></span>
+                            <span class="total-amount" data-bind="text: iwdTotals.defaultTotals.subtotal.page"></span>
+                        </div>
+                     </div>
+                     <div class="col-2">
+                        <div class="total-block">
+                            <span class="total-title" data-bind="text: 'Page total'"></span>
+                            <span class="total-amount" data-bind="text: iwdTotals.defaultTotals.total.page"></span>
+                        </div>
+                     </div>
+                </td>
+                <td>
+                    <div class="group-title">
+                        (<span data-bind="html: ordersCountLabel()"></span>)
+                    </div>
+                    <div class="col-2">
+                        <div class="total-block">
+                            <span class="total-title" data-bind="text: 'Subtotal'"></span>
+                            <span class="total-amount" data-bind="text: iwdTotals.defaultTotals.subtotal.order"></span>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="total-block">
+                            <span class="total-title" data-bind="text: 'Grand total'"></span>
+                            <span class="total-amount" data-bind="text: iwdTotals.defaultTotals.total.order"></span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="more-totals" data-bind='visible:showMoreLess()'>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+            <!-- ko foreach: {data: additionalTotals, as: 'additionalTotal'} -->
+                <!-- ko foreach: {data: Object.keys(additionalTotal), as: 'key'} -->
+                <td>
+                    <div class="col-2">
+                        <div class="group-title">
+                            (<span data-bind="html: $parents[1].fromToPageLabel()"></span>)
+                        </div>
+                        <div class="total-block">
+                            <span class="total-title" data-bind="text: $parents[1].pageLabel(additionalTotal[key])"></span>
+                            <span class="total-amount" data-bind="text: additionalTotal[key].page"></span>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="group-title">
+                            (<span data-bind="html: $parents[1].ordersCountLabel()"></span>)
+                        </div>
+                        <div class="total-block">
+                            <span class="total-title" data-bind="text: $parents[1].orderLabel(additionalTotal[key])"></span>
+                            <span class="total-amount" data-bind="text: additionalTotal[key].order"></span>
+                        </div>
+                    </div>
+                </td>
+                <!-- /ko -->
+            <!-- /ko -->
+            </tr>
+        </table>
+    </div>
+
+    <div class="show-less-more" data-bind='click:showMoreLessClick'>
+        <span data-bind='visible:!showMoreLess()'>Show More<i class="fa fa-angle-double-down" aria-hidden="true"></i></span>
+        <span data-bind='visible:showMoreLess()'>Show Less<i class="fa fa-angle-double-up" aria-hidden="true"></i></span>
+    </div>
+</div>
+<!-- /ko -->

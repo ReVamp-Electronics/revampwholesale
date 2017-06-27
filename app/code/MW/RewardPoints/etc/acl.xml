@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="MW_RewardPoints::rewardpoints" title="Reward Points Pro" sortOrder="35">
+                    <resource id="MW_RewardPoints::earn_rewardpoints" title="Earning Rules" sortOrder="1">
+                        <resource id="MW_RewardPoints::catalog_rules" title="Catalog Earning Rules" sortOrder="1" />
+                        <resource id="MW_RewardPoints::products" title="Individual Reward Points" sortOrder="2" />
+                        <resource id="MW_RewardPoints::cart_rules" title="Shopping Cart Earning Rule" sortOrder="3" />
+                        <resource id="MW_RewardPoints::active_rules" title="Customer Behavior Rules" sortOrder="4" />
+                    </resource>
+
+                    <resource id="MW_RewardPoints::customers" title="Customers" sortOrder="2">
+                        <resource id="MW_RewardPoints::spend_rewardpoints" title="Spending Rules" sortOrder="1" />
+                        <resource id="MW_RewardPoints::member" title="Customer Accounts" sortOrder="2" />
+                        <resource id="MW_RewardPoints::products_sell" title="Sell Products in Points" sortOrder="3" />
+                        <resource id="MW_RewardPoints::history" title="All Transaction History" sortOrder="4" />
+                    </resource>
+
+                    <resource id="MW_RewardPoints::report" title="Reports" sortOrder="3">
+                        <resource id="MW_RewardPoints::overview" title="Overview" sortOrder="1" />
+                        <resource id="MW_RewardPoints::all_transactions" title="All transactions" sortOrder="2" />
+                        <resource id="MW_RewardPoints::rewarded" title="Rewarded Points" sortOrder="3" />
+                        <resource id="MW_RewardPoints::redeemed" title="Redeemed Points" sortOrder="4" />
+                    </resource>
+
+                    <resource id="MW_RewardPoints::settings" title="Settings" sortOrder="4" />
+                </resource>
+
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Mw_RewardPoints::system_config" title="Reward Point Section" />
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

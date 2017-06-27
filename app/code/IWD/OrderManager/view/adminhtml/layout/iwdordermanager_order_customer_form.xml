@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="IWD\OrderManager\Block\Adminhtml\Order\Customer\Form" name="iwdordermamager_order_customer_form" template="IWD_OrderManager::order/view/customer/form.phtml">
+                <block class="IWD\OrderManager\Block\Adminhtml\Order\View\Actions" name="iwdordermamager_order_actions" template="IWD_OrderManager::order/view/actions.phtml">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">om-edit-account-information</argument>
+                        <argument name="additional_buttons" xsi:type="array">
+                            <item name="change-customer" xsi:type="array">
+                                <item name="title" xsi:type="string">Change Customer</item>
+                                <item name="action" xsi:type="string">change_customer</item>
+                            </item>
+                        </argument>
+                        <argument name="dropdown_actions" xsi:type="array">
+                            <item name="apply_for_customer" xsi:type="array">
+                                <item name="title" xsi:type="string">Update For Customer Too</item>
+                                <item name="type" xsi:type="string">checkbox</item>
+                                <item name="id" xsi:type="string">apply_for_customer</item>
+                                <item name="class" xsi:type="string">scalable primary update action-default</item>
+                            </item>
+                        </argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

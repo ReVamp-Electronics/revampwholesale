@@ -1,0 +1,24 @@
+<?php
+$order = $block->getOrder();
+$block->setPriceDataObject($block->getSource());
+
+$rewardOrder = $block->getRewardOrder()->load($order->getId());
+$rewardpoints = (int) $order->getMwRewardpoint();
+if ($rewardpoints == 0) {
+	$rewardpoints = $rewardOrder->getRewardPoint();
+}
+
+$totalRewardpointUse = $rewardpoints + $rewardOrder->getRewardpointSellProduct();
+if ($totalRewardpointUse && $rewardOrder->getRewardpointSellProduct()) :
+	$_dataHelper = $this->helper('MW\RewardPoints\Helper\Data');
+	$storeCode = $_dataHelper->getStoreById($order->getStoreId())->getCode();
+?>
+	<tr class="total_points">
+	    <td <?php echo $block->getLabelProperties()?> scope="row">
+	        <?php echo __('Total Points'); ?>
+	    </td>
+	    <td <?php echo $block->getValueProperties()?>>
+	    	<?php echo $_dataHelper->formatPoints($totalRewardpointUse, $storeCode) ?>
+	    </td>
+	</tr>
+<?php endif; ?>

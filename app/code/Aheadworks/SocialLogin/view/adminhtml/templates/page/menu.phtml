@@ -1,0 +1,20 @@
+<?php // @codingStandardsIgnoreFile ?>
+<?php
+/* @var $block \Aheadworks\SocialLogin\Block\Adminhtml\Page\Menu */
+?>
+<div class="<?php echo $block->escapeHtml($block->getClassName()) ?>">
+    <div class="actions dropdown closable">
+        <button type="button" class="admin__action-dropdown" data-mage-init='{"dropdown":{}}' data-toggle="dropdown" aria-haspopup="true">
+            <span class="admin__action-dropdown-text"><?php echo $block->escapeHtml($block->getCurrentItemTitle()) ?></span>
+        </button>
+        <ul class="dropdown-menu">
+            <?php foreach ($block->getMenuItems() as $index => $item): ?>
+                <li class="<?php if ($block->isCurrent($index)): ?>current<?php endif; ?> <?php if (isset($item['separator'])): ?>separator<?php endif; ?>">
+                    <a href="<?php echo $block->escapeUrl($item['url']) ?>" <?php /* @noEscape */ echo $block->renderAttributes($item) ?>>
+                        <?php echo $block->escapeHtml($item['title']) ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</div>

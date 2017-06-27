@@ -1,0 +1,10 @@
+<?php
+/**
+ * @var $block IWD\AuthCIM\Block\Acceptjs\Js
+ */
+$url = $block->getAcceptJsUrl();
+?>
+
+<?php if ($block->isActive()) : ?>
+    <script type="text/javascript" src="<?php echo $block->escapeUrl($url) ?>" charset="utf-8"></script>
+<?php endif; ?>

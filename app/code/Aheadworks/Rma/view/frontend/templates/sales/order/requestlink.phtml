@@ -1,0 +1,13 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Rma\Block\Sales\Order\RequestLink */
+?>
+<?php if ($block->canReturn()): ?>
+    <a class="action aw-rma-request-return" href="<?php echo $block->getActionUrl() ?>">
+        <span><?php echo __('Request Return') ?></span>
+    </a>
+<?php endif; ?>

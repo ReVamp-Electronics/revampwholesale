@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <update handle="formkey"/>
+    <container name="root" label="Root">
+        <block class="Aheadworks\Rma\Block\Adminhtml\Status\Grid" name="aw_rma_status_grid" as="grid" />
+    </container>
+</layout>

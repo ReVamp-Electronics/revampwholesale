@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="items_grid">
+            <block class="MW\RewardPoints\Block\Adminhtml\Sales\Order\Create\Payment" template="MW_RewardPoints::sales/order/create/items.phtml" name="mw_admin_rewardpoints" after="-" />
+        </referenceBlock>
+
+        <referenceBlock name="totals">
+            <action method="setTemplate" ifconfig="rewardpoints/general/enabled">
+                <argument name="template" xsi:type="string">MW_RewardPoints::sales/order/create/totals.phtml</argument>
+            </action>
+            <block class="MW\RewardPoints\Block\Adminhtml\Sales\Order\Create\Totals\Rewardpoints" name="rewardpoints.sales.order.create.totals.earnpoints" as="rewardpoints" template="MW_RewardPoints::sales/order/create/totals/earn_points.phtml"/>
+            <block class="MW\RewardPoints\Block\Adminhtml\Sales\Order\Create\Totals\Rewardpoints" name="rewardpoints.sales.order.create.totals.redeemedpoints" as="redeempoints" template="MW_RewardPoints::sales/order/create/totals/redeemed_points.phtml"/>
+            <block class="MW\RewardPoints\Block\Adminhtml\Sales\Order\Create\Totals\Rewardpoints" name="rewardpoints.sales.order.create.totals.totalpoints" as="rewardpoints_totals" template="MW_RewardPoints::sales/order/create/totals/totals_points.phtml"/>
+        </referenceBlock>
+    </body>
+</page>

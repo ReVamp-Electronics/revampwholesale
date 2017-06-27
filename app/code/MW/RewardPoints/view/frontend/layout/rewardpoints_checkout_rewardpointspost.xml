@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+	<body>
+		<block class="Magento\Checkout\Block\Cart\Totals" name="checkout.cart.totals" as="totals" template="MW_RewardPoints::checkout/cart/totals_ajax.phtml">
+			<block class="MW\RewardPoints\Block\Checkout\Cart\Totals\Rewardpoints" name="rewardpoints.checkout.cart.totals.rewardpoints" as="rewardpoints" template="MW_RewardPoints::checkout/cart/totals/rewardpoints.phtml"/>
+			<block class="MW\RewardPoints\Block\Checkout\Cart\Totals\Rewardpoints" name="rewardpoints.checkout.cart.totals.redeempoints" as="redeempoints" template="MW_RewardPoints::checkout/cart/totals/redeempoints.phtml"/>
+	    	<block class="MW\RewardPoints\Block\Checkout\Cart\Totals\Rewardpoints" name="rewardpoints.checkout.cart.totals.rewardpoints_totals" as="rewardpoints_totals" template="MW_RewardPoints::checkout/cart/totals/rewardpoints_totals.phtml"/>
+	    </block>
+	</body>
+</layout>

@@ -1,0 +1,58 @@
+<?php if ($_product = $block->getRegistry()->registry('current_product')) : ?>
+	<meta property="og:title" content="<?php echo htmlspecialchars($_product->getName()) ?>"/>
+	<meta property="og:type" content="product"/>
+	<meta property="og:url" content="<?php echo $block->getCurrentUrl() ?>"/>
+
+	<?php if ($_product->getImage() != 'no_selection' && $_product->getImage()) : ?>
+		<meta property="og:image" content="<?php echo $this->helper('Magento\Catalog\Helper\Image')->init($_product, 'image')->getUrl() ?>"/>
+	<?php endif; ?>
+
+	<?php if (($_description = $_product->getShortDescription()) || ($_description = $_product->getDescription())) : ?>
+		<meta property="og:description" content="<?php echo htmlspecialchars(strip_tags($_description)) ?>"/>
+	<?php endif; ?>
+
+	<?php if ($app_id = $block->getAppId()) : ?>
+		<meta property="fb:app_id" content="<?php echo $app_id ?>"/>
+	<?php endif; ?>
+
+	<?php if ($site_name = $block->getSiteName()) : ?>
+		<meta property="og:site_name" content="<?php echo htmlspecialchars($site_name) ?>"/>
+	<?php endif; ?>
+<?php elseif ($_category = $block->getRegistry()->registry('current_category')) : ?>
+	<meta property="og:title" content="<?php echo htmlspecialchars($_category->getName()) ?>"/>
+	<meta property="og:type" content="product"/>
+	<meta property="og:url" content="<?php echo $block->getCurrentUrl() ?>"/>
+
+	<?php if ($_categoryImage = $_category->getImageUrl()) : ?>
+		<meta property="og:image" content="<?php echo $_category->getImageUrl() ?>"/>
+	<?php endif; ?>
+
+	<?php if ($_description = $_category->getDescription()) : ?>
+		<meta property="og:description" content="<?php echo htmlspecialchars(strip_tags($_description)) ?>"/>
+	<?php endif; ?>
+
+	<?php if ($app_id = $block->getAppId()) : ?>
+		<meta property="fb:app_id" content="<?php echo $app_id ?>"/>
+	<?php endif; ?>
+
+	<?php if ($site_name = $block->getSiteName()) : ?>
+		<meta property="og:site_name" content="<?php echo htmlspecialchars($site_name) ?>"/>
+	<?php endif; ?>
+<?php elseif ($block->getCmsPage()->getId()) : ?>
+	<?php $_page = $block->getCmsPage(); ?>
+	<meta property="og:title" content="<?php echo htmlspecialchars($_page->getTitle()) ?>"/>
+	<meta property="og:type" content="article"/>
+	<meta property="og:url" content="<?php echo $block->getCurrentUrl() ?>"/>
+
+	<?php if ($_description = $_page->getMetaDescription()) : ?>
+		<meta property="og:description" content="<?php echo htmlspecialchars(strip_tags($_description)) ?>"/>
+	<?php endif; ?>
+
+	<?php if ($app_id = $block->getAppId()) : ?>
+		<meta property="fb:app_id" content="<?php echo $app_id ?>"/>
+	<?php endif; ?>
+
+	<?php if ($site_name = $block->getSiteName()) : ?>
+		<meta property="og:site_name" content="<?php echo htmlspecialchars($site_name) ?>"/>
+	<?php endif; ?>
+<?php endif; ?>

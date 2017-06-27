@@ -1,0 +1,31 @@
+<?php // @codingStandardsIgnoreFile ?>
+<?php /** @var $block \Aheadworks\SocialLogin\Block\Adminhtml\Customer\Edit\Tab\Social\AccountsList */ ?>
+<?php $accounts = $block->getAccounts(); ?>
+<?php if(count($accounts)): ?>
+<table class="admin__table-secondary">
+    <tbody>
+        <?php /** @var $account Aheadworks\SocialLogin\Api\Data\AccountInterface */ ?>
+        <?php foreach($accounts as $account): ?>
+            <tr>
+                <th>
+                    <span class="social-provider-<?php /* @noEscape */ echo $account->getType(); ?>">
+                        <?php /* @noEscape */ echo $account->getType(); ?>
+                    </span>
+                </th>
+                <td class="social-link-avatar">
+                    <img src="<?php echo /* @noEscape */ $block->getAccountImageUrl($account); ?>" alt="<?php echo /* @noEscape */ $account->getType(); ?>" />
+                </td>
+                <td>
+                    <span><?php /* @noEscape */ echo $account->getFirstName(); ?></span>
+                    <span><?php /* @noEscape */ echo $account->getLastName(); ?></span>
+                </td>
+                <td>
+                    <a href="mailto:<?php /* @noEscape */ echo $account->getEmail(); ?>"><?php /* @noEscape */ echo $account->getEmail(); ?></a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<?php else: ?>
+<div class="message info empty"><span><?php /* @noEscape */ echo __('Customer has not linked any social accounts yet.'); ?></span></div>
+<?php endif; ?>

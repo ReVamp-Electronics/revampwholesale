@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_Reports
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="amasty_report_sales_overview_listing_data_source" xsi:type="string">Amasty\Reports\Model\ResourceModel\Sales\Overview\Grid\Collection</item>
+                <item name="amasty_report_sales_orders_listing_data_source" xsi:type="string">Amasty\Reports\Model\ResourceModel\Sales\Orders\Grid\Collection</item>
+                <item name="amasty_report_sales_hour_listing_data_source" xsi:type="string">Amasty\Reports\Model\ResourceModel\Sales\Hour\Grid\Collection</item>
+                <item name="amasty_report_sales_weekday_listing_data_source" xsi:type="string">Amasty\Reports\Model\ResourceModel\Sales\Weekday\Grid\Collection</item>
+                <item name="amasty_report_sales_coupon_listing_data_source" xsi:type="string">Amasty\Reports\Model\ResourceModel\Sales\Coupon\Grid\Collection</item>
+                <item name="amasty_report_sales_group_listing_data_source" xsi:type="string">Amasty\Reports\Model\ResourceModel\Sales\Group\Grid\Collection</item>
+                <item name="amasty_report_sales_category_listing_data_source" xsi:type="string">Amasty\Reports\Model\ResourceModel\Sales\Category\Grid\Collection</item>
+                <item name="amasty_report_sales_country_listing_data_source" xsi:type="string">Amasty\Reports\Model\ResourceModel\Sales\Country\Grid\Collection</item>
+                <item name="amasty_report_sales_payment_listing_data_source" xsi:type="string">Amasty\Reports\Model\ResourceModel\Sales\Payment\Grid\Collection</item>
+
+                <item name="amasty_report_customers_customers_listing_data_source" xsi:type="string">Amasty\Reports\Model\ResourceModel\Customers\Customers\Grid\Collection</item>
+                <item name="amasty_report_customers_returning_listing_data_source" xsi:type="string">Amasty\Reports\Model\ResourceModel\Customers\Returning\Grid\Collection</item>
+
+                <item name="amasty_report_catalog_by_product_listing_data_source" xsi:type="string">Amasty\Reports\Model\ResourceModel\Catalog\ByProduct\Grid\Collection</item>
+                <item name="amasty_report_catalog_by_attributes_listing_data_source" xsi:type="string">Amasty\Reports\Model\ResourceModel\Catalog\ByAttributes\Grid\Collection</item>
+                <item name="amasty_report_catalog_bestsellers_listing_data_source" xsi:type="string">Amasty\Reports\Model\ResourceModel\Catalog\Bestsellers\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Reports\Model\ResourceModel\Refresh\Collection">
+        <plugin name="Amasty_Reports::addStatistic" type="Amasty\Reports\Plugin\RefreshCollection"/>
+    </type>
+</config>

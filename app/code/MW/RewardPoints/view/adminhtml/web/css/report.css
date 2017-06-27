@@ -1,0 +1,10 @@
+#statisticsGrid_table tr td:first-child{
+    width: 390px;
+}
+#report_from, #report_to {
+    width: 21rem;
+}
+.order-totals {
+    float: right;
+    width: calc((60%) * .5 - 30px);
+}

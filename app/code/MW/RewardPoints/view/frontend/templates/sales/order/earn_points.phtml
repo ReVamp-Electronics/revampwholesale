@@ -1,0 +1,18 @@
+<?php
+$order  = $block->getOrder();
+$rewardOrder = $block->getRewardOrder()->load($order->getId());
+$earnRewardpoint = (int)$rewardOrder->getEarnRewardpoint();
+
+if ($earnRewardpoint) :
+    $_dataHelper = $this->helper('MW\RewardPoints\Helper\Data');
+    $storeCode = $_dataHelper->getStoreById($order->getStoreId())->getCode();
+?>
+    <tr class="earn_rewardpoint">
+        <td <?php echo $block->getLabelProperties()?> scope="row">
+            <?php echo __('You Earn'); ?>
+        </td>
+        <td <?php echo $block->getValueProperties()?>>
+            <?php echo $_dataHelper->formatPoints($earnRewardpoint, $storeCode); ?>
+        </td>
+    </tr>
+<?php endif; ?>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="IWD\SalesRep\Block\Adminhtml\Reports\Order" name="iwd_salesrep_users.report.order.grid.container">
+                <block class="IWD\SalesRep\Block\Adminhtml\Reports\Order\Filter" name="grid.filter.form"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

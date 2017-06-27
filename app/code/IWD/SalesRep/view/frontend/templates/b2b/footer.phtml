@@ -1,0 +1,42 @@
+<?php
+/**
+ * @var $block \IWD\SalesRep\Block\B2B\Footer
+ */
+$parentAccount = $block->getParentAccount();
+$currentCustomer = $block->getCustomer();
+$isAllowed = $block->getHelper()->isAllowedToLoginAs($currentCustomer->getId());
+?>
+
+<?php if ($isAllowed || $parentAccount) : ?>
+<style id="iwdsr-inline-styles"></style>
+<div class="iwdsr-footer">
+    <div class="iwdsr-customers-wrap">
+        <?php if ($isAllowed) : ?>
+            <a class="iwdsr-choose-customer-btn" href="#">
+                <span id='choose-customer-span'><?php echo __('Customer')?></span>
+                <i class="fa fa-plus-circle" id="choose-customer-i"></i>
+            </a>
+        <?php endif; ?>
+        <?php if ($parentAccount) : ?>
+            <div class="iwdsr-chosen-customer-info">
+                <?php $store_name = $currentCustomer->getData('store_name'); ?>
+                <?php if (!empty($store_name)) : ?>
+                    <span class="iwdsr-company-name"><?php echo $store_name; ?></span>
+                <?php endif;?>
+                <span class="iwdsr-name"><?php echo $currentCustomer->getData('firstname') . ' ' . $currentCustomer->getData('lastname'); ?></span>
+                <a class="iwdsr-return-to-parent-acc fa fa-plus-circle transform-45-deg" href="<?php echo $block->getUrl('salesrep/customer/logoutToParent')?>"></a>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "iwdsalesrep": {
+                "jsConfig": <?php echo json_encode($block->getJsConfig()) ?>
+             }
+        }
+    }
+</script>
+<?php endif; ?>

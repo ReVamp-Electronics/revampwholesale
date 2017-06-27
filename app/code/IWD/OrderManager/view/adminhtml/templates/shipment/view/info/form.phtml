@@ -1,0 +1,40 @@
+<?php
+/**
+ * @var $block IWD\OrderManager\Block\Adminhtml\Shipment\Info\Form
+ */
+$shipment = $block->getShipment();
+?>
+
+<div id="order-info-result-form">
+    <form id="order_information_form" method="post">
+        <div class="admin__field field field-increment_id required _required">
+            <label class="label admin__field-label" for="shipment_info_increment_id"><span><?php echo __('Shipment Number') ?></span></label>
+            <div class="admin__field-control control">
+                <input id="shipment_info_increment_id" name="shipment_info[increment_id]" value="<?php echo $shipment->getIncrementId() ?>" class="input-text required-entry admin__control-text" type="text">
+            </div>
+        </div>
+
+        <div class="admin__field field field-created_at required _required">
+            <label class="label admin__field-label" for="shipment_info_created_at"><span><?php echo __('Shipment Date') ?></span></label>
+            <div class="admin__field-control control">
+                <input id="shipment_info_created_at" name="shipment_info[created_at]" value="<?php echo date('Y-m-d H:i:s', strtotime($shipment->getCreatedAt())) ?>" class="input-text required-entry admin__control-text" type="text">
+            </div>
+        </div>
+
+        <?php echo $block->getActionsForm(); ?>
+    </form>
+
+    <script>
+        require([
+            "jquery",
+            "mage/calendar"
+        ], function($){
+            $("#shipment_info_created_at").calendar({
+                showsTime: true,
+                dateFormat: "yy-mm-dd",
+                timeFormat: "HH:mm:ss",
+                ampm: false
+            });
+        });
+    </script>
+</div>

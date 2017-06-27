@@ -1,0 +1,29 @@
+<div class="message message-notice iwd-om-message-notice ">
+    <div class="message-inner">
+        <div class="message-content">
+            <?php echo __('Current payment method is not available for this order. Please select a new payment method.') ?>
+        </div>
+    </div>
+</div>
+
+<div id="payment-result-form">
+    <form id="order-billing_method">
+        <?php echo $block->getPaymentEditForm() ?>
+    </form>
+</div>
+
+<script type="text/javascript">
+    // <![CDATA[
+    require([
+            "IWD_OrderManager/js/order/view/payment",
+            "prototype"
+        ],
+        function(iwdOrderManagerPayment)
+        {
+            var iwdOrderManagerAdditional = new iwdOrderManagerPayment();
+            iwdOrderManagerAdditional.init(<?php echo $block->jsonParamsPayment(); ?>);
+            window.iwdOrderManagerAdditional = iwdOrderManagerAdditional;
+        }
+    );
+    // ]]>
+</script>

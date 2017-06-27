@@ -1,0 +1,76 @@
+<?php
+/**
+ * @var $block IWD\OrderManager\Block\Adminhtml\Order\View\Jsinit
+ */
+?>
+
+<script type="text/javascript">
+    // <![CDATA[
+    require([
+            "IWD_OrderManager/js/order/view/history",
+            "IWD_OrderManager/js/order/view/address/billing",
+            "IWD_OrderManager/js/order/view/address/shipping",
+            "IWD_OrderManager/js/order/view/items/items",
+            "IWD_OrderManager/js/order/view/shipping",
+            "IWD_OrderManager/js/order/view/payment",
+            "IWD_OrderManager/js/order/view/info",
+            "IWD_OrderManager/js/order/view/customer",
+            "IWD_OrderManager/js/order/view/design",
+            "prototype",
+            "Magento_Catalog/catalog/product/composite/configure"
+        ],
+        function (iwdOrderManagerHistory,
+                  iwdOrderManagerAddressBilling,
+                  iwdOrderManagerAddressShipping,
+                  iwdOrderManagerItems,
+                  iwdOrderManagerShipping,
+                  iwdOrderManagerPayment,
+                  iwdOrderManagerOrderInfo,
+                  iwdOrderManagerCustomer,
+                  iwdOrderManagerDesign) {
+            <?php if ($block->isAllowedAction(['comments_edit', 'comments_delete'])) : ?>
+            var orderManagerHistory = new iwdOrderManagerHistory();
+            orderManagerHistory.init(<?php echo $block->jsonParamsHistory(); ?>);
+            <?php endif; ?>
+
+            <?php if ($block->isAllowedAction('address_billing')) : ?>
+            var orderManagerAddressBilling = new iwdOrderManagerAddressBilling();
+            orderManagerAddressBilling.init(<?php echo $block->jsonParamsAddress(); ?>);
+            <?php endif; ?>
+
+            <?php if ($block->isAllowedAction('address_shipping')) : ?>
+            var orderManagerAddressShipping = new iwdOrderManagerAddressShipping();
+            orderManagerAddressShipping.init(<?php echo $block->jsonParamsAddress(); ?>);
+            <?php endif; ?>
+
+            <?php if ($block->isAllowedAction(['items_add', 'items_edit', 'items_delete'])) : ?>
+            var orderManagerAddressItems = new iwdOrderManagerItems();
+            orderManagerAddressItems.init(<?php echo $block->jsonParamsItems(); ?>);
+            <?php endif; ?>
+
+            <?php if ($block->isAllowedAction('shipping')) : ?>
+            var orderManagerShipping = new iwdOrderManagerShipping();
+            orderManagerShipping.init(<?php echo $block->jsonParamsShipping(); ?>);
+            <?php endif; ?>
+
+            <?php if ($block->isAllowedAction('payment')) : ?>
+            var orderManagerPayment = new iwdOrderManagerPayment();
+            orderManagerPayment.init(<?php echo $block->jsonParamsPayment(); ?>);
+            <?php endif; ?>
+
+            <?php if ($block->isAllowedAction('info')) : ?>
+            var orderManagerOrderInfo = new iwdOrderManagerOrderInfo();
+            orderManagerOrderInfo.init(<?php echo $block->jsonParamsOrderInfo(); ?>);
+            <?php endif; ?>
+
+            <?php if ($block->isAllowedAction('customer')) : ?>
+            var orderManagerCustomer = new iwdOrderManagerCustomer();
+            orderManagerCustomer.init(<?php echo $block->jsonParamsCustomer(); ?>);
+            <?php endif; ?>
+
+            var orderManagerDesign = new iwdOrderManagerDesign();
+            orderManagerDesign.init();
+        }
+    );
+    // ]]>
+</script>

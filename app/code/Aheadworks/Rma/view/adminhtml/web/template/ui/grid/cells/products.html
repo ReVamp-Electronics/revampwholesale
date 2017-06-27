@@ -1,0 +1,12 @@
+<!-- ko foreach: {data: getProducts($row()), as: 'product'} -->
+    <!-- ko if: product.url -->
+    <a data-bind="
+            attr: {href: product.url},
+            text: product.name">
+    </a>
+    <!-- /ko -->
+    <!-- ko ifnot: product.url -->
+    <!-- ko text: product.name --><!-- /ko -->
+    <!-- /ko --> (<!-- ko text: product.reason --><!-- /ko -->)
+    <br/>
+<!-- /ko -->

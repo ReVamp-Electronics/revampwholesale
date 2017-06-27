@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/mwRewardpoints/getCustomerIdByEmail/:email/:websiteId" method="GET">
+        <service class="MW\RewardPoints\Api\DataRepositoryInterface" method="getCustomerIdByEmail"/>
+        <resources>
+            <resource ref="MW_RewardPoints::rewardpoints"/>
+        </resources>
+    </route>
+    <route url="/V1/mwRewardpoints/getBalanceByEmail/:email/:websiteId" method="GET">
+        <service class="MW\RewardPoints\Api\DataRepositoryInterface" method="getBalanceByEmail"/>
+        <resources>
+            <resource ref="MW_RewardPoints::rewardpoints"/>
+        </resources>
+    </route>
+    <route url="/V1/mwRewardpoints/updatePoints/:id/:points/:comment" method="GET">
+        <service class="MW\RewardPoints\Api\DataRepositoryInterface" method="updatePoints"/>
+        <resources>
+            <resource ref="MW_RewardPoints::rewardpoints"/>
+        </resources>
+    </route>
+    <route url="/V1/mwRewardpoints/getBalanceById/:id" method="GET">
+        <service class="MW\RewardPoints\Api\DataRepositoryInterface" method="getBalanceById"/>
+        <resources>
+            <resource ref="MW_RewardPoints::rewardpoints"/>
+        </resources>
+    </route>
+    <route url="/V1/mwRewardpoints/getProductRewardPoints/:sku" method="GET">
+        <service class="MW\RewardPoints\Api\DataRepositoryInterface" method="getProductRewardPoints"/>
+        <resources>
+            <resource ref="MW_RewardPoints::rewardpoints"/>
+        </resources>
+    </route>
+</routes>

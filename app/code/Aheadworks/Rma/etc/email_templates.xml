@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="aw_rma_email_template_to_customer_thread" label="Base template to customer" file="base_to_customer_thread.html" type="html" module="Aheadworks_Rma" area="frontend"/>
+    <template id="aw_rma_email_template_to_admin_thread" label="Base template to admin" file="base_to_admin_thread.html" type="html" module="Aheadworks_Rma" area="frontend"/>
+    <template id="aw_rma_email_template_to_customer_status_1" label="AW RMA - Email to customer, Approved" file="base_to_customer_approved.html" type="html" module="Aheadworks_Rma" area="frontend"/>
+    <template id="aw_rma_email_template_to_customer_status_2" label="AW RMA - Email to customer, Canceled" file="base_to_customer_canceled.html" type="html" module="Aheadworks_Rma" area="frontend"/>
+    <template id="aw_rma_email_template_to_admin_status_2" label="AW RMA - Email to admin, Canceled" file="base_to_admin_canceled.html" type="html" module="Aheadworks_Rma" area="frontend"/>
+    <template id="aw_rma_email_template_to_customer_status_3" label="AW RMA - Email to customer, Closed" file="base_to_customer_closed.html" type="html" module="Aheadworks_Rma" area="frontend"/>
+    <template id="aw_rma_email_template_to_admin_status_4" label="AW RMA - Email to admin, Issue Refund" file="base_to_admin_issue_refund.html" type="html" module="Aheadworks_Rma" area="frontend"/>
+    <template id="aw_rma_email_template_to_customer_status_5" label="AW RMA - Email to customer, Package Received" file="base_to_customer_package_received.html" type="html" module="Aheadworks_Rma" area="frontend"/>
+    <template id="aw_rma_email_template_to_admin_status_6" label="AW RMA - Email to admin, Package Sent" file="base_to_admin_package_sent.html" type="html" module="Aheadworks_Rma" area="frontend"/>
+    <template id="aw_rma_email_template_to_customer_status_7" label="AW RMA - Email to customer, Pending Approval" file="base_to_customer_pending_approval.html" type="html" module="Aheadworks_Rma" area="frontend"/>
+    <template id="aw_rma_email_template_to_admin_status_7" label="AW RMA - Email to admin, Pending Approval" file="base_to_admin_pending_approval.html" type="html" module="Aheadworks_Rma" area="frontend"/>
+</config>

@@ -1,0 +1,80 @@
+div.popup{
+  max-width: 450px;
+  border: 1px solid #BEBCB7;
+  padding: 0px;
+  background-color: white;
+  position: absolute;
+}
+.mw_box_popup .fieldset{
+  border: 0px none;
+  margin: 0px;
+  padding: 0px;
+}
+h2.mw_legend{
+  background: url("../../images/bkg_th.gif") repeat-x 0 100% #D9E5EE;
+  color: #0A263C;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 4px 10px;
+  margin: 0px;
+}
+div.mw-invated-ct{
+  padding: 10px 15px 0;
+}
+.mw-form-list {
+  padding: 0;
+}
+.mw-form-list label{
+  color: #666666;
+  float: left;
+  font-weight: bold;
+  position: relative;
+  z-index: 0;
+}
+.mw-form-list label.required em {
+  color: #EB340A;
+  float: right;
+  font-style: normal;
+  position: absolute;
+  right: -8px;
+  top: 0;
+}
+.mw-form-list .input-box{
+  clear: both;
+  margin-bottom: 10px;
+}
+.mw_textarea_email{
+  width: 380px;
+  height: 45px;
+  float: left;
+  margin: 0px 10px 0px 0px;
+}
+.mw_box_popup .buttons-set{
+  margin-top: 0;
+  padding: 10px 15px;
+}
+.mw_box_popup .buttons-set button.button {
+  float: none;
+}
+.mw_box_popup .buttons-set p.required {
+  margin: 0 0 0;
+}
+.mw_box_popup .buttons-set .right{
+  margin: 7px 0px 0px 0px;
+}
+span.popup_link, a.popup_link {
+  cursor: pointer;
+  border-bottom: 1px dotted;
+}
+.popup_draghandle {
+  cursor: move;
+}
+.mw_share {
+  margin-top: 20px;
+}
+.mw_box_popup #mw_errors,
+.mw_box_popup label.required em,
+.mw_box_popup div.validation-advice,
+.mw_box_popup p.required {
+  color: red;
+}

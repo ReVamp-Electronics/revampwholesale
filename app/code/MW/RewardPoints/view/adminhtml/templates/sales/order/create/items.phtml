@@ -1,0 +1,68 @@
+<?php
+$storeCode = $block->_getQuote()->getStore()->getCode();
+$rate = $block->getRate();
+$_dataHelper = $this->helper('MW\RewardPoints\Helper\Data');
+?>
+
+<div style="margin-top: 50px;">
+	<div class="admin__page-section-title">
+		<span class="title"><?php echo __('Reward points') ?></span>
+	</div>
+	<div class="admin__page-section-content">
+		<div id="mw_reward_accordion">
+			<div <?php if (!sizeof($block->getRewardPointsRule())) echo 'style="display:none"';?>>
+				<span id="reward-points-rules-title" style="color: #0A263C;line-height: 1.5;"><?php echo __("You will be awarded <b>%1</b>",$block->getEarnPointShow()." ")?><a id="mw_view" class="mw_reward_title" style="color: #DC6809 !important;font-weight: bold" href="#"><?php echo __('(Hide)');?></a></span>
+			</div>
+
+			<div id="reward-points-rules" class="mw_reward_toggle">
+				<?php foreach ($block->getRewardPointsRule() as $rule) : ?>
+					<div style="width:100%;font-size: 11px; margin: 0 0 5px 0; overflow: hidden;">
+						<div style="float:left; width:258px">
+							<?php echo __('<span style="float: left;">+</span> <div style="margin: 0px 0px 0px 10px;">%1 %2</div>', (($rule['qty'] > 1) ? $rule['qty']." x" : ""), $rule['message']);?>
+						</div>
+					</div>
+				<?php endforeach; ?>
+			</div>
+		</div>
+
+		<div style="margin: 5px 0 10px;">
+			<?php echo __("You have <b>%1</b> available (<b>%2</b> = <b>%3</b>)",$block->getCurrentRewardPoints(),$_dataHelper->formatPoints($rate[0], $storeCode), $_dataHelper->formatMoney($rate[1]))?>
+		</div>
+
+		<p>
+			<input id="mw_rewardpoint_add_input" type="text" class="admin__control-text" style="width:200px" />&nbsp;
+			<button type="button" class="scalable" onclick="order.loadArea(['totals', 'billing_method', 'items'], true, {mw_rewardpoint_add: document.getElementById('mw_rewardpoint_add_input').value});return false;">
+				<span><?php echo __('Add Reward points'); ?></span>
+			</button>
+		</p>
+
+		<?php if ($points = $block->getRewardPoints()) : ?>
+			<p>
+				<strong><?php echo $_dataHelper->formatPoints($points, $storeCode); ?></strong> [<a href="#" onclick="order.loadArea(['totals', 'billing_method', 'items'], true, {mw_rewardpoint_remove: '<?php echo $points; ?>'});return false;" title="<?php echo __('Remove'); ?>"><?php echo __('Remove'); ?></a>]
+			</p>
+		<?php endif; ?>
+
+		<div><?php echo __('Use maximum <b>%1</b>', $block->getMaxPointToCheckOut()); ?></div>
+	</div>
+</div>
+
+<script>
+require([
+	'jquery'
+], function($) {
+	$(document).ready(function() {
+		$('#mw_view').click(function() {
+			var self = $(this);
+			$('.mw_reward_toggle').slideToggle(400, function() {
+				if (self.text() == '<?php echo __("(Hide)");?>') {
+					self.text('<?php echo __("(Details)");?>');
+				} else {
+					self.text('<?php echo __("(Hide)");?>');
+				}
+			});
+
+			return false;
+		});
+	});
+});
+</script>

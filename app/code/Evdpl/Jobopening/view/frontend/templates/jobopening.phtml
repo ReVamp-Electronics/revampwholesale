@@ -1,0 +1,85 @@
+<?php $_jobopening = $this->getCollection(); ?>
+<?php if ($_jobopening->getSize()): ?>
+    <div class="news_list_view">
+<div class="col_left col-md-4 col-sm-12 col-xs-12">
+        <ul class="currentOpening_list">
+          <li id="head_all" class="">All </li>
+          <li id="head_1" class="">Customer Relations <i class="fa fa-arrow-circle-o-right"></i></li>
+          <li id="head_2" class="">Warehouse &amp; Distribution <i class="fa fa-arrow-circle-o-right"></i> </li>
+          <li id="head_3" class="">Sales &amp; Marketing <i class="fa fa-arrow-circle-o-right"></i></li>
+          <li id="head_4" class="">Return Merchandise Authorization <i class="fa fa-arrow-circle-o-right"></i> </li>
+          <li id="head_5" >Creative Media <i class="fa fa-arrow-circle-o-right"></i></li>
+        </ul>  
+</div>
+    <div class="col_right col-md-8 col-sm-12 col-xs-12">
+        <div class="job-area-listing">
+            <ul>    
+    <?php foreach ($_jobopening as $jobItem):
+    $dept_id = $jobItem->getDepartment();
+    if($dept_id == 1)
+    {
+        $dept_name = 'Customer Relations';
+    }
+    else if($dept_id == 2) 
+    {
+        $dept_name = 'Warehouse & Distribution';
+    }   
+    else if($dept_id == 3)
+    {
+        $dept_name = 'Sales & Marketing';
+    }
+    else if($dept_id == 4)
+    {
+        $dept_name = 'Return Merchandise Authorization';
+    }
+    else if($dept_id == 5)
+    {
+        $dept_name = 'Creative Media';
+    }
+     ?>
+        <li id="desc_<?php echo $jobItem->getEntityId();?>" class="head_<?php echo $dept_id;?>">
+                    <div class="inner_cnt">
+                        <h4><?php echo $jobItem->getTitle();?></h4>
+                        <p><?php echo $dept_name;?></p>
+                    </div>
+                </li>
+     <?php endforeach; ?>
+    </ul>
+</div>
+</div>
+</div>
+<?php else: ?>
+    <div class="message info empty"><span><?php echo __('You have no Job Opening.'); ?></span></div>
+<?php endif ?>
+
+
+
+          
+       
+
+<script type="text/javascript">
+require(['jquery'],function($){
+    $(document).ready(function() {
+jQuery('.currentOpening_list li').click(function (){
+    jQuery('.job_desc .desc_detail').hide();
+    jQuery('.currentOpening_list li').removeClass('active');    
+    jQuery(this).addClass('active');    
+    var objId = jQuery(this).attr('id');
+    jQuery('.job-area-listing li').hide();
+    jQuery('.job-area-listing .'+ objId).show();
+});
+jQuery('.currentOpening_list #head_all').click(function (){
+    jQuery('.job_desc .desc_detail').hide();
+    jQuery('.currentOpening_list li').removeClass('active');    
+    jQuery(this).addClass('active');    
+    jQuery('.job-area-listing li').show();
+});
+jQuery('.job-area-listing li').click(function (){
+    var objId = jQuery(this).attr('id');
+    jQuery('.job_desc .desc_detail').hide();
+    jQuery('.job_desc .'+ objId).show();
+});
+
+});
+});
+ </script>

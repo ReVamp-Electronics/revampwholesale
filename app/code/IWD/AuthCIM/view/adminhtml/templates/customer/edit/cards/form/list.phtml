@@ -1,0 +1,113 @@
+<?php
+/**
+ * @var $block \IWD\AuthCIM\Block\Customer\Edit\Tab\Cards\Form
+ */
+
+$cards = $block->getSavedCcList();
+?>
+
+<ul class="address-list ui-tabs-nav profile-list">
+    <?php /* @escapeNotVerified */ echo $block->getChildHtml('iwd.authcim.edit.tab.cards.list.before') ?>
+
+    <?php foreach ($cards as $card) : ?>
+        <?php $isAllowedCcType = $block->isAllowedCcType($card); ?>
+        <?php $isInUse = $card->isInUse(); ?>
+        <?php $expired = $card->isExpired(); ?>
+        <?php $id = $card->getId(); ?>
+
+        <li class="address-list-item iwd-cim-card-list-item" data-id="<?php /* @escapeNotVerified */ echo $card->getHash() ?>">
+            <div class="address-list-item-actions actions">
+                <button class="action-delete" type="button">
+                    <span><?php /* @escapeNotVerified */ echo __('Delete Saved Card'); ?></span>
+                </button>
+                <button class="action-cancel-delete" type="button">
+                    <span><?php /* @escapeNotVerified */ echo __('Cancel') ?></span>
+                </button>
+                <button class="action-delete-2" type="button">
+                    <span><?php /* @escapeNotVerified */ echo __('Delete') ?></span>
+                </button>
+            </div>
+
+            <div class="card-info">
+                <div class="cc-number"><?php /* @escapeNotVerified */ echo $card->getLastCreditCardNumber() ?></div>
+                <div class="labels">
+                    <?php if ($card->getAdditionalData('cc_save') == 0) : ?>
+                        <div class="label not-saved"
+                             tooltip="<?php /* @escapeNotVerified */ echo __('Customer has not saved this card.'); ?>">
+                            <i class="fa fa-minus-circle"></i>&nbsp;
+                            <span class="title"><?php /* @escapeNotVerified */ echo __('Not Saved'); ?></div></span>
+                    <?php else: ?>
+                        <div class="label saved"
+                             tooltip="<?php /* @escapeNotVerified */ echo __('Customer saved this card.'); ?>">
+                            <i class="fa fa-plus-circle"></i>&nbsp;
+                            <span class="title"><?php /* @escapeNotVerified */ echo __('Saved'); ?></div></span>
+                    <?php endif; ?>
+                    <?php if ($isInUse && $isAllowedCcType) : ?>
+                        <div class="label is_in_use"
+                             tooltip="<?php /* @escapeNotVerified */ echo __('This card associated with open order(s).'); ?>">
+                            <i class="fa fa-check-circle"></i>&nbsp;
+                            <span class="title"><?php /* @escapeNotVerified */ echo __('In Use'); ?></span>
+                        </div>
+                    <?php endif; ?>
+                    <?php if (!$isAllowedCcType) : ?>
+                        <div class="label disallow"
+                             tooltip="<?php /* @escapeNotVerified */ echo __('Credit card type is not allowed for use.'); ?>">
+                            <i class="fa fa-exclamation-circle"></i>&nbsp;
+                            <span class="title"><?php /* @escapeNotVerified */ echo __('Not Supported'); ?></span>
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($expired) : ?>
+                        <div class="label disallow"
+                             tooltip="<?php /* @escapeNotVerified */ echo __('This card is expired data.'); ?>">
+                            <i class="fa fa-exclamation-circle"></i>&nbsp;
+                            <span class="title"><?php /* @escapeNotVerified */ echo __('Expired'); ?></span>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+            <div class="payment-profile-id">
+                <?php /* @escapeNotVerified */ echo __('Payment Profile'); ?> #<?php echo $card->getPaymentId() ?>
+            </div>
+            <div class="cc-expiration-date"><?php /* @escapeNotVerified */ echo $card->getExpirationDate(true) ?></div>
+
+            <address>
+                <?php /* @escapeNotVerified */ echo $block->getAddressHtml($card) ?>
+            </address>
+
+            <div class="actions">
+                <div class="switch">
+                    <input id="enable_card_<?php /* @escapeNotVerified */ echo $id ?>" class="cmn-toggle cmn-toggle-round action-enable"
+                           name="enable_qty_increments"
+                            <?php if ($card->getIsActive()) : ?> checked="checked"<?php endif; ?>
+                           type="checkbox">
+                    <label for="enable_card_<?php /* @escapeNotVerified */ echo $id ?>">
+                        <span class="no"><?php /* @escapeNotVerified */ echo __('Disabled') ?></span>
+                        <span class="yes"><?php /* @escapeNotVerified */ echo __('Enabled') ?></span>
+                    </label>
+                </div>
+                <button class="action-edit" type="button">
+                    <span><?php /* @escapeNotVerified */ echo __('Edit') ?></span>
+                </button>
+                <button class="action-cancel iwd_cim_cancel_save_cc" type="button">
+                    <span><?php /* @escapeNotVerified */ echo __('Cancel') ?></span>
+                </button>
+                <button class="action-save iwd_cim_save_cc" type="button">
+                    <span><?php /* @escapeNotVerified */ echo __('Save') ?></span>
+                </button>
+                <div class="clear"></div>
+            </div>
+        </li>
+    <?php endforeach; ?>
+
+    <li class="address-list-actions last">
+        <button class="secondary add" type="button" id="iwd_cim_add_cc">
+            <span><?php /* @escapeNotVerified */ echo __('Add New Card') ?></span>
+        </button>
+
+        <script>
+            window.iwdAuthcimCards = <?php /* @escapeNotVerified */ echo $block->getCardsList(); ?>
+        </script>
+    </li>
+</ul>

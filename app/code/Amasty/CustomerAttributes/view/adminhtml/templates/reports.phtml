@@ -1,0 +1,58 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerAttributes
+ */
+?>
+<?php /* @var $this \Amasty\CustomerAttributes\Block\Adminhtml\Customer\Attribute\Edit\Tab\Reports */ ?>
+
+<fieldset class="fieldset admin__fieldset " id="base_fieldset">
+    <legend class="admin__legend legend">
+        <span><?php echo __('Reports'); ?></span>
+    </legend>
+    <button id="am-show-chart" title="<?php echo __('Show Report'); ?> " type="button" class="action-default scalable primary ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
+        <span class="ui-button-text">
+            <span><?php echo __('Show Report'); ?> </span>
+        </span>
+    </button>
+    <br/>
+
+    <div id="chartdiv" style="width: 700px; height: 500px;"></div>
+
+        <script type="text/javascript">
+            require([
+                'jquery',
+                'Amasty_CustomerAttributes/js/jquery.jqplot',
+                'Amasty_CustomerAttributes/js/jqplot.pieRenderer',
+                'domReady!'
+            ], function($) {
+                $(document).ready(function () {
+                    var chartData = [
+                        <?php foreach ($this->getAttributeValues() as $attrId => $values): ?>
+                        ['<?php echo $values['label']?>', <?php echo $values['qty']?>],
+                        <?php endforeach;?>
+                    ];
+
+                    $("#am-show-chart").click(function(){
+                        $(this).attr('disabled', true);
+                        var plot1 = $.jqplot('chartdiv', [chartData],
+                            {
+                                seriesDefaults: {
+                                    // Make this a pie chart.
+                                    renderer: $.jqplot.PieRenderer,
+                                    rendererOptions: {
+                                        // Put data labels on the pie slices.
+                                        // By default, labels show the percentage of the slice.
+                                        showDataLabels: true,
+                                        dataLabels: 'decimal'
+                                    }
+                                },
+                                legend: {show: true, location: 'e'}
+                            }
+                        );
+                    });
+                });
+            });
+        </script>
+</fieldset>

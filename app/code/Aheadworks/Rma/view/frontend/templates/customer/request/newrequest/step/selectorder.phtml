@@ -1,0 +1,129 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Rma\Block\Customer\Request\NewRequest\Step\SelectOrder */
+?>
+<div class="aw-rma-new select-order">
+    <?php if ($block->getTextCmsBlockHtml()): ?>
+        <div class="block block-rma-text-block">
+            <?php echo $block->getTextCmsBlockHtml() ?>
+        </div>
+    <?php endif; ?>
+    <?php if ($block->getOrders()->getSize()): ?>
+        <div class="block block-rma-form">
+            <form id="aw-rma-select-order-form" class="aw-rma-new__form" action="<?php echo $block->getSubmitUrl() ?>" method="post">
+                <?php echo $block->getBlockHtml('formkey') ?>
+                <div class="block-title">
+                    <strong><?php echo __('Select order to create RMA') ?></strong>
+                    <button type="submit" title="<?php echo __('Next') ?>" data-role="submit-btn" class="action primary next" disabled="disabled">
+                        <span><?php echo __('Next') ?></span>
+                    </button>
+                </div>
+                <div class="select-order-table__wrapper">
+                    <table class="select-order-table">
+                        <caption class="table-caption"><?php echo __('Select order to create RMA') ?></caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="col order_id">&nbsp;</th>
+                                    <th scope="col" class="col order"><?php echo __('Order') ?></th>
+                                    <th scope="col" class="col order_date"><?php echo __('Order Date') ?></th>
+                                    <th scope="col" class="col order_status"><?php echo __('Order Status') ?></th>
+                                    <th scope="col" class="col info">&nbsp;</th>
+                                    <th scope="col" class="col order_total"><?php echo __('Order Total') ?></th>
+                                </tr>
+                            </thead>
+                        <tbody>
+                        <?php foreach ($block->getOrders() as $order): ?>
+                            <tr data-order-id="<?php echo $order->getId() ?>" class="order-row">
+                                <td class="col order_id">
+                                    <input type="radio"
+                                           name="order_id"
+                                           value="<?php echo $order->getId() ?>"
+                                           class="aw-rma-order-required aw-rma-order-items-available"
+                                        />
+                                </td>
+                                <td data-th="<?php echo $block->escapeHtml(__('Order')) ?>" class="col order">
+                                    <a href="<?php echo $block->getOrderViewUrl($order->getId()) ?>">
+                                        <span><?php echo __('Order') ?> #<?php echo $order->getIncrementId() ?></span>
+                                    </a>
+                                </td>
+                                <td data-th="<?php echo $block->escapeHtml(__('Order Date')) ?>" class="col order_date">
+                                    <?php echo $block->formatDate($order->getCreatedAt(), \IntlDateFormatter::MEDIUM) ?>
+                                </td>
+                                <td data-th="<?php echo $block->escapeHtml(__('Order Status')) ?>" class="col order_status">
+                                    <?php echo $order->getStatusLabel() ?>
+                                </td>
+                                <td class="col info">
+                                    <?php echo $block->getOrderInfo($order) ?>
+                                </td>
+                                <td data-th="<?php echo $block->escapeHtml(__('Order Total')) ?>" class="col order_total">
+                                    <?php echo $block->convertAndFormatPrice($order->getGrandTotal()) ?>
+                                </td>
+                            </tr>
+                            <tr data-order-id="<?php echo $order->getId() ?>" class="order-item-row" style="display: none;">
+                                <th scope="col" class="col item_id">&nbsp;</th>
+                                <th scope="col" class="col product" colspan="2"><?php echo __('Product') ?></th>
+                                <th scope="col" class="col items"><?php echo __('Items in order') ?></th>
+                                <th scope="col" class="col items_for_return" colspan="2"><?php echo __('Items for return available') ?></th>
+                            </tr>
+                            <?php foreach ($order->getItemsCollection() as $orderItem): ?>
+                                <?php echo $block->getItemRenderer($orderItem)->toHtml() ?>
+                            <?php endforeach; ?>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="action-bar">
+                    <div class="primary">
+                        <button type="submit" title="<?php echo __('Next') ?>" data-role="submit-btn" class="action primary next" disabled="disabled">
+                            <span><?php echo __('Next') ?></span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <script>
+                require([
+                    'jquery',
+                    'mage/mage'
+                ], function ($) {
+                    'use strict';
+                    var selectOrderForm = $('#aw-rma-select-order-form');
+                    selectOrderForm.mage('validation', {
+                        'errorPlacement': function(error, element) {
+                            var errorPlacement = element;
+                            if (element.is(':radio') || element.is(':checkbox')) {
+                                errorPlacement = element.closest('.select-order-table');
+                            }
+                            if (element.is(':text.input-qty')) {
+                                errorPlacement = element.closest('.items_for_return__content');
+                            }
+                            errorPlacement.after(error);
+                        }
+                    });
+                    selectOrderForm.on('submit', function() {
+                        if (selectOrderForm.valid()) {
+                            selectOrderForm.find('button.next').attr('disabled', 'disabled');
+                        }
+                    });
+                });
+            </script>
+            <script type="text/x-magento-init">
+                {
+                    "#aw-rma-select-order-form": {
+                        "awRmaSelectOrderForm": {
+                            "currentOrderId": <?php echo (int)$this->getCurrentOrderId(); ?>,
+                            "currentRequestItems": <?php /* @noEscape */ echo json_encode($this->getCurrentRequestItems()); ?>
+                        }
+                    }
+                }
+            </script>
+        </div>
+    <?php else: ?>
+        <div class="message info empty">
+            <span><?php echo $block->getNoOrdersMessage(); ?></span>
+        </div>
+    <?php endif; ?>
+</div>

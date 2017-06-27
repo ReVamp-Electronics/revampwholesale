@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_Xsearch
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <amasty_xsearch>
+            <general>
+                <width>355</width>
+                <min_chars>3</min_chars>
+            </general>
+            <recent_searches>
+                <enabled>1</enabled>
+                <first_click>1</first_click>
+                <title>Recent Searches</title>
+                <position>1</position>
+                <limit>4</limit>
+            </recent_searches>
+            <popular_searches>
+                <enabled>1</enabled>
+                <title>Popular Searches</title>
+                <position>2</position>
+                <limit>4</limit>
+            </popular_searches>
+            <category>
+                <enabled>1</enabled>
+                <title>Categories</title>
+                <position>3</position>
+                <limit>4</limit>
+                <name_length>50</name_length>
+                <desc_length>100</desc_length>
+            </category>
+            <page>
+                <enabled>1</enabled>
+                <title>Pages</title>
+                <position>4</position>
+                <limit>4</limit>
+                <name_length>50</name_length>
+                <desc_length>100</desc_length>
+            </page>
+            <product>
+                <enabled>1</enabled>
+                <title>Products</title>
+                <position>5</position>
+                <limit>4</limit>
+                <name_length>50</name_length>
+                <desc_length>100</desc_length>
+                <reviews>1</reviews>
+                <add_to_cart>1</add_to_cart>
+            </product>
+            <layout>
+                <enabled>0</enabled>
+                <border>A75E00</border>
+                <hover>E8E8E8</hover>
+                <highlight>EEDB2D</highlight>
+                <background>FFFFFF</background>
+                <text>202020</text>
+                <hover_text>FFFFFF</hover_text>
+            </layout>
+        </amasty_xsearch>
+    </default>
+</config>

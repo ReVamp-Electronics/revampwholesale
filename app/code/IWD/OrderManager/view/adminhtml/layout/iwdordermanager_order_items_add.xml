@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="IWD\OrderManager\Block\Adminhtml\Order\Items\NewItem\Form" name="iwdordermamager_order_items_form_container" template="IWD_OrderManager::order/view/items/new_items.phtml">
+                <block class="IWD\OrderManager\Block\Adminhtml\Order\Items\NewItem\Simple" name="iwdordermamager_order_simple_item_form" template="IWD_OrderManager::order/view/items/simple.phtml">
+                    <block class="IWD\OrderManager\Block\Adminhtml\Order\Items\Options" name="iwdordermamager_order_item_options" template="IWD_OrderManager::order/view/items/options.phtml">
+                        <arguments>
+                            <argument name="item_type" xsi:type="string">quote</argument>
+                        </arguments>
+                    </block>
+                </block>
+                <block class="IWD\OrderManager\Block\Adminhtml\Order\Items\NewItem\Bundle" name="iwdordermamager_order_bundle_item_form" template="IWD_OrderManager::order/view/items/bundle.phtml"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,42 @@
+<div class="dashboard mw-reward-points">
+    <?php echo $block->getLayout()->getMessagesBlock()->getGroupedHtml(); ?>
+
+    <?php if ($block->getChildBlock('info')) : ?>
+        <div class="block">
+            <div class="block-title">
+                <strong style="background: none; padding: 0px;"><?php echo $this->helper('MW\RewardPoints\Helper\Data')->getRewardIconHtml().__('Reward Points Information') ?></strong>
+            </div>
+
+            <?php echo $block->getChildHtml('info') ?>
+        </div>
+    <?php endif; ?>
+
+
+    <?php if ($block->getChildBlock('transaction')) : ?>
+        <div class="block" style="margin-bottom: 70px;">
+            <div class="block-title">
+                <strong style="display: inline-block"><?php echo __('Transaction History') ?></strong>
+                <?php if ($block->getChildBlock('info')) : ?>
+                    <a href="javascript:void(0)" id="transaction_box_hander"><?php echo __('Hide') ?></a>
+                <?php endif; ?>
+            </div>
+
+            <?php echo $block->getChildHtml('transaction') ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($this->helper('MW\RewardPoints\Helper\Data')->allowSendRewardPointsToFriend()) : ?>
+    	<?php echo $block->getChildHtml('send') ?>
+    <?php endif;?>
+    	<?php echo $block->getChildHtml('invite') ?>
+
+    <?php if ($block->getChildBlock('email')) : ?>
+        <div class="block">
+            <div class="block-title">
+                <strong><?php echo __('Email Notification Settings') ?></strong>
+            </div>
+
+            <?php echo $block->getChildHtml('email') ?>
+        </div>
+    <?php endif;?>
+</div>

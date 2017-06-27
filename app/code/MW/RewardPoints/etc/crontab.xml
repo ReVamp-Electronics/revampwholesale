@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="mw_rewardpoint_catalog_rule" instance="MW\RewardPoints\Cron\ApplyRules" method="execute">
+            <schedule>5 0 * * *</schedule>
+        </job>
+        <job name="mw_rewardpoint_catalog_rule_continue" instance="MW\RewardPoints\Cron\ApplyRulesCronEvery" method="execute">
+            <schedule>*/3 * * * *</schedule>
+        </job>
+        <job name="mw_rewardpoint_special_event" instance="MW\RewardPoints\Cron\AddRewardPointsForSpecialEvents" method="execute">
+            <schedule>5 0 * * *</schedule>
+        </job>
+        <job name="mw_rewardpoint_birthday_rule" instance="MW\RewardPoints\Cron\AddRewardPointsForBirthdayRule" method="execute">
+            <schedule>5 0 * * *</schedule>
+        </job>
+        <job name="mw_rewardpoint_expiration_email" instance="MW\RewardPoints\Cron\ExpirationEmail" method="execute">
+            <schedule>5 0 * * *</schedule>
+        </job>
+        <job name="mw_rewardpoint_expired_point" instance="MW\RewardPoints\Cron\ExpiredPoint" method="execute">
+            <schedule>*/60 * * * *</schedule>
+        </job>
+    </group>
+</config>

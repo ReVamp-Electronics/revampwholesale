@@ -1,0 +1,37 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Rma\Block\FileUpload */
+?>
+<div class="aw-rma-file-upload__container">
+    <ul id="aw-rma-attachments-added" style="display: none;"></ul>
+    <script id="aw-rma-attachments-added-template" type="text/x-magento-template">
+        <li>
+            <span><%- fileName %> (<%- fileSize %>)</span><a href="#" class="action-item-remove">X</a>
+            <input type="hidden" name="attachment[<%- index %>][name]" value="<%- fileName %>" />
+            <input type="hidden" name="attachment[<%- index %>][file]" value="<%- file %>" />
+            <input type="hidden" name="attachment[<%- index %>][removed]" data-role="remove" value="0" />
+        </li>
+    </script>
+    <span class="aw-rma-file-upload">
+        <span id="aw-rma-attachments-add-link" class="aw-rma-file-upload__link" data-switch-title="<?php echo __('Add another file') ?>"><?php echo __('Add file') ?></span>
+        <input type="file" id="aw-rma-attachments" name="file[]" data-url="<?php echo $block->getFileUploadUrl() ?>" multiple />
+    </span>
+    <div id="aw-rma-attachments-error" style="display: none;"></div>
+    <script type="text/x-magento-init">
+    {
+        "#aw-rma-attachments": {
+            "awRmaFileUpload": {
+                "addLink": "#aw-rma-attachments-add-link",
+                "itemTemplate": "#aw-rma-attachments-added-template",
+                "itemsContainer": "#aw-rma-attachments-added",
+                "removeLinks": ".action-item-remove",
+                "errorContainer": "#aw-rma-attachments-error"
+            }
+        }
+    }
+    </script>
+</div>

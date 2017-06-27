@@ -1,0 +1,81 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Rma\Block\Customer\Request\NewRequest\Step\SelectOrder\Items\Renderer */
+?>
+<?php if ($block->canRender()): ?>
+    <?php
+        /** @var \Magento\Sales\Model\Order\Item $item */
+        $item = $block->getItem();
+        $order = $item->getOrder();
+        $itemMaxCount = $block->getItemMaxCount($item);
+    ?>
+    <tr data-order-id="<?php echo $order->getId() ?>"
+        data-order-item-id="<?php echo $item->getId() ?>"
+        class="order-item-row"
+        style="display: none;"
+        >
+        <?php $isItemsAvailable = $itemMaxCount && $block->isAllowedForOrder($order); ?>
+        <td data-th="<?php echo $block->escapeHtml(__('Item ID')) ?>" class="col item_id">
+            <?php if ($isItemsAvailable): ?>
+                <input type="checkbox"
+                       name="item_selected"
+                       value="<?php echo $item->getId() ?>"
+                       class="aw-rma-order-item-required order-item-select"
+                       data-order-id="<?php echo $order->getId() ?>"
+                    />
+            <?php endif; ?>
+        </td>
+        <td data-th="<?php echo $block->escapeHtml(__('Product')) ?>" class="col product" colspan="2">
+            <?php if ($item->getProduct()): ?>
+                <a href="<?php echo $block->getProductViewUrl($item) ?>">
+                    <span><?php echo $item->getName() ?></span>
+                </a>
+            <?php else: ?>
+                <?php echo $item->getName() ?>
+            <?php endif; ?>
+        </td>
+        <td data-th="<?php echo $block->escapeHtml(__('Items in order')) ?>" class="col items">
+            <ul>
+                <li><span class="title"><?php echo __('Ordered') ?></span>&nbsp;<span class="content"><?php echo $item->getQtyOrdered() * 1 ?></span></li>
+                <li><span class="title"><?php echo __('Invoiced') ?></span>&nbsp;<span class="content"><?php echo $item->getQtyInvoiced() * 1 ?></span></li>
+                <li><span class="title"><?php echo __('Shipped') ?></span>&nbsp;<span class="content"><?php echo $item->getQtyShipped() * 1 ?></span></li>
+                <li><span class="title"><?php echo __('Refunded') ?></span>&nbsp;<span class="content"><?php echo $item->getQtyRefunded() * 1 ?></span></li>
+            </ul>
+        </td>
+        <td data-th="<?php echo $block->escapeHtml(__('Items for return available')) ?>" class="col items_for_return" colspan="2">
+            <?php if ($isItemsAvailable): ?>
+                <div class="items_for_return__content">
+                    <div class="control">
+                        <input type="text"
+                               name="item[<?php echo $item->getId() ?>][qty]"
+                               value="<?php echo $itemMaxCount > 1 ? '' : $itemMaxCount ?>"
+                               class="input-qty required-number validate-greater-than-zero integer aw-rma-qty-max"
+                               disabled="disabled"
+                               data-order-id="<?php echo $order->getId() ?>"
+                               data-order-item-id="<?php echo $item->getId() ?>"
+                               data-max-value="<?php echo $itemMaxCount ?>"
+                            />
+                    </div>
+                    <div class="qty-total">
+                        <span>&nbsp;/&nbsp;<?php echo $itemMaxCount ?><?php echo __('available') ?> </span>
+                    </div>
+                </div>
+            <?php else: ?>
+                <div class="item-message"><?php echo __('No items available') ?></div>
+            <?php endif; ?>
+            <?php if ($requestCount = $block->getRequestsForItem($item)->getSize()): ?>
+                <div class="item-message"><?php echo __('Another Returns for this product') ?>:</div>
+                <?php foreach ($block->getRequestsForItem($item) as $request): ?>
+                    <a class="rma-link" href="<?php echo $block->getRequestViewUrl($request->getId()) ?>">
+                        <span><?php echo $request->getIncrementId() ?></span>
+                    </a>
+                    <?php if (--$requestCount): ?>, <?php endif; ?>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </td>
+    </tr>
+<?php endif; ?>

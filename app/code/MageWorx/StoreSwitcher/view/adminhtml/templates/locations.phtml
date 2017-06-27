@@ -1,0 +1,88 @@
+<?php
+/**
+ * Copyright © 2015 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+?>
+
+<?php
+$htmlId      = $this->getElement()->getHtmlId();
+$htmlClass   = $this->getElement()->getClass();
+$htmlName    = $this->getElement()->getName();
+$readonly    = $this->getElement()->getReadonly();
+?>
+
+<div class="admin__field field storeswitcher-countries">
+    <label class="label admin__field-label"><span><?php echo $this->getElement()->getLabel() ?></span></label>
+    <div class="admin__field-control control">
+        <div style="margin: 8px 0 10px 0;">
+        <a href="#" onclick="__chkAll('input.contries-list'); return false"><?php echo __('Select All') ?></a> | <a href="#" onclick="__unchkAll('input.contries-list'); return false"><?php echo __('Unselect All') ?></a> | <a href="#" onclick="__invChk('input.contries-list'); return false"><?php echo __('Invert Selection') ?></a><br />
+        </div>
+        <?php $countries = $this->getLocations() ?>
+        <?php $savedCountries = $this->getSavedLocations() ?>
+        <?php foreach ($countries as $country): if (empty($country['value'])) continue ?>
+        <?php $countryChecked = false; if (isset($savedCountries[$country['value']])) $countryChecked = true ?>
+        <label for="country-<?php echo $country['value'] ?>"><input type="checkbox" class="contries-list" id="country-<?php echo $country['value'] ?>" name="store[geoip_country_code][<?php echo $country['value'] ?>]" value="<?php echo $country['value'] ?>"<?php if ($countryChecked): ?> checked="checked"<?php endif ?> onclick="__tglR(this)" /> <?php echo $country['label'] ?></label><br />
+        <?php if (!empty($country['regions'])): ?>
+            <div id="country-<?php echo $country['value'] ?>-regions" style="margin: 0 0 15px 25px;<?php if (!$countryChecked): ?> display: none;<?php endif ?>">
+                <span class="small"><a href="#" class="small" onclick="__selAll('regions-<?php echo $country['value'] ?>'); return false"><?php echo __('Select All') ?></a> | <a href="#" class="small" onclick="__unselAll('regions-<?php echo $country['value'] ?>'); return false"><?php echo __('Unselect All') ?></a> | <a href="#" class="small" onclick="__invSel('regions-<?php echo $country['value'] ?>'); return false"><?php echo __('Invert Selection') ?></a></span><br />
+                <select id="regions-<?php echo $country['value'] ?>" name="store[geoip_country_code][<?php echo $country['value'] ?>][]" class="select multiselect" size="10" multiple="multiple" class="select">
+                    <?php foreach ($country['regions'] as $regionId => $regionName): ?><option value="<?php echo $regionId?>"<?php if (isset($savedCountries[$country['value']]) && is_array($savedCountries[$country['value']]) && array_search($regionId, $savedCountries[$country['value']]) !== false): ?> selected="selected"<?php endif ?>><?php echo $regionName?></option><?php endforeach ?>
+                </select>
+            </div>
+            <?php endif ?>
+        <?php endforeach ?>
+    </div>
+</div>
+        
+<script type="text/javascript">
+    <!--
+    __tglR = function(e) {
+        var elId = jQuery(e).prop('id');
+        if (jQuery(e).prop('checked')) {
+            if (jQuery('#'+elId+'-regions')) jQuery('#'+elId+'-regions').show();
+        } else {
+            if (jQuery('#'+elId+'-regions')) jQuery('#'+elId+'-regions').hide();
+        }
+    }
+    __chkAll = function(countriesList) {
+        jQuery(countriesList).each(function() {
+            jQuery(this).attr("checked",true); 
+            __tglR(jQuery(this));
+        });
+    }
+    __unchkAll = function(countriesList) {
+        jQuery(countriesList).each(function() {
+            jQuery(this).attr("checked",false);
+            __tglR(jQuery(this));
+        });
+    }
+    __invChk = function(countriesList) {
+        jQuery(countriesList).each(function() {
+            jQuery(this).attr("checked", !jQuery(this).prop("checked"));
+            __tglR(jQuery(this));
+        });
+    }
+    __selAll = function(e) {
+        jQuery('#'+e+' option').each(function() {
+            jQuery(this).attr("selected",true);
+        });
+    }
+    __unselAll = function(e) {
+        jQuery('#'+e+' option').each(function() {
+            jQuery(this).attr("selected",false);
+        });
+    }
+    __invSel = function(e) {
+        jQuery('#'+e+' option').each(function() {
+            jQuery(this).attr("selected", !jQuery(this).prop("selected"));
+        });
+    }
+    //-->
+</script>
+
+<style>
+    .storeswitcher-countries select {
+        width: 340px; 
+    }
+</style>

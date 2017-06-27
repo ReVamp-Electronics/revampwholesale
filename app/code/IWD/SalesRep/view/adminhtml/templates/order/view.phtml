@@ -1,0 +1,20 @@
+<?php
+/**
+ * @var $block IWD\SalesRep\Block\Adminhtml\Order\View\Salesrep
+ */
+?>
+<?php if ($block->hasSalesrep()) : ?>
+<div style="display:none">
+    <script type="text/javascript">
+        // <![CDATA[
+        require(["jquery"],
+            function($) {
+                $('.order-information-table tbody').append(
+                    '<tr><th><?php echo __("Sales Representative") ?></th><td><?php echo $block->getSalesrepName() ?></td></tr>'
+                );
+            }
+        );
+        // ]]>
+    </script>
+</div>
+<?php endif; ?>

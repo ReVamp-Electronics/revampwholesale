@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+		<rewardpoints>
+            <general>
+                <enabled>1</enabled>
+                <point_money_rate>100/1</point_money_rate>
+                <point_step>1</point_step>
+                <apply_reward_point>1</apply_reward_point>
+                <apply_reward_point_tax>1</apply_reward_point_tax>
+                <extend_cart>0</extend_cart>
+                <redeemed_tax>0</redeemed_tax>
+                <redeem_point_on_tax>2</redeem_point_on_tax>
+                <redeemed_shipping>0</redeemed_shipping>
+                <min_checkout>0</min_checkout>
+                <using_coupon_rwp>1</using_coupon_rwp>
+                <max_point_balance>0</max_point_balance>
+                <status_add_reward_point>complete</status_add_reward_point>
+                <subtract_reward_point>1</subtract_reward_point>
+                <restore_spent_points>1</restore_spent_points>
+                <default_comment>Imported by Administrator</default_comment>
+            </general>
+            <display>
+                <enable_image>0</enable_image>
+                <point_curency>points</point_curency>
+                <curency_position>2</curency_position>
+                <show_credit_info>0</show_credit_info>
+                <enable_message>0</enable_message>
+                <enable_banner>0</enable_banner>
+                <banner_size>900,120</banner_size>
+            </display>
+            <using_points>
+                <allow_send_reward_point_to_friend>1</allow_send_reward_point_to_friend>
+                <time_life>0</time_life>
+                <enabled>1</enabled>
+                <point_credit_rate>100/1</point_credit_rate>
+            </using_points>
+            <facebook>
+                <enabled>1</enabled>
+            </facebook>
+            <email_notifications>
+                <email_sender>general</email_sender>
+                <enable_notifications>1</enable_notifications>
+                <points_balance>rewardpoints_email_notifications_points_balance</points_balance>
+                <points_expiration>rewardpoints_email_notifications_points_expiration</points_expiration>
+                <points_birthday>rewardpoints_email_notifications_points_birthday</points_birthday>
+                <recipient_template>rewardpoints_email_notifications_recipient_template</recipient_template>
+                <invitation_email>rewardpoints_email_notifications_invitation_email</invitation_email>
+                <expiration_days>0</expiration_days>
+            </email_notifications>
+        </rewardpoints>
+	</default>
+</config>

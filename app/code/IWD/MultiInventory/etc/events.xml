@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_save_after">
+        <observer name="multiinventory_save_order" instance="IWD\MultiInventory\Observer\SaveOrderDataObserver"/>
+    </event>
+    <event name="sales_order_place_after">
+        <observer name="multiinventory_place_order" instance="IWD\MultiInventory\Observer\SaveOrderDataObserver"/>
+    </event>
+    <event name="catalog_product_save_after">
+        <observer name="multiinventory_product_save" instance="IWD\MultiInventory\Observer\SaveInventoryDataObserver"/>
+    </event>
+    <event name="iwd_ordermanager_reduce_order_item">
+        <observer name="multiinventory_reduce_item" instance="IWD\MultiInventory\Observer\IwdOrdermanagerReduceOrderItem"/>
+    </event>
+    <event name="iwd_ordermanager_update_order_items">
+        <observer name="multiinventory_update_item" instance="IWD\MultiInventory\Observer\IwdOrdermanagerUpdateOrderItems"/>
+    </event>
+    <event name="iwd_ordermanager_additional_after_reauthorization">
+        <observer name="multiinventory_update_stock_after_edit_order" instance="IWD\MultiInventory\Observer\IwdOrdermanagerUpdateStockAfterEditOrder" />
+    </event>
+</config>

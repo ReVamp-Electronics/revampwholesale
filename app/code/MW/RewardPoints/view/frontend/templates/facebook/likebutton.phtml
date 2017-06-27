@@ -1,0 +1,63 @@
+<div id="fb-root"></div>
+<!-- Using the JavaScript SDK -->
+
+<div class="mw-facebook">
+    <div id="mw-share-facebook">
+        <a href="javascript:;" title="Share on Facebook">
+            <img class="mw-img-icon" src="<?php echo $block->getViewFileUrl('MW_RewardPoints::images/mw-icon-facebook.png') ?>"/>
+        </a>
+    </div>
+    <div class="fb-like"
+            data-href="<?php echo $block->getCurrentUrl(); ?>"
+            data-width="500px"
+            data-layout="standard"
+            data-action="like"
+            data-show-faces="true"
+            data-share="false">
+    </div>
+</div>
+
+<style type="text/css">
+#mw-share-facebook {
+	padding-top: 10px;
+	width:300px;
+	padding-bottom: 10px;
+	text-align: center;
+}
+#mw-share-facebook a {
+	display: table-cell;
+	background-color: white;
+	text-align: center;
+	text-decoration: none;
+}
+.mw-img-icon {
+	float: left;
+	margin-top: 3px;
+	height: 25px;
+	width: 50px;
+}
+</style>
+
+<script>
+require([
+	'jquery'
+], function($) {
+	$(document).ready(function() {
+		$('#mw-share-facebook').click(function() {
+			FB.ui({
+				method: 'share',
+				href: '<?php echo $block->getCurrentUrl(); ?>'
+			}, function(response) {
+				if (response && !response.error_message) {
+					var pageUrl = '<?php echo $block->getCurrentUrl(); ?>';
+					$.ajax({
+						url: '<?php echo $block->getUrl('rewardpoints/rewardpoints/setpointsfbsend');?>',
+						type: 'POST',
+						data: {pageurl: pageUrl}
+					});
+                }
+			});
+		});
+	});
+ });
+</script>

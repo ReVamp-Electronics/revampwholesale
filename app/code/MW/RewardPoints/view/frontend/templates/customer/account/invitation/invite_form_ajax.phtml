@@ -1,0 +1,165 @@
+<link rel="stylesheet" href="<?php echo $block->getViewFileUrl('MW_RewardPoints::css/mw_popup.css') ?>" type="text/css" />
+<?php
+	$url = '';
+	$link = $block->getCurrentUrl();
+	$customer = $block->getCustomer();
+	if ($customer->getId()) :
+		$url = $this->helper('MW\RewardPoints\Helper\Data')->getLinkAjax($customer, $link);
+?>
+	<p><a id="mw_popup_invited" style="cursor: pointer;" title="<?php echo __("Invite Friends");?>"><?php echo __("Invite Friends");?></a></p>
+<?php endif; ?>
+
+<div id="mw_popup" class="popup mw_box_popup" style="display: none;">
+    <form id="form-validate" method="post" onsubmit="return false;" data-hasrequired="<?php echo __('* Required Fields') ?>" autocomplete="off">
+    <div class="fieldset group-select">
+        <?php echo $block->getBlockHtml('formkey')?>
+        <h2 class="mw_legend"><?php echo __('Invite Friends Via Email');?></h2>
+        <div class="mw-invated-ct">
+	        <div id="mw_errors">&nbsp;</div>
+			<div id="mw_success_1" class="note-msg">
+				<?php echo __('Your email was sent success') ?>
+			</div>
+			<div id="mw_success_2" class="note-msg">
+				<?php echo __('Your Emails were sent successfully') ?>
+			</div>
+	        <ul class="mw-form-list" style="list-style-type: none;">
+	            <li class="fields">
+	                <div class="customer-name">
+					    <div class="field name-firstname">
+					        <label class="required" for="email"><?php echo __('Email of your friends');?><em>*</em></label>
+					        <div class="input-box">
+					            <textarea class="input-text required-entry mw_textarea_email" title="Email" name="email" id="email"></textarea>
+	                            <div id="mw_email" class="validation-advice"><?php echo __('This is a required field.') ?></div>
+					            <div><?php echo __('Separate with commas (,)');?></div>
+					        </div>
+					        <label class="required" for="message"><?php echo __('Message');?><em>*</em></label>
+					        <div class="input-box">
+					            <textarea class="input-text required-entry" title="Message" name="message" id="message" style="width:380px; height:100px"></textarea>
+					        	<div id ="mw_message" class="validation-advice"><?php echo __('This is a required field.') ?></div>
+					        </div>
+					    </div>
+					</div>
+	            </li>
+	           </ul>
+	        </div>
+			<div class="buttons-set">
+				<p class="required"><?php echo __("* Required Fields");?></p>
+				<div class="right">
+					<button class="button form-button" title="<?php echo __("Send");?>" type="button" id="send_invite_button">
+						<span><?php echo __("Send");?></span>
+					</button>
+			        <button class="popup_closebox button form-button" title="<?php echo __("Close");?>" type="button" value="Close">
+			        	<span><?php echo __("Close");?></span>
+			        </button>
+			    </div>
+		        <div class="mw_share">
+					<!-- AddThis Button BEGIN -->
+					<div class="addthis_toolbox addthis_default_style addthis_32x32_style"
+						addthis:url="<?php echo $url;?>"
+				        addthis:title="<?php echo $url; ?>"
+				        addthis:description="<?php echo $url; ?>">
+					<a class="addthis_button_preferred_1"></a>
+					<a class="addthis_button_preferred_2"></a>
+					<a class="addthis_button_preferred_3"></a>
+					<a class="addthis_button_preferred_4"></a>
+					<a href="http://www.addthis.com/bookmark.php?v=250&pubid={YOUR_PROFILE_ID}" class="addthis_button_compact"></a>
+					<a class="addthis_counter addthis_bubble_style"></a>
+					</div>
+					<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-500a790c6c746380"></script>
+					<!-- AddThis Button END -->
+				</div>
+				<div style="clear: both"></div>
+		    </div>
+		</div>
+    </form>
+</div>
+
+<script>
+require([
+	'jquery',
+	'mage/mage',
+	'mwPopup'
+], function($) {
+	$ = jQuery.noConflict();
+
+	// Validate form
+	var dataForm = $('#form-validate');
+	dataForm.mage('validation');
+
+	$(document).ready(function() {
+		$('#mw_message').css('display', 'none');
+	    $('#mw_email').css('display', 'none');
+	    $('#mw_success_1').css('display', 'none');
+	    $('#mw_success_2').css('display', 'none');
+
+		$('#mw_invite_link').click(function() {
+			var popWin = window.open(
+				'<?php echo $block->getUrl('rewardpoints/invitation/loginmail');?>',
+				'newwindow',
+				'toolbar=no,location=no,menubar=no,titlebar=no,status=yes,width=500,height=500,resizable=no,scrollbars=yes,top=0,left=0'
+			);
+		});
+
+		if ($('#mw_popup_invited').length) {
+	  		var myarray = $('#mw_popup_invited').offset();
+			var mw_left = myarray.left;
+			var mw_top = myarray.top + 25;
+		  	var positon_new = mw_left+'px,'+mw_top+'px';
+		    var popup_new = new MwPopup('mw_popup','mw_popup_invited',{modal:true,position:positon_new});
+		    $(document).keydown(function(event) {
+		        if (event.which == 27) {
+		        	popup_new.hide();
+		        }
+		    });
+	  	}
+
+	  	$('#send_invite_button').click(function() {
+	  		$('#mw_message').css('display', 'none');
+		 	$('#mw_email').css('display', 'none');
+	 	    $('#mw_success_1').css('display', 'none');
+	        $('#mw_success_2').css('display', 'none');
+
+	    	var email = $('#email').val();
+	    	var message = $('#message').val();
+	    	var urlLink = '<?php echo $url ?>';
+	    	$.ajax({
+	    		url: '<?php echo $block->getUrl('rewardpoints/invitation/inviteajax');?>',
+	    		type: 'POST',
+	    		data: {
+	    			email: email,
+	    			message: message,
+	    			url_link: urlLink
+	    		},
+	    		showLoader: false,
+	    		success: function(result) {
+	    			var resp = $.parseJSON(result);
+					if (resp.message == '0') {
+						$('#mw_message').css('display', 'block');
+					}
+					if (resp.email == '0') {
+						$('#mw_email').css('display', 'block');
+					}
+					if (resp.success == '1') {
+						$('#mw_success_1').css('display', 'block');
+					}
+					if (resp.success == '2') {
+						$('#mw_success_2').css('display', 'block');
+					}
+
+					$('body').removeClass('ajax-loading');
+
+					if (resp.error != '0') {
+						$('#mw_errors').addClass('error-msg');
+						$('#mw_errors').html(resp.error);
+					} else {
+						if ($('#mw_errors').hasClass('error-msg')) {
+							$('#mw_errors').removeClass('error-msg');
+						}
+						$('#mw_errors').replaceWith('');
+					}
+	    		}
+	    	});
+	  	});
+	});
+});
+</script>

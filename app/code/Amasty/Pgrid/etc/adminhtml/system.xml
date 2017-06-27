@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_Pgrid
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="amasty_pgrid" translate="label" type="text" sortOrder="161812" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <label>Product Grid</label>
+            <tab>amasty</tab>
+            <resource>Amasty_Pgrid::amasty_pgrid</resource>
+            <group id="editing" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Editing Settings</label>
+                <field id="mode" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Editing Mode</label>
+                    <comment>Single Cell - data is being saved right after any cell is edited. Multi Cell - Save button should be clicked after data in multiple cells has beed edited.</comment>
+                    <source_model>Amasty\Pgrid\Model\Config\Source\Editmode</source_model>
+                </field>
+            </group>
+
+            <group id="extra_columns" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Additional Grid Columns</label>
+                <field id="products_qty" translate="label comment" type="text" sortOrder="10" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Products Qty</label>
+                    <comment>Related to: related product, up-sells, cross-sells</comment>
+                    <!--<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>-->
+                </field>
+            </group>
+            <group id="modification" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Quantity Based Availability</label>
+                <field id="availability" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Quantity Based Availability</label>
+                    <comment>When set to yes, availability will automatically change to 'In stock' when quantity is positive and to 'Out of stock" when quantity is zero or negative. When set to 'No', availability status will not be updated automatically.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+
+    </system>
+</config>

@@ -1,0 +1,72 @@
+<?php
+$_dataHelper = $this->helper('MW\RewardPoints\Helper\Data');
+$rate = $block->getPointPerMoney();
+?>
+<table class="reward-table">
+	<tr>
+		<td>
+			<p class="amount"><?php echo __('Your Reward Points: <strong>%1</strong> = <strong>%2</strong>',$_dataHelper->formatPoints($block->getRewardPoints()), $block->getMoney()) ?></p>
+			<p class="amount"><?php echo __('Points/Currency Exchange Rate: <strong>%1</strong> = <strong>%2</strong>', $_dataHelper->formatPoints($rate[0]), $_dataHelper->formatMoney($rate[1])) ?></p>
+
+			<?php if ($block->canExchangeToCredit()) : ?>
+				<?php $_rate = $block->getPointPerCredit(); ?>
+				<p class="amount"><?php echo __('Reward Point/Credit Rate: <strong>%1</strong> = <strong>%2</strong> (credit)', $_dataHelper->formatPoints($_rate[0]), $rate[1]) ?></p>
+			<?php endif; ?>
+		</td>
+	</tr>
+	<tr>
+		<?php if ($block->canExchangeToCredit()) : ?>
+			<td>
+				<form name="frm_exchange_rewardpoints" id="frm_exchange_rewardpoints" action="<?php echo $block->getUrl('rewardpoints/rewardpoints/exchange');?>" method="post">
+					<p><?php echo __('Exchange Reward Points To Credit')?></p>
+					<div class="input-coupon">
+						<label style="font-weight: bold"><?php echo __('Points') ?></label>
+						<input type="text" name="coupon_code" class="input-text required-entry validate-digits" />
+					</div>
+					<div class="button-coupon">
+						<button type="submit" title="<?php echo __("Exchange") ?>" class="button">
+							<span><?php echo __("Exchange")?></span>
+						</button>
+					</div>
+				</form>
+			</td>
+
+			<script>
+				require([
+					'jquery',
+					'mage/mage'
+				], function($) {
+					// Validate form
+					var exchangeForm = $('#frm_exchange_rewardpoints');
+					exchangeForm.mage('validation');
+				});
+			</script>
+		<?php endif; ?>
+	</tr>
+	<tr>
+		<td>
+			<form name="mw_rewardpoints_coupon" id="mw_rewardpoints_coupon" action="<?php echo $block->getUrl('rewardpoints/rewardpoints/coupon');?>" method="post">
+				<div class="input-coupon">
+					<label style="font-weight: bold"><?php echo __("Coupon code:")?></label>
+					<input type="text" name="coupon_code" class="input-text required-entry mw-rewardpoint-validate-coupon-code" />
+				</div>
+				<div class="button-coupon">
+					<button type="submit" title="<?php echo __("Submit")?>" class="button">
+						<span><?php echo __("Submit")?></span>
+					</button>
+				</div>
+			</form>
+
+			<script>
+				require([
+					'jquery',
+					'mage/mage'
+				], function($) {
+					// Validate form
+					var couponForm = $('#mw_rewardpoints_coupon');
+					couponForm.mage('validation');
+				});
+			</script>
+		</td>
+	</tr>
+</table>

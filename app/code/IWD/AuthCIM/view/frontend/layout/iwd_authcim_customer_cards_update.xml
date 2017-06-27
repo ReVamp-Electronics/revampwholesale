@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="IWD\AuthCIM\Block\Frontend\Customer\Edit\Tab\Cards\Form" name="iwd.authcim.edit.tab.cards.list" template="IWD_AuthCIM::customer/edit/cards/form/list.phtml">
+                <block class="IWD\AuthCIM\Block\Frontend\Customer\Edit\Tab\Cards\Form" name="iwd.authcim.edit.tab.cards.list.before" template="IWD_AuthCIM::customer/edit/cards/form/before.phtml" />
+            </block>
+        </referenceContainer>
+    </body>
+</page>

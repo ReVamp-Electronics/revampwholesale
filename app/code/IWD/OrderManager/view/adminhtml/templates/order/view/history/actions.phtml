@@ -1,0 +1,53 @@
+<?php
+$id = $block->getItem()->getId();
+$classDisallowed = $block->isAllowedOrderStatus() ? '' : 'disallowed';
+?>
+
+<div class="note-list-actions-buttons" data-comment-id="<?php echo $id; ?>">
+    <?php if($block->isAllowedAction('comments_edit')): ?>
+    <a class="note-list-actions-update <?php echo $classDisallowed ?>"
+       data-comment-id="<?php echo $id; ?>"
+       href="#" title="<?php echo __('Edit') ?>">
+        <i class="fa fa-2x fa-pencil"></i>
+    </a>
+    <?php endif; ?>
+
+    <?php if($block->isAllowedAction('comments_delete')): ?>
+    <a class="note-list-actions-delete <?php echo $classDisallowed ?>"
+       data-comment-id="<?php echo $id; ?>"
+       href="#" title="<?php echo __('Delete') ?>">
+        <i class="fa fa-2x fa-trash-o"></i>
+    </a>
+    <?php endif; ?>
+</div>
+
+<?php if($block->isAllowedAction('comments_edit')): ?>
+<div class="note-list-actions-block-update" data-comment-id="<?php echo $id; ?>">
+    <div class="data-for-edit"></div>
+    <div class="iwd-om-message hide"></div>
+    <div>
+        <button title="Cancel" type="button" class="scalable cancel" data-comment-id="<?php echo $id; ?>">
+            <span><?php echo __('Cancel') ?></span>
+        </button>
+        <button title="<?php echo __('Update') ?>" type="button" class="scalable update primary" data-comment-id="<?php echo $id; ?>">
+            <span><?php echo __('Update') ?></span>
+        </button>
+        <div class="clear"></div>
+    </div>
+</div>
+<?php endif; ?>
+
+<?php if($block->isAllowedAction('comments_delete')): ?>
+<div class="note-list-actions-block-delete" data-comment-id="<?php echo $id; ?>">
+    <div class="iwd-om-message"><?php echo __('Are you sure you want to delete this comment?') ?></div>
+    <button title="<?php echo __('Cancel') ?>" type="button" class="scalable cancel" data-comment-id="<?php echo $id; ?>">
+        <span><?php echo __('Cancel') ?></span>
+    </button>
+    <button title="<?php echo __('Delete') ?>" type="button" class="scalable delete primary" data-comment-id="<?php echo $id; ?>">
+        <span><?php echo __('Delete') ?></span>
+    </button>
+    <div class="clear"></div>
+</div>
+<?php endif; ?>
+
+<div class="iwd-om-pre-loader hide"><i class="loader"></i></div>

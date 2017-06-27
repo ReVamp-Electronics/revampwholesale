@@ -1,0 +1,12 @@
+<?php
+$quote = $block->getSessionQuote()->getQuote();
+$earnRewardPoint = (int) $quote->getEarnRewardpoint();
+?>
+<?php if ($earnRewardPoint) : ?>
+    <tr class="row-totals">
+        <th class="admin__total-mark"><?php echo __('You Earn') ?></th>
+        <td class="admin__total-amount">
+            <span class="price"><?php echo $this->helper('MW\RewardPoints\Helper\Data')->formatPoints($earnRewardPoint) ?></span>
+        </td>
+    </tr>
+<?php endif; ?>

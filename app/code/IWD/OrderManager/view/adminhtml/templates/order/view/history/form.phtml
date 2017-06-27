@@ -1,0 +1,23 @@
+<?php
+/**
+ * @var $block IWD\OrderManager\Block\Adminhtml\Order\History\Form
+ */
+?>
+
+<div class="admin__field">
+    <div class="admin__field-control">
+        <textarea name="comment[<?php echo $block->getId(); ?>]"
+                  rows="3" cols="5"
+                  id="history_comment_<?php echo $block->getId(); ?>"
+                  class="admin__control-textarea"><?php echo $block->getComment(); ?></textarea>
+    </div>
+</div>
+<div>
+    <input name="is_visible_on_front[<?php echo $block->getId(); ?>]"
+           type="checkbox"
+           <?php if($block->getIsVisibleOnFront()) : ?>checked<?php endif; ?>
+           id="history_visible_<?php echo $block->getId(); ?>"
+           class="admin__control-checkbox"
+           value="1">
+    <label class="admin__field-label" for="history_visible_<?php echo $block->getId(); ?>"><?php echo __("Visible on Storefront") ?></label>
+</div>

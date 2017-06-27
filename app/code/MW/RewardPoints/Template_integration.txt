@@ -1,0 +1,261 @@
+Reward Point Pro - Template Integration Guide
+----------------------------------------------
+
+TEMPLATES ARE REWRITEN BY DEFAULT
+---------------------------------
+
+- In controller checkout_cart_index
+
++ Rewrite template: Magento_Checkout::cart/coupon.phtml and Magento_Checkout::cart/totals.phtml
+
+
+INTEGRATE REWARD POINTS BLOCK IN SHOPPING CART
+----------------------------------------------
+
+1. edit the file:
+app/design/frontend/<vendor>/<your_theme>/Magento_Checkout/templates/cart/coupon.phtml
+
+If this file does not exist on your theme, please copy it from:
+
+vendor/magento/module-checkout/view/frontend/templates/cart/coupon.phtml
+
+2. copy this code:
+<?php
+	if($this->helper('Magento\Catalog\Helper\Data')->isModuleOutputEnabled('MW_RewardPoints')) {
+		echo $this->helper('MW\RewardPoints\Helper\Theme')->getRewardpointCartTemplate();
+	}
+?>
+
+and place it above this code:
+<div class="block discount" id="block-discount" data-mage-init='{"collapsible":{"openedState": "active", "saveState": false}}'>
+
+
+SHOW REWARD POINTS IN REGISTRATION
+----------------------------------
+
+1. edit the file:
+app/design/frontend/<vendor>/<your_theme>/Magento_Customer/templates/form/register.phtml
+
+If this file does not exist on your theme, please copy it from:
+
+vendor/magento/module-customer/view/frontend/templates/form/register.phtml
+
+2. copy this code:
+<?php
+	if($this->helper('Magento\Catalog\Helper\Data')->isModuleOutputEnabled('MW_RewardPoints')) {
+		echo $this->helper('MW\RewardPoints\Helper\Theme')->getDisplayEarnpointCreateAccount();
+	}
+?>
+
+and place it above this code:
+<fieldset class="fieldset create info">
+
+
+SHOW POINT BALANCE ON TOP LINK
+-----------------------------
+Show point balance next to Welcome message on top link
+
+1. edit the file:
+app/design/frontend/<vendor>/<your_theme>/Magento_Theme/templates/html/header.phtml
+
+If this file does not exist on your theme, please copy it from:
+
+vendor/magento/module-theme/view/frontend/templates/html/header.phtml
+
+2. copy this code:
+<?php
+	if($this->helper('Magento\Catalog\Helper\Data')->isModuleOutputEnabled('MW_RewardPoints')) {
+		echo $this->helper('MW\RewardPoints\Helper\Theme')->getCustomerPoint();
+	}
+?>
+
+and place it under this code:
+<span data-bind="text: customer().fullname ? $t('Welcome, %1!').replace('%1', customer().fullname) : '<?=$block->escapeHtml($welcomeMessage) ?>'"></span>
+
+
+SHOW REWARD POINT IN PRODUCT REVIEW FORM
+----------------------------------------
+
+1. edit the file:
+app/design/frontend/<vendor>/<your_theme>/Magento_Review/templates/form.phtml
+
+If this file does not exist on your theme, please copy it from:
+
+vendor/magento/module-review/view/frontend/templates/form.phtml
+
+2. copy this code:
+<?php
+	if($this->helper('Magento\Catalog\Helper\Data')->isModuleOutputEnabled('MW_RewardPoints')) {
+		echo $this->helper('MW\RewardPoints\Helper\Theme')->getDisplayEarnpointSubmitProductReview();
+	}
+?>
+
+and place it under this code:
+<?php if ($block->getAllowWriteReviewFlag()): ?>
+
+
+SHOW REWARD POINT IN SIGNING UP NEWsLETTER FORM
+----------------------------------------------
+
+1. edit the file:
+app/design/frontend/<vendor>/<your_theme>/Magento_Customer/templates/form/register.phtml
+
+If this file does not exist on your theme, please copy it from:
+
+vendor/magento/module-customer/view/frontend/templates/form/register.phtml
+
+2. copy this code:
+<?php
+	if($this->helper('Magento\Catalog\Helper\Data')->isModuleOutputEnabled('MW_RewardPoints')) {
+		echo $this->helper('MW\RewardPoints\Helper\Theme')->getDisplayEarnpointSignUpNewLetter();
+	}
+?>
+
+and place it under this code:
+<?php if ($block->isNewsletterEnabled()): ?>
+
+
+SHOW REWARD POINTS IN PRODUCT LISTING PAGE
+------------------------------------------
+
+1. edit the file:
+app/design/frontend/<vendor>/<your_theme>/Magento_Catalog/templates/product/list.phtml
+
+If this file does not exist on your theme, please copy it from:
+
+vendor/magento/module-catalog/view/frontend/templates/product/list.phtml
+
+2. copy this code:
+<?php
+	if($this->helper('Magento\Catalog\Helper\Data')->isModuleOutputEnabled('MW_RewardPoints')) {
+		echo $this->helper('MW\RewardPoints\Helper\Theme')->getDisplayEarnpointListProduct($_product);
+	}
+?>
+
+and place it under this code:
+<?php echo $block->getProductPrice($_product) ?>
+
+
+SHOW REWARD POINTS IN PRODUCT DETAIL PAGE
+-----------------------------------------
+
+1. edit the file:
+app/design/frontend/<vendor>/<your_theme>/Magento_Catalog/templates/product/view/form.phtml
+
+If this file does not exist on your theme, please copy it from:
+
+vendor/magento/module-catalog/view/frontend/templates/product/view/form.phtml
+
+2. copy this code:
+<?php
+	if($this->helper('Magento\Catalog\Helper\Data')->isModuleOutputEnabled('MW_RewardPoints')) {
+		echo $this->helper('MW\RewardPoints\Helper\Theme')->getDisplayEarnpointViewProduct($_product);
+	}
+?>
+
+and place it under this code:
+<div class="product-add-form">
+
+
+SHOW FACEBOOK LIKE & SHARE BUTTON IN PRODUCT DETAIL PAGE
+--------------------------------------------------------
+
+1. edit the file:
+app/design/frontend/<vendor>/<your_theme>/Magento_Catalog/templates/product/view/form.phtml
+
+If this file does not exist on your theme, please copy it from:
+
+vendor/magento/module-catalog/view/frontend/templates/product/view/form.phtml
+
+2. copy this code:
+<?php
+	if($this->helper('Magento\Catalog\Helper\Data')->isModuleOutputEnabled('MW_RewardPoints')) {
+		echo $this->helper('MW\RewardPoints\Helper\Theme')->getDisplayFacebookLike();
+	}
+?>
+
+and place it under this code:
+<div class="product-add-form">
+
+
+INVITATION CODE
+---------------
+
+copy this code:
+<?php
+	if($this->helper('Magento\Catalog\Helper\Data')->isModuleOutputEnabled('MW_RewardPoints')) {
+		echo $this->helper('MW\RewardPoints\Helper\Theme')->getInvitationTemplate();
+	}
+?>
+
+into template that you want show
+
+
+SHOW THE REWARD POINTS FORM ON ONE PAGE CHECKOUT
+------------------------------------------------
+
++ Magento Default:
+
+1. edit the file:
+app/design/frontend/<vendor>/<your_theme>/Magento_Checkout/templates/onepage.phtml
+
+If this file does not exist on your theme, please copy it from:
+
+vendor/magento/module-checkout/view/frontend/templates/onepage.phtml
+
+2. copy this code:
+<?php
+	if($this->helper('Magento\Catalog\Helper\Data')->isModuleOutputEnabled('MW_RewardPoints')) {
+		echo $this->helper('MW\RewardPoints\Helper\Theme')->getRewardpointOnepageTemplate();
+	}
+?>
+
+and place it above the final </div> tag
+
+
++ Mage World One Step Checkout:
+
+1. copy the file:
+app/code/MW/Onestepcheckout/view/frontend/templates/dashboard/onepage/payment.phtml
+
+to:
+app/design/frontend/<vendor>/<your_theme>/MW_Onestepcheckout/templates/dashboard/onepage/
+(You can create same folders if they are not available)
+
+2. copy this code:
+<?php
+	if($this->helper('Magento\Catalog\Helper\Data')->isModuleOutputEnabled('MW_RewardPoints')) {
+		echo $this->helper('MW\RewardPoints\Helper\Theme')->getRewardpointOnepageTemplate();
+	}
+?>
+
+ and place it above this code:
+<div id="co-payment-form">
+
+4. copy the file:
+app/code/MW/Onestepcheckout/view/frontend/templates/dashboard/onepage/review/totals.phtml
+
+to:
+app/design/frontend/<vendor>/<your_theme>/MW_Onestepcheckout/templates/mw_onestepcheckout/templates/dashboard/onepage/review/
+(You can create same folders if they are not available)
+
+5. Copy this code:
+<?php
+	if($this->helper('Magento\Catalog\Helper\Data')->isModuleOutputEnabled('MW_RewardPoints')) {
+		echo $this->helper('MW\RewardPoints\Helper\Theme')->getRewardpointOnepageReviewTemplate();
+	}
+?>
+
+and place it above this code:
+<?php echo $block->renderTotals(null, $_colspan); ?>
+
+7. copy this code:
+<?php
+	if($this->helper('Magento\Catalog\Helper\Data')->isModuleOutputEnabled('MW_RewardPoints')) {
+		echo $this->helper('MW\RewardPoints\Helper\Theme')->getRedeemPointOnepageReviewTemplate();
+		echo $this->helper('MW\RewardPoints\Helper\Theme')->getTotalSpentPointOnepageReviewTemplate();
+	}
+?>
+
+and place it under this code:
+<?php echo $block->renderTotals(null, $_colspan); ?>

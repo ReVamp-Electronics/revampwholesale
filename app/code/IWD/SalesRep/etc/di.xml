@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- need to override protected methods -->
+    <type name="Magento\Customer\Model\ResourceModel\Customer">
+        <plugin name="salesrep_addings" type="\IWD\SalesRep\Model\Plugin\Customer\ResourceModel\Customer"/>
+    </type>
+    <type name="\Magento\Customer\Model\ResourceModel\Customer\Collection">
+        <plugin name="salesrep_extend_customer_collection" type="\IWD\SalesRep\Model\Plugin\Customer\ResourceModel\Customer\Collection" sortOrder="50" />
+    </type>
+</config>

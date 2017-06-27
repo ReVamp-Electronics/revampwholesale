@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="customer_account_navigation">
+            <block class="Magento\Framework\View\Element\Html\Link\Current" name="reward_points" ifconfig="rewardpoints/general/enabled" before="reward_points_invitation">
+                <arguments>
+                    <argument name="path" xsi:type="string">rewardpoints/rewardpoints</argument>
+                    <argument name="label" xsi:type="string">My Reward Points</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Framework\View\Element\Html\Link\Current" name="reward_points_invitation" after="-" ifconfig="rewardpoints/general/enabled">
+                <arguments>
+                    <argument name="path" xsi:type="string">rewardpoints/invitation</argument>
+                    <argument name="label" xsi:type="string">My Invitations</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

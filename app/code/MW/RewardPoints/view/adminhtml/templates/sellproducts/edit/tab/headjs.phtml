@@ -1,0 +1,73 @@
+<script>
+require([
+    'prototype'
+], function() {
+    if (typeof MW=='undefined') {
+        MW = {};
+    }
+
+    MW.SellProductPoint = Class.create();
+    MW.SellProductPointTemplate = '<tr class="expanded-{{type_class}}-{{product_id}}"><td></td><td colspan="{{colspan}}">' +
+    '   <table class="border data-grid" cellpadding="0" cellspacing="0">' +
+    '       <thead>' +
+    '           <tr class="headings">' +
+    '               <th class="data-grid-th"><?php echo __('ID') ?></th>' +
+    '               <th class="data-grid-th"><?php echo __('Name') ?></th>' +
+    '               <th class="data-grid-th type-price price-type-box"><?php echo __('Price') ?></th>' +
+    '               <th class="data-grid-th type-type"><?php echo __('SKU') ?></th>' +
+    '               <th class="data-grid-th type-uqty qty-box"><?php echo __('Set Reward Points') ?></th>' +
+    '           </tr>' +
+    '       </thead> ' +
+    '       <tbody>' +
+    '           <tr><td colspan="5"><?php echo __('Loading...') ?></td></tr>' +
+    '       </tbody>' +
+    '   </table>' +
+    '</td><td></td></tr>';
+
+    MW.SellProductPoint.prototype = {
+        template: new Template(MW.SellProductPointTemplate, new RegExp('(^|.|\\r|\\n)({{\\s*(\\w+)\\s*}})', '')),
+        initialize : function() {
+            var link_childs = $$('.a-expan-child');
+            for (var i=0; i < link_childs.length; i++) {
+                Event.observe(link_childs[i], 'click', this.expandChild.bind(this));
+            }
+        },
+        expandChild: function(event, element){
+            if (element == undefined) {
+                element = $(Event.element(event));
+            }
+            var url          =  '<?php echo $block->getUrl("*/*/getChildProduct", ['_current' => true]); ?>';
+            var product_id   =  element.readAttribute('data-product-id');
+            var type_id      =  element.readAttribute('data-type-id');
+
+            if ($$(".expanded-"+type_id+"-"+product_id).length > 0) {
+                return true;
+            }
+
+            var el_parent_tr    =  element.up(1);
+            var el_child_td     =  el_parent_tr.select('td');
+
+            var data = {
+                colspan: el_child_td.length - 2,
+                type_class: type_id,
+                product_id: product_id
+            };
+
+            Element.insert(el_parent_tr, {
+                after :this.template.evaluate(data)
+            });
+            new Ajax.Request(url, {
+                method: 'post',
+                parameters: {type_id: type_id, product_id: product_id},
+                onComplete: function(transport) {
+                    if (transport.status == 200) {
+                        console.log(transport);
+                    }
+                }
+            });
+        }
+    };
+
+    var bMWSellPoint = new MW.SellProductPoint();
+});
+</script>
